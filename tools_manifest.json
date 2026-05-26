@@ -1,0 +1,405 @@
+{
+  "version": 1,
+  "tools": [
+    {
+      "name": "search_trade_ideas",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "speaker",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "min_confidence",
+          "type": "float",
+          "required": false,
+          "default": 0.0
+        },
+        {
+          "name": "direction",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 7
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 20
+        }
+      ],
+      "returns": "str",
+      "summary": "Search trade ideas from Buzzberg. Filter by ticker, source, speaker, confidence, direction."
+    },
+    {
+      "name": "get_top_speakers",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 25
+        }
+      ],
+      "returns": "str",
+      "summary": "List Buzzberg's top speakers by lifetime Alpha-rank."
+    },
+    {
+      "name": "get_top_speaker_signals",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "top_n",
+          "type": "int",
+          "required": false,
+          "default": 50
+        },
+        {
+          "name": "window",
+          "type": "str",
+          "required": false,
+          "default": "7d"
+        },
+        {
+          "name": "signal",
+          "type": "str",
+          "required": false,
+          "default": "first_flip"
+        },
+        {
+          "name": "direction",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 30
+        }
+      ],
+      "returns": "str",
+      "summary": "Fresh trade ideas from the top-N Buzzberg speakers within a time window."
+    },
+    {
+      "name": "get_sentiment",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 30
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "str",
+      "summary": "Get sentiment analysis for a ticker: average sentiment, breakdown by direction, by speaker tier."
+    },
+    {
+      "name": "get_sentiment_divergence",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 7
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 10
+        }
+      ],
+      "returns": "str",
+      "summary": "Find tickers where speakers disagree most (high divergence in sentiment)."
+    },
+    {
+      "name": "get_portfolio",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "str",
+      "summary": "Get the latest AI-generated portfolio snapshot with positions and P&L."
+    },
+    {
+      "name": "get_ticker_info",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "str",
+      "summary": "Get detailed info for a ticker: mention count, top speakers, recent ideas, price."
+    },
+    {
+      "name": "get_speaker_profile",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "speaker_name",
+          "type": "str",
+          "required": true,
+          "default": null
+        }
+      ],
+      "returns": "str",
+      "summary": "Get speaker profile: credibility, role, mention frequency, top tickers."
+    },
+    {
+      "name": "compare_speakers",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 30
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "str",
+      "summary": "Compare what different speakers say about a ticker. Shows who's bullish vs bearish."
+    },
+    {
+      "name": "get_recent_content",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 10
+        }
+      ],
+      "returns": "str",
+      "summary": "Get latest content (videos, articles, tweets) from Buzzberg."
+    },
+    {
+      "name": "get_price",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "tickers",
+          "type": "list[str]",
+          "required": true,
+          "default": null
+        }
+      ],
+      "returns": "str",
+      "summary": "Get current prices for tickers via Massive (stocks) / Binance (crypto)."
+    },
+    {
+      "name": "search_content",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "query",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 10
+        }
+      ],
+      "returns": "str",
+      "summary": "Search content by keyword in title."
+    },
+    {
+      "name": "get_ticker_mentions",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "str",
+      "summary": "Count mentions of a ticker across 24h / 7d / 30d windows, broken down by source."
+    },
+    {
+      "name": "read_ticker_content",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 7
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 10
+        },
+        {
+          "name": "verbose",
+          "type": "bool",
+          "required": false,
+          "default": false
+        }
+      ],
+      "returns": "str",
+      "summary": "Read the actual text bodies of content mentioning a ticker."
+    },
+    {
+      "name": "add_to_watchlist",
+      "scope": "write",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "user_email",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "str",
+      "summary": "Add a ticker to user's watchlist."
+    },
+    {
+      "name": "remove_from_watchlist",
+      "scope": "write",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "user_email",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "str",
+      "summary": "Remove a ticker from user's watchlist."
+    },
+    {
+      "name": "save_trade_idea",
+      "scope": "write",
+      "parameters": [
+        {
+          "name": "idea_id",
+          "type": "int",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "user_email",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "str",
+      "summary": "Bookmark a trade idea by its ID."
+    }
+  ]
+}

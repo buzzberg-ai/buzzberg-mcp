@@ -1,0 +1,5 @@
+# add_to_watchlist
+
+Ask: "Add NVDA to my Buzzberg watchlist."
+
+This write tool modifies only the account that owns the MCP API key.

@@ -1,0 +1,53 @@
+[project]
+name = "buzzberg-mcp"
+version = "0.1.0b1"
+description = "Buzzberg MCP installer for Claude / Cursor / Cline / Continue.dev"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Buzzberg" }]
+dependencies = []
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Utilities",
+]
+
+[project.scripts]
+buzzberg-mcp = "buzzberg_mcp.cli:main"
+
+[project.optional-dependencies]
+dev = [
+  "build==1.2.2.post1",
+  "mypy==1.15.0",
+  "pytest==8.3.5",
+  "ruff==0.11.2",
+  "twine==6.1.0",
+]
+
+[project.urls]
+Homepage = "https://buzzberg.ai"
+Repository = "https://github.com/buzzberg-ai/buzzberg-mcp"
+Issues = "https://github.com/buzzberg-ai/buzzberg-mcp/issues"
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+files = ["buzzberg_mcp"]

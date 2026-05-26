@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "claims": [
+    {
+      "claim": "API keys cannot read or write another user's private Buzzberg data.",
+      "mechanism": "The server resolves each Bearer key to a server-side user context. Write tools use that context and do not accept user_id overrides."
+    },
+    {
+      "claim": "Write tools require a personal MCP key.",
+      "mechanism": "Requests authenticated with the deprecated static key do not receive a user context, so write tools fail closed."
+    },
+    {
+      "claim": "Buzzberg does not receive the full Claude transcript.",
+      "mechanism": "MCP clients send only selected tool calls and their arguments to the server. Those arguments are visible to Buzzberg."
+    },
+    {
+      "claim": "Installer code is public and small.",
+      "mechanism": "The PyPI package contains only stdlib-based client config writers and docs; the server implementation remains private during beta."
+    }
+  ]
+}
