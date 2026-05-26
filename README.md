@@ -75,6 +75,12 @@ a migration window.
 
 Buzzberg exposes 17 tools. See [TOOLS.md](TOOLS.md) for signatures and examples.
 
+## What To Ask
+
+Start with the [prompt cookbook](PROMPTS.md). It includes ticker deep dives,
+risk scans, speaker research, morning briefings, watchlist workflows, and Python
+client examples.
+
 ## Trust And Verification
 
 The normal path is `pip install buzzberg-mcp`. pip uses HTTPS and package hashes
@@ -90,6 +96,7 @@ Read more in [SECURITY.md](SECURITY.md).
 ## Links
 
 - [INSTALL.md](INSTALL.md)
+- [PROMPTS.md](PROMPTS.md)
 - [SECURITY.md](SECURITY.md)
 - [TOOLS.md](TOOLS.md)
 - [examples](examples)
