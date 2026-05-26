@@ -1,11 +1,36 @@
 # Install Buzzberg MCP
 
-## Recommended Install
+## For First-Time Users
+
+You need a Buzzberg MCP key before setup:
+
+1. Open Buzzberg.
+2. Go to **Profile -> MCP Access**.
+3. Click **New Key**.
+4. Copy the key that starts with `bzb_`.
+
+Install the package:
 
 ```bash
 pip install buzzberg-mcp
+```
+
+Run setup:
+
+```bash
 buzzberg-mcp setup
 ```
+
+The setup command asks for your key with hidden input:
+
+```text
+BUZZBERG_MCP_API_KEY (input hidden):
+```
+
+Paste the `bzb_...` key and press Enter. The key is written into your MCP
+client config as an `Authorization: Bearer ...` header.
+
+## Recommended Install
 
 For one client:
 
@@ -31,6 +56,25 @@ Dry-runs do not need a real key and never print a plaintext key:
 ```bash
 buzzberg-mcp setup --dry-run --client claude-desktop
 ```
+
+## Claude Code Copy-Paste
+
+If you use Claude Code and do not need the installer, run:
+
+```bash
+export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
+claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
+  --header "Authorization: Bearer $BUZZBERG_MCP_API_KEY"
+```
+
+On Windows PowerShell:
+
+```powershell
+$env:BUZZBERG_MCP_API_KEY = "bzb_YOUR_KEY_HERE"
+claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse --header "Authorization: Bearer $env:BUZZBERG_MCP_API_KEY"
+```
+
+Replace `bzb_YOUR_KEY_HERE` with the key from **Profile -> MCP Access**.
 
 ## Paranoid Path
 

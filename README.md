@@ -11,13 +11,30 @@ watchlist actions for your own Buzzberg account.
 
 ## Quickstart
 
+Get your key first:
+
+1. Open Buzzberg.
+2. Go to **Profile -> MCP Access**.
+3. Click **New Key** and copy the `bzb_...` key.
+
+Then install and configure:
+
 ```bash
 pip install buzzberg-mcp
 buzzberg-mcp setup
 ```
 
-The setup command uses an interactive hidden prompt for your key. Get a personal
-key from `https://buzzberg.ai -> Profile -> MCP Access`.
+`pip install` does not need your key. `buzzberg-mcp setup` will ask for it with
+hidden input, then write the client config for Claude Desktop, Cursor, Cline, or
+Continue.dev.
+
+Claude Code users can also use the direct command:
+
+```bash
+export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
+claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
+  --header "Authorization: Bearer $BUZZBERG_MCP_API_KEY"
+```
 
 ## What Your Key Can Do
 
