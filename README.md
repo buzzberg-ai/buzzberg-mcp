@@ -1,6 +1,9 @@
 # Buzzberg MCP
 
-![status](https://img.shields.io/badge/status-private--beta-orange)
+[![PyPI](https://img.shields.io/pypi/v/buzzberg-mcp)](https://pypi.org/project/buzzberg-mcp/)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Status](https://img.shields.io/badge/status-private--beta-orange)
 
 > Private Beta: the MCP contract can change before broader beta. See
 > [CHANGELOG.md](CHANGELOG.md) for breaking changes.
@@ -36,6 +39,63 @@ claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
   --header "Authorization: Bearer $BUZZBERG_MCP_API_KEY"
 ```
 
+## What You Can Do With It
+
+Six ready-made research workflows. Each one is a single prompt that Claude
+chains through the right tools for you:
+
+- **[Morning briefing](sessions/morning-briefing.md)** — AI portfolio state +
+  fresh calls from top speakers + sentiment divergence radar in one read.
+- **[Ticker deep dive](sessions/ticker-deep-dive.md)** — sentiment, mentions
+  by source, bulls vs bears with credibility scores, verbatim quotes, and the
+  current price for one name.
+- **[Contrarian scan](sessions/contrarian-scan.md)** — tickers where
+  smart-money disagrees the most, ranked by sentiment spread. High-volatility
+  setups where the camps are obvious.
+- **[Build a watchlist from top-speaker signals](sessions/new-watchlist-from-signals.md)** —
+  auto-curate first-time mentions and direction flips from the top-30 speakers
+  in the last 24 hours.
+- **[Crypto vs equities sentiment](sessions/crypto-vs-stocks-sentiment.md)** —
+  cross-asset rotation read: who's bullish where, where the camps diverge.
+- **[Backtest an idea — verbatim drilldown](sessions/backtest-an-idea.md)** —
+  reconstruct the conviction case on a name you're considering: every call,
+  every quote, every speaker's track record.
+
+## Using It From Your Own Code
+
+If you don't use Claude Desktop / Cursor / Cline / Continue, you can talk to
+the MCP server directly with the official Python SDK. ~10 lines:
+
+```python
+import asyncio
+from mcp import ClientSession
+from mcp.client.sse import sse_client
+
+async def main():
+    headers = {"Authorization": "Bearer bzb_YOUR_KEY_HERE"}
+    async with sse_client(
+        "https://mcp.buzzberg.ai/sse",
+        headers=headers,
+    ) as (read, write):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+            tools = await session.list_tools()
+            print([t.name for t in tools.tools])  # 17 tools
+
+            result = await session.call_tool(
+                "get_sentiment",
+                arguments={"ticker": "NVDA", "days": 7},
+            )
+            print(result.content[0].text)
+
+asyncio.run(main())
+```
+
+LangChain, AutoGen, Anthropic Agent SDK and similar all accept MCP servers as
+tool sources — point them at `https://mcp.buzzberg.ai/sse` with the Bearer
+header. Full walkthrough including Windows PowerShell and corporate-laptop
+("no install allowed") paths is in [INSTALL.md](INSTALL.md).
+
 ## What Your Key Can Do
 
 | Action | Allowed? |
@@ -64,6 +124,7 @@ arguments.
 | Cursor | Supported |
 | Cline | Supported |
 | Continue.dev | Supported |
+| Custom Python (mcp SDK) | Supported — see [INSTALL.md option 4](INSTALL.md#option-4-python-client) |
 | Claude Mobile | Works only where custom headers are available |
 | Agent SDK | Manual config supported |
 
@@ -73,13 +134,10 @@ a migration window.
 
 ## Tools
 
-Buzzberg exposes 17 tools. See [TOOLS.md](TOOLS.md) for signatures and examples.
-
-## What To Ask
-
-Start with the [prompt cookbook](PROMPTS.md). It includes ticker deep dives,
-risk scans, speaker research, morning briefings, watchlist workflows, and Python
-client examples.
+Buzzberg exposes 17 tools — read (`search_trade_ideas`, `get_top_speakers`,
+`get_sentiment`, `get_portfolio`, `get_price`, ...) and write
+(`add_to_watchlist`, `save_trade_idea`, ...). See [TOOLS.md](TOOLS.md) for
+signatures and per-tool examples in [examples/](examples).
 
 ## Trust And Verification
 
@@ -88,17 +146,26 @@ from the index for download integrity, but pip does not automatically verify
 Sigstore attestations.
 
 Buzzberg releases use PyPI Trusted Publishing through GitHub OIDC. Attestations
-are available for manual verification; the exact command will be published after
-the Test PyPI smoke test confirms the working `pypi-attestations` syntax.
+are available for manual verification; see [SECURITY.md](SECURITY.md) for the
+exact command and threat model.
 
-Read more in [SECURITY.md](SECURITY.md).
+## Roadmap
+
+- [x] Public PyPI package (`pip install buzzberg-mcp`)
+- [x] Auto-config for Claude Desktop, Cursor, Cline, Continue.dev
+- [x] Per-user API keys with rate limits + SSE connection caps
+- [x] Sigstore attestations via PyPI Trusted Publishing
+- [ ] Streamable HTTP transport (`/mcp` endpoint) — for custom Python clients
+- [ ] Per-tool audit log (visible in /profile)
+- [ ] Anthropic Agent SDK first-class examples
+- [ ] Mobile MCP client config templates
+- [ ] Token spend / cost analytics per tool call
 
 ## Links
 
-- [INSTALL.md](INSTALL.md)
-- [PROMPTS.md](PROMPTS.md)
-- [SECURITY.md](SECURITY.md)
-- [TOOLS.md](TOOLS.md)
-- [examples](examples)
-- [sessions](sessions)
-- [CHANGELOG.md](CHANGELOG.md)
+- [INSTALL.md](INSTALL.md) — six install paths including custom Python
+- [TOOLS.md](TOOLS.md) — full tool reference
+- [SECURITY.md](SECURITY.md) — threat model, disclosure, attestations
+- [sessions/](sessions) — six ready-made research workflows
+- [examples/](examples) — per-tool example prompts
+- [CHANGELOG.md](CHANGELOG.md) — breaking changes during private beta
