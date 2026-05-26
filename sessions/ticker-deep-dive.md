@@ -52,9 +52,9 @@ Sample thesis from `read_ticker_content`:
 
 ## Drill down
 
-- *"Show me the bear quotes verbatim."* → `get_ticker_mentions(ticker="NVDA", direction="short", days=30)`
+- *"Show me the bear quotes verbatim."* → `search_trade_ideas(ticker="NVDA", direction="short", days=30)`
 - *"What did Citrini specifically say across those 3 mentions?"* →
-  `get_ticker_mentions(ticker="NVDA", speaker="Citrini", days=30)`
+  `search_trade_ideas(ticker="NVDA", speaker="Citrini", days=30)`
 - *"How does NVDA sentiment compare to AMD?"* → ask Claude to call
   `get_sentiment` for both tickers and produce a side-by-side.
 
@@ -64,6 +64,8 @@ Sample thesis from `read_ticker_content`:
   combine with `get_sentiment(ticker=...).by_speaker`.
 - `read_ticker_content` deduplicates by content piece — one CNBC clip = one
   entry even if multiple speakers in the clip mentioned NVDA. Use
-  `get_ticker_mentions` if you want the per-speaker breakdown.
+  `get_ticker_mentions(ticker=...)` for the raw unfiltered stream (no dedup,
+  no filters), or `search_trade_ideas(ticker=..., speaker=...)` when you need
+  to filter by speaker / direction / confidence / time window.
 - For a small / illiquid name, try `days=90` — 7-day windows are often too
   narrow to be useful.

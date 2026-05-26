@@ -1,7 +1,8 @@
 # Backtest An Idea — Verbatim Drilldown
 
 Take a name you're already curious about and reconstruct the conviction case
-from primary sources: actual tweets, video clips, newsletter excerpts. Each
+from the source pieces Buzzberg has ingested: tweets, video segments, Reddit
+posts, and short snippets from newsletters where available. Each call comes
 with the original speaker and a timestamp.
 
 ## The ask
@@ -13,11 +14,12 @@ with the original speaker and a timestamp.
 ## Tools Claude will chain
 
 1. `search_trade_ideas(ticker="URA", days=30, min_confidence=0.4)` — filtered
-   list with direction, speaker, confidence, source, date
-2. For top calls → `get_ticker_mentions(ticker="URA", speaker=..., days=30)`
-   to get the verbatim quote
-3. `get_speaker_profile(speaker_name=...)` for the loudest voices — track
+   list with direction, speaker, confidence, source, date, plus thesis text
+   and verbatim quote per call
+2. `get_speaker_profile(speaker_name=...)` for the loudest voices — track
    record + role
+3. (Optional) `get_ticker_mentions(ticker="URA")` — raw unfiltered stream of
+   every URA mention if you want to widen beyond the filtered call list
 
 ## What you'll get (illustrative)
 
@@ -51,7 +53,7 @@ Sample drill-down to actual source text:
 - *"Has any high-credibility speaker called URA short in the last 90 days?"*
   → `search_trade_ideas(ticker="URA", direction="short", days=90)`
 - *"What did Erik Townsend mean by 'watch'? Pull his full quote"* →
-  `get_ticker_mentions(ticker="URA", speaker="Erik Townsend", days=30)`
+  `search_trade_ideas(ticker="URA", speaker="Erik Townsend", days=30)`
 - *"Build me the bear case if there is one"* → ask Claude to invert and search
   for any short or AVOID calls
 

@@ -15,7 +15,7 @@ edge is structurally lower in a consensus name).
 1. `get_sentiment_divergence(limit=5, days=7)` — ranks tickers by `max - min`
    sentiment among speakers
 2. For each ticker → `compare_speakers(ticker=..., days=7)` to see who's where
-3. For the most interesting one → `get_ticker_mentions(ticker=..., direction="short", days=7)`
+3. For the most interesting one → `search_trade_ideas(ticker=..., direction="short", days=7)`
    and the same with `direction="long"` for verbatim quotes
 
 ## What you'll get (illustrative)

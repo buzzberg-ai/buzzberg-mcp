@@ -41,7 +41,7 @@ Claude will surface asymmetries:
 ## Drill down
 
 - *"Show me BTC bears verbatim — who's actually short and why?"* →
-  `get_ticker_mentions(ticker="BTC", direction="short", days=7)`
+  `search_trade_ideas(ticker="BTC", direction="short", days=7)`
 - *"What's the AI portfolio doing on BTC right now?"* → `get_portfolio()`
   (will show whether the AI is long or short BTC, current weight)
 - *"Crypto-correlated equities: where do MSTR, COIN, MARA sentiment net out?"*

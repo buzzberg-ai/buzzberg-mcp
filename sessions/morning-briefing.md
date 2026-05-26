@@ -48,7 +48,8 @@ A structured briefing in Claude's reply. Sample fragments from a real run:
 To go deeper on any thread Claude surfaces:
 
 - *"Why is `frenchie_` flipping AMD? Show me the original tweet text."* →
-  `get_ticker_mentions(ticker="AMD", speaker="frenchie_", days=2)`
+  `search_trade_ideas(ticker="AMD", speaker="frenchie_", days=2)` (returns the
+  call with thesis + verbatim quote)
 - *"Who else is short CRM besides Jim Bianco?"* → `compare_speakers(ticker="CRM", days=30)`
 - *"Drill into the SIVE divergence — who's the bull side and who's the bear side?"* →
   `compare_speakers(ticker="SIVE", days=7)`

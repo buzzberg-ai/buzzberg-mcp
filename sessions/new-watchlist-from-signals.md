@@ -43,9 +43,9 @@ When you ask Claude to add them, you'll see:
 ## Drill down
 
 - *"For ren_aramb's 5-name semis basket — pull the verbatim tweet text"* →
-  `get_ticker_mentions(speaker="ren_aramb", days=1)`
+  `search_trade_ideas(speaker="ren_aramb", days=1)`
 - *"Why did frenchie_ flip on AMD? What was the previous direction?"* →
-  `get_ticker_mentions(ticker="AMD", speaker="frenchie_", days=30)`
+  `search_trade_ideas(ticker="AMD", speaker="frenchie_", days=30)`
 - *"Filter the watchlist add to LONGs only — skip the SHORT flips"* →
   ask Claude to filter the result list before calling `add_to_watchlist`
 
@@ -53,9 +53,8 @@ When you ask Claude to add them, you'll see:
 
 - `signal="first"` — only first-time mentions across our entire dataset for
   this speaker+ticker pair. High-purity, may miss reversal interest.
-- `signal="flip"` — speaker changed direction since their last call on this
-  ticker. Catches reversals.
-- `signal="first_flip"` (default) — both above.
+- `signal="first_flip"` (default) — first-time mentions *and* direction
+  flips. Best general-purpose value.
 - `signal="all"` — every idea from top speakers in window, no signal filter.
   Firehose mode.
 

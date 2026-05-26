@@ -91,10 +91,11 @@ async def main():
 asyncio.run(main())
 ```
 
-LangChain, AutoGen, Anthropic Agent SDK and similar all accept MCP servers as
-tool sources — point them at `https://mcp.buzzberg.ai/sse` with the Bearer
-header. Full walkthrough including Windows PowerShell and corporate-laptop
-("no install allowed") paths is in [INSTALL.md](INSTALL.md).
+If your agent framework supports MCP SSE servers with custom auth headers
+(LangChain, AutoGen, Anthropic Agent SDK and similar generally do), point it
+at `https://mcp.buzzberg.ai/sse` with the Bearer header. Full walkthrough
+including Windows PowerShell and corporate-laptop ("no install allowed") paths
+is in [INSTALL.md](INSTALL.md).
 
 ## What Your Key Can Do
 
@@ -146,8 +147,10 @@ from the index for download integrity, but pip does not automatically verify
 Sigstore attestations.
 
 Buzzberg releases use PyPI Trusted Publishing through GitHub OIDC. Attestations
-are available for manual verification; see [SECURITY.md](SECURITY.md) for the
-exact command and threat model.
+are available for manual verification — see [SECURITY.md](SECURITY.md) for the
+current verification status and threat model. (The exact
+`pypi-attestations verify` command will be published once the Test PyPI smoke
+confirms working syntax.)
 
 ## Roadmap
 
