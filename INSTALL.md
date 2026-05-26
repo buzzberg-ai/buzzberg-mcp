@@ -244,7 +244,7 @@ async def main():
 
             result = await session.call_tool(
                 "get_price",
-                arguments={"symbols": ["BTC"]},
+                arguments={"tickers": ["BTC"]},
             )
             print(result)
 

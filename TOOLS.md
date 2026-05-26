@@ -188,7 +188,7 @@ Get current prices for tickers via Massive (stocks) / Binance (crypto).
 - `tickers` (required, list[str])
 
 **Example prompt:**
-> "Use `get_price` for a Buzzberg analysis."
+> "Get current Buzzberg prices for BTC, NVDA, and OUST."
 
 **Returns:** Markdown response from `get_price`.
 
