@@ -158,18 +158,6 @@ current verification status and threat model. (The exact
 `pypi-attestations verify` command will be published once the Test PyPI smoke
 confirms working syntax.)
 
-## Roadmap
-
-- [x] Public PyPI package (`pip install buzzberg-mcp`)
-- [x] Auto-config for Claude Desktop, Cursor, Cline, Continue.dev
-- [x] Per-user API keys with rate limits + SSE connection caps
-- [x] Sigstore attestations via PyPI Trusted Publishing
-- [ ] Streamable HTTP transport (`/mcp` endpoint) — for custom Python clients
-- [ ] Per-tool audit log (visible in /profile)
-- [ ] Anthropic Agent SDK first-class examples
-- [ ] Mobile MCP client config templates
-- [ ] Token spend / cost analytics per tool call
-
 ## Links
 
 - [INSTALL.md](INSTALL.md) — six install paths including custom Python

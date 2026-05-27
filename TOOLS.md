@@ -257,14 +257,16 @@ Get current prices for tickers via Massive (stocks) / Binance (crypto).
 
 ## search_content
 
-Search content by keyword in title.
+Search public content titles by keyword.
 
 **Inputs:**
 - `query` (required, str)
 - `limit` (optional, int, default `10`)
+- `days` (optional, int, default `30`)
+- `source_type` (optional, str, default `''`)
 
 **Example prompt:**
-> "Use `search_content` for a Buzzberg analysis."
+> "Search recent public Buzzberg content titles for robotaxi. Show source type, date, and why each item may be worth reading."
 
 **Returns:** Markdown response from `search_content`.
 

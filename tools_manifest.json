@@ -386,10 +386,22 @@
           "type": "int",
           "required": false,
           "default": 10
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 30
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
         }
       ],
       "returns": "str",
-      "summary": "Search content by keyword in title."
+      "summary": "Search public content titles by keyword."
     },
     {
       "name": "get_ticker_mentions",
