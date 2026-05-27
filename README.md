@@ -59,7 +59,7 @@ chains through the right tools for you:
   cross-asset rotation read: who's bullish where, where the camps diverge.
 - **[Backtest an idea — verbatim drilldown](sessions/backtest-an-idea.md)** —
   reconstruct the conviction case on a name you're considering: every call,
-  every quote, every speaker's track record.
+  source snippets where available, and each speaker's track record.
 
 ## Using It From Your Own Code
 
@@ -80,7 +80,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 17 tools
+            print([t.name for t in tools.tools])  # 18 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -135,8 +135,8 @@ a migration window.
 
 ## Tools
 
-Buzzberg exposes 17 tools — read (`search_trade_ideas`, `get_top_speakers`,
-`get_sentiment`, `get_portfolio`, `get_price`, ...) and write
+Buzzberg exposes 18 tools — read (`search_trade_ideas`, `get_top_speakers`,
+`get_sentiment`, `get_ticker_timeseries`, `get_portfolio`, `get_price`, ...) and write
 (`add_to_watchlist`, `save_trade_idea`, ...). See [TOOLS.md](TOOLS.md) for
 signatures and per-tool examples in [examples/](examples).
 

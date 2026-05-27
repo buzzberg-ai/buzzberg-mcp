@@ -192,6 +192,22 @@ Expected tools:
 - `compare_speakers`
 - `get_price`
 
+## Chart Sentiment And Mentions
+
+```text
+Use Buzzberg to create a 90-day chart dataset for NOK.
+
+Return daily rows with close price, mention count, average sentiment, and
+long/short/neutral/avoid counts. Then explain whether price moves seem to lead
+or lag Buzzberg sentiment.
+```
+
+Expected tools:
+
+- `get_ticker_timeseries`
+- `read_ticker_content`
+- `search_trade_ideas`
+
 ## Search The Content Archive
 
 ```text

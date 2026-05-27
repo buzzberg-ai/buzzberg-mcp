@@ -79,6 +79,24 @@ Get sentiment analysis for a ticker: average sentiment, breakdown by direction, 
 
 **Full example:** [examples/get_sentiment.md](examples/get_sentiment.md)
 
+## get_ticker_timeseries
+
+Get daily sentiment, mention counts, and cached close prices for charting.
+
+**Inputs:**
+- `ticker` (required, str)
+- `days` (optional, int, default `90`)
+- `source_type` (optional, str, default `''`)
+
+**Example prompt:**
+> "Use Buzzberg to build a 90-day NOK chart with daily mentions, sentiment, and cached close prices."
+
+**Returns:** CSV block with `date,close,mentions,avg_sentiment,long,short,neutral,avoid`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_ticker_timeseries.md](examples/get_ticker_timeseries.md)
+
 ## get_sentiment_divergence
 
 Find tickers where speakers disagree most (high divergence in sentiment).

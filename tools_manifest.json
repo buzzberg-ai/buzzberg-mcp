@@ -136,6 +136,32 @@
       "summary": "Get sentiment analysis for a ticker: average sentiment, breakdown by direction, by speaker tier."
     },
     {
+      "name": "get_ticker_timeseries",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 90
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "str",
+      "summary": "Get daily sentiment, mention counts, and cached close prices for charting."
+    },
+    {
       "name": "get_sentiment_divergence",
       "scope": "read",
       "parameters": [
