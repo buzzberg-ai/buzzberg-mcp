@@ -26,20 +26,21 @@ Expected tools:
 
 - `get_price`
 
-## Ticker Deep Dive
+## Narrative Ticker Deep Dive
 
 ```text
-Use Buzzberg to analyze OUST.
+Use Buzzberg to do a narrative deep dive on NOK / Nokia.
 
 I want:
-1. Basic ticker info.
-2. Who has mentioned OUST recently.
-3. What the bullish thesis is.
-4. What the bearish thesis or risks are.
-5. Whether speakers disagree.
-6. What I should watch next.
+1. The short verdict.
+2. What Buzzberg uniquely sees from X, YouTube, newsletters, and Reddit.
+3. The main bull narrative and the strongest catalysts.
+4. Who is pushing the idea, and whether the signal is concentrated.
+5. What is missing or under-discussed on the bear side.
+6. Whether this looks early, crowded, or late.
+7. What I should watch next.
 
-Use Buzzberg data only. If Buzzberg has no OUST data, say that clearly.
+Use Buzzberg data only. If Buzzberg has no NOK data, say that clearly.
 ```
 
 Expected tools:
@@ -49,6 +50,8 @@ Expected tools:
 - `get_sentiment`
 - `compare_speakers`
 - `search_trade_ideas`
+- `read_ticker_content`
+- `get_ticker_timeseries`
 - `get_price`
 
 ## Risk And Bear Case
@@ -178,28 +181,33 @@ Expected tools:
 - `get_sentiment`
 - `save_trade_idea`
 
-## Crypto Vs Stocks Sentiment
+## Sentiment Vs Price Chart
 
 ```text
-Use Buzzberg to compare sentiment around BTC, ETH, NVDA, and TSLA over the last
-14 days. Show which assets have the strongest positive sentiment, the most
-disagreement, and the clearest risk flags.
+Use Buzzberg to create a 90-day sentiment vs price read for NOK.
+
+Use daily sentiment, mention counts, and close prices. Do not just print the
+table. Explain:
+1. Did sentiment turn before price, after price, or with price?
+2. Which days look like narrative inflection points?
+3. Did the latest price move happen with broad participation or thin attention?
+4. What follow-up content should I read?
 ```
 
 Expected tools:
 
-- `get_sentiment`
-- `compare_speakers`
-- `get_price`
+- `get_ticker_timeseries`
+- `read_ticker_content`
+- `search_trade_ideas`
 
-## Chart Sentiment And Mentions
+## Mentions Vs Price Chart
 
 ```text
-Use Buzzberg to create a 90-day chart dataset for NOK.
+Use Buzzberg to compare NOK's mention volume against price over the last 90 days.
 
-Return daily rows with close price, mention count, average sentiment, and
-long/short/neutral/avoid counts. Then explain whether price moves seem to lead
-or lag Buzzberg sentiment.
+Find attention spikes, then explain what caused them. I care less about the
+exact numbers and more about the narrative: was the stock ignored, discovered,
+crowded, or exhausted?
 ```
 
 Expected tools:

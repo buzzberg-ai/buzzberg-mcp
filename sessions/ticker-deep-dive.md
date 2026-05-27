@@ -1,71 +1,75 @@
-# Ticker Deep Dive
+# Narrative Ticker Deep Dive
 
-Full picture on a single name before you size a position: who's talking about
-it, where they net out, what the smart-money divergence looks like, and what
-the current price says.
+Use this when you do not want another generic ticker summary. Buzzberg is most
+useful when Claude reads the social/source graph: who is pushing the idea, what
+changed recently, whether the narrative is early or already crowded, and what
+risk the bull camp is not discussing.
 
 ## The ask
 
-> Deep dive on NVDA using Buzzberg: sentiment over the last 7 days, mention
-> volume by source, top speakers on both sides, recent specific theses with
-> verbatim quotes, and the current price.
+> Use Buzzberg to do a narrative deep dive on NOK / Nokia.
+>
+> I want the short verdict, the core bull narrative, who is pushing it, what is
+> missing from the bear side, whether the setup is early or crowded, and what I
+> should watch next. Use Buzzberg data only.
 
 ## Tools Claude will chain
 
-1. `get_ticker_info(ticker="NVDA")` — high-level overview (count, top speakers,
-   price)
-2. `get_sentiment(ticker="NVDA", days=7)` — direction breakdown + source mix +
-   per-speaker averages
-3. `compare_speakers(ticker="NVDA", days=30)` — bulls vs bears table with
-   credibility scores
-4. `read_ticker_content(ticker="NVDA", days=14)` — verbatim quotes and
-   AI-summarized theses, deduplicated per content piece
-5. `get_price(tickers=["NVDA"])` — current price
+1. `get_ticker_info(ticker="NOK")` — overview, top speakers, recent ideas
+2. `get_ticker_mentions(ticker="NOK")` — 24h / 7d / 30d attention by source
+3. `get_sentiment(ticker="NOK", days=30)` — directional bias and speaker mix
+4. `compare_speakers(ticker="NOK", days=30)` — whether there is a real bear camp
+5. `search_trade_ideas(ticker="NOK", days=30, limit=20)` — recent theses and quotes
+6. `read_ticker_content(ticker="NOK", days=30, limit=20)` — source snippets
+7. `get_ticker_timeseries(ticker="NOK", days=90)` — price/sentiment/mentions context
 
 ## What you'll get (illustrative)
 
-Sentiment breakdown (last 7d):
+Claude should write like an analyst, not like a dashboard:
 
-> | Direction | Count | % |
-> |-----------|-------|---|
-> | 🟢 LONG | 76 | 27% |
-> | 🔴 SHORT | 8 | 3% |
-> | ⚪ NEUTRAL | 81 | 29% |
-> | 🔴 AVOID | 9 | 3% |
+> **Short verdict:** Buzzberg shows Nokia as a bullish but increasingly crowded
+> AI-infrastructure rerate story. The edge is not "Nokia is cheap"; it is that a
+> cluster of active speakers is reframing Nokia from legacy telecom vendor to
+> AI-RAN / optical / edge compute infrastructure.
 >
-> **Total mentions:** 281 (7d) — Twitter 211, YouTube 51, Reddit 16, Substack 3
-
-Bulls and bears (last 30d, ranked by credibility):
-
-> - **Ray Dalio** (cred 10.0, Bridgewater) — 🟢 +0.50
-> - **Citrini** (cred 9.2) — 🟢 +0.17 (mixed across 3 mentions)
-> - **Dan Ives** (cred 7.7, Wedbush) — 🟢 +0.50 across 4 mentions
-> - **Josh Brown** (cred 8.5, Ritholtz) — 🟢 +0.50
-> - **Michael Green** (cred 6.5, Simplify) — 🔴 -0.50
-> - **Chris Whalen** (cred 6.0) — 🔴 -0.50
-
-Sample thesis from `read_ticker_content`:
-
-> *"NVDA remains the only fully integrated AI platform — software + hardware +
-> ecosystem. The recent 2.4% weekly dip is an attractive entry point ahead of
-> the data-center capex cycle."* — illustrative bull thesis
+> **What bulls are buying:**
+> - Insider buying after the move, not just at the lows.
+> - AI-RAN / edge AI narrative tied to NVIDIA, telecom base stations, and
+>   distributed compute.
+> - Optical backbone / Infinera angle: AI traffic needs coherent optical
+>   capacity, and bulls compare the setup to other optical winners.
+> - Multiple rerate: "legacy telecom wrapper" becoming "AI network
+>   infrastructure".
+>
+> **Who is pushing it:** The signal is concentrated in a small group of active
+> X accounts. That is useful for momentum discovery, but it also means the
+> narrative may be less independently confirmed than it looks.
+>
+> **What is missing:** Very little bear-side discussion. That does not mean
+> there is no risk; it means Buzzberg's current source graph is not surfacing
+> much debate. The key diligence questions are backlog, margins after Infinera,
+> real AI-RAN economics, and whether the rerate is already priced.
+>
+> **Trading read:** Bullish momentum setup, not clean value. Better after a
+> pullback/consolidation or after confirmation from orders / analysts / insider
+> follow-through.
 
 ## Drill down
 
-- *"Show me the bear quotes verbatim."* → `search_trade_ideas(ticker="NVDA", direction="short", days=30)`
-- *"What did Citrini specifically say across those 3 mentions?"* →
-  `search_trade_ideas(ticker="NVDA", speaker="Citrini", days=30)`
-- *"How does NVDA sentiment compare to AMD?"* → ask Claude to call
-  `get_sentiment` for both tickers and produce a side-by-side.
+- *"Show me only the bear case for NOK, even if it is weak."* →
+  `search_trade_ideas(ticker="NOK", direction="short", days=90)` plus
+  `compare_speakers(ticker="NOK", days=90)`
+- *"Which speaker is driving the Nokia narrative most?"* →
+  `compare_speakers(ticker="NOK", days=30)` and `get_speaker_profile(...)`
+- *"Is this move crowded?"* → `get_ticker_timeseries(ticker="NOK", days=90)`
+  and look for mention spikes after price spikes
+- *"Read the actual source snippets behind the AI-RAN thesis."* →
+  `read_ticker_content(ticker="NOK", days=30, limit=30, verbose=True)`
 
 ## Tips
 
-- `compare_speakers` is credibility-weighted by default. If you want raw count,
-  combine with `get_sentiment(ticker=...).by_speaker`.
-- `read_ticker_content` deduplicates by content piece — one CNBC clip = one
-  entry even if multiple speakers in the clip mentioned NVDA. Use
-  `get_ticker_mentions(ticker=...)` for the raw unfiltered stream (no dedup,
-  no filters), or `search_trade_ideas(ticker=..., speaker=...)` when you need
-  to filter by speaker / direction / confidence / time window.
-- For a small / illiquid name, try `days=90` — 7-day windows are often too
-  narrow to be useful.
+- Ask for *"what Buzzberg uniquely sees"* to force Claude away from generic
+  company background.
+- Ask for *"what is missing"*; a one-sided bull graph is often a risk signal.
+- Use `read_ticker_content` for source snippets and `search_trade_ideas` when
+  you need speaker / direction / confidence filters.

@@ -42,24 +42,26 @@ claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
 ## What You Can Do With It
 
 Six ready-made research workflows. Each one is a single prompt that Claude
-chains through the right tools for you:
+chains through the right Buzzberg tools and turns the raw data into a usable
+research read:
 
 - **[Morning briefing](sessions/morning-briefing.md)** — AI portfolio state +
   fresh calls from top speakers + sentiment divergence radar in one read.
-- **[Ticker deep dive](sessions/ticker-deep-dive.md)** — sentiment, mentions
-  by source, bulls vs bears with credibility scores, verbatim quotes, and the
-  current price for one name.
+- **[Narrative ticker deep dive](sessions/ticker-deep-dive.md)** — what
+  Buzzberg uniquely knows about a ticker: who is pushing it, what the bull
+  narrative is, what is missing, and whether the setup is early or crowded.
+- **[Sentiment vs price chart](sessions/sentiment-price-chart.md)** — daily
+  sentiment, mentions, and cached close prices so Claude can explain whether
+  Buzzberg sentiment leads, confirms, or lags price.
+- **[Mentions vs price chart](sessions/mentions-price-chart.md)** — attention
+  spikes vs price moves, useful for spotting narrative ignition, exhaustion,
+  and post-move crowding.
 - **[Contrarian scan](sessions/contrarian-scan.md)** — tickers where
   smart-money disagrees the most, ranked by sentiment spread. High-volatility
   setups where the camps are obvious.
 - **[Build a watchlist from top-speaker signals](sessions/new-watchlist-from-signals.md)** —
   auto-curate first-time mentions and direction flips from the top-30 speakers
   in the last 24 hours.
-- **[Crypto vs equities sentiment](sessions/crypto-vs-stocks-sentiment.md)** —
-  cross-asset rotation read: who's bullish where, where the camps diverge.
-- **[Backtest an idea — verbatim drilldown](sessions/backtest-an-idea.md)** —
-  reconstruct the conviction case on a name you're considering: every call,
-  source snippets where available, and each speaker's track record.
 
 ## Using It From Your Own Code
 
