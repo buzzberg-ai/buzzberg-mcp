@@ -89,13 +89,54 @@ Get daily sentiment, mention counts, and cached close prices for charting.
 - `source_type` (optional, str, default `''`)
 
 **Example prompt:**
-> "Use Buzzberg to build a 90-day NOK chart with daily mentions, sentiment, and cached close prices."
+> "Use `get_ticker_timeseries` for a Buzzberg analysis."
 
-**Returns:** CSV block with `date,close,mentions,avg_sentiment,long,short,neutral,avoid`.
+**Returns:** Markdown response from `get_ticker_timeseries`.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/get_ticker_timeseries.md](examples/get_ticker_timeseries.md)
+
+## get_most_mentioned_tickers
+
+Rank tickers by Buzzberg mention volume over a lookback window.
+
+**Inputs:**
+- `days` (optional, int, default `1`)
+- `limit` (optional, int, default `20`)
+- `source_type` (optional, str, default `''`)
+- `min_mentions` (optional, int, default `1`)
+- `history` (optional, bool, default `False`)
+
+**Example prompt:**
+> "Use `get_most_mentioned_tickers` for a Buzzberg analysis."
+
+**Returns:** Markdown response from `get_most_mentioned_tickers`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_most_mentioned_tickers.md](examples/get_most_mentioned_tickers.md)
+
+## get_top_sentiment_tickers
+
+Rank tickers by strongest bullish or bearish Buzzberg sentiment.
+
+**Inputs:**
+- `days` (optional, int, default `1`)
+- `limit` (optional, int, default `20`)
+- `min_mentions` (optional, int, default `3`)
+- `direction` (optional, str, default `'bullish'`)
+- `source_type` (optional, str, default `''`)
+- `history` (optional, bool, default `False`)
+
+**Example prompt:**
+> "Use `get_top_sentiment_tickers` for a Buzzberg analysis."
+
+**Returns:** Markdown response from `get_top_sentiment_tickers`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_top_sentiment_tickers.md](examples/get_top_sentiment_tickers.md)
 
 ## get_sentiment_divergence
 
@@ -206,7 +247,7 @@ Get current prices for tickers via Massive (stocks) / Binance (crypto).
 - `tickers` (required, list[str])
 
 **Example prompt:**
-> "Get current Buzzberg prices for BTC, NVDA, and OUST."
+> "Use `get_price` for a Buzzberg analysis."
 
 **Returns:** Markdown response from `get_price`.
 

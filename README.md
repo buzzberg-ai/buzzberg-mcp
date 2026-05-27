@@ -41,10 +41,13 @@ claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
 
 ## What You Can Do With It
 
-Six ready-made research workflows. Each one is a single prompt that Claude
+Seven ready-made research workflows. Each one is a single prompt that Claude
 chains through the right Buzzberg tools and turns the raw data into a usable
 research read:
 
+- **[Ticker leaderboards](sessions/ticker-leaderboards.md)** — most buzzed
+  tickers, strongest bullish/bearish sentiment, and daily historical buzz for
+  1d / 7d / 30d windows.
 - **[Morning briefing](sessions/morning-briefing.md)** — AI portfolio state +
   fresh calls from top speakers + sentiment divergence radar in one read.
 - **[Narrative ticker deep dive](sessions/ticker-deep-dive.md)** — what
@@ -82,7 +85,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 18 tools
+            print([t.name for t in tools.tools])  # 20 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -137,8 +140,9 @@ a migration window.
 
 ## Tools
 
-Buzzberg exposes 18 tools — read (`search_trade_ideas`, `get_top_speakers`,
-`get_sentiment`, `get_ticker_timeseries`, `get_portfolio`, `get_price`, ...) and write
+Buzzberg exposes 20 tools — read (`search_trade_ideas`, `get_top_speakers`,
+`get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
+`get_top_sentiment_tickers`, `get_portfolio`, `get_price`, ...) and write
 (`add_to_watchlist`, `save_trade_idea`, ...). See [TOOLS.md](TOOLS.md) for
 signatures and per-tool examples in [examples/](examples).
 
@@ -171,6 +175,6 @@ confirms working syntax.)
 - [INSTALL.md](INSTALL.md) — six install paths including custom Python
 - [TOOLS.md](TOOLS.md) — full tool reference
 - [SECURITY.md](SECURITY.md) — threat model, disclosure, attestations
-- [sessions/](sessions) — six ready-made research workflows
+- [sessions/](sessions) — seven ready-made research workflows
 - [examples/](examples) — per-tool example prompts
 - [CHANGELOG.md](CHANGELOG.md) — breaking changes during private beta

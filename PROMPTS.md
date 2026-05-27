@@ -149,6 +149,37 @@ Expected tools:
 - `get_sentiment_divergence`
 - `get_recent_content`
 
+## Most Buzzed Tickers
+
+```text
+Use Buzzberg to show the most buzzed tickers in the last 24 hours.
+
+For each ticker, show mention count, source mix, sentiment, and why people are
+talking about it. Then separate fresh discovery from crowded post-move chatter.
+```
+
+Expected tools:
+
+- `get_most_mentioned_tickers`
+- `read_ticker_content`
+- `search_trade_ideas`
+
+## 7-Day Sentiment Leaders
+
+```text
+Use Buzzberg to find the strongest bullish and bearish ticker narratives over
+the last 7 days.
+
+Use at least 5 mentions per ticker. Include historical daily rows if useful, but
+do not just dump the table — explain what changed and what to watch next.
+```
+
+Expected tools:
+
+- `get_top_sentiment_tickers`
+- `get_most_mentioned_tickers`
+- `read_ticker_content`
+
 ## Watchlist Builder
 
 This uses write tools and changes only your Buzzberg account.
