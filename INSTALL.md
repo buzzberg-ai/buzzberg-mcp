@@ -1,111 +1,88 @@
-# Install Buzzberg MCP
+# Connect Buzzberg MCP
 
-## Start Here
+Buzzberg MCP lets Claude, Cursor, Cline, Continue.dev, and custom MCP clients
+use Buzzberg market-intelligence tools.
 
-Buzzberg MCP lets Claude, Cursor, Cline, and other MCP clients use Buzzberg
-tools. You only need three things:
-
-1. A Buzzberg account with private beta access.
-2. A personal MCP key.
-3. One MCP client, such as Claude Desktop or Claude Code.
-
-Get your key first:
-
-1. Open Buzzberg in your browser.
-2. Go to **Profile -> MCP Access**.
-3. Click **New Key**.
-4. Copy the key that starts with `bzb_`.
-
-Keep this key private. Treat it like a password.
-
-## Which Install Should I Use?
-
-| If you use... | Use this path |
-|---|---|
-| Claude Desktop | Option 1: installer |
-| Cursor, Cline, or Continue.dev | Option 1: installer |
-| Claude Code terminal app | Option 2: Claude Code command |
-| Corporate laptop where installs are blocked | Option 3: manual JSON |
-| Custom Python MCP client | Option 4: Python SSE example |
-| Claude Mobile or Agent SDK | Option 5: other clients |
-| Security review before install | Option 6: read before installing |
-
-Buzzberg private beta currently uses **SSE**:
+Private beta currently uses **SSE**:
 
 ```text
 https://mcp.buzzberg.ai/sse
 ```
 
-The newer Streamable HTTP `/mcp` endpoint is not live yet.
+Streamable HTTP `/mcp` is not live yet. If your client only accepts `/mcp`, use
+Claude Desktop, Claude Code, Cursor, or Cline for now.
 
-## Option 1: Easiest Installer
+## What's An MCP?
 
-Install the package:
+MCP stands for Model Context Protocol. It lets an AI agent connect to external
+apps and tools. With Buzzberg connected, your agent can ask Buzzberg for market
+data instead of guessing from its training data.
+
+## What Your Agent Can Do
+
+After connecting Buzzberg, your agent can:
+
+- Analyze a ticker: sentiment, mentions, speakers, trade ideas, and source
+  snippets.
+- Find the most buzzed tickers today or over the last 7 days.
+- Compare sentiment vs price and mentions vs price.
+- Build a morning briefing from Buzzberg portfolio, top-speaker signals, and
+  divergence.
+- Add or remove tickers from your Buzzberg watchlist.
+- Save trade ideas to your Buzzberg account.
+
+Example prompts:
+
+```text
+Use Buzzberg to deep dive NOK. Explain the bull narrative, who is pushing it,
+what is missing from the bear case, and what I should watch next.
+```
+
+```text
+Use Buzzberg to show the most buzzed tickers in the last 7 days. Separate fresh
+discovery from crowded post-move chatter.
+```
+
+## What Buzzberg Can Access
+
+Your MCP key can access:
+
+- Public Buzzberg market-intelligence data.
+- Your own Buzzberg watchlist and saved ideas.
+- Tool-call arguments your AI client sends to Buzzberg.
+
+Your MCP key cannot:
+
+- Place trades.
+- Access your broker, X/Twitter, email, or files.
+- See your full Claude/ChatGPT/Cursor conversation.
+- Read or modify another user's Buzzberg data.
+
+Keep your `bzb_...` key private. Treat it like a password.
+
+## Get Your MCP Key
+
+1. Open Buzzberg.
+2. Go to **Profile -> MCP Access**.
+3. Click **New Key**.
+4. Copy the key that starts with `bzb_`.
+
+## Connect Your AI Agent
+
+### Claude Desktop
+
+Recommended path:
 
 ```bash
 pip install buzzberg-mcp
-```
-
-Run setup:
-
-```bash
-buzzberg-mcp setup
-```
-
-The setup command asks for your key with hidden input:
-
-```text
-BUZZBERG_MCP_API_KEY (input hidden):
-```
-
-Paste the `bzb_...` key and press Enter. The key is written into your MCP
-client config as an `Authorization: Bearer ...` header.
-
-If you are not sure what to choose, run:
-
-```bash
-buzzberg-mcp setup
-```
-
-The installer will look for supported clients and ask before writing anything.
-
-For one specific client:
-
-```bash
 buzzberg-mcp setup --client claude-desktop
 ```
 
-Other supported client names:
+Then fully quit and reopen Claude Desktop.
 
-```bash
-buzzberg-mcp setup --client cursor
-buzzberg-mcp setup --client cline
-buzzberg-mcp setup --client continue
-```
+### Claude Code
 
-For all detected clients:
-
-```bash
-buzzberg-mcp setup --all
-```
-
-The installer reads your key through a hidden prompt by default. For password
-managers, use stdin:
-
-```bash
-pass show buzzberg/mcp | buzzberg-mcp setup --key-stdin --client claude-desktop
-```
-
-Dry-runs do not need a real key and never print a plaintext key:
-
-```bash
-buzzberg-mcp setup --dry-run --client claude-desktop
-```
-
-## Option 2: Claude Code Command
-
-If you use Claude Code, this is the simplest path. Replace
-`bzb_YOUR_KEY_HERE` with your key from **Profile -> MCP Access**:
+Run this in your terminal:
 
 ```bash
 export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
@@ -113,63 +90,22 @@ claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
   --header "Authorization: Bearer $BUZZBERG_MCP_API_KEY"
 ```
 
-On Windows PowerShell:
-
-```powershell
-$env:BUZZBERG_MCP_API_KEY = "bzb_YOUR_KEY_HERE"
-claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse --header "Authorization: Bearer $env:BUZZBERG_MCP_API_KEY"
-```
-
-Then ask Claude Code something like:
+Then ask:
 
 ```text
 Use Buzzberg to get the current price for BTC.
 ```
 
-## Option 3: Manual JSON
-
-Use this path if you do not want to install anything. You will edit your MCP
-client config file manually.
-
-Transport: `sse`
-URL: `https://mcp.buzzberg.ai/sse`
-Header: `Authorization: Bearer <your bzb_ key>`
-
-### Claude Desktop
-
-macOS config file:
-
-```text
-~/Library/Application Support/Claude/claude_desktop_config.json
-```
-
-Windows config file:
-
-```text
-%APPDATA%/Claude/claude_desktop_config.json
-```
-
-Add this block. If the file already has `mcpServers`, add only the `buzzberg`
-entry inside it.
-
-```json
-{
-  "mcpServers": {
-    "buzzberg": {
-      "url": "https://mcp.buzzberg.ai/sse",
-      "headers": {
-        "Authorization": "Bearer bzb_YOUR_KEY_HERE"
-      }
-    }
-  }
-}
-```
-
-After saving the file, fully quit Claude Desktop and reopen it.
-
 ### Cursor
 
-Open Cursor settings, find **MCP Servers**, and add:
+Recommended path:
+
+```bash
+pip install buzzberg-mcp
+buzzberg-mcp setup --client cursor
+```
+
+Or add this MCP server in Cursor settings:
 
 ```json
 {
@@ -186,105 +122,59 @@ Open Cursor settings, find **MCP Servers**, and add:
 
 ### Cline
 
-Open VS Code -> Cline -> Settings -> Edit MCP Settings. Add the same
-`mcpServers` block used for Cursor.
+Recommended path:
+
+```bash
+pip install buzzberg-mcp
+buzzberg-mcp setup --client cline
+```
+
+Or open **Cline -> Settings -> Edit MCP Settings** and add the same
+`mcpServers` JSON block used for Cursor.
 
 ### Continue.dev
 
-Edit `~/.continue/config.json`:
+Recommended path:
 
-```json
-{
-  "experimental": {
-    "modelContextProtocolServers": [
-      {
-        "name": "buzzberg",
-        "transport": {
-          "type": "sse",
-          "url": "https://mcp.buzzberg.ai/sse",
-          "headers": {
-            "Authorization": "Bearer bzb_YOUR_KEY_HERE"
-          }
-        }
-      }
-    ]
-  }
-}
+```bash
+pip install buzzberg-mcp
+buzzberg-mcp setup --client continue
 ```
 
-## Option 4: Python Client
+Manual config lives in:
 
-Use this if you are writing your own Python MCP client. Do not `POST /mcp`;
-Buzzberg private beta currently uses SSE at `/sse`.
+```text
+~/.continue/config.json
+```
+
+### Python Client
+
+Use this if you are writing your own MCP client. Do not `POST /mcp`; Buzzberg
+private beta currently uses SSE.
 
 ```bash
 pip install mcp
+export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
 ```
 
 ```python
 import asyncio
 import os
-
 from mcp import ClientSession
 from mcp.client.sse import sse_client
 
-BUZZBERG_KEY = os.environ["BUZZBERG_MCP_API_KEY"]
-
 async def main():
-    headers = {"Authorization": f"Bearer {BUZZBERG_KEY}"}
-
-    async with sse_client(
-        "https://mcp.buzzberg.ai/sse",
-        headers=headers,
-    ) as (read_stream, write_stream):
-        async with ClientSession(read_stream, write_stream) as session:
+    headers = {"Authorization": f"Bearer {os.environ['BUZZBERG_MCP_API_KEY']}"}
+    async with sse_client("https://mcp.buzzberg.ai/sse", headers=headers) as (read, write):
+        async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
             print([tool.name for tool in tools.tools])
 
-            result = await session.call_tool(
-                "get_price",
-                arguments={"tickers": ["BTC"]},
-            )
-            print(result)
-
 asyncio.run(main())
 ```
 
-Run it:
-
-```bash
-export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
-python buzzberg_test.py
-```
-
-## Option 5: Other Clients
-
-### Claude Mobile
-
-Use URL `https://mcp.buzzberg.ai/sse` and header
-`Authorization: Bearer <BUZZBERG_MCP_API_KEY>` where the mobile integration UI
-supports custom headers. If headers are unavailable, use Desktop, Code, Cursor,
-or Cline during private beta.
-
-### Agent SDK
-
-```python
-from claude_agent_sdk import ClaudeAgentOptions
-
-options = ClaudeAgentOptions(
-    mcp_servers={
-        "buzzberg": {
-            "type": "sse",
-            "url": "https://mcp.buzzberg.ai/sse",
-            "headers": {"Authorization": f"Bearer {KEY}"},
-        }
-    },
-    allowed_tools=["mcp__buzzberg__*"],
-)
-```
-
-### Any MCP Client
+### Other MCP Clients
 
 Use these settings:
 
@@ -294,13 +184,40 @@ URL: https://mcp.buzzberg.ai/sse
 Header: Authorization: Bearer bzb_YOUR_KEY_HERE
 ```
 
-If the client only supports Streamable HTTP `/mcp`, it will not work yet.
+### Codex And ChatGPT
 
-## Option 6: Read Before Installing
+Codex and ChatGPT MCP apps generally expect Streamable HTTP. Buzzberg's
+Streamable HTTP `/mcp` endpoint is not live yet, so use Claude Desktop, Claude
+Code, Cursor, or Cline during private beta.
 
-This path lets you inspect the wheel before installing it. It is the path for
-"read before running"; a normal `pip install` may run package build/install code
-by design.
+## No-Install Manual Setup
+
+If you do not want to install the helper package, edit your client config
+manually and add:
+
+```json
+{
+  "mcpServers": {
+    "buzzberg": {
+      "url": "https://mcp.buzzberg.ai/sse",
+      "headers": {
+        "Authorization": "Bearer bzb_YOUR_KEY_HERE"
+      }
+    }
+  }
+}
+```
+
+Claude Desktop config paths:
+
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%/Claude/claude_desktop_config.json`
+
+After editing, fully quit and reopen the client.
+
+## Read Before Installing
+
+If you want to inspect the package before installing:
 
 ```bash
 pip download --only-binary :all: --no-deps buzzberg-mcp -d /tmp/bz
@@ -308,12 +225,11 @@ python -m zipfile -l /tmp/bz/buzzberg_mcp-*.whl
 python -m pip install /tmp/bz/buzzberg_mcp-*.whl
 ```
 
-Attestation verification is optional. The exact `pypi-attestations verify`
-command will be copied here after it passes the Test PyPI smoke test.
-
 ## Troubleshooting
 
-- Tools do not appear: fully quit and reopen the client, then validate JSON.
-- 401 Unauthorized: revoke and recreate the key in Profile -> MCP Access.
-- Connection timeout: corporate networks sometimes block SSE.
-- Health check: `curl https://mcp.buzzberg.ai/health` should return `{"status":"ok"}`.
+- Tools do not appear: fully quit and reopen the client.
+- `401 Unauthorized`: revoke and recreate the key in **Profile -> MCP Access**.
+- `429 Too Many Requests`: close duplicate clients, wait a minute, then reconnect.
+- Python client gets `404` on `/mcp`: use SSE at `https://mcp.buzzberg.ai/sse`.
+- Health check: `curl https://mcp.buzzberg.ai/health` should return
+  `{"status":"ok","service":"buzzberg-mcp"}`.

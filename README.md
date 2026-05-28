@@ -160,7 +160,7 @@ confirms working syntax.)
 
 ## Links
 
-- [INSTALL.md](INSTALL.md) — six install paths including custom Python
+- [INSTALL.md](INSTALL.md) — simple setup by AI client
 - [TOOLS.md](TOOLS.md) — full tool reference
 - [SECURITY.md](SECURITY.md) — threat model, disclosure, attestations
 - [sessions/](sessions) — seven ready-made research workflows
