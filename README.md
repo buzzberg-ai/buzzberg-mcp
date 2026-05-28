@@ -111,10 +111,55 @@ More client-by-client setup options are in [INSTALL.md](INSTALL.md).
 
 ## What You Can Do With It
 
-Seven ready-made research workflows. Each one is a single prompt that Claude
-chains through the right Buzzberg tools and turns the raw data into a usable
-research read:
+Buzzberg is useful when you want your AI agent to read the market conversation,
+not just fetch a price. Ask one plain-English question; Claude, Codex, or
+another MCP client chains the right Buzzberg tools and turns the raw source data
+into a usable research read.
 
+Start with these prompts:
+
+```text
+Use Buzzberg to summarize the last 24h of top-50 speaker tweets.
+What are the main themes, crowded trades, new tickers, and disagreements?
+Quote examples.
+```
+
+```text
+Use Buzzberg to read public Substack text from the last 24h.
+Give me a market TLDR and list tickers with the strongest narratives.
+Quote examples.
+```
+
+```text
+Use Buzzberg to read YouTube transcripts from the last 24h.
+What are speakers worried about that is not obvious from price action?
+Quote examples.
+```
+
+```text
+Use Buzzberg Twitter data from top-50 speakers.
+How many times did they mention "bottleneck", "power", "AI capex", and "memory"?
+Quote examples and point to the tickers each theme is about.
+```
+
+What Buzzberg sends to the AI agent:
+
+- **Substack/newsletters:** public/free article text from the last 24 hours.
+  Paid posts return only the public preview visible before the paywall.
+- **YouTube:** transcript text from the last 24 hours, with timestamped
+  segments when available.
+- **Twitter/X:** top-speaker tweets from the last 24 hours where Buzzberg found
+  trade ideas, including the full tweet text, speaker, tickers, and idea
+  direction.
+- **Ticker research:** mentions, sentiment, trade ideas, speaker profiles,
+  price snapshots, and daily sentiment/mention history for chart-style reads.
+
+Ready-made workflows:
+
+- **[Daily source TLDRs](sessions/daily-source-tldr.md)** — summarize the last
+  24 hours of top-50 speaker tweets, public Substack text, and YouTube
+  transcripts; ask for themes, crowded trades, repeated words, disagreements,
+  and quoted examples.
 - **[Ticker leaderboards](sessions/ticker-leaderboards.md)** — most buzzed
   tickers, strongest bullish/bearish sentiment, and daily historical buzz for
   1d / 7d / 30d windows.
@@ -135,33 +180,6 @@ research read:
 - **[Build a watchlist from top-speaker signals](sessions/new-watchlist-from-signals.md)** —
   auto-curate first-time mentions and direction flips from the top-30 speakers
   in the last 24 hours.
-- **Daily source TLDRs** — read public/free Substack text, YouTube transcripts,
-  or top-speaker trade-idea tweets from the last 24 hours and ask your AI agent
-  to summarize themes, crowded trades, repeated words, and disagreements.
-
-### Example Prompts
-
-```text
-Use Buzzberg to summarize the last 24h of top-50 speaker tweets.
-What are the main themes, crowded trades, new tickers, and disagreements?
-Quote examples.
-```
-
-```text
-Use Buzzberg to read public Substack text from the last 24h.
-Give me a market TLDR and list tickers with the strongest narratives.
-```
-
-```text
-Use Buzzberg to read YouTube transcripts from the last 24h.
-What are speakers worried about that is not obvious from price action?
-```
-
-```text
-Use Buzzberg Twitter data from top-50 speakers.
-How many times did they mention "bottleneck", "power", "AI capex", and "memory"?
-Quote examples.
-```
 
 ## Using It From Your Own Code
 
