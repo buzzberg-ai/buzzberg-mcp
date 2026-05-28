@@ -1,88 +1,43 @@
 # Connect Buzzberg MCP
 
-Buzzberg MCP lets Claude, Cursor, Cline, Continue.dev, and custom MCP clients
-use Buzzberg market-intelligence tools.
+Buzzberg MCP lets your AI agent use Buzzberg market intelligence: trade ideas,
+sentiment, speakers, prices, ticker mentions, source snippets, and your own
+watchlist.
 
-Private beta currently uses **SSE**:
+You need one thing first: a Buzzberg MCP key.
 
-```text
-https://mcp.buzzberg.ai/sse
-```
-
-Streamable HTTP `/mcp` is not live yet. If your client only accepts `/mcp`, use
-Claude Desktop, Claude Code, Cursor, or Cline for now.
-
-## What's An MCP?
-
-MCP stands for Model Context Protocol. It lets an AI agent connect to external
-apps and tools. With Buzzberg connected, your agent can ask Buzzberg for market
-data instead of guessing from its training data.
-
-## What Your Agent Can Do
-
-After connecting Buzzberg, your agent can:
-
-- Analyze a ticker: sentiment, mentions, speakers, trade ideas, and source
-  snippets.
-- Find the most buzzed tickers today or over the last 7 days.
-- Compare sentiment vs price and mentions vs price.
-- Build a morning briefing from Buzzberg portfolio, top-speaker signals, and
-  divergence.
-- Add or remove tickers from your Buzzberg watchlist.
-- Save trade ideas to your Buzzberg account.
-
-Example prompts:
-
-```text
-Use Buzzberg to deep dive NOK. Explain the bull narrative, who is pushing it,
-what is missing from the bear case, and what I should watch next.
-```
-
-```text
-Use Buzzberg to show the most buzzed tickers in the last 7 days. Separate fresh
-discovery from crowded post-move chatter.
-```
-
-## What Buzzberg Can Access
-
-Your MCP key can access:
-
-- Public Buzzberg market-intelligence data.
-- Your own Buzzberg watchlist and saved ideas.
-- Tool-call arguments your AI client sends to Buzzberg.
-
-Your MCP key cannot:
-
-- Place trades.
-- Access your broker, X/Twitter, email, or files.
-- See your full Claude/ChatGPT/Cursor conversation.
-- Read or modify another user's Buzzberg data.
-
-Keep your `bzb_...` key private. Treat it like a password.
-
-## Get Your MCP Key
+## Get Your Key
 
 1. Open Buzzberg.
 2. Go to **Profile -> MCP Access**.
 3. Click **New Key**.
 4. Copy the key that starts with `bzb_`.
 
-## Connect Your AI Agent
+Keep this key private. Treat it like a password.
 
-### Claude Desktop
+## Claude Desktop
 
-Recommended path:
+Use this if you are on the normal Claude desktop app.
+
+1. Open Terminal.
+2. Run:
 
 ```bash
 pip install buzzberg-mcp
 buzzberg-mcp setup --client claude-desktop
 ```
 
-Then fully quit and reopen Claude Desktop.
+3. Paste your `bzb_...` key when setup asks for it. The input is hidden.
+4. Fully quit Claude Desktop (`Cmd+Q` on macOS), then reopen it.
+5. Ask Claude:
 
-### Claude Code
+```text
+Use Buzzberg to get the current price for BTC.
+```
 
-Run this in your terminal:
+## Claude Code
+
+Use this if you work from the `claude` CLI.
 
 ```bash
 export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
@@ -93,19 +48,62 @@ claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
 Then ask:
 
 ```text
-Use Buzzberg to get the current price for BTC.
+Use Buzzberg to deep dive NOK. Who is bullish, what is the bull case, what are the risks, and what should I watch next?
 ```
 
-### Cursor
+## Codex
 
-Recommended path:
+Use this if you want Codex to call Buzzberg tools.
+
+1. Add this to `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.buzzberg]
+url = "https://mcp.buzzberg.ai/mcp"
+bearer_token_env_var = "BUZZBERG_MCP_API_KEY"
+```
+
+2. Start Codex from a shell where the key exists:
+
+```bash
+export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
+codex
+```
+
+3. Ask Codex:
+
+```text
+Use Buzzberg to find the most mentioned tickers in the last 24 hours.
+```
+
+## OpenClaw
+
+OpenClaw supports saved MCP server definitions. Add Buzzberg as a Streamable
+HTTP server:
+
+```bash
+openclaw mcp set buzzberg '{"url":"https://mcp.buzzberg.ai/mcp","transport":"streamable-http","headers":{"Authorization":"Bearer bzb_YOUR_KEY_HERE"}}'
+```
+
+You can check that the definition was saved:
+
+```bash
+openclaw mcp show buzzberg
+```
+
+Note: `openclaw mcp set` saves config. Your OpenClaw runtime decides when to
+open the actual MCP connection.
+
+## Cursor
+
+Recommended:
 
 ```bash
 pip install buzzberg-mcp
 buzzberg-mcp setup --client cursor
 ```
 
-Or add this MCP server in Cursor settings:
+Manual config:
 
 ```json
 {
@@ -120,21 +118,21 @@ Or add this MCP server in Cursor settings:
 }
 ```
 
-### Cline
+## Cline
 
-Recommended path:
+Recommended:
 
 ```bash
 pip install buzzberg-mcp
 buzzberg-mcp setup --client cline
 ```
 
-Or open **Cline -> Settings -> Edit MCP Settings** and add the same
+Manual path: open **Cline -> Settings -> Edit MCP Settings** and add the same
 `mcpServers` JSON block used for Cursor.
 
-### Continue.dev
+## Continue.dev
 
-Recommended path:
+Recommended:
 
 ```bash
 pip install buzzberg-mcp
@@ -147,10 +145,9 @@ Manual config lives in:
 ~/.continue/config.json
 ```
 
-### Python Client
+## Python Client
 
-Use this if you are writing your own MCP client. Do not `POST /mcp`; Buzzberg
-private beta currently uses SSE.
+Use Streamable HTTP for new clients:
 
 ```bash
 pip install mcp
@@ -161,34 +158,64 @@ export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
 import asyncio
 import os
 from mcp import ClientSession
-from mcp.client.sse import sse_client
+from mcp.client.streamable_http import streamablehttp_client
 
 async def main():
     headers = {"Authorization": f"Bearer {os.environ['BUZZBERG_MCP_API_KEY']}"}
-    async with sse_client("https://mcp.buzzberg.ai/sse", headers=headers) as (read, write):
+    async with streamablehttp_client(
+        "https://mcp.buzzberg.ai/mcp",
+        headers=headers,
+    ) as (read, write, _):
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
             print([tool.name for tool in tools.tools])
 
+            result = await session.call_tool(
+                "get_sentiment",
+                arguments={"ticker": "NVDA", "days": 7},
+            )
+            print(result.content[0].text)
+
 asyncio.run(main())
 ```
 
-### Other MCP Clients
-
-Use these settings:
+If your client only supports legacy SSE, use:
 
 ```text
-Transport: SSE
 URL: https://mcp.buzzberg.ai/sse
 Header: Authorization: Bearer bzb_YOUR_KEY_HERE
 ```
 
-### Codex And ChatGPT
+## Any Other MCP Client
 
-Codex and ChatGPT MCP apps generally expect Streamable HTTP. Buzzberg's
-Streamable HTTP `/mcp` endpoint is not live yet, so use Claude Desktop, Claude
-Code, Cursor, or Cline during private beta.
+Use one of these:
+
+```text
+Streamable HTTP URL: https://mcp.buzzberg.ai/mcp
+Legacy SSE URL:       https://mcp.buzzberg.ai/sse
+Header:               Authorization: Bearer bzb_YOUR_KEY_HERE
+```
+
+Prefer Streamable HTTP for new clients. Use SSE for clients that explicitly ask
+for SSE or have no `/mcp` support yet.
+
+## Example Prompts
+
+```text
+Use Buzzberg to deep dive NOK. Explain the bull narrative, who is pushing it,
+what is missing from the bear case, and what I should watch next.
+```
+
+```text
+Use Buzzberg to show the most buzzed tickers in the last 7 days. Separate fresh
+discovery from crowded post-move chatter.
+```
+
+```text
+Use Buzzberg to compare sentiment and mentions vs price for NVDA over the last
+30 days. Tell me if sentiment is leading, confirming, or lagging price.
+```
 
 ## No-Install Manual Setup
 
@@ -230,6 +257,5 @@ python -m pip install /tmp/bz/buzzberg_mcp-*.whl
 - Tools do not appear: fully quit and reopen the client.
 - `401 Unauthorized`: revoke and recreate the key in **Profile -> MCP Access**.
 - `429 Too Many Requests`: close duplicate clients, wait a minute, then reconnect.
-- Python client gets `404` on `/mcp`: use SSE at `https://mcp.buzzberg.ai/sse`.
-- Health check: `curl https://mcp.buzzberg.ai/health` should return
-  `{"status":"ok","service":"buzzberg-mcp"}`.
+- `/mcp` returns `404`: the server deploy has not reached your region yet; use SSE or try again after deploy.
+- Health check: `curl https://mcp.buzzberg.ai/health` should return `{"status":"ok","service":"buzzberg-mcp"}`.
