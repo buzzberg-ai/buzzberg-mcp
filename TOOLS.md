@@ -311,6 +311,29 @@ Read the actual text bodies of content mentioning a ticker.
 
 **Full example:** [examples/read_ticker_content.md](examples/read_ticker_content.md)
 
+## get_recent_source_text
+
+Read source text from the last 24 hours for user-side TLDR workflows.
+
+**Inputs:**
+- `source_type` (required, str)
+- `limit` (optional, int, default `0`)
+- `ticker` (optional, str, default `''`)
+- `speaker_rank_limit` (optional, int, default `0`)
+- `include_all_tweets` (optional, bool, default `False`)
+- `max_chars_per_item` (optional, int, default `0`)
+- `max_total_chars` (optional, int, default `180000`)
+- `include_segments` (optional, bool, default `False`)
+
+**Example prompt:**
+> "Read the last 24 hours of top-speaker Twitter trade-idea tweets and summarize the main market themes, crowded trades, and repeated words."
+
+**Returns:** Markdown response from `get_recent_source_text`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_recent_source_text.md](examples/get_recent_source_text.md)
+
 ## add_to_watchlist
 
 [BETA] Add a ticker to user's watchlist.

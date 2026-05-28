@@ -462,6 +462,62 @@
       "summary": "Read the actual text bodies of content mentioning a ticker."
     },
     {
+      "name": "get_recent_source_text",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 0
+        },
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "speaker_rank_limit",
+          "type": "int",
+          "required": false,
+          "default": 0
+        },
+        {
+          "name": "include_all_tweets",
+          "type": "bool",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "max_chars_per_item",
+          "type": "int",
+          "required": false,
+          "default": 0
+        },
+        {
+          "name": "max_total_chars",
+          "type": "int",
+          "required": false,
+          "default": 180000
+        },
+        {
+          "name": "include_segments",
+          "type": "bool",
+          "required": false,
+          "default": false
+        }
+      ],
+      "returns": "str",
+      "summary": "Read source text from the last 24 hours for user-side TLDR workflows."
+    },
+    {
       "name": "add_to_watchlist",
       "scope": "write",
       "parameters": [

@@ -27,16 +27,41 @@ Keep this key private. Treat it like a password.
 
 #### Claude Desktop
 
-1. Open Terminal.
-2. Run:
+**Fast path:**
 
 ```bash
 pip install buzzberg-mcp
 buzzberg-mcp setup --client claude-desktop
 ```
 
-3. Paste your `bzb_...` key when setup asks for it. The input is hidden.
-4. Fully quit Claude Desktop (`Cmd+Q` on macOS), then reopen it.
+Paste your `bzb_...` key when setup asks for it, then fully quit and reopen
+Claude Desktop.
+
+**No pip / manual path:**
+
+1. Open your Claude Desktop config file:
+   - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+2. Add:
+
+```json
+{
+  "mcpServers": {
+    "buzzberg": {
+      "url": "https://mcp.buzzberg.ai/sse",
+      "headers": {
+        "Authorization": "Bearer bzb_YOUR_KEY_HERE"
+      }
+    }
+  }
+}
+```
+
+3. Fully quit and reopen Claude Desktop.
+
+Claude's **Settings -> Connectors -> Add custom connector** flow is coming
+after Buzzberg adds OAuth. Today that UI does not accept user-pasted static
+Bearer keys, so the local config path above is the working Claude Desktop path.
 
 #### Claude Code
 
@@ -110,6 +135,9 @@ research read:
 - **[Build a watchlist from top-speaker signals](sessions/new-watchlist-from-signals.md)** —
   auto-curate first-time mentions and direction flips from the top-30 speakers
   in the last 24 hours.
+- **Daily source TLDRs** — read public/free Substack text, YouTube transcripts,
+  or top-speaker trade-idea tweets from the last 24 hours and ask your AI agent
+  to summarize themes, crowded trades, repeated words, and disagreements.
 
 ## Using It From Your Own Code
 
@@ -130,7 +158,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 20 tools
+            print([t.name for t in tools.tools])  # 21 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -187,9 +215,9 @@ Buzzberg exposes two MCP transports:
 
 ## Tools
 
-Buzzberg exposes 20 tools — read (`search_trade_ideas`, `get_top_speakers`,
+Buzzberg exposes 21 tools — read (`search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
-`get_top_sentiment_tickers`, `get_portfolio`, `get_price`, ...) and write
+`get_top_sentiment_tickers`, `get_recent_source_text`, `get_portfolio`, `get_price`, ...) and write
 (`add_to_watchlist`, `save_trade_idea`, ...). See [TOOLS.md](TOOLS.md) for
 signatures and per-tool examples in [examples/](examples).
 
