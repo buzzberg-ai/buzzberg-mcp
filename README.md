@@ -12,32 +12,48 @@ Buzzberg MCP connects Claude, Cursor, Cline, Continue.dev, and other MCP clients
 to Buzzberg market intelligence: trade ideas, sentiment, speakers, prices, and
 watchlist actions for your own Buzzberg account.
 
-## Quickstart
+## Connect Your AI Agent
 
-Get your key first:
+### 1. Get Your Buzzberg Key
 
 1. Open Buzzberg.
 2. Go to **Profile -> MCP Access**.
-3. Click **New Key** and copy the `bzb_...` key.
+3. Click **New Key**.
+4. Copy the key that starts with `bzb_`.
 
-Then install and configure:
+Keep this key private. Treat it like a password.
+
+### 2. Choose Your Client
+
+| Client | Setup |
+|---|---|
+| Claude Desktop | `pip install buzzberg-mcp` then `buzzberg-mcp setup --client claude-desktop` |
+| Claude Code | Run the command below |
+| Cursor | `pip install buzzberg-mcp` then `buzzberg-mcp setup --client cursor` |
+| Cline | `pip install buzzberg-mcp` then `buzzberg-mcp setup --client cline` |
+| Continue.dev | `pip install buzzberg-mcp` then `buzzberg-mcp setup --client continue` |
+| Python client | Use the SSE example in [INSTALL.md](INSTALL.md#python-client) |
+
+For Claude Desktop, Cursor, Cline, and Continue.dev:
 
 ```bash
 pip install buzzberg-mcp
 buzzberg-mcp setup
 ```
 
-`pip install` does not need your key. `buzzberg-mcp setup` will ask for it with
-hidden input, then write the client config for Claude Desktop, Cursor, Cline, or
-Continue.dev.
+The setup command asks for your key with hidden input and writes the MCP config
+for you.
 
-Claude Code users can also use the direct command:
+For Claude Code:
 
 ```bash
 export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
 claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
   --header "Authorization: Bearer $BUZZBERG_MCP_API_KEY"
 ```
+
+Private beta currently uses SSE at `https://mcp.buzzberg.ai/sse`. Streamable
+HTTP `/mcp` is not live yet.
 
 ## What You Can Do With It
 
