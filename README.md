@@ -139,6 +139,30 @@ research read:
   or top-speaker trade-idea tweets from the last 24 hours and ask your AI agent
   to summarize themes, crowded trades, repeated words, and disagreements.
 
+### Example Prompts
+
+```text
+Use Buzzberg to summarize the last 24h of top-50 speaker tweets.
+What are the main themes, crowded trades, new tickers, and disagreements?
+Quote examples.
+```
+
+```text
+Use Buzzberg to read public Substack text from the last 24h.
+Give me a market TLDR and list tickers with the strongest narratives.
+```
+
+```text
+Use Buzzberg to read YouTube transcripts from the last 24h.
+What are speakers worried about that is not obvious from price action?
+```
+
+```text
+Use Buzzberg Twitter data from top-50 speakers.
+How many times did they mention "bottleneck", "power", "AI capex", and "memory"?
+Quote examples.
+```
+
 ## Using It From Your Own Code
 
 If you don't use Claude Desktop / Cursor / Cline / Continue, you can talk to

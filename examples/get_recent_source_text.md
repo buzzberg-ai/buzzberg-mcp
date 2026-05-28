@@ -57,6 +57,52 @@ Tool call:
 }
 ```
 
+## Repeated Words / Keyword Count
+
+Prompt:
+
+> Use Buzzberg Twitter data from top-50 speakers. How many times did they
+> mention "bottleneck", "power", "AI capex", and "memory" in the last 24 hours?
+> Quote examples and explain which tickers each theme points to.
+
+Tool call:
+
+```json
+{
+  "source_type": "twitter",
+  "speaker_rank_limit": 50,
+  "limit": 200
+}
+```
+
+Claude/Codex can count words and phrases from the returned tweet text. Buzzberg
+does not pre-compute the word count in this tool; the agent does it from the
+source text it receives.
+
+## Questions Users Can Ask
+
+```text
+Use Buzzberg to summarize the last 24h of top-50 speaker tweets.
+What are the main themes, crowded trades, new tickers, and disagreements?
+Quote examples.
+```
+
+```text
+Use Buzzberg to read public Substack text from the last 24h.
+Give me a market TLDR and list tickers with the strongest narratives.
+```
+
+```text
+Use Buzzberg to read YouTube transcripts from the last 24h.
+What are speakers worried about that is not obvious from price action?
+```
+
+```text
+Use Buzzberg Twitter data from top-50 speakers.
+How many times did they mention "bottleneck", "power", "AI capex", and "memory"?
+Quote examples.
+```
+
 ## Notes
 
 - This tool is capped to the last 24 hours during private beta.
