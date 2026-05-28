@@ -23,28 +23,49 @@ watchlist actions for your own Buzzberg account.
 
 Keep this key private. Treat it like a password.
 
-### 2. Choose Your Client
+### 2. Connect Your Client
 
-| Client | Setup |
-|---|---|
-| Claude Desktop | `pip install buzzberg-mcp` then `buzzberg-mcp setup --client claude-desktop` |
-| Claude Code | Run the command below |
-| Cursor | `pip install buzzberg-mcp` then `buzzberg-mcp setup --client cursor` |
-| Cline | `pip install buzzberg-mcp` then `buzzberg-mcp setup --client cline` |
-| Continue.dev | `pip install buzzberg-mcp` then `buzzberg-mcp setup --client continue` |
-| Python client | Use the SSE example in [INSTALL.md](INSTALL.md#python-client) |
+#### Claude Desktop
 
-For Claude Desktop, Cursor, Cline, and Continue.dev:
+**Fast path:**
 
 ```bash
 pip install buzzberg-mcp
-buzzberg-mcp setup
+buzzberg-mcp setup --client claude-desktop
 ```
 
-The setup command asks for your key with hidden input and writes the MCP config
-for you.
+Paste your `bzb_...` key when setup asks for it, then fully quit and reopen
+Claude Desktop.
 
-For Claude Code:
+**No pip / manual path:**
+
+1. Open your Claude Desktop config file:
+   - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+2. Add:
+
+```json
+{
+  "mcpServers": {
+    "buzzberg": {
+      "url": "https://mcp.buzzberg.ai/sse",
+      "headers": {
+        "Authorization": "Bearer bzb_YOUR_KEY_HERE"
+      }
+    }
+  }
+}
+```
+
+3. Fully quit and reopen Claude Desktop.
+
+Claude's **Settings -> Connectors -> Add custom connector** flow is coming
+after Buzzberg adds OAuth. Today that UI does not accept user-pasted static
+Bearer keys, so the local config path above is the working Claude Desktop path.
+
+#### Claude Code
+
+Run this in Terminal:
 
 ```bash
 export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
@@ -52,8 +73,41 @@ claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
   --header "Authorization: Bearer $BUZZBERG_MCP_API_KEY"
 ```
 
-Private beta currently uses SSE at `https://mcp.buzzberg.ai/sse`. Streamable
-HTTP `/mcp` is not live yet.
+#### Codex
+
+Codex uses Streamable HTTP. Add this to `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.buzzberg]
+url = "https://mcp.buzzberg.ai/mcp"
+bearer_token_env_var = "BUZZBERG_MCP_API_KEY"
+```
+
+Then start Codex from a shell where the key is available:
+
+```bash
+export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
+codex
+```
+
+#### OpenClaw
+
+OpenClaw can save remote MCP servers with Streamable HTTP:
+
+```bash
+openclaw mcp set buzzberg '{"url":"https://mcp.buzzberg.ai/mcp","transport":"streamable-http","headers":{"Authorization":"Bearer bzb_YOUR_KEY_HERE"}}'
+```
+
+#### Cursor, Cline, Continue.dev
+
+The helper can write the config for these clients too:
+
+```bash
+pip install buzzberg-mcp
+buzzberg-mcp setup --client cursor      # or: cline / continue
+```
+
+More client-by-client setup options are in [INSTALL.md](INSTALL.md).
 
 ## What You Can Do With It
 
@@ -81,27 +135,54 @@ research read:
 - **[Build a watchlist from top-speaker signals](sessions/new-watchlist-from-signals.md)** —
   auto-curate first-time mentions and direction flips from the top-30 speakers
   in the last 24 hours.
+- **Daily source TLDRs** — read public/free Substack text, YouTube transcripts,
+  or top-speaker trade-idea tweets from the last 24 hours and ask your AI agent
+  to summarize themes, crowded trades, repeated words, and disagreements.
+
+### Example Prompts
+
+```text
+Use Buzzberg to summarize the last 24h of top-50 speaker tweets.
+What are the main themes, crowded trades, new tickers, and disagreements?
+Quote examples.
+```
+
+```text
+Use Buzzberg to read public Substack text from the last 24h.
+Give me a market TLDR and list tickers with the strongest narratives.
+```
+
+```text
+Use Buzzberg to read YouTube transcripts from the last 24h.
+What are speakers worried about that is not obvious from price action?
+```
+
+```text
+Use Buzzberg Twitter data from top-50 speakers.
+How many times did they mention "bottleneck", "power", "AI capex", and "memory"?
+Quote examples.
+```
 
 ## Using It From Your Own Code
 
 If you don't use Claude Desktop / Cursor / Cline / Continue, you can talk to
-the MCP server directly with the official Python SDK. ~10 lines:
+the MCP server directly with the official Python SDK over Streamable HTTP:
 
 ```python
 import asyncio
 from mcp import ClientSession
-from mcp.client.sse import sse_client
+from mcp.client.streamable_http import streamablehttp_client
 
 async def main():
     headers = {"Authorization": "Bearer bzb_YOUR_KEY_HERE"}
-    async with sse_client(
-        "https://mcp.buzzberg.ai/sse",
+    async with streamablehttp_client(
+        "https://mcp.buzzberg.ai/mcp",
         headers=headers,
-    ) as (read, write):
+    ) as (read, write, _):
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 20 tools
+            print([t.name for t in tools.tools])  # 21 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -112,11 +193,10 @@ async def main():
 asyncio.run(main())
 ```
 
-If your agent framework supports MCP SSE servers with custom auth headers
-(LangChain, AutoGen, Anthropic Agent SDK and similar generally do), point it
-at `https://mcp.buzzberg.ai/sse` with the Bearer header. Full walkthrough
-including Windows PowerShell and corporate-laptop ("no install allowed") paths
-is in [INSTALL.md](INSTALL.md).
+If your agent framework only supports legacy SSE, use
+`https://mcp.buzzberg.ai/sse` with the same `Authorization: Bearer ...` header.
+Full walkthrough including Windows PowerShell and corporate-laptop
+("no install allowed") paths is in [INSTALL.md](INSTALL.md).
 
 ## What Your Key Can Do
 
@@ -141,24 +221,27 @@ arguments.
 
 | Client | Status |
 |---|---|
-| Claude Desktop | Supported |
-| Claude Code | Supported via SSE beta transport |
+| Claude Desktop | Supported via helper installer |
+| Claude Code | Supported via SSE |
+| Codex | Supported via Streamable HTTP `/mcp` |
+| OpenClaw | Supported via Streamable HTTP `/mcp` |
 | Cursor | Supported |
 | Cline | Supported |
 | Continue.dev | Supported |
-| Custom Python (mcp SDK) | Supported — see [INSTALL.md option 4](INSTALL.md#option-4-python-client) |
+| Custom Python (mcp SDK) | Supported via Streamable HTTP `/mcp` |
 | Claude Mobile | Works only where custom headers are available |
 | Agent SDK | Manual config supported |
 
-Private beta currently uses SSE at `https://mcp.buzzberg.ai/sse`. Streamable
-HTTP `/mcp` ships before broader beta; `/sse` will remain for legacy clients for
-a migration window.
+Buzzberg exposes two MCP transports:
+
+- Streamable HTTP: `https://mcp.buzzberg.ai/mcp` for Codex, OpenClaw, and newer agents.
+- Legacy SSE: `https://mcp.buzzberg.ai/sse` for Claude Desktop, Claude Code, Cursor, Cline, and older clients.
 
 ## Tools
 
-Buzzberg exposes 20 tools — read (`search_trade_ideas`, `get_top_speakers`,
+Buzzberg exposes 21 tools — read (`search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
-`get_top_sentiment_tickers`, `get_portfolio`, `get_price`, ...) and write
+`get_top_sentiment_tickers`, `get_recent_source_text`, `get_portfolio`, `get_price`, ...) and write
 (`add_to_watchlist`, `save_trade_idea`, ...). See [TOOLS.md](TOOLS.md) for
 signatures and per-tool examples in [examples/](examples).
 
