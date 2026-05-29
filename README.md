@@ -149,8 +149,8 @@ What Buzzberg sends to the AI agent:
 - **YouTube:** transcript text from the last 24 hours, with timestamped
   segments when available.
 - **Twitter/X:** top-speaker tweets from the last 24 hours where Buzzberg found
-  trade ideas, including the full tweet text, speaker, tickers, and idea
-  direction.
+  ticker ideas, including the full tweet text, speaker, tickers, and direction:
+  `LONG`, `SHORT`, `WATCH`, `AVOID`, or `NEUTRAL`. This is not every tweet.
 - **Ticker research:** mentions, sentiment, trade ideas, speaker profiles,
   price snapshots, and daily sentiment/mention history for chart-style reads.
 
