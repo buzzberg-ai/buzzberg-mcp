@@ -39,6 +39,16 @@ Use Buzzberg to get the current price for BTC.
 
 Use this if you work from the `claude` CLI.
 
+Ask Claude Code:
+
+```text
+Add Buzzberg as an MCP server.
+Use SSE URL https://mcp.buzzberg.ai/sse.
+Use Authorization: Bearer from my BUZZBERG_MCP_API_KEY environment variable.
+```
+
+Or run this manually:
+
 ```bash
 export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
 claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
@@ -54,6 +64,17 @@ Use Buzzberg to deep dive NOK. Who is bullish, what is the bull case, what are t
 ## Codex
 
 Use this if you want Codex to call Buzzberg tools.
+
+Ask Codex:
+
+```text
+Add Buzzberg MCP to my Codex config.
+Use Streamable HTTP URL https://mcp.buzzberg.ai/mcp.
+Use bearer_token_env_var = "BUZZBERG_MCP_API_KEY".
+Do not paste the secret key into the config file.
+```
+
+Manual setup:
 
 1. Add this to `~/.codex/config.toml`:
 
@@ -78,8 +99,17 @@ Use Buzzberg to find the most mentioned tickers in the last 24 hours.
 
 ## OpenClaw
 
-OpenClaw supports saved MCP server definitions. Add Buzzberg as a Streamable
-HTTP server:
+OpenClaw supports saved MCP server definitions.
+
+Ask OpenClaw:
+
+```text
+Add Buzzberg as a remote MCP server.
+Use Streamable HTTP URL https://mcp.buzzberg.ai/mcp.
+Send Authorization: Bearer bzb_YOUR_KEY_HERE.
+```
+
+Manual setup:
 
 ```bash
 openclaw mcp set buzzberg '{"url":"https://mcp.buzzberg.ai/mcp","transport":"streamable-http","headers":{"Authorization":"Bearer bzb_YOUR_KEY_HERE"}}'
