@@ -9,7 +9,7 @@ Prompt:
 
 > Use Buzzberg to read Substack posts from the last 24 hours. Summarize the
 > main market themes, tickers, bullish theses, bearish theses, and what changed
-> today. Mention that paid posts include only the public/free preview.
+> today. Quote examples.
 
 Tool call:
 
@@ -26,14 +26,15 @@ Prompt:
 
 > Use Buzzberg to read YouTube transcripts from the last 24 hours. Give me the
 > top market narratives, tickers discussed, speaker disagreements, and anything
-> that sounds like a new risk.
+> that sounds like a new risk. Quote examples.
 
 Tool call:
 
 ```json
 {
   "source_type": "youtube",
-  "limit": 10,
+  "limit": 30,
+  "max_chars_per_item": 80000,
   "include_segments": true
 }
 ```
@@ -43,9 +44,9 @@ Tool call:
 Prompt:
 
 > Use Buzzberg to read tweets from top-50 speakers in the last 24 hours. Only
-> use tweets where Buzzberg found trade ideas. Summarize the main topics,
-> crowded trades, new tickers, disagreements, and repeated words like
-> "bottleneck" or "power".
+> use tweets where Buzzberg found ticker ideas: LONG, SHORT, WATCH, AVOID, or
+> NEUTRAL. Summarize the main topics, crowded trades, new tickers,
+> disagreements, and repeated words like "bottleneck" or "power".
 
 Tool call:
 
@@ -106,7 +107,7 @@ Quote examples.
 ## Notes
 
 - This tool is capped to the last 24 hours during private beta.
-- Paid Substack posts return only the public/free portion visible before the
-  paywall.
-- Twitter defaults to Buzzberg trade-idea tweets, not every tweet.
+- Subscriber-only Substack text is not returned.
+- Twitter defaults to Buzzberg ticker-idea tweets, not every tweet. `WATCH` and
+  `AVOID` are included because they are still useful market signals.
 - YouTube can return timestamped transcript segments when available.

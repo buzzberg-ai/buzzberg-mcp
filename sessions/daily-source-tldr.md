@@ -4,7 +4,7 @@ Use this when you want Claude, Codex, or another MCP client to read the last 24
 hours of Buzzberg source material and write a market TLDR.
 
 This is not a price screen. It is a source-reading workflow: Buzzberg returns
-the underlying public text, transcript, or trade-idea tweet text, and your AI
+the underlying public text, transcript, or ticker-idea tweet text, and your AI
 agent turns it into a summary with themes, examples, disagreements, and tickers.
 
 ## Top-50 Speaker Tweets
@@ -20,11 +20,16 @@ Quote examples.
 What Buzzberg provides:
 
 - Full text of top-speaker tweets from the last 24 hours where Buzzberg found a
-  trade idea.
+  ticker idea.
 - Speaker handle and speaker rank when available.
 - Tickers attached to the tweet.
-- Buzzberg trade idea direction, such as long, short, watch, or avoid.
+- Buzzberg direction: `LONG`, `SHORT`, `WATCH`, `AVOID`, or `NEUTRAL`.
 - Source URL.
+
+Default mode is high-signal: it does **not** return every tweet by the top-50
+speakers. It returns tweets that Buzzberg mapped to a ticker idea. In practice,
+100-200 items is already enough for a strong daily TLDR; use more only when you
+want keyword counts or broader theme mining.
 
 Good follow-ups:
 
@@ -53,7 +58,7 @@ Quote examples.
 What Buzzberg provides:
 
 - Public/free newsletter or Substack text from the last 24 hours.
-- For paid posts, only the public preview visible before the paywall.
+- Subscriber-only text is not returned.
 - Title, author/source, URL, published time, and related tickers when available.
 
 Good follow-ups:
@@ -85,6 +90,10 @@ What Buzzberg provides:
 - Transcript text from YouTube videos ingested in the last 24 hours.
 - Timestamped transcript segments when available.
 - Speaker/source, video URL, title, and related tickers when available.
+
+Long videos may be truncated so the MCP client does not freeze on huge
+transcripts. Ask for a larger cap only when you need more quote depth from a
+specific video.
 
 Good follow-ups:
 
@@ -130,6 +139,6 @@ Which theme is most underpriced based on low mentions but strong conviction?
 ## Limits During Private Beta
 
 - This source-reading tool is capped to the last 24 hours.
-- Paid Substack content is not returned beyond the public/free preview.
-- Twitter defaults to trade-idea tweets, not every tweet from every speaker.
+- Subscriber-only Substack content is not returned.
+- Twitter defaults to ticker-idea tweets, not every tweet from every speaker.
 - Large responses are capped so clients do not freeze on huge transcripts.
