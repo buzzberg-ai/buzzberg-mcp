@@ -65,7 +65,15 @@ Bearer keys, so the local config path above is the working Claude Desktop path.
 
 #### Claude Code
 
-Run this in Terminal:
+**Ask Claude Code:**
+
+```text
+Add Buzzberg as an MCP server.
+Use SSE URL https://mcp.buzzberg.ai/sse.
+Use Authorization: Bearer from my BUZZBERG_MCP_API_KEY environment variable.
+```
+
+**Or set it up manually:**
 
 ```bash
 export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
@@ -75,7 +83,18 @@ claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
 
 #### Codex
 
-Codex uses Streamable HTTP. Add this to `~/.codex/config.toml`:
+Codex uses Streamable HTTP.
+
+**Ask Codex:**
+
+```text
+Add Buzzberg MCP to my Codex config.
+Use Streamable HTTP URL https://mcp.buzzberg.ai/mcp.
+Use bearer_token_env_var = "BUZZBERG_MCP_API_KEY".
+Do not paste the secret key into the config file.
+```
+
+**Or edit `~/.codex/config.toml` manually:**
 
 ```toml
 [mcp_servers.buzzberg]
@@ -92,7 +111,15 @@ codex
 
 #### OpenClaw
 
-OpenClaw can save remote MCP servers with Streamable HTTP:
+**Ask OpenClaw:**
+
+```text
+Add Buzzberg as a remote MCP server.
+Use Streamable HTTP URL https://mcp.buzzberg.ai/mcp.
+Send Authorization: Bearer bzb_YOUR_KEY_HERE.
+```
+
+**Or run this manually:**
 
 ```bash
 openclaw mcp set buzzberg '{"url":"https://mcp.buzzberg.ai/mcp","transport":"streamable-http","headers":{"Authorization":"Bearer bzb_YOUR_KEY_HERE"}}'
