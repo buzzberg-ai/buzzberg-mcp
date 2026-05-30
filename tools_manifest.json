@@ -505,7 +505,7 @@
           "name": "max_total_chars",
           "type": "int",
           "required": false,
-          "default": 180000
+          "default": 220000
         },
         {
           "name": "include_segments",

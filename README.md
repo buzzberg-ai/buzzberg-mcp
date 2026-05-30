@@ -16,10 +16,13 @@ watchlist actions for your own Buzzberg account.
 
 ### 1. Get Your Buzzberg Key
 
-1. Open Buzzberg.
-2. Go to **Profile -> MCP Access**.
-3. Click **New Key**.
-4. Copy the key that starts with `bzb_`.
+Buzzberg MCP is in private beta.
+
+1. Request a demo key: email [hello@buzzberg.ai](mailto:hello@buzzberg.ai).
+2. If you already have beta access, open Buzzberg.
+3. Go to **Profile -> MCP Access**.
+4. Click **New Key**.
+5. Copy the key that starts with `bzb_`.
 
 Keep this key private. Treat it like a password.
 
@@ -81,6 +84,9 @@ claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
   --header "Authorization: Bearer $BUZZBERG_MCP_API_KEY"
 ```
 
+Run manual commands only on a trusted machine. Prefer environment-variable
+based setup over pasting the raw key into long-lived config or support logs.
+
 #### Codex
 
 Codex uses Streamable HTTP.
@@ -124,6 +130,9 @@ Send Authorization: Bearer bzb_YOUR_KEY_HERE.
 ```bash
 openclaw mcp set buzzberg '{"url":"https://mcp.buzzberg.ai/mcp","transport":"streamable-http","headers":{"Authorization":"Bearer bzb_YOUR_KEY_HERE"}}'
 ```
+
+This manual form stores the Bearer key in your OpenClaw config. Use it only on a
+trusted machine; if your client supports environment-backed secrets, prefer that.
 
 #### Cursor, Cline, Continue.dev
 
