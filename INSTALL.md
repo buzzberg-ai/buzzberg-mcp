@@ -8,10 +8,13 @@ You need one thing first: a Buzzberg MCP key.
 
 ## Get Your Key
 
-1. Open Buzzberg.
-2. Go to **Profile -> MCP Access**.
-3. Click **New Key**.
-4. Copy the key that starts with `bzb_`.
+Buzzberg MCP is in private beta.
+
+1. Request a demo key: email [hello@buzzberg.ai](mailto:hello@buzzberg.ai).
+2. If you already have beta access, open Buzzberg.
+3. Go to **Profile -> MCP Access**.
+4. Click **New Key**.
+5. Copy the key that starts with `bzb_`.
 
 Keep this key private. Treat it like a password.
 
@@ -54,6 +57,9 @@ export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
 claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
   --header "Authorization: Bearer $BUZZBERG_MCP_API_KEY"
 ```
+
+Run manual commands only on a trusted machine. Prefer environment-variable
+based setup over pasting the raw key into long-lived config or support logs.
 
 Then ask:
 
@@ -114,6 +120,9 @@ Manual setup:
 ```bash
 openclaw mcp set buzzberg '{"url":"https://mcp.buzzberg.ai/mcp","transport":"streamable-http","headers":{"Authorization":"Bearer bzb_YOUR_KEY_HERE"}}'
 ```
+
+This manual form stores the Bearer key in your OpenClaw config. Use it only on a
+trusted machine; if your client supports environment-backed secrets, prefer that.
 
 You can check that the definition was saved:
 
@@ -285,7 +294,7 @@ python -m pip install /tmp/bz/buzzberg_mcp-*.whl
 ## Troubleshooting
 
 - Tools do not appear: fully quit and reopen the client.
-- `401 Unauthorized`: revoke and recreate the key in **Profile -> MCP Access**.
+- `401 Unauthorized`: revoke and recreate the key in **Profile -> MCP Access**, or request a demo key if you do not have beta access yet.
 - `429 Too Many Requests`: close duplicate clients, wait a minute, then reconnect.
 - `/mcp` returns `404`: the server deploy has not reached your region yet; use SSE or try again after deploy.
 - Health check: `curl https://mcp.buzzberg.ai/health` should return `{"status":"ok","service":"buzzberg-mcp"}`.

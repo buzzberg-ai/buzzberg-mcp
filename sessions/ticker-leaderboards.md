@@ -62,3 +62,8 @@ Ask Claude to write a market-intelligence read:
 - Use `history=True` when you want charts or a narrative timeline.
 - Use `min_mentions=5` or higher for sentiment rankings; otherwise one very
   bullish post can dominate the leaderboard.
+- `days=1` is the current 24h window. Arbitrary `since_hours=12` style
+  leaderboards are planned, but not live yet.
+- To find acceleration today, compare `days=1` against `days=7` and ask your
+  agent to rank tickers by today's share of weekly mentions. A dedicated
+  acceleration/crowding tool is on the roadmap.

@@ -16,10 +16,13 @@ watchlist actions for your own Buzzberg account.
 
 ### 1. Get Your Buzzberg Key
 
-1. Open Buzzberg.
-2. Go to **Profile -> MCP Access**.
-3. Click **New Key**.
-4. Copy the key that starts with `bzb_`.
+Buzzberg MCP is in private beta.
+
+1. Request a demo key: email [hello@buzzberg.ai](mailto:hello@buzzberg.ai).
+2. If you already have beta access, open Buzzberg.
+3. Go to **Profile -> MCP Access**.
+4. Click **New Key**.
+5. Copy the key that starts with `bzb_`.
 
 Keep this key private. Treat it like a password.
 
@@ -81,6 +84,9 @@ claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
   --header "Authorization: Bearer $BUZZBERG_MCP_API_KEY"
 ```
 
+Run manual commands only on a trusted machine. Prefer environment-variable
+based setup over pasting the raw key into long-lived config or support logs.
+
 #### Codex
 
 Codex uses Streamable HTTP.
@@ -124,6 +130,9 @@ Send Authorization: Bearer bzb_YOUR_KEY_HERE.
 ```bash
 openclaw mcp set buzzberg '{"url":"https://mcp.buzzberg.ai/mcp","transport":"streamable-http","headers":{"Authorization":"Bearer bzb_YOUR_KEY_HERE"}}'
 ```
+
+This manual form stores the Bearer key in your OpenClaw config. Use it only on a
+trusted machine; if your client supports environment-backed secrets, prefer that.
 
 #### Cursor, Cline, Continue.dev
 
@@ -204,9 +213,30 @@ Ready-made workflows:
 - **[Contrarian scan](sessions/contrarian-scan.md)** — tickers where
   smart-money disagrees the most, ranked by sentiment spread. High-volatility
   setups where the camps are obvious.
-- **[Build a watchlist from top-speaker signals](sessions/new-watchlist-from-signals.md)** —
-  auto-curate first-time mentions and direction flips from the top-30 speakers
-  in the last 24 hours.
+- **[Draft a watchlist from top-speaker signals](sessions/new-watchlist-from-signals.md)** —
+  surface first-time mentions and direction flips from the top-30 speakers in
+  the last 24 hours; add tickers only after you explicitly confirm.
+
+Tool recipes behind the examples:
+
+| Research question | Buzzberg tools to ask your agent to use |
+|---|---|
+| "What are top speakers talking about today?" | `get_recent_source_text(source_type="twitter", speaker_rank_limit=50)` + `get_top_speaker_signals(top_n=50, window="24h")` |
+| "Give me the YouTube TLDR for the last 24h" | `get_recent_source_text(source_type="youtube", include_segments=True)` |
+| "Give me the newsletter/Substack TLDR for the last 24h" | `get_recent_source_text(source_type="newsletter")` |
+| "Which tickers are most buzzed today vs this week?" | `get_most_mentioned_tickers(days=1, history=True)` + `get_most_mentioned_tickers(days=7, history=True)` |
+| "Which tickers have extreme bullish/bearish sentiment?" | `get_top_sentiment_tickers(days=7, min_mentions=5, direction="bullish")` and `direction="bearish"` |
+| "Deep dive NOK/NVDA/OUST" | `get_ticker_info`, `get_ticker_mentions`, `search_trade_ideas`, `read_ticker_content`, `compare_speakers`, `get_ticker_timeseries` |
+| "Sentiment or mentions vs price chart" | `get_ticker_timeseries(ticker="...", days=30/60/90)` |
+
+Beta limitations to know:
+
+- Leaderboards use day windows (`days=1`, `7`, `30`), not arbitrary
+  `since_hours` yet.
+- `search_content` is title/name search. Full-text search across tweets,
+  transcripts, and newsletter bodies is on the roadmap.
+- Write tools can change your Buzzberg account. Ask your agent to show a draft
+  first and call `add_to_watchlist` only after you confirm.
 
 ## Using It From Your Own Code
 

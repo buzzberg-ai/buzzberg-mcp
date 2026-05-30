@@ -61,8 +61,10 @@ inside a tool argument.
 
 ## Key Lifecycle
 
-Create keys in Buzzberg Profile -> MCP Access. Revoke keys from the same page.
-Revoked keys stop authenticating once their `revoked_at` timestamp is set.
+Buzzberg MCP is in private beta. Request a demo key at
+[hello@buzzberg.ai](mailto:hello@buzzberg.ai). If you already have beta access,
+create keys in Buzzberg Profile -> MCP Access and revoke keys from the same
+page. Revoked keys stop authenticating once their `revoked_at` timestamp is set.
 
 If the server is compromised, Buzzberg will revoke all active MCP keys, require
 re-issue, and email active MCP users within 72 hours.
