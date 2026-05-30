@@ -1,21 +1,22 @@
-# Build A Watchlist From Top-Speaker Signals
+# Draft A Watchlist From Top-Speaker Signals
 
-Auto-curate a watchlist of names that just hit your radar from high-Alpha
-speakers in a given window — first-time mentions and direction flips only,
-filtering out re-iterated existing calls.
+Draft a watchlist of names that just hit your radar from high-Alpha speakers in
+a given window — first-time mentions and direction flips only, filtering out
+re-iterated existing calls. This workflow should show candidates first and only
+write to your account after you explicitly confirm.
 
 ## The ask
 
-> Build me a fresh watchlist from the top-30 speakers' first-time and
-> direction-flip calls in the last 24 hours. Show direction and source,
-> and add the names to my watchlist.
+> Draft a fresh watchlist from the top-30 speakers' first-time and
+> direction-flip calls in the last 24 hours. Show direction, source, and why
+> each ticker is interesting. Do not add anything yet; ask me to confirm first.
 
 ## Tools Claude will chain
 
 1. `get_top_speaker_signals(top_n=30, window="24h", signal="first_flip")` —
    surfaces only first-mention and flip events, skips noise
-2. For each ticker returned → `add_to_watchlist(ticker=...)` (write tool,
-   scoped to your user account)
+2. Optional, only after explicit user confirmation:
+   `add_to_watchlist(ticker=...)` (write tool, scoped to your user account)
 
 ## What you'll get (illustrative)
 
@@ -33,7 +34,8 @@ Fresh signals table (last 24h):
 > | FLIP | IREN | 🔴 SHORT | Daniel Koss | 6h ago |
 > | FLIP | SPY | 🔴 SHORT | Labubu Trader | 4h ago |
 
-When you ask Claude to add them, you'll see:
+If you then say "add the LONG candidates", your agent can call the write tool
+and you'll see:
 
 > Added to your watchlist:
 > - POWI, VICR, AOSL, VSH, WOLF (basket from ren_aramb, semis supply chain)
@@ -47,7 +49,8 @@ When you ask Claude to add them, you'll see:
 - *"Why did frenchie_ flip on AMD? What was the previous direction?"* →
   `search_trade_ideas(ticker="AMD", speaker="frenchie_", days=30)`
 - *"Filter the watchlist add to LONGs only — skip the SHORT flips"* →
-  ask Claude to filter the result list before calling `add_to_watchlist`
+  ask Claude to filter the result list, show the draft, then call
+  `add_to_watchlist` only after you confirm
 
 ## Signal types
 
