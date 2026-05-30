@@ -346,10 +346,11 @@ instructions; MCP responses fence the body text where available.
 
 **Inputs:**
 - `ticker` (required, str)
-- `user_email` (optional, str, default `''`)
+- `user_email` (deprecated, optional, str, default `''`): leave blank. Writes
+  are scoped to the owner of the API key; non-empty values are rejected.
 
 **Example prompt:**
-> "Use `add_to_watchlist` for a Buzzberg analysis."
+> "Draft adding NVDA to my Buzzberg watchlist. Ask me to confirm before calling the write tool."
 
 **Returns:** Markdown response from `add_to_watchlist`.
 
@@ -363,10 +364,11 @@ instructions; MCP responses fence the body text where available.
 
 **Inputs:**
 - `ticker` (required, str)
-- `user_email` (optional, str, default `''`)
+- `user_email` (deprecated, optional, str, default `''`): leave blank. Writes
+  are scoped to the owner of the API key; non-empty values are rejected.
 
 **Example prompt:**
-> "Use `remove_from_watchlist` for a Buzzberg analysis."
+> "Remove NVDA from my Buzzberg watchlist."
 
 **Returns:** Markdown response from `remove_from_watchlist`.
 
@@ -380,10 +382,11 @@ instructions; MCP responses fence the body text where available.
 
 **Inputs:**
 - `idea_id` (required, int)
-- `user_email` (optional, str, default `''`)
+- `user_email` (deprecated, optional, str, default `''`): leave blank. Writes
+  are scoped to the owner of the API key; non-empty values are rejected.
 
 **Example prompt:**
-> "Use `save_trade_idea` for a Buzzberg analysis."
+> "Save trade idea 12345 to my Buzzberg account."
 
 **Returns:** Markdown response from `save_trade_idea`.
 

@@ -531,7 +531,9 @@
           "name": "user_email",
           "type": "str",
           "required": false,
-          "default": ""
+          "default": "",
+          "deprecated": true,
+          "description": "Deprecated; leave blank. Writes are scoped to the API key owner, and non-empty values are rejected."
         }
       ],
       "returns": "str",
@@ -551,7 +553,9 @@
           "name": "user_email",
           "type": "str",
           "required": false,
-          "default": ""
+          "default": "",
+          "deprecated": true,
+          "description": "Deprecated; leave blank. Writes are scoped to the API key owner, and non-empty values are rejected."
         }
       ],
       "returns": "str",
@@ -571,7 +575,9 @@
           "name": "user_email",
           "type": "str",
           "required": false,
-          "default": ""
+          "default": "",
+          "deprecated": true,
+          "description": "Deprecated; leave blank. Writes are scoped to the API key owner, and non-empty values are rejected."
         }
       ],
       "returns": "str",
