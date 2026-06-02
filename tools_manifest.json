@@ -372,6 +372,32 @@
       "summary": "Get current prices for tickers via Massive (stocks) / Binance (crypto)."
     },
     {
+      "name": "get_tickers_overview",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "tickers",
+          "type": "list[str]",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 30
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "str",
+      "summary": "Batch overview for multiple tickers: price, mentions, sentiment, and direction counts."
+    },
+    {
       "name": "search_content",
       "scope": "read",
       "parameters": [

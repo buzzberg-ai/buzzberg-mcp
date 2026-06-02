@@ -247,6 +247,18 @@ Use Buzzberg to compare sentiment and mentions vs price for NVDA over the last
 30 days. Tell me if sentiment is leading, confirming, or lagging price.
 ```
 
+## Beta Rate Limits
+
+Buzzberg MCP is rate-limited during private beta. The current default limits are
+about **120 tool calls per minute per user** and **2,000 tool calls per day per
+user**, with an additional shared server-wide safety cap.
+
+If your client gets `429 Too Many Requests`, wait for the `Retry-After` header
+or `retry_after_seconds` value before continuing. Agents should avoid tight
+retry loops, large parallel batches, and unbounded scans. Prefer one broad scan
+or leaderboard first, then targeted follow-ups with small `limit`, `days`, or
+`top_n` values.
+
 ## No-Install Manual Setup
 
 If you do not want to install the helper package, edit your client config
@@ -286,6 +298,6 @@ python -m pip install /tmp/bz/buzzberg_mcp-*.whl
 
 - Tools do not appear: fully quit and reopen the client.
 - `401 Unauthorized`: revoke and recreate the key in **Profile -> MCP Access**.
-- `429 Too Many Requests`: close duplicate clients, wait a minute, then reconnect.
+- `429 Too Many Requests`: read `Retry-After` / `retry_after_seconds`, wait that many seconds, then continue with fewer parallel or bulk calls.
 - `/mcp` returns `404`: the server deploy has not reached your region yet; use SSE or try again after deploy.
 - Health check: `curl https://mcp.buzzberg.ai/health` should return `{"status":"ok","service":"buzzberg-mcp"}`.
