@@ -255,6 +255,27 @@ Get current prices for tickers via Massive (stocks) / Binance (crypto).
 
 **Full example:** [examples/get_price.md](examples/get_price.md)
 
+## get_tickers_overview
+
+Batch overview for multiple tickers: price, mentions, sentiment, and direction counts.
+
+Use this instead of calling `get_ticker_info` or `get_ticker_mentions` once per
+ticker when you need a broad multi-ticker screen.
+
+**Inputs:**
+- `tickers` (required, list[str])
+- `days` (optional, int, default `30`)
+- `source_type` (optional, str, default `''`)
+
+**Example prompt:**
+> "Use `get_tickers_overview` to screen NVDA, TSM, DKNG, COIN, and PLTR. Pick the three most interesting names for follow-up based on mentions, sentiment, and direction counts."
+
+**Returns:** Markdown table with per-ticker price, 24h / 7d / 30d mentions, average sentiment, and direction counts.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_tickers_overview.md](examples/get_tickers_overview.md)
+
 ## search_content
 
 Search public content titles by keyword.

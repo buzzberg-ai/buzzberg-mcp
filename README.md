@@ -181,6 +181,28 @@ What Buzzberg sends to the AI agent:
 - **Ticker research:** mentions, sentiment, trade ideas, speaker profiles,
   price snapshots, and daily sentiment/mention history for chart-style reads.
 
+## Beta Rate Limits And Agent Etiquette
+
+Buzzberg MCP is rate-limited during private beta. The current default limits are
+about **120 tool calls per minute per user** and **2,000 tool calls per day per
+user**, with an additional shared server-wide safety cap. These limits may
+change during beta as we tune capacity.
+
+If your client receives `429 Too Many Requests`, read the `Retry-After` header
+or `retry_after_seconds` field and wait that many seconds before continuing.
+Do not retry in a tight loop.
+
+For best results, ask your agent to work in a bounded, staged way:
+
+- Start with one broad scan or leaderboard, then do targeted follow-ups.
+- Use `limit`, `days`, and `top_n` instead of unbounded scans.
+- Use batch tools such as `get_tickers_overview` for multi-ticker screens.
+- Keep concurrency small; avoid dozens of parallel calls.
+- Use write tools only when you explicitly want to change your watchlist or
+  saved ideas.
+- Keep your `bzb_...` key in an environment variable or local config; do not
+  paste it into shared prompts, code, or logs.
+
 Ready-made workflows:
 
 - **[Daily source TLDRs](sessions/daily-source-tldr.md)** — summarize the last
@@ -227,7 +249,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 21 tools
+            print([t.name for t in tools.tools])  # 22 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -284,9 +306,10 @@ Buzzberg exposes two MCP transports:
 
 ## Tools
 
-Buzzberg exposes 21 tools — read (`search_trade_ideas`, `get_top_speakers`,
+Buzzberg exposes 22 tools — read (`search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
-`get_top_sentiment_tickers`, `get_recent_source_text`, `get_portfolio`, `get_price`, ...) and write
+`get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,
+`get_portfolio`, `get_price`, ...) and write
 (`add_to_watchlist`, `save_trade_idea`, ...). See [TOOLS.md](TOOLS.md) for
 signatures and per-tool examples in [examples/](examples).
 
