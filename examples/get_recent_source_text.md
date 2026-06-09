@@ -58,6 +58,63 @@ Tool call:
 }
 ```
 
+## Research Post Takeaways
+
+Prompt:
+
+> Use Buzzberg to read Twitter/X posts marked as research from the last 24
+> hours. Give me the core takeaways, tickers, catalysts, risks, and which posts
+> deserve follow-up. Quote examples.
+
+Tool call:
+
+```json
+{
+  "source_type": "twitter",
+  "post_kind": "research",
+  "limit": 50,
+  "max_chars_per_item": 8000
+}
+```
+
+## Portfolio Updates
+
+Prompt:
+
+> Use Buzzberg to read portfolio update posts from the last 24 hours. Show
+> position changes, adds/removes, repeated tickers, and whether the updates
+> point to a new market theme.
+
+Tool call:
+
+```json
+{
+  "source_type": "twitter",
+  "post_kind": "portfolio_update",
+  "limit": 50,
+  "max_chars_per_item": 8000
+}
+```
+
+## Stock Lists
+
+Prompt:
+
+> Use Buzzberg to read stock recommendation list posts from the last 24 hours.
+> Extract all tickers, group them by theme, and tell me which names appear more
+> than once.
+
+Tool call:
+
+```json
+{
+  "source_type": "twitter",
+  "post_kind": "stock_list",
+  "limit": 50,
+  "max_chars_per_item": 8000
+}
+```
+
 ## Repeated Words / Keyword Count
 
 Prompt:
@@ -110,4 +167,8 @@ Quote examples.
 - Subscriber-only Substack text is not returned.
 - Twitter defaults to Buzzberg ticker-idea tweets, not every tweet. `WATCH` and
   `AVOID` are included because they are still useful market signals.
+- `post_kind` can filter Twitter/X posts classified by Buzzberg as `research`,
+  `portfolio_update`, `stock_recommendation_list` (`stock_list` alias), `news`,
+  or `other`. This can include classified posts even when Buzzberg did not
+  extract a specific trade-idea row.
 - YouTube can return timestamped transcript segments when available.

@@ -194,6 +194,12 @@
           "type": "bool",
           "required": false,
           "default": false
+        },
+        {
+          "name": "speaker_rank_limit",
+          "type": "int",
+          "required": false,
+          "default": 0
         }
       ],
       "returns": "str",
@@ -238,6 +244,12 @@
           "type": "bool",
           "required": false,
           "default": false
+        },
+        {
+          "name": "speaker_rank_limit",
+          "type": "int",
+          "required": false,
+          "default": 0
         }
       ],
       "returns": "str",
@@ -310,6 +322,94 @@
       ],
       "returns": "str",
       "summary": "Get speaker profile: credibility, role, mention frequency, top tickers."
+    },
+    {
+      "name": "get_speaker_trade_ideas",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "speaker_name",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 90
+        },
+        {
+          "name": "direction",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "signal",
+          "type": "str",
+          "required": false,
+          "default": "all"
+        },
+        {
+          "name": "sort",
+          "type": "str",
+          "required": false,
+          "default": "recent"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 30
+        }
+      ],
+      "returns": "str",
+      "summary": "Get bounded trade ideas from one speaker."
+    },
+    {
+      "name": "get_speaker_ticker_history",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "speaker_name",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 180
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "str",
+      "summary": "Daily history for one speaker's stance on one ticker."
     },
     {
       "name": "compare_speakers",
@@ -522,6 +622,12 @@
           "default": false
         },
         {
+          "name": "post_kind",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
           "name": "max_chars_per_item",
           "type": "int",
           "required": false,
@@ -531,7 +637,7 @@
           "name": "max_total_chars",
           "type": "int",
           "required": false,
-          "default": 180000
+          "default": 220000
         },
         {
           "name": "include_segments",

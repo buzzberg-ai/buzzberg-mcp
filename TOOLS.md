@@ -107,6 +107,7 @@ Rank tickers by Buzzberg mention volume over a lookback window.
 - `source_type` (optional, str, default `''`)
 - `min_mentions` (optional, int, default `1`)
 - `history` (optional, bool, default `False`)
+- `speaker_rank_limit` (optional, int, default `0`)
 
 **Example prompt:**
 > "Use `get_most_mentioned_tickers` for a Buzzberg analysis."
@@ -128,6 +129,7 @@ Rank tickers by strongest bullish or bearish Buzzberg sentiment.
 - `direction` (optional, str, default `'bullish'`)
 - `source_type` (optional, str, default `''`)
 - `history` (optional, bool, default `False`)
+- `speaker_rank_limit` (optional, int, default `0`)
 
 **Example prompt:**
 > "Use `get_top_sentiment_tickers` for a Buzzberg analysis."
@@ -204,6 +206,48 @@ Get speaker profile: credibility, role, mention frequency, top tickers.
 
 **Full example:** [examples/get_speaker_profile.md](examples/get_speaker_profile.md)
 
+## get_speaker_trade_ideas
+
+Get bounded trade ideas from one speaker.
+
+**Inputs:**
+- `speaker_name` (required, str)
+- `ticker` (optional, str, default `''`)
+- `days` (optional, int, default `90`)
+- `direction` (optional, str, default `''`)
+- `source_type` (optional, str, default `''`)
+- `signal` (optional, str, default `'all'`)
+- `sort` (optional, str, default `'recent'`)
+- `limit` (optional, int, default `30`)
+
+**Example prompt:**
+> "Use `get_speaker_trade_ideas` for a Buzzberg analysis."
+
+**Returns:** Markdown response from `get_speaker_trade_ideas`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_speaker_trade_ideas.md](examples/get_speaker_trade_ideas.md)
+
+## get_speaker_ticker_history
+
+Daily history for one speaker's stance on one ticker.
+
+**Inputs:**
+- `speaker_name` (required, str)
+- `ticker` (required, str)
+- `days` (optional, int, default `180`)
+- `source_type` (optional, str, default `''`)
+
+**Example prompt:**
+> "Use `get_speaker_ticker_history` for a Buzzberg analysis."
+
+**Returns:** Markdown response from `get_speaker_ticker_history`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_speaker_ticker_history.md](examples/get_speaker_ticker_history.md)
+
 ## compare_speakers
 
 Compare what different speakers say about a ticker. Shows who's bullish vs bearish.
@@ -259,18 +303,15 @@ Get current prices for tickers via Massive (stocks) / Binance (crypto).
 
 Batch overview for multiple tickers: price, mentions, sentiment, and direction counts.
 
-Use this instead of calling `get_ticker_info` or `get_ticker_mentions` once per
-ticker when you need a broad multi-ticker screen.
-
 **Inputs:**
 - `tickers` (required, list[str])
 - `days` (optional, int, default `30`)
 - `source_type` (optional, str, default `''`)
 
 **Example prompt:**
-> "Use `get_tickers_overview` to screen NVDA, TSM, DKNG, COIN, and PLTR. Pick the three most interesting names for follow-up based on mentions, sentiment, and direction counts."
+> "Use `get_tickers_overview` for a Buzzberg analysis."
 
-**Returns:** Markdown table with per-ticker price, 24h / 7d / 30d mentions, average sentiment, and direction counts.
+**Returns:** Markdown response from `get_tickers_overview`.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
@@ -342,12 +383,13 @@ Read source text from the last 24 hours for user-side TLDR workflows.
 - `ticker` (optional, str, default `''`)
 - `speaker_rank_limit` (optional, int, default `0`)
 - `include_all_tweets` (optional, bool, default `False`)
+- `post_kind` (optional, str, default `''`)
 - `max_chars_per_item` (optional, int, default `0`)
-- `max_total_chars` (optional, int, default `180000`)
+- `max_total_chars` (optional, int, default `220000`)
 - `include_segments` (optional, bool, default `False`)
 
 **Example prompt:**
-> "Read the last 24 hours of top-speaker Twitter trade-idea tweets and summarize the main market themes, crowded trades, and repeated words."
+> "Read the last 24 hours of top-50 speaker Twitter/X ticker-idea tweets (LONG/SHORT/WATCH/AVOID/NEUTRAL) and summarize the main market themes, crowded trades, disagreements, and repeated words."
 
 **Returns:** Markdown response from `get_recent_source_text`.
 

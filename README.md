@@ -169,6 +169,29 @@ How many times did they mention "bottleneck", "power", "AI capex", and "memory"?
 Quote examples and point to the tickers each theme is about.
 ```
 
+```text
+Use Buzzberg to read Twitter/X posts marked as research from the last 24h.
+Give me the core takeaways, tickers, catalysts, risks, and follow-up questions.
+Quote examples.
+```
+
+```text
+Use Buzzberg to read portfolio update posts from the last 24h.
+What positions are being added, removed, or watched? Which tickers repeat?
+```
+
+```text
+Use Buzzberg to read stock recommendation list posts from the last 24h.
+Extract the tickers, group them by theme, and tell me which names appear more
+than once.
+```
+
+```text
+Use Buzzberg to rank the tickers most mentioned by top-50 speakers today.
+Show mentions, sentiment, direction mix, source mix, and whether each story
+looks fresh or already crowded.
+```
+
 What Buzzberg sends to the AI agent:
 
 - **Substack/newsletters:** public/free article text from the last 24 hours.
@@ -178,8 +201,14 @@ What Buzzberg sends to the AI agent:
 - **Twitter/X:** top-speaker tweets from the last 24 hours where Buzzberg found
   ticker ideas, including the full tweet text, speaker, tickers, and direction:
   `LONG`, `SHORT`, `WATCH`, `AVOID`, or `NEUTRAL`. This is not every tweet.
+- **Twitter/X post kinds:** classifier-filtered posts from the last 24 hours:
+  `research`, `portfolio_update`, `stock_recommendation_list`, `news`, and
+  `other`. Use this for research-post takeaways, latest portfolio updates, and
+  stock-list extraction.
 - **Ticker research:** mentions, sentiment, trade ideas, speaker profiles,
   price snapshots, and daily sentiment/mention history for chart-style reads.
+- **Speaker research:** bounded trade-idea history for one author, plus
+  speaker/ticker daily history for charts of changing views over time.
 
 ## Beta Rate Limits And Agent Etiquette
 
@@ -209,6 +238,9 @@ Ready-made workflows:
   24 hours of top-50 speaker tweets, public Substack text, and YouTube
   transcripts; ask for themes, crowded trades, repeated words, disagreements,
   and quoted examples.
+- **[Classified post TLDRs](sessions/classified-post-tldr.md)** — summarize
+  posts tagged by Buzzberg as research, portfolio updates, stock lists, or news
+  in the last 24 hours.
 - **[Ticker leaderboards](sessions/ticker-leaderboards.md)** — most buzzed
   tickers, strongest bullish/bearish sentiment, and daily historical buzz for
   1d / 7d / 30d windows.
@@ -217,6 +249,8 @@ Ready-made workflows:
 - **[Narrative ticker deep dive](sessions/ticker-deep-dive.md)** — what
   Buzzberg uniquely knows about a ticker: who is pushing it, what the bull
   narrative is, what is missing, and whether the setup is early or crowded.
+- **[Speaker story / author history](sessions/speaker-story.md)** — first idea,
+  recent ideas, stance changes, and speaker/ticker history for one author.
 - **[Sentiment vs price chart](sessions/sentiment-price-chart.md)** — daily
   sentiment, mentions, and cached close prices so Claude can explain whether
   Buzzberg sentiment leads, confirms, or lags price.
@@ -249,7 +283,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 22 tools
+            print([t.name for t in tools.tools])  # 24 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -306,10 +340,11 @@ Buzzberg exposes two MCP transports:
 
 ## Tools
 
-Buzzberg exposes 22 tools — read (`search_trade_ideas`, `get_top_speakers`,
+Buzzberg exposes 24 tools — read (`search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
 `get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,
-`get_portfolio`, `get_price`, ...) and write
+`get_speaker_trade_ideas`, `get_speaker_ticker_history`, `get_portfolio`,
+`get_price`, ...) and write
 (`add_to_watchlist`, `save_trade_idea`, ...). See [TOOLS.md](TOOLS.md) for
 signatures and per-tool examples in [examples/](examples).
 
@@ -330,6 +365,6 @@ confirms working syntax.)
 - [INSTALL.md](INSTALL.md) — simple setup by AI client
 - [TOOLS.md](TOOLS.md) — full tool reference
 - [SECURITY.md](SECURITY.md) — threat model, disclosure, attestations
-- [sessions/](sessions) — seven ready-made research workflows
+- [sessions/](sessions) — ready-made research workflows
 - [examples/](examples) — per-tool example prompts
 - [CHANGELOG.md](CHANGELOG.md) — breaking changes during private beta
