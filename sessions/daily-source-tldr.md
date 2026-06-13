@@ -52,9 +52,9 @@ Which speakers disagree, and what exactly did each side say?
 Ask:
 
 ```text
-Use Buzzberg to read Substack/newsletter TLDRs and trade ideas from the last 7d.
-Give me a market TLDR and list tickers with the strongest narratives.
-Quote examples.
+Use Buzzberg to build a 7-day newsletter thesis map.
+Show the strongest ticker narratives, key evidence, weak claims,
+and what changed this week. Separate hard data from vibes.
 ```
 
 What Buzzberg provides:
@@ -83,9 +83,10 @@ What changed today compared with the last week of Buzzberg sentiment?
 Ask:
 
 ```text
-Use Buzzberg to read YouTube TLDRs and trade ideas from the last 7d.
-What are speakers worried about that is not obvious from price action?
-Quote examples.
+Use Buzzberg to find first-order and second-order effects from this week's
+YouTube market discussions.
+Which tickers benefit directly, which suppliers or competitors are second-order
+plays, and what risks are speakers worried about?
 ```
 
 What Buzzberg provides:

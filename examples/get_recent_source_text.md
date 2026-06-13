@@ -12,10 +12,9 @@ for up to 7 days.
 
 Prompt:
 
-> Use Buzzberg to read Substack/newsletter TLDRs and trade ideas from the last
-> 7 days. Summarize the main market themes, tickers, bullish theses, bearish
-> theses, and what changed. Quote short examples where Buzzberg has public
-> preview text.
+> Use Buzzberg to build a 7-day newsletter thesis map. Show the strongest
+> ticker narratives, key evidence, weak claims, and what changed this week.
+> Separate hard data from vibes.
 
 Tool call:
 
@@ -31,9 +30,10 @@ Tool call:
 
 Prompt:
 
-> Use Buzzberg to read YouTube TLDRs and trade ideas from the last 7 days. Give
-> me the top market narratives, tickers discussed, speaker disagreements, and
-> anything that sounds like a new risk.
+> Use Buzzberg to find first-order and second-order effects from this week's
+> YouTube market discussions. Which tickers benefit directly, which suppliers
+> or competitors are second-order plays, and what risks are speakers worried
+> about?
 
 Tool call:
 
@@ -95,13 +95,16 @@ Quote examples.
 ```
 
 ```text
-Use Buzzberg to read Substack/newsletter TLDRs and trade ideas from the last 7d.
-Give me a market TLDR and list tickers with the strongest narratives.
+Use Buzzberg to build a 7-day newsletter thesis map.
+Show the strongest ticker narratives, key evidence, weak claims,
+and what changed this week. Separate hard data from vibes.
 ```
 
 ```text
-Use Buzzberg to read YouTube TLDRs and trade ideas from the last 7d.
-What are speakers worried about that is not obvious from price action?
+Use Buzzberg to find first-order and second-order effects from this week's
+YouTube market discussions.
+Which tickers benefit directly, which suppliers or competitors are second-order
+plays, and what risks are speakers worried about?
 ```
 
 ```text

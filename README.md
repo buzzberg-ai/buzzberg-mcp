@@ -140,27 +140,28 @@ More client-by-client setup options are in [INSTALL.md](INSTALL.md).
 
 Buzzberg is useful when you want your AI agent to read the market conversation,
 not just fetch a price. Ask one plain-English question; Claude, Codex, or
-another MCP client chains the right Buzzberg tools and turns the raw source data
-into a usable research read.
+another MCP client chains the right Buzzberg tools and turns bounded market
+context into a usable research read.
 
 Start with these prompts:
 
 ```text
-Use Buzzberg to summarize the last 24h of top-50 speaker tweets.
+Use Buzzberg to give me today's top-speaker market brief.
 What are the main themes, crowded trades, new tickers, and disagreements?
 Quote examples.
 ```
 
 ```text
-Use Buzzberg to read Substack/newsletter TLDRs and trade ideas from the last 7d.
-Give me a market TLDR and list tickers with the strongest narratives.
-Quote examples.
+Use Buzzberg to build a 7-day newsletter thesis map.
+Show the strongest ticker narratives, key evidence, weak claims,
+and what changed this week. Separate hard data from vibes.
 ```
 
 ```text
-Use Buzzberg to read YouTube TLDRs and trade ideas from the last 7d.
-What are speakers worried about that is not obvious from price action?
-Quote examples.
+Use Buzzberg to find first-order and second-order effects from this week's
+YouTube market discussions.
+Which tickers benefit directly, which suppliers or competitors are second-order
+plays, and what risks are speakers worried about?
 ```
 
 ```text
