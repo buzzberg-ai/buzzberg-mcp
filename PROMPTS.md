@@ -203,8 +203,9 @@ momentum, or stale repeat. Use Buzzberg data only.
 
 Expected tools:
 
-- `get_most_mentioned_tickers` with `speaker_rank_limit=50`
-- `get_top_sentiment_tickers` with `speaker_rank_limit=50`
+- `get_recent_source_text` with `source_type="twitter"`, `speaker_rank_limit=50`
+- `get_top_speaker_signals`
+- Optional: `get_most_mentioned_tickers` for all-market comparison
 - `read_ticker_content`
 - `search_trade_ideas`
 

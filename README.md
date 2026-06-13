@@ -215,7 +215,7 @@ What Buzzberg sends to the AI agent:
   and extracted trade ideas for the last 7 days. Raw article bodies are not
   returned through MCP.
 - **YouTube:** Buzzberg TLDRs and extracted trade ideas for the last 7 days.
-  Raw transcripts and timestamped transcript dumps are not returned through MCP.
+  Raw YouTube source text and timestamped segment dumps are not returned through MCP.
 - **Twitter/X:** top-speaker tweets from the last 24 hours where Buzzberg found
   ticker ideas, including the full tweet text, speaker, tickers, and direction:
   `LONG`, `SHORT`, `WATCH`, `AVOID`, or `NEUTRAL`. This is not every tweet.
@@ -249,8 +249,23 @@ For best results, ask your agent to work in a bounded, staged way:
 - Keep concurrency small; avoid dozens of parallel calls.
 - Use write tools only when you explicitly want to change your watchlist or
   saved ideas.
+- Use `dry_run=True` on write tools when you want your agent to verify the
+  action without changing your account.
 - Keep your `bzb_...` key in an environment variable or local config; do not
   paste it into shared prompts, code, or logs.
+
+Contract notes:
+
+- Trade-idea tools include `idea_id` values. Use those IDs with
+  `save_trade_idea`.
+- Price outputs include currency/namespace context where available. Do not
+  assume every displayed number is USD; foreign listings such as SIVE can be
+  native-currency prices.
+- `get_ticker_mentions` uses ingestion time, meaning when Buzzberg added the
+  mention. `get_ticker_timeseries` uses source publication date for chart rows,
+  so totals may differ.
+- `get_speaker_profile` separates alpha rank from credibility. Alpha rank is
+  historical idea performance; credibility is a profile/source quality score.
 
 Ready-made workflows:
 

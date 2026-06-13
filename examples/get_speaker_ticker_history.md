@@ -1,15 +1,15 @@
 # get_speaker_ticker_history
 
 Use this when you want a chart-ready daily history for one speaker and one
-ticker: mentions, average sentiment, direction counts, first/flip counts, and
-cached daily close.
+ticker: idea counts, average sentiment, confidence, direction counts, latest
+direction, and the `idea_id`s behind each daily bucket.
 
 Ask your agent:
 
 ```text
 Use Buzzberg to chart how Serenity's view on SIVE changed over the last 180 days.
-Show mentions, average sentiment, long/short/watch counts, first/flip markers,
-and price. Then explain whether the story is early, crowded, or changing.
+Show daily idea count, average sentiment, long/short/watch counts, idea IDs,
+and thesis changes. Then explain whether the story is early, crowded, or changing.
 ```
 
 Tool call:
@@ -25,8 +25,8 @@ Tool call:
 The response includes CSV like:
 
 ```csv
-date,close,mentions,avg_sentiment,long,short,watch,neutral,avoid,first,flip
-2026-05-27,14.25,2,0.5000,2,0,0,0,0,1,0
+date,ideas,avg_sentiment,avg_confidence,long,short,close,watch,avoid,neutral,latest_direction,idea_ids
+2026-05-27,2,0.5000,0.7200,2,0,0,0,0,0,long,12345;12346
 ```
 
 ## Safety / scope

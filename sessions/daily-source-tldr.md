@@ -94,9 +94,9 @@ What Buzzberg provides:
 - Buzzberg TLDRs and extracted trade ideas from YouTube videos.
 - Speaker/source, video URL, title, and related tickers when available.
 
-Raw transcripts and timestamped transcript dumps are not returned through MCP.
-Ask for ticker/source follow-ups when you need more context around a specific
-video.
+Raw YouTube source text and timestamped segment dumps are not returned through
+MCP. Ask for ticker/source follow-ups when you need more context around a
+specific video.
 
 Good follow-ups:
 
@@ -143,6 +143,6 @@ Which theme is most underpriced based on low mentions but strong conviction?
 
 - Twitter/X source text is capped to the last 24 hours.
 - YouTube and Substack/newsletter context supports up to 7 days, but returns
-  TLDRs and extracted trade ideas, not raw transcripts or full articles.
+  TLDRs and extracted trade ideas, not raw YouTube text or full articles.
 - Twitter defaults to ticker-idea tweets, not every tweet from every speaker.
 - Large responses are capped so clients do not freeze.

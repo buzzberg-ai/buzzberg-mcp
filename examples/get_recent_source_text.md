@@ -5,7 +5,7 @@ Buzzberg source context.
 
 Important boundary: Twitter/X can return recent top-speaker ticker-idea tweet
 text for the last 24 hours. YouTube and Substack/newsletters return Buzzberg
-TLDRs and extracted trade ideas, not raw transcripts or full article bodies,
+TLDRs and extracted trade ideas, not raw YouTube text or full article bodies,
 for up to 7 days.
 
 ## Substack / Newsletter TLDR
@@ -117,7 +117,7 @@ Quote examples.
 
 - Twitter/X is capped to the last 24 hours during private beta.
 - YouTube and newsletter/Substack support up to 7 days, but return TLDRs and
-  extracted trade ideas, not raw transcripts or full article bodies.
+  extracted trade ideas, not raw YouTube text or full article bodies.
 - Subscriber-only Substack text is not returned.
 - Twitter defaults to Buzzberg ticker-idea tweets, not every tweet. `WATCH` and
   `AVOID` are included because they are still useful market signals.

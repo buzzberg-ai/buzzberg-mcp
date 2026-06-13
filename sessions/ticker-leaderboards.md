@@ -28,14 +28,16 @@ fading.
    attention leaderboard plus daily rows
 2. `get_most_mentioned_tickers(days=7, limit=20, min_mentions=5, history=True)`
    — weekly buzz with history
-3. `get_most_mentioned_tickers(days=1, limit=20, speaker_rank_limit=50, history=True)`
-   — today's top-50 speaker attention leaderboard
+3. `get_recent_source_text(source_type="twitter", speaker_rank_limit=50, days=1)`
+   — bounded top-50 speaker ticker-idea tweets; Claude counts ticker frequency
+   and direction mix from this returned set
 4. `get_top_sentiment_tickers(days=7, min_mentions=5, direction="bullish", history=True)`
    — strongest positive narratives
 5. `get_top_sentiment_tickers(days=7, min_mentions=5, direction="bearish", history=True)`
    — strongest negative narratives
-6. `get_top_sentiment_tickers(days=1, min_mentions=2, direction="bullish", speaker_rank_limit=50, history=True)`
-   — strongest bullish tickers among top-50 speakers today
+6. For top-50 speaker sentiment, use the same bounded
+   `get_recent_source_text(... speaker_rank_limit=50)` set and have Claude
+   aggregate direction/sentiment from the returned ideas
 7. `read_ticker_content(ticker="...", days=7, limit=20)` — source snippets
    behind the interesting spikes
 
@@ -76,5 +78,6 @@ Ask Claude to write a market-intelligence read:
 - Use `history=True` when you want charts or a narrative timeline.
 - Use `min_mentions=5` or higher for sentiment rankings; otherwise one very
   bullish post can dominate the leaderboard.
-- Use `speaker_rank_limit=50` when you specifically want the top-speaker pulse
-  instead of the full Buzzberg conversation.
+- Use `get_recent_source_text(source_type="twitter", speaker_rank_limit=50)`
+  when you specifically want the top-speaker pulse instead of the full
+  Buzzberg conversation.

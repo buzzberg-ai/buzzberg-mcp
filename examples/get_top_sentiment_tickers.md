@@ -31,15 +31,12 @@ Require at least 2 mentions and include daily history.
 ```
 
 ```python
-get_top_sentiment_tickers(
-    days=1,
-    limit=20,
-    min_mentions=2,
-    direction="bullish",
-    speaker_rank_limit=50,
-    history=True,
-)
+get_recent_source_text(source_type="twitter", speaker_rank_limit=50, days=1)
 ```
+
+Then ask the agent to count tickers and direction/sentiment from the returned
+top-speaker trade-idea tweets. `get_top_sentiment_tickers` itself ranks the
+full Buzzberg conversation, not a top-speaker subset.
 
 ## What To Look For
 
