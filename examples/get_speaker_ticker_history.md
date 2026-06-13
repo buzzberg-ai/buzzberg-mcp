@@ -7,7 +7,7 @@ cached daily close.
 Ask your agent:
 
 ```text
-Use Buzzberg to chart how Serenity's view on NOK changed over the last 180 days.
+Use Buzzberg to chart how Serenity's view on SIVE changed over the last 180 days.
 Show mentions, average sentiment, long/short/watch counts, first/flip markers,
 and price. Then explain whether the story is early, crowded, or changing.
 ```
@@ -17,7 +17,7 @@ Tool call:
 ```json
 {
   "speaker_name": "Serenity",
-  "ticker": "NOK",
+  "ticker": "SIVE",
   "days": 180
 }
 ```
@@ -33,4 +33,3 @@ date,close,mentions,avg_sentiment,long,short,watch,neutral,avoid,first,flip
 
 This tool requires both `speaker_name` and `ticker`, so it is for targeted
 speaker/ticker research rather than bulk database export.
-

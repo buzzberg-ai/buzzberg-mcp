@@ -8,7 +8,7 @@ Buzzberg to return the author's raw tweets/articles/transcripts.
 Ask your agent:
 
 ```text
-Use Buzzberg to find Serenity's first recorded NOK trade idea.
+Use Buzzberg to find Serenity's first recorded SIVE trade idea.
 Return the date, direction, confidence, thesis, source type, and idea id.
 Use Buzzberg data only.
 ```
@@ -18,7 +18,7 @@ Tool call:
 ```json
 {
   "speaker_name": "Serenity",
-  "ticker": "NOK",
+  "ticker": "SIVE",
   "sort": "oldest",
   "limit": 1,
   "days": 365,

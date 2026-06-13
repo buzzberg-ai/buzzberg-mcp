@@ -1,6 +1,6 @@
 # get_ticker_timeseries
 
-Ask: "Use Buzzberg to build a 90-day chart dataset for NOK: daily close, mention count, and average sentiment."
+Ask: "Use Buzzberg to build a 90-day chart dataset for SIVE: daily close, mention count, and average sentiment."
 
 Buzzberg returns a machine-readable CSV block:
 

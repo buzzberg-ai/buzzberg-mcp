@@ -7,7 +7,7 @@ crowded?
 
 ## The ask
 
-> Use Buzzberg to create a 90-day sentiment vs price read for NOK.
+> Use Buzzberg to create a 90-day sentiment vs price read for SIVE.
 >
 > Use daily sentiment, mention counts, and close prices. Do not just print the
 > table. Explain whether sentiment led, lagged, or confirmed price; identify the
@@ -15,11 +15,11 @@ crowded?
 
 ## Tools Claude will chain
 
-1. `get_ticker_timeseries(ticker="NOK", days=90)` — daily close, mentions,
+1. `get_ticker_timeseries(ticker="SIVE", days=90)` — daily close, mentions,
    average sentiment, and direction counts
-2. `read_ticker_content(ticker="NOK", days=30, limit=20)` — source snippets
+2. `read_ticker_content(ticker="SIVE", days=30, limit=20)` — source snippets
    around recent inflection points
-3. `search_trade_ideas(ticker="NOK", days=30, limit=20)` — thesis and quote
+3. `search_trade_ideas(ticker="SIVE", days=30, limit=20)` — thesis and quote
    details from recent calls
 
 ## What you'll get
@@ -30,9 +30,9 @@ Ask Claude to turn the CSV into an analyst read:
 > The strongest positive sentiment appears after the stock has already rerated,
 > which is consistent with a momentum narrative becoming visible to the crowd.
 >
-> **Inflection points:** Mention volume rose around the insider-buying and
-> AI-RAN / NVIDIA narrative. That matters more than the exact sentiment decimal:
-> the story changed from "legacy telecom" to "AI infrastructure optionality".
+> **Inflection points:** Mention volume rose around a new or repeated thesis.
+> That matters more than the exact sentiment decimal: the agent should explain
+> what changed in the story and whether new speakers entered the conversation.
 >
 > **Risk flag:** If price keeps rising while sentiment stays high but mentions
 > stop expanding, that can mean the narrative is no longer recruiting new

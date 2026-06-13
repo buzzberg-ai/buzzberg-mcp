@@ -165,9 +165,29 @@ plays, and what risks are speakers worried about?
 ```
 
 ```text
+Use Buzzberg to deep dive SIVE.
+Who is talking about it, what is the core bull thesis,
+what are the strongest bear risks or missing arguments,
+and is this early discovery, building momentum, or crowded?
+```
+
+```text
+Use Buzzberg to map the SIVE narrative.
+Combine top-speaker trade ideas, YouTube TLDRs, newsletter TLDRs,
+sentiment, and recent source snippets.
+Separate catalysts, evidence, repeated claims, and open questions.
+```
+
+```text
 Use Buzzberg Twitter data from top-50 speakers.
 How many times did they mention "bottleneck", "power", "AI capex", and "memory"?
 Quote examples and point to the tickers each theme is about.
+```
+
+```text
+Use Buzzberg to build a 90d mentions vs price read for SIVE.
+Show daily mention spikes, sentiment on those days, and price reaction.
+Which days look like narrative ignition or narrative exhaustion?
 ```
 
 ```text
@@ -178,7 +198,7 @@ where did she flip direction, and how have her views changed?
 ```
 
 ```text
-Use Buzzberg to analyze all trade ideas from Serenity about CIFR.
+Use Buzzberg to analyze all trade ideas from Serenity about SIVE.
 Show the first mention, latest mention, direction changes, thesis evolution,
 and whether confidence increased or faded.
 ```
@@ -201,6 +221,8 @@ What Buzzberg sends to the AI agent:
   `LONG`, `SHORT`, `WATCH`, `AVOID`, or `NEUTRAL`. This is not every tweet.
 - **Ticker research:** mentions, sentiment, trade ideas, speaker profiles,
   price snapshots, and daily sentiment/mention history for chart-style reads.
+- **Narrative research:** ticker deep dives that combine trade ideas, source
+  TLDRs, top-speaker tweets, sentiment, mentions, and price context.
 - **Speaker research:** bounded trade-idea history for one author, plus
   speaker/ticker daily history for charts of changing views over time. Speaker
   history requires one speaker name, caps output at 200 ideas, and defaults to

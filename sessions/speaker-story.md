@@ -6,12 +6,12 @@ time, without reading every raw tweet or article.
 ## Prompt
 
 ```text
-Use Buzzberg to analyze Serenity's NOK trade idea history.
+Use Buzzberg to analyze Serenity's SIVE trade idea history.
 
 I want:
-1. The first recorded NOK idea from Serenity.
-2. The recent NOK ideas from the last 90 days.
-3. A daily history table for Serenity × NOK over 180 days.
+1. The first recorded SIVE idea from Serenity.
+2. The recent SIVE ideas from the last 90 days.
+3. A daily history table for Serenity x SIVE over 180 days.
 4. Whether Serenity's stance changed: first mention, flips, increasing/decreasing conviction.
 5. What I should watch next.
 
@@ -21,9 +21,9 @@ Use Buzzberg data only. Do not fetch raw source text.
 ## What the agent should call
 
 ```text
-get_speaker_trade_ideas(speaker_name="Serenity", ticker="NOK", sort="oldest", limit=1, days=365, max_per_day=10)
-get_speaker_trade_ideas(speaker_name="Serenity", ticker="NOK", sort="recent", limit=30, days=90, max_per_day=10)
-get_speaker_ticker_history(speaker_name="Serenity", ticker="NOK", days=180)
+get_speaker_trade_ideas(speaker_name="Serenity", ticker="SIVE", sort="oldest", limit=1, days=365, max_per_day=10)
+get_speaker_trade_ideas(speaker_name="Serenity", ticker="SIVE", sort="recent", limit=30, days=90, max_per_day=10)
+get_speaker_ticker_history(speaker_name="Serenity", ticker="SIVE", days=180)
 ```
 
 ## What this is good for
@@ -36,12 +36,12 @@ get_speaker_ticker_history(speaker_name="Serenity", ticker="NOK", days=180)
 ## Follow-up prompts
 
 ```text
-Show me the first time Serenity mentioned NOK, then compare it with her most
-recent NOK mention. What changed?
+Show me the first time Serenity mentioned SIVE, then compare it with her most
+recent SIVE mention. What changed?
 ```
 
 ```text
-For Serenity x NOK, use the daily history CSV to identify the three biggest
+For Serenity x SIVE, use the daily history CSV to identify the three biggest
 sentiment or mention inflection points. Then tell me which source snippets I
 should read next.
 ```
@@ -59,8 +59,8 @@ her views changed?
 ```
 
 ```text
-Use Buzzberg to compare Serenity's NOK stance with other speakers talking
-about NOK. Who agrees, who disagrees, and where is the thesis concentrated?
+Use Buzzberg to compare Serenity's SIVE stance with other speakers talking
+about SIVE. Who agrees, who disagrees, and where is the thesis concentrated?
 ```
 
 ## Guardrails

@@ -32,7 +32,7 @@ Expected tools:
 ## Narrative Ticker Deep Dive
 
 ```text
-Use Buzzberg to do a narrative deep dive on NOK / Nokia.
+Use Buzzberg to do a narrative deep dive on SIVE.
 
 I want:
 1. The short verdict.
@@ -43,7 +43,7 @@ I want:
 6. Whether this looks early, crowded, or late.
 7. What I should watch next.
 
-Use Buzzberg data only. If Buzzberg has no NOK data, say that clearly.
+Use Buzzberg data only. If Buzzberg has no SIVE data, say that clearly.
 ```
 
 Expected tools:
@@ -56,6 +56,30 @@ Expected tools:
 - `read_ticker_content`
 - `get_ticker_timeseries`
 - `get_price`
+
+## Narrative Map
+
+```text
+Use Buzzberg to map the SIVE narrative.
+
+Combine top-speaker trade ideas, YouTube TLDRs, newsletter TLDRs, sentiment,
+mentions, and recent source snippets. Separate:
+1. Catalysts.
+2. Evidence.
+3. Repeated claims.
+4. Speaker concentration.
+5. Open questions and risks.
+
+Use Buzzberg data only.
+```
+
+Expected tools:
+
+- `search_trade_ideas`
+- `get_recent_source_text` for YouTube/newsletter TLDR context
+- `read_ticker_content` for targeted SIVE source snippets
+- `get_ticker_timeseries`
+- `compare_speakers`
 
 ## Risk And Bear Case
 
@@ -227,7 +251,7 @@ Expected tools:
 ## One Speaker, One Ticker
 
 ```text
-Use Buzzberg to analyze all trade ideas from Serenity about CIFR.
+Use Buzzberg to analyze all trade ideas from Serenity about SIVE.
 
 Show the first mention, latest mention, direction changes, thesis evolution,
 and whether confidence increased or faded.
@@ -257,7 +281,7 @@ Expected tools:
 ## First Idea From A Speaker
 
 ```text
-Use Buzzberg to find Serenity's first recorded NOK trade idea.
+Use Buzzberg to find Serenity's first recorded SIVE trade idea.
 
 Return:
 1. Date and source type.
@@ -278,7 +302,7 @@ Expected tools:
 ## Speaker Narrative Chart
 
 ```text
-Use Buzzberg to chart how Serenity's view on NOK changed over the last 180 days.
+Use Buzzberg to chart how Serenity's view on SIVE changed over the last 180 days.
 
 Use speaker/ticker daily history. Explain:
 1. When the idea first appeared.
@@ -344,7 +368,7 @@ Expected tools:
 ## Sentiment Vs Price Chart
 
 ```text
-Use Buzzberg to create a 90-day sentiment vs price read for NOK.
+Use Buzzberg to create a 90-day sentiment vs price read for SIVE.
 
 Use daily sentiment, mention counts, and close prices. Do not just print the
 table. Explain:
@@ -363,7 +387,7 @@ Expected tools:
 ## Mentions Vs Price Chart
 
 ```text
-Use Buzzberg to compare NOK's mention volume against price over the last 90 days.
+Use Buzzberg to compare SIVE's mention volume against price over the last 90 days.
 
 Find attention spikes, then explain what caused them. I care less about the
 exact numbers and more about the narrative: was the stock ignored, discovered,
