@@ -152,13 +152,13 @@ Quote examples.
 ```
 
 ```text
-Use Buzzberg to read public Substack text from the last 24h.
+Use Buzzberg to read Substack/newsletter TLDRs and trade ideas from the last 7d.
 Give me a market TLDR and list tickers with the strongest narratives.
 Quote examples.
 ```
 
 ```text
-Use Buzzberg to read YouTube transcripts from the last 24h.
+Use Buzzberg to read YouTube TLDRs and trade ideas from the last 7d.
 What are speakers worried about that is not obvious from price action?
 Quote examples.
 ```
@@ -170,20 +170,16 @@ Quote examples and point to the tickers each theme is about.
 ```
 
 ```text
-Use Buzzberg to read Twitter/X posts marked as research from the last 24h.
-Give me the core takeaways, tickers, catalysts, risks, and follow-up questions.
-Quote examples.
+Use Buzzberg to show Serenity's all-time trade ideas with thesis.
+Limit it to 100 ideas and keep at most 5 ideas per day.
+Which tickers did she mention most, what was her first idea,
+where did she flip direction, and how have her views changed?
 ```
 
 ```text
-Use Buzzberg to read portfolio update posts from the last 24h.
-What positions are being added, removed, or watched? Which tickers repeat?
-```
-
-```text
-Use Buzzberg to read stock recommendation list posts from the last 24h.
-Extract the tickers, group them by theme, and tell me which names appear more
-than once.
+Use Buzzberg to analyze all trade ideas from Serenity about CIFR.
+Show the first mention, latest mention, direction changes, thesis evolution,
+and whether confidence increased or faded.
 ```
 
 ```text
@@ -194,21 +190,20 @@ looks fresh or already crowded.
 
 What Buzzberg sends to the AI agent:
 
-- **Substack/newsletters:** public/free article text from the last 24 hours.
-  Paid posts return only the public preview visible before the paywall.
-- **YouTube:** transcript text from the last 24 hours, with timestamped
-  segments when available.
+- **Substack/newsletters:** Buzzberg TLDRs, public previews where available,
+  and extracted trade ideas for the last 7 days. Raw article bodies are not
+  returned through MCP.
+- **YouTube:** Buzzberg TLDRs and extracted trade ideas for the last 7 days.
+  Raw transcripts and timestamped transcript dumps are not returned through MCP.
 - **Twitter/X:** top-speaker tweets from the last 24 hours where Buzzberg found
   ticker ideas, including the full tweet text, speaker, tickers, and direction:
   `LONG`, `SHORT`, `WATCH`, `AVOID`, or `NEUTRAL`. This is not every tweet.
-- **Twitter/X post kinds:** classifier-filtered posts from the last 24 hours:
-  `research`, `portfolio_update`, `stock_recommendation_list`, `news`, and
-  `other`. Use this for research-post takeaways, latest portfolio updates, and
-  stock-list extraction.
 - **Ticker research:** mentions, sentiment, trade ideas, speaker profiles,
   price snapshots, and daily sentiment/mention history for chart-style reads.
 - **Speaker research:** bounded trade-idea history for one author, plus
-  speaker/ticker daily history for charts of changing views over time.
+  speaker/ticker daily history for charts of changing views over time. Speaker
+  history requires one speaker name, caps output at 200 ideas, and defaults to
+  at most 10 returned ideas per calendar day.
 
 ## Beta Rate Limits And Agent Etiquette
 
@@ -224,7 +219,9 @@ Do not retry in a tight loop.
 For best results, ask your agent to work in a bounded, staged way:
 
 - Start with one broad scan or leaderboard, then do targeted follow-ups.
-- Use `limit`, `days`, and `top_n` instead of unbounded scans.
+- Use `limit`, `days`, `top_n`, and `max_per_day` instead of unbounded scans.
+- For author history, provide a `speaker_name`; Buzzberg does not expose a
+  "dump all speakers' ideas" endpoint.
 - Use batch tools such as `get_tickers_overview` for multi-ticker screens.
 - Keep concurrency small; avoid dozens of parallel calls.
 - Use write tools only when you explicitly want to change your watchlist or
@@ -235,12 +232,9 @@ For best results, ask your agent to work in a bounded, staged way:
 Ready-made workflows:
 
 - **[Daily source TLDRs](sessions/daily-source-tldr.md)** — summarize the last
-  24 hours of top-50 speaker tweets, public Substack text, and YouTube
-  transcripts; ask for themes, crowded trades, repeated words, disagreements,
-  and quoted examples.
-- **[Classified post TLDRs](sessions/classified-post-tldr.md)** — summarize
-  posts tagged by Buzzberg as research, portfolio updates, stock lists, or news
-  in the last 24 hours.
+  24 hours of top-50 speaker ticker-idea tweets, plus up to 7 days of
+  Substack/newsletter and YouTube TLDRs; ask for themes, crowded trades,
+  repeated words, disagreements, and quoted examples.
 - **[Ticker leaderboards](sessions/ticker-leaderboards.md)** — most buzzed
   tickers, strongest bullish/bearish sentiment, and daily historical buzz for
   1d / 7d / 30d windows.

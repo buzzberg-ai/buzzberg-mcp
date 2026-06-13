@@ -1,11 +1,13 @@
 # Daily Source TLDRs
 
-Use this when you want Claude, Codex, or another MCP client to read the last 24
-hours of Buzzberg source material and write a market TLDR.
+Use this when you want Claude, Codex, or another MCP client to build a market
+TLDR from Buzzberg source context.
 
-This is not a price screen. It is a source-reading workflow: Buzzberg returns
-the underlying public text, transcript, or ticker-idea tweet text, and your AI
-agent turns it into a summary with themes, examples, disagreements, and tickers.
+This is not a price screen. It is a bounded research workflow: Buzzberg returns
+top-speaker ticker-idea tweet text for the last 24 hours, plus YouTube and
+Substack/newsletter TLDRs with extracted trade ideas for up to 7 days. Your AI
+agent turns that into a summary with themes, examples, disagreements, and
+tickers.
 
 ## Top-50 Speaker Tweets
 
@@ -45,20 +47,21 @@ Which trades look crowded because multiple top speakers repeated the same thesis
 Which speakers disagree, and what exactly did each side say?
 ```
 
-## Public Substack / Newsletter Text
+## Substack / Newsletter TLDRs
 
 Ask:
 
 ```text
-Use Buzzberg to read public Substack text from the last 24h.
+Use Buzzberg to read Substack/newsletter TLDRs and trade ideas from the last 7d.
 Give me a market TLDR and list tickers with the strongest narratives.
 Quote examples.
 ```
 
 What Buzzberg provides:
 
-- Public/free newsletter or Substack text from the last 24 hours.
-- Subscriber-only text is not returned.
+- Buzzberg TLDRs and extracted trade ideas from newsletter/Substack content.
+- Public previews where available.
+- Subscriber-only/full article bodies are not returned.
 - Title, author/source, URL, published time, and related tickers when available.
 
 Good follow-ups:
@@ -75,25 +78,24 @@ Which tickers have the strongest bull thesis, and which ones only have vibes?
 What changed today compared with the last week of Buzzberg sentiment?
 ```
 
-## YouTube Transcripts
+## YouTube TLDRs
 
 Ask:
 
 ```text
-Use Buzzberg to read YouTube transcripts from the last 24h.
+Use Buzzberg to read YouTube TLDRs and trade ideas from the last 7d.
 What are speakers worried about that is not obvious from price action?
 Quote examples.
 ```
 
 What Buzzberg provides:
 
-- Transcript text from YouTube videos ingested in the last 24 hours.
-- Timestamped transcript segments when available.
+- Buzzberg TLDRs and extracted trade ideas from YouTube videos.
 - Speaker/source, video URL, title, and related tickers when available.
 
-Long videos may be truncated so the MCP client does not freeze on huge
-transcripts. Ask for a larger cap only when you need more quote depth from a
-specific video.
+Raw transcripts and timestamped transcript dumps are not returned through MCP.
+Ask for ticker/source follow-ups when you need more context around a specific
+video.
 
 Good follow-ups:
 
@@ -106,7 +108,7 @@ Which tickers were discussed with the most conviction?
 ```
 
 ```text
-Give me a timestamped quote list I can click through later.
+Give me the video links I should click through later.
 ```
 
 ## Repeated Words / Theme Counts
@@ -138,7 +140,8 @@ Which theme is most underpriced based on low mentions but strong conviction?
 
 ## Limits During Private Beta
 
-- This source-reading tool is capped to the last 24 hours.
-- Subscriber-only Substack content is not returned.
+- Twitter/X source text is capped to the last 24 hours.
+- YouTube and Substack/newsletter context supports up to 7 days, but returns
+  TLDRs and extracted trade ideas, not raw transcripts or full articles.
 - Twitter defaults to ticker-idea tweets, not every tweet from every speaker.
-- Large responses are capped so clients do not freeze on huge transcripts.
+- Large responses are capped so clients do not freeze.

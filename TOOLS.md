@@ -208,20 +208,21 @@ Get speaker profile: credibility, role, mention frequency, top tickers.
 
 ## get_speaker_trade_ideas
 
-Get bounded trade ideas from one speaker.
+Get structured trade-idea history for one speaker, with thesis.
 
 **Inputs:**
 - `speaker_name` (required, str)
 - `ticker` (optional, str, default `''`)
-- `days` (optional, int, default `90`)
 - `direction` (optional, str, default `''`)
 - `source_type` (optional, str, default `''`)
 - `signal` (optional, str, default `'all'`)
 - `sort` (optional, str, default `'recent'`)
-- `limit` (optional, int, default `30`)
+- `days` (optional, int, default `365`)
+- `limit` (optional, int, default `50`)
+- `max_per_day` (optional, int, default `10`)
 
 **Example prompt:**
-> "Use `get_speaker_trade_ideas` for a Buzzberg analysis."
+> "Show Serenity's all-time Buzzberg trade ideas with thesis. Limit to 100 ideas and keep at most 5 ideas per day, then summarize how her views changed."
 
 **Returns:** Markdown response from `get_speaker_trade_ideas`.
 
@@ -355,7 +356,7 @@ Count mentions of a ticker across 24h / 7d / 30d windows, broken down by source.
 
 ## read_ticker_content
 
-Read the actual text bodies of content mentioning a ticker.
+Read recent content summaries and trade-context text mentioning a ticker.
 
 **Inputs:**
 - `ticker` (required, str)
@@ -365,7 +366,7 @@ Read the actual text bodies of content mentioning a ticker.
 - `verbose` (optional, bool, default `False`)
 
 **Example prompt:**
-> "Use `read_ticker_content` for a Buzzberg analysis."
+> "Read recent NOK content. Use YouTube and Substack TLDRs where available, not raw transcripts or full articles."
 
 **Returns:** Markdown response from `read_ticker_content`.
 
@@ -375,7 +376,7 @@ Read the actual text bodies of content mentioning a ticker.
 
 ## get_recent_source_text
 
-Read source text from the last 24 hours for user-side TLDR workflows.
+Read recent source TLDRs plus trade ideas for user-side research workflows.
 
 **Inputs:**
 - `source_type` (required, str)
@@ -383,13 +384,13 @@ Read source text from the last 24 hours for user-side TLDR workflows.
 - `ticker` (optional, str, default `''`)
 - `speaker_rank_limit` (optional, int, default `0`)
 - `include_all_tweets` (optional, bool, default `False`)
-- `post_kind` (optional, str, default `''`)
 - `max_chars_per_item` (optional, int, default `0`)
 - `max_total_chars` (optional, int, default `220000`)
 - `include_segments` (optional, bool, default `False`)
+- `days` (optional, int, default `1`)
 
 **Example prompt:**
-> "Read the last 24 hours of top-50 speaker Twitter/X ticker-idea tweets (LONG/SHORT/WATCH/AVOID/NEUTRAL) and summarize the main market themes, crowded trades, disagreements, and repeated words."
+> "Read the last 24 hours of top-50 speaker Twitter/X ticker-idea tweets and the last 7 days of YouTube/Substack TLDRs. Summarize main themes, crowded trades, disagreements, and repeated words."
 
 **Returns:** Markdown response from `get_recent_source_text`.
 

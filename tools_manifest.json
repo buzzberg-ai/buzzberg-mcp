@@ -340,12 +340,6 @@
           "default": ""
         },
         {
-          "name": "days",
-          "type": "int",
-          "required": false,
-          "default": 90
-        },
-        {
           "name": "direction",
           "type": "str",
           "required": false,
@@ -370,14 +364,26 @@
           "default": "recent"
         },
         {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 365
+        },
+        {
           "name": "limit",
           "type": "int",
           "required": false,
-          "default": 30
+          "default": 50
+        },
+        {
+          "name": "max_per_day",
+          "type": "int",
+          "required": false,
+          "default": 10
         }
       ],
       "returns": "str",
-      "summary": "Get bounded trade ideas from one speaker."
+      "summary": "Get structured trade-idea history for one speaker, with thesis."
     },
     {
       "name": "get_speaker_ticker_history",
@@ -585,7 +591,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Read the actual text bodies of content mentioning a ticker."
+      "summary": "Read recent content summaries and trade-context text mentioning a ticker."
     },
     {
       "name": "get_recent_source_text",
@@ -622,12 +628,6 @@
           "default": false
         },
         {
-          "name": "post_kind",
-          "type": "str",
-          "required": false,
-          "default": ""
-        },
-        {
           "name": "max_chars_per_item",
           "type": "int",
           "required": false,
@@ -644,10 +644,16 @@
           "type": "bool",
           "required": false,
           "default": false
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 1
         }
       ],
       "returns": "str",
-      "summary": "Read source text from the last 24 hours for user-side TLDR workflows."
+      "summary": "Read recent source TLDRs plus trade ideas for user-side research workflows."
     },
     {
       "name": "add_to_watchlist",

@@ -15,14 +15,14 @@ I want:
 4. Whether Serenity's stance changed: first mention, flips, increasing/decreasing conviction.
 5. What I should watch next.
 
-Use Buzzberg data only. Do not fetch full source text unless I explicitly ask.
+Use Buzzberg data only. Do not fetch raw source text.
 ```
 
 ## What the agent should call
 
 ```text
-get_speaker_trade_ideas(speaker_name="Serenity", ticker="NOK", sort="oldest", limit=1, days=365)
-get_speaker_trade_ideas(speaker_name="Serenity", ticker="NOK", sort="recent", limit=30, days=90)
+get_speaker_trade_ideas(speaker_name="Serenity", ticker="NOK", sort="oldest", limit=1, days=365, max_per_day=10)
+get_speaker_trade_ideas(speaker_name="Serenity", ticker="NOK", sort="recent", limit=30, days=90, max_per_day=10)
 get_speaker_ticker_history(speaker_name="Serenity", ticker="NOK", days=180)
 ```
 
@@ -52,12 +52,21 @@ ticker first. Which tickers and narratives does he keep returning to?
 ```
 
 ```text
+Use Buzzberg to show Serenity's all-time trade ideas with thesis.
+Limit it to 100 ideas and keep at most 5 ideas per day.
+Which tickers did she mention most, where did she flip direction, and how have
+her views changed?
+```
+
+```text
 Use Buzzberg to compare Serenity's NOK stance with other speakers talking
 about NOK. Who agrees, who disagrees, and where is the thesis concentrated?
 ```
 
 ## Guardrails
 
-These tools are intentionally scoped. They require one speaker, and the history
-tool also requires one ticker. They return extracted trade-idea summaries and
-daily aggregates, not a bulk export of raw Buzzberg source text.
+These tools are intentionally scoped. Speaker trade history requires one
+speaker and returns at most 200 ideas, with `max_per_day` defaulting to 10 so a
+single noisy day cannot dominate the output. The daily history tool also
+requires one ticker. Both return extracted trade-idea summaries and daily
+aggregates, not a bulk export of raw Buzzberg source text.
