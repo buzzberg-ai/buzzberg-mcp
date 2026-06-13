@@ -264,6 +264,9 @@ Contract notes:
 - `get_ticker_mentions` uses ingestion time, meaning when Buzzberg added the
   mention. `get_ticker_timeseries` uses source publication date for chart rows,
   so totals may differ.
+- Mention counts include visible `LONG`, `SHORT`, `WATCH`, `NEUTRAL`, `AVOID`,
+  and `CLOSE` rows. Chart CSVs expose `watch` separately so early-interest
+  signals do not disappear into neutral.
 - `get_speaker_profile` separates alpha rank from credibility. Alpha rank is
   historical idea performance; credibility is a profile/source quality score.
 

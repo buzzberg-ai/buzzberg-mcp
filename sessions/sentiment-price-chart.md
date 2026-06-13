@@ -41,7 +41,7 @@ Ask Claude to turn the CSV into an analyst read:
 ## Chart ideas
 
 - Price line + average sentiment line.
-- Price line + stacked direction bars (`long`, `short`, `neutral`, `avoid`).
+- Price line + stacked direction bars (`long`, `short`, `close`, `watch`, `neutral`, `avoid`).
 - Annotate days where mentions jump and then ask `read_ticker_content` what
   caused the spike.
 
