@@ -179,6 +179,25 @@ Separate catalysts, evidence, repeated claims, and open questions.
 ```
 
 ```text
+Use Buzzberg research posts from the last 24h.
+Find the strongest new alpha ideas, second-order beneficiaries,
+repeated evidence, weak assumptions, and tickers worth a deeper dive.
+Quote short examples.
+```
+
+```text
+Use Buzzberg stock-list posts from the last 7 days.
+Which tickers appear across multiple lists, what theme links them,
+which are fresh vs crowded, and which 10 should I research next?
+```
+
+```text
+Use Buzzberg portfolio-update posts from the last 7 days.
+What did speakers add, trim, close, or size up?
+Separate actual portfolio moves from generic commentary.
+```
+
+```text
 Use Buzzberg Twitter data from top-50 speakers.
 How many times did they mention "bottleneck", "power", "AI capex", and "memory"?
 Quote examples and point to the tickers each theme is about.
@@ -219,6 +238,9 @@ What Buzzberg sends to the AI agent:
 - **Twitter/X:** top-speaker tweets from the last 24 hours where Buzzberg found
   ticker ideas, including the full tweet text, speaker, tickers, and direction:
   `LONG`, `SHORT`, `WATCH`, `AVOID`, or `NEUTRAL`. This is not every tweet.
+- **Post-kind filters:** source context can be narrowed to `research`,
+  `portfolio_update`, `stock_recommendation_list`, `news`, or `other`, so an
+  agent can ask specifically for research posts, stock lists, or portfolio moves.
 - **Ticker research:** mentions, sentiment, trade ideas, speaker profiles,
   price snapshots, and daily sentiment/mention history for chart-style reads.
 - **Narrative research:** ticker deep dives that combine trade ideas, source

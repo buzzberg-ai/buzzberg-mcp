@@ -81,6 +81,55 @@ Expected tools:
 - `get_ticker_timeseries`
 - `compare_speakers`
 
+## Research Posts Alpha Extraction
+
+```text
+Use Buzzberg research posts from the last 24h.
+
+Find the strongest new alpha ideas, second-order beneficiaries, repeated
+evidence, weak assumptions, and tickers worth a deeper dive. Quote short
+examples and separate "hard evidence" from "narrative claims".
+```
+
+Expected tools:
+
+- `get_recent_source_text` with `source_type="twitter"`, `post_kind="research"`,
+  `speaker_rank_limit=50`, `days=1`
+- Optional follow-up: `search_trade_ideas` or `get_tickers_overview` for the
+  tickers surfaced by the research posts
+
+## Stock Lists To Watchlist Candidates
+
+```text
+Use Buzzberg stock-list posts from the last 7 days.
+
+Which tickers appear across multiple lists, what theme links them, which are
+fresh vs crowded, and which 10 should I research next? Do not add anything to
+my watchlist unless I explicitly ask.
+```
+
+Expected tools:
+
+- `get_recent_source_text` with `post_kind="stock list"`
+- `get_most_mentioned_tickers`
+- `get_tickers_overview` for the top candidates
+
+## Portfolio Update Tracker
+
+```text
+Use Buzzberg portfolio-update posts from the last 7 days.
+
+What did speakers add, trim, close, or size up? Separate actual portfolio moves
+from generic commentary, and highlight changes that match recent first/flip
+signals.
+```
+
+Expected tools:
+
+- `get_recent_source_text` with `post_kind="portfolio"`
+- `get_top_speaker_signals`
+- `search_trade_ideas` for follow-up on repeated tickers
+
 ## Risk And Bear Case
 
 ```text
