@@ -8,6 +8,67 @@ text for the last 24 hours. YouTube and Substack/newsletters return Buzzberg
 TLDRs and extracted trade ideas, not raw YouTube text or full article bodies,
 for up to 7 days.
 
+## Research Posts / Alpha Extraction
+
+Prompt:
+
+> Use Buzzberg research posts from the last 24h. Find the strongest new alpha
+> ideas, second-order beneficiaries, repeated evidence, weak assumptions, and
+> tickers worth a deeper dive. Quote short examples.
+
+Tool call:
+
+```json
+{
+  "source_type": "twitter",
+  "post_kind": "research",
+  "speaker_rank_limit": 50,
+  "days": 1,
+  "limit": 100
+}
+```
+
+## Stock Lists / Watchlist Candidates
+
+Prompt:
+
+> Use Buzzberg stock-list posts from the last 7 days. Which tickers appear
+> across multiple lists, what theme links them, which are fresh vs crowded, and
+> which 10 should I research next?
+
+Tool call:
+
+```json
+{
+  "source_type": "newsletter",
+  "post_kind": "stock list",
+  "days": 7,
+  "limit": 30
+}
+```
+
+You can also use `source_type="twitter"` with `days=1` for same-day top-speaker
+stock-list posts.
+
+## Portfolio Updates
+
+Prompt:
+
+> Use Buzzberg portfolio-update posts from the last 7 days. What did speakers
+> add, trim, close, or size up? Separate actual portfolio moves from generic
+> commentary.
+
+Tool call:
+
+```json
+{
+  "source_type": "newsletter",
+  "post_kind": "portfolio",
+  "days": 7,
+  "limit": 20
+}
+```
+
 ## Substack / Newsletter TLDR
 
 Prompt:
@@ -118,6 +179,9 @@ Quote examples.
 - Twitter/X is capped to the last 24 hours during private beta.
 - YouTube and newsletter/Substack support up to 7 days, but return TLDRs and
   extracted trade ideas, not raw YouTube text or full article bodies.
+- `post_kind` can be `research`, `portfolio_update`,
+  `stock_recommendation_list`, `news`, or `other`. Friendly aliases like
+  `stock list` and `portfolio` are accepted.
 - Subscriber-only Substack text is not returned.
 - Twitter defaults to Buzzberg ticker-idea tweets, not every tweet. `WATCH` and
   `AVOID` are included because they are still useful market signals.

@@ -4,19 +4,20 @@
 
 ## search_trade_ideas
 
-Search trade ideas from Buzzberg. Filter by ticker, source, speaker, confidence, direction.
+Search trade ideas from Buzzberg. Filter by ticker, source, speaker, post kind, confidence, direction.
 
 **Inputs:**
 - `ticker` (optional, str, default `''`)
 - `source_type` (optional, str, default `''`)
 - `speaker` (optional, str, default `''`)
+- `post_kind` (optional, str, default `''`)
 - `min_confidence` (optional, float, default `0.0`)
 - `direction` (optional, str, default `''`)
 - `days` (optional, int, default `7`)
 - `limit` (optional, int, default `20`)
 
 **Example prompt:**
-> "Use `search_trade_ideas` for a Buzzberg analysis."
+> "Find trade ideas from research posts in the last 24h. Show ticker, speaker, thesis, direction, confidence, and which ideas deserve a deeper follow-up."
 
 **Returns:** Markdown response from `search_trade_ideas`.
 
@@ -380,6 +381,7 @@ Read recent source TLDRs + trade ideas for user-side research workflows.
 - `source_type` (required, str)
 - `limit` (optional, int, default `0`)
 - `ticker` (optional, str, default `''`)
+- `post_kind` (optional, str, default `''`)
 - `speaker_rank_limit` (optional, int, default `0`)
 - `include_all_tweets` (optional, bool, default `False`)
 - `max_chars_per_item` (optional, int, default `0`)
@@ -388,7 +390,7 @@ Read recent source TLDRs + trade ideas for user-side research workflows.
 - `days` (optional, int, default `1`)
 
 **Example prompt:**
-> "Read top-50 speaker Twitter/X ticker-idea tweets from the last 24h, or YouTube/Substack TLDRs plus trade ideas from the last 7d. Summarize the main market themes, crowded trades, disagreements, and repeated words."
+> "Read top-50 speaker Twitter/X ticker-idea tweets from the last 24h, or YouTube/Substack TLDRs plus trade ideas from the last 7d. Use post_kind='research' for alpha extraction, or post_kind='stock list' for stock-list posts. Summarize themes, tickers, and disagreements."
 
 **Returns:** Markdown response from `get_recent_source_text`.
 

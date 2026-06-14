@@ -24,6 +24,12 @@
           "default": ""
         },
         {
+          "name": "post_kind",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
           "name": "min_confidence",
           "type": "float",
           "required": false,
@@ -49,7 +55,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Search trade ideas from Buzzberg. Filter by ticker, source, speaker, confidence, direction."
+      "summary": "Search trade ideas from Buzzberg. Filter by ticker, source, speaker, post kind, confidence, direction."
     },
     {
       "name": "get_speaker_trade_ideas",
@@ -599,6 +605,12 @@
         },
         {
           "name": "ticker",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "post_kind",
           "type": "str",
           "required": false,
           "default": ""
