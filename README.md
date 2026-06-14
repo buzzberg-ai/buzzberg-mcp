@@ -146,6 +146,13 @@ context into a usable research read.
 Start with these prompts:
 
 ```text
+Use Buzzberg to deep dive SIVE.
+Who is talking about it, what is the core bull thesis,
+what are the strongest bear risks or missing arguments,
+and is this early discovery, building momentum, or crowded?
+```
+
+```text
 Use Buzzberg to give me today's top-speaker market brief.
 What are the main themes, crowded trades, new tickers, and disagreements?
 Quote examples.
@@ -162,13 +169,6 @@ Use Buzzberg to find first-order and second-order effects from this week's
 YouTube market discussions.
 Which tickers benefit directly, which suppliers or competitors are second-order
 plays, and what risks are speakers worried about?
-```
-
-```text
-Use Buzzberg to deep dive SIVE.
-Who is talking about it, what is the core bull thesis,
-what are the strongest bear risks or missing arguments,
-and is this early discovery, building momentum, or crowded?
 ```
 
 ```text
