@@ -6,7 +6,7 @@ attention.
 
 ## The ask
 
-> Use Buzzberg to compare NOK's mention volume against price over the last
+> Use Buzzberg to compare SIVE's mention volume against price over the last
 > 90 days.
 >
 > Find attention spikes, explain what caused them, and classify the setup as
@@ -15,17 +15,18 @@ attention.
 
 ## Tools Claude will chain
 
-1. `get_ticker_timeseries(ticker="NOK", days=90)` — daily mentions + close
-2. `read_ticker_content(ticker="NOK", days=30, limit=30)` — source snippets
+1. `get_ticker_timeseries(ticker="SIVE", days=90)` — daily mentions + close
+2. `read_ticker_content(ticker="SIVE", days=30, limit=30)` — source snippets
    behind the latest spikes
-3. `search_trade_ideas(ticker="NOK", days=30, limit=30)` — directional calls
+3. `search_trade_ideas(ticker="SIVE", days=30, limit=30)` — directional calls
    behind the attention
 
 ## What you'll get
 
-> **Attention read:** Nokia is not an undiscovered quiet value setup. Buzzberg
-> shows a visible attention build, mostly from X, around insider buying and the
-> AI-infrastructure rerate narrative.
+> **Attention read:** Buzzberg can show whether SIVE is being discovered,
+> crowded, or ignored by comparing daily mentions, sentiment, and price closes.
+> The point is not the exact row count; it is whether attention arrived before
+> price, during the move, or after the move.
 >
 > **Healthy version:** mentions rise before or with price, and source snippets
 > show new information or new catalysts.
@@ -46,6 +47,6 @@ attention.
 
 ## Follow-up prompts
 
-- *"Show me the three biggest NOK mention-spike days and what caused each."*
-- *"Did new speakers enter the Nokia story, or is it the same accounts repeating it?"*
+- *"Show me the three biggest SIVE mention-spike days and what caused each."*
+- *"Did new speakers enter the SIVE story, or is it the same accounts repeating it?"*
 - *"Compare mention spikes to direction: were they mostly LONG, WATCH, or neutral?"*

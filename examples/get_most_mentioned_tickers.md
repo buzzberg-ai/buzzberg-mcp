@@ -25,6 +25,24 @@ get_most_mentioned_tickers(days=1, limit=20, min_mentions=1, history=True)
 get_most_mentioned_tickers(days=7, limit=20, min_mentions=5, history=True)
 ```
 
+## Top-50 Speaker Version
+
+Use this when you want attention from Buzzberg's highest-ranked speakers only,
+not the whole database. `get_most_mentioned_tickers` ranks all Buzzberg
+mentions; for a top-speaker-only pulse, ask your agent to use
+`get_recent_source_text(source_type="twitter", speaker_rank_limit=50)` and count
+tickers from that bounded set.
+
+```text
+Use Buzzberg to rank the tickers most mentioned by top-50 speakers today.
+Show mentions, sentiment, direction mix, source mix, and whether each story
+looks fresh or already crowded.
+```
+
+```python
+get_recent_source_text(source_type="twitter", speaker_rank_limit=50, days=1)
+```
+
 ## What To Look For
 
 - Mention spikes before price moves: possible discovery.

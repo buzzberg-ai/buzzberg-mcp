@@ -23,6 +23,21 @@ get_top_sentiment_tickers(days=7, limit=20, min_mentions=5, direction="bullish",
 get_top_sentiment_tickers(days=7, limit=20, min_mentions=5, direction="bearish", history=True)
 ```
 
+## Top-50 Speaker Version
+
+```text
+Use Buzzberg to find the most bullish tickers among top-50 speakers today.
+Require at least 2 mentions and include daily history.
+```
+
+```python
+get_recent_source_text(source_type="twitter", speaker_rank_limit=50, days=1)
+```
+
+Then ask the agent to count tickers and direction/sentiment from the returned
+top-speaker trade-idea tweets. `get_top_sentiment_tickers` itself ranks the
+full Buzzberg conversation, not a top-speaker subset.
+
 ## What To Look For
 
 - High average sentiment plus rising mentions: strengthening narrative.

@@ -24,6 +24,49 @@ Search trade ideas from Buzzberg. Filter by ticker, source, speaker, confidence,
 
 **Full example:** [examples/search_trade_ideas.md](examples/search_trade_ideas.md)
 
+## get_speaker_trade_ideas
+
+Get structured trade-idea history for one speaker, with thesis.
+
+**Inputs:**
+- `speaker_name` (required, str)
+- `ticker` (optional, str, default `''`)
+- `direction` (optional, str, default `''`)
+- `source_type` (optional, str, default `''`)
+- `signal` (optional, str, default `'all'`)
+- `sort` (optional, str, default `'recent'`)
+- `days` (optional, int, default `365`)
+- `limit` (optional, int, default `50`)
+- `max_per_day` (optional, int, default `10`)
+
+**Example prompt:**
+> "Show Serenity's all-time Buzzberg trade ideas with thesis, direction, confidence, source, and date. Limit to 100 ideas and keep at most 5 ideas per day, then summarize how her views changed."
+
+**Returns:** Markdown response from `get_speaker_trade_ideas`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_speaker_trade_ideas.md](examples/get_speaker_trade_ideas.md)
+
+## get_speaker_ticker_history
+
+Daily history for one speaker's stance on one ticker.
+
+**Inputs:**
+- `speaker_name` (required, str)
+- `ticker` (required, str)
+- `days` (optional, int, default `180`)
+- `source_type` (optional, str, default `''`)
+
+**Example prompt:**
+> "Build a daily chart-style read of Serenity's SIVE stance over 180 days. Use idea IDs, daily direction mix, sentiment, and confidence."
+
+**Returns:** Markdown response from `get_speaker_ticker_history`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_speaker_ticker_history.md](examples/get_speaker_ticker_history.md)
+
 ## get_top_speakers
 
 List Buzzberg's top speakers by lifetime Alpha-rank.
@@ -259,18 +302,15 @@ Get current prices for tickers via Massive (stocks) / Binance (crypto).
 
 Batch overview for multiple tickers: price, mentions, sentiment, and direction counts.
 
-Use this instead of calling `get_ticker_info` or `get_ticker_mentions` once per
-ticker when you need a broad multi-ticker screen.
-
 **Inputs:**
 - `tickers` (required, list[str])
 - `days` (optional, int, default `30`)
 - `source_type` (optional, str, default `''`)
 
 **Example prompt:**
-> "Use `get_tickers_overview` to screen NVDA, TSM, DKNG, COIN, and PLTR. Pick the three most interesting names for follow-up based on mentions, sentiment, and direction counts."
+> "Use `get_tickers_overview` for a Buzzberg analysis."
 
-**Returns:** Markdown table with per-ticker price, 24h / 7d / 30d mentions, average sentiment, and direction counts.
+**Returns:** Markdown response from `get_tickers_overview`.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
@@ -314,7 +354,7 @@ Count mentions of a ticker across 24h / 7d / 30d windows, broken down by source.
 
 ## read_ticker_content
 
-Read the actual text bodies of content mentioning a ticker.
+Read recent content summaries and trade-context text mentioning a ticker.
 
 **Inputs:**
 - `ticker` (required, str)
@@ -324,7 +364,7 @@ Read the actual text bodies of content mentioning a ticker.
 - `verbose` (optional, bool, default `False`)
 
 **Example prompt:**
-> "Use `read_ticker_content` for a Buzzberg analysis."
+> "Read recent SIVE content. Use YouTube and Substack TLDRs where available, not raw YouTube text or full articles. Summarize thesis, risks, and sources."
 
 **Returns:** Markdown response from `read_ticker_content`.
 
@@ -334,7 +374,7 @@ Read the actual text bodies of content mentioning a ticker.
 
 ## get_recent_source_text
 
-Read source text from the last 24 hours for user-side TLDR workflows.
+Read recent source TLDRs + trade ideas for user-side research workflows.
 
 **Inputs:**
 - `source_type` (required, str)
@@ -343,11 +383,12 @@ Read source text from the last 24 hours for user-side TLDR workflows.
 - `speaker_rank_limit` (optional, int, default `0`)
 - `include_all_tweets` (optional, bool, default `False`)
 - `max_chars_per_item` (optional, int, default `0`)
-- `max_total_chars` (optional, int, default `180000`)
+- `max_total_chars` (optional, int, default `220000`)
 - `include_segments` (optional, bool, default `False`)
+- `days` (optional, int, default `1`)
 
 **Example prompt:**
-> "Read the last 24 hours of top-speaker Twitter trade-idea tweets and summarize the main market themes, crowded trades, and repeated words."
+> "Read top-50 speaker Twitter/X ticker-idea tweets from the last 24h, or YouTube/Substack TLDRs plus trade ideas from the last 7d. Summarize the main market themes, crowded trades, disagreements, and repeated words."
 
 **Returns:** Markdown response from `get_recent_source_text`.
 
@@ -362,6 +403,7 @@ Read source text from the last 24 hours for user-side TLDR workflows.
 **Inputs:**
 - `ticker` (required, str)
 - `user_email` (optional, str, default `''`)
+- `dry_run` (optional, bool, default `False`)
 
 **Example prompt:**
 > "Use `add_to_watchlist` for a Buzzberg analysis."
@@ -379,6 +421,7 @@ Read source text from the last 24 hours for user-side TLDR workflows.
 **Inputs:**
 - `ticker` (required, str)
 - `user_email` (optional, str, default `''`)
+- `dry_run` (optional, bool, default `False`)
 
 **Example prompt:**
 > "Use `remove_from_watchlist` for a Buzzberg analysis."
@@ -396,6 +439,7 @@ Read source text from the last 24 hours for user-side TLDR workflows.
 **Inputs:**
 - `idea_id` (required, int)
 - `user_email` (optional, str, default `''`)
+- `dry_run` (optional, bool, default `False`)
 
 **Example prompt:**
 > "Use `save_trade_idea` for a Buzzberg analysis."

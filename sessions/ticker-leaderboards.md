@@ -14,17 +14,31 @@ fading.
 > why people are talking about it, whether the attention is new or crowded, and
 > what source snippets I should read next.
 
+## Top-50 speaker version
+
+> Use Buzzberg to rank the tickers most mentioned by top-50 speakers today.
+>
+> For each ticker, show mentions, sentiment, direction mix, and source mix.
+> Then tell me whether this looks like fresh discovery, building trend, crowded
+> momentum, or stale repeat. Use Buzzberg data only.
+
 ## Tools Claude will chain
 
 1. `get_most_mentioned_tickers(days=1, limit=20, history=True)` — today's
    attention leaderboard plus daily rows
 2. `get_most_mentioned_tickers(days=7, limit=20, min_mentions=5, history=True)`
    — weekly buzz with history
-3. `get_top_sentiment_tickers(days=7, min_mentions=5, direction="bullish", history=True)`
+3. `get_recent_source_text(source_type="twitter", speaker_rank_limit=50, days=1)`
+   — bounded top-50 speaker ticker-idea tweets; Claude counts ticker frequency
+   and direction mix from this returned set
+4. `get_top_sentiment_tickers(days=7, min_mentions=5, direction="bullish", history=True)`
    — strongest positive narratives
-4. `get_top_sentiment_tickers(days=7, min_mentions=5, direction="bearish", history=True)`
+5. `get_top_sentiment_tickers(days=7, min_mentions=5, direction="bearish", history=True)`
    — strongest negative narratives
-5. `read_ticker_content(ticker="...", days=7, limit=20)` — source snippets
+6. For top-50 speaker sentiment, use the same bounded
+   `get_recent_source_text(... speaker_rank_limit=50)` set and have Claude
+   aggregate direction/sentiment from the returned ideas
+7. `read_ticker_content(ticker="...", days=7, limit=20)` — source snippets
    behind the interesting spikes
 
 ## What you'll get
@@ -54,6 +68,8 @@ Ask Claude to write a market-intelligence read:
 - *"Find the strongest bearish narrative with at least 5 mentions and show the
   source snippets behind it."*
 - *"Which ticker had rising mentions but weakening sentiment?"*
+- *"Now rerun this for top-50 speakers only and explain what changed."*
+- *"Which top-50 speaker tickers are new today but absent from the 7-day crowd?"*
 
 ## Tips
 
@@ -62,3 +78,6 @@ Ask Claude to write a market-intelligence read:
 - Use `history=True` when you want charts or a narrative timeline.
 - Use `min_mentions=5` or higher for sentiment rankings; otherwise one very
   bullish post can dominate the leaderboard.
+- Use `get_recent_source_text(source_type="twitter", speaker_rank_limit=50)`
+  when you specifically want the top-speaker pulse instead of the full
+  Buzzberg conversation.

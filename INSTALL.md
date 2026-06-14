@@ -256,8 +256,9 @@ user**, with an additional shared server-wide safety cap.
 If your client gets `429 Too Many Requests`, wait for the `Retry-After` header
 or `retry_after_seconds` value before continuing. Agents should avoid tight
 retry loops, large parallel batches, and unbounded scans. Prefer one broad scan
-or leaderboard first, then targeted follow-ups with small `limit`, `days`, or
-`top_n` values.
+or leaderboard first, then targeted follow-ups with small `limit`, `days`,
+`top_n`, or `max_per_day` values. Speaker trade-history tools require one
+`speaker_name`; there is no endpoint for dumping every speaker's ideas.
 
 ## No-Install Manual Setup
 

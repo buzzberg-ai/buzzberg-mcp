@@ -13,6 +13,19 @@ def test_tools_md_matches_manifest():
     assert headings == expected
 
 
+def test_prompt_cookbook_references_real_tools():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    expected = {tool["name"] for tool in manifest["tools"]}
+    text = (ROOT / "PROMPTS.md").read_text()
+
+    referenced = set(re.findall(r"`([a-z][a-z_]+)`", text))
+    referenced.update(re.findall(r"`([a-z][a-z_]+)\(", text))
+    tool_prefixes = ("get_", "read_", "search_", "add_", "save_")
+    tool_like = {name for name in referenced if name.startswith(tool_prefixes)}
+
+    assert tool_like <= expected
+
+
 def test_no_legacy_personal_repo_references():
     forbidden = re.compile(
         "|".join(["n1" + "fan", r"github\.com/n1" + "fan", r"ghcr\.io/n1" + "fan"])
