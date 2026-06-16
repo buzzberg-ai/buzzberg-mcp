@@ -63,6 +63,25 @@ def redacted_server_entry(api_key: str) -> dict[str, Any]:
     }
 
 
+def claude_desktop_server_entry(api_key: str, *, redacted: bool = False) -> dict[str, Any]:
+    auth_value = f"Bearer {redact_key(api_key) if redacted else api_key}"
+    return {
+        "command": "npx",
+        "args": [
+            "-y",
+            "mcp-remote@latest",
+            MCP_URL,
+            "--transport",
+            "sse-only",
+            "--header",
+            "Authorization:${AUTH_HEADER}",
+        ],
+        "env": {
+            "AUTH_HEADER": auth_value,
+        },
+    }
+
+
 def _home() -> Path:
     return Path.home()
 
@@ -225,7 +244,10 @@ def _install_mcp_servers_style(
         raise InstallerError(f"`mcpServers` must be an object in {path}")
     if SERVER_NAME in servers and not force and not dry_run:
         raise InstallerError(f"{client} already has a Buzzberg entry. Re-run with --force.")
-    servers[SERVER_NAME] = redacted_server_entry(api_key) if dry_run else server_entry(api_key)
+    if client == "claude-desktop":
+        servers[SERVER_NAME] = claude_desktop_server_entry(api_key, redacted=dry_run)
+    else:
+        servers[SERVER_NAME] = redacted_server_entry(api_key) if dry_run else server_entry(api_key)
     diff = _unified_diff(before, after, path)
     if dry_run:
         return InstallResult(client, path, before != after, True, diff=diff)

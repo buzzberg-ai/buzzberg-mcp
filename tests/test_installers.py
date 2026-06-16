@@ -16,8 +16,18 @@ def test_claude_desktop_install_creates_config(monkeypatch, tmp_path):
     result = installers.install_client("claude-desktop", "bzb_secret", force=True)
     assert result.path is not None
     data = json.loads(result.path.read_text())
-    assert data["mcpServers"]["buzzberg"]["url"] == "https://mcp.buzzberg.ai/sse"
-    assert data["mcpServers"]["buzzberg"]["headers"]["Authorization"] == "Bearer bzb_secret"
+    buzzberg = data["mcpServers"]["buzzberg"]
+    assert buzzberg["command"] == "npx"
+    assert buzzberg["args"] == [
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.buzzberg.ai/sse",
+        "--transport",
+        "sse-only",
+        "--header",
+        "Authorization:${AUTH_HEADER}",
+    ]
+    assert buzzberg["env"]["AUTH_HEADER"] == "Bearer bzb_secret"
 
 
 def test_existing_unknown_fields_preserved(monkeypatch, tmp_path):

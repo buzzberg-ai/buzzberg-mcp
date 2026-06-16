@@ -28,7 +28,8 @@ buzzberg-mcp setup --client claude-desktop
 ```
 
 3. Paste your `bzb_...` key when setup asks for it. The input is hidden.
-4. Fully quit Claude Desktop (`Cmd+Q` on macOS), then reopen it.
+4. Fully quit Claude Desktop (`Cmd+Q` on macOS), then reopen it. On first
+   launch, Claude may take a moment while `npx` downloads `mcp-remote`.
 5. Ask Claude:
 
 ```text
@@ -263,7 +264,45 @@ or leaderboard first, then targeted follow-ups with small `limit`, `days`,
 ## No-Install Manual Setup
 
 If you do not want to install the helper package, edit your client config
-manually and add:
+manually.
+
+### Claude Desktop
+
+Claude Desktop's local config expects a stdio server. Use `mcp-remote` as the
+local bridge to Buzzberg's remote SSE endpoint:
+
+```json
+{
+  "mcpServers": {
+    "buzzberg": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.buzzberg.ai/sse",
+        "--transport",
+        "sse-only",
+        "--header",
+        "Authorization:${AUTH_HEADER}"
+      ],
+      "env": {
+        "AUTH_HEADER": "Bearer bzb_YOUR_KEY_HERE"
+      }
+    }
+  }
+}
+```
+
+Claude Desktop config paths:
+
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%/Claude/claude_desktop_config.json`
+
+After editing, fully quit and reopen the client.
+
+### Cursor / Cline
+
+These clients can use the direct remote-server config:
 
 ```json
 {
@@ -277,13 +316,6 @@ manually and add:
   }
 }
 ```
-
-Claude Desktop config paths:
-
-- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- Windows: `%APPDATA%/Claude/claude_desktop_config.json`
-
-After editing, fully quit and reopen the client.
 
 ## Read Before Installing
 

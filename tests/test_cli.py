@@ -7,7 +7,7 @@ from buzzberg_mcp import cli
 
 def test_version_command(capsys):
     assert cli.main(["version"]) == 0
-    assert "0.1.0b1" in capsys.readouterr().out
+    assert "0.1.0b2" in capsys.readouterr().out
 
 
 def test_setup_client_invokes_installer(monkeypatch, capsys):

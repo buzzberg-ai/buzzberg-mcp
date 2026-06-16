@@ -1,6 +1,6 @@
 """Constants shared by the Buzzberg MCP installer."""
 
-VERSION = "0.1.0b1"
+VERSION = "0.1.0b2"
 MCP_URL = "https://mcp.buzzberg.ai/sse"
 MCP_HEALTH_URL = "https://mcp.buzzberg.ai/health"
 SERVER_NAME = "buzzberg"
