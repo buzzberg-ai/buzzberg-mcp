@@ -5,6 +5,12 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## 0.1.0b4
+
+- Switches Claude Desktop's `mcp-remote` bridge from legacy SSE `/sse` to
+  Streamable HTTP `/mcp`, avoiding stale SSE session failures after reconnects
+  or server deploys.
+
 ## 0.1.0b3
 
 - Simplifies Claude Desktop setup by writing the Bearer key directly in the

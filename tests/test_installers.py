@@ -21,9 +21,7 @@ def test_claude_desktop_install_creates_config(monkeypatch, tmp_path):
     assert buzzberg["args"] == [
         "-y",
         "mcp-remote@latest",
-        "https://mcp.buzzberg.ai/sse",
-        "--transport",
-        "sse-only",
+        "https://mcp.buzzberg.ai/mcp",
         "--header",
         "Authorization: Bearer bzb_secret",
     ]
