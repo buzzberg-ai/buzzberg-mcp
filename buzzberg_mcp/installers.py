@@ -19,7 +19,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from .constants import AUTH_HEADER, MCP_URL, SERVER_NAME
+from .constants import AUTH_HEADER, MCP_HTTP_URL, MCP_URL, SERVER_NAME
 
 
 class InstallerError(RuntimeError):
@@ -70,9 +70,7 @@ def claude_desktop_server_entry(api_key: str, *, redacted: bool = False) -> dict
         "args": [
             "-y",
             "mcp-remote@latest",
-            MCP_URL,
-            "--transport",
-            "sse-only",
+            MCP_HTTP_URL,
             "--header",
             f"Authorization: {auth_value}",
         ],

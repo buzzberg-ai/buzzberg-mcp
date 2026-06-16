@@ -52,9 +52,7 @@ Claude Desktop.
       "args": [
         "-y",
         "mcp-remote@latest",
-        "https://mcp.buzzberg.ai/sse",
-        "--transport",
-        "sse-only",
+        "https://mcp.buzzberg.ai/mcp",
         "--header",
         "Authorization: Bearer bzb_YOUR_KEY_HERE"
       ]
@@ -67,7 +65,7 @@ Claude Desktop.
 
 Replace only `bzb_YOUR_KEY_HERE` with your key. Claude Desktop's local config
 supports stdio servers, so `mcp-remote` bridges Claude Desktop to Buzzberg's
-remote SSE endpoint. Do not share screenshots of this config after adding your
+Streamable HTTP endpoint. Do not share screenshots of this config after adding your
 key. Claude's **Settings -> Connectors -> Add custom connector** flow is coming
 after Buzzberg adds OAuth.
 
@@ -387,7 +385,7 @@ arguments.
 
 | Client | Status |
 |---|---|
-| Claude Desktop | Supported via helper installer |
+| Claude Desktop | Supported via helper installer using Streamable HTTP `/mcp` |
 | Claude Code | Supported via SSE |
 | Codex | Supported via Streamable HTTP `/mcp` |
 | OpenClaw | Supported via Streamable HTTP `/mcp` |
@@ -400,8 +398,8 @@ arguments.
 
 Buzzberg exposes two MCP transports:
 
-- Streamable HTTP: `https://mcp.buzzberg.ai/mcp` for Codex, OpenClaw, and newer agents.
-- Legacy SSE: `https://mcp.buzzberg.ai/sse` for Claude Desktop, Claude Code, Cursor, Cline, and older clients.
+- Streamable HTTP: `https://mcp.buzzberg.ai/mcp` for Claude Desktop, Codex, OpenClaw, and newer agents.
+- Legacy SSE: `https://mcp.buzzberg.ai/sse` for Claude Code, Cursor, Cline, and older clients.
 
 ## Tools
 

@@ -269,7 +269,7 @@ manually.
 ### Claude Desktop
 
 Claude Desktop's local config expects a stdio server. Use `mcp-remote` as the
-local bridge to Buzzberg's remote SSE endpoint:
+local bridge to Buzzberg's Streamable HTTP endpoint:
 
 ```json
 {
@@ -279,9 +279,7 @@ local bridge to Buzzberg's remote SSE endpoint:
       "args": [
         "-y",
         "mcp-remote@latest",
-        "https://mcp.buzzberg.ai/sse",
-        "--transport",
-        "sse-only",
+        "https://mcp.buzzberg.ai/mcp",
         "--header",
         "Authorization: Bearer bzb_YOUR_KEY_HERE"
       ]
