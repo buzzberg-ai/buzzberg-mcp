@@ -74,11 +74,8 @@ def claude_desktop_server_entry(api_key: str, *, redacted: bool = False) -> dict
             "--transport",
             "sse-only",
             "--header",
-            "Authorization:${AUTH_HEADER}",
+            f"Authorization: {auth_value}",
         ],
-        "env": {
-            "AUTH_HEADER": auth_value,
-        },
     }
 
 

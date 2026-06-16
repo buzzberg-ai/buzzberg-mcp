@@ -25,9 +25,9 @@ def test_claude_desktop_install_creates_config(monkeypatch, tmp_path):
         "--transport",
         "sse-only",
         "--header",
-        "Authorization:${AUTH_HEADER}",
+        "Authorization: Bearer bzb_secret",
     ]
-    assert buzzberg["env"]["AUTH_HEADER"] == "Bearer bzb_secret"
+    assert "env" not in buzzberg
 
 
 def test_existing_unknown_fields_preserved(monkeypatch, tmp_path):

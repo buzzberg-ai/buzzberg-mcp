@@ -1,6 +1,6 @@
 [project]
 name = "buzzberg-mcp"
-version = "0.1.0b2"
+version = "0.1.0b3"
 description = "Buzzberg MCP installer for Claude / Cursor / Cline / Continue.dev"
 readme = "README.md"
 requires-python = ">=3.10"

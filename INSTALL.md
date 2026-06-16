@@ -283,11 +283,8 @@ local bridge to Buzzberg's remote SSE endpoint:
         "--transport",
         "sse-only",
         "--header",
-        "Authorization:${AUTH_HEADER}"
-      ],
-      "env": {
-        "AUTH_HEADER": "Bearer bzb_YOUR_KEY_HERE"
-      }
+        "Authorization: Bearer bzb_YOUR_KEY_HERE"
+      ]
     }
   }
 }
@@ -299,6 +296,7 @@ Claude Desktop config paths:
 - Windows: `%APPDATA%/Claude/claude_desktop_config.json`
 
 After editing, fully quit and reopen the client.
+Do not share screenshots of this config after adding your real key.
 
 ### Cursor / Cline
 
