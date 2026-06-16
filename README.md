@@ -56,11 +56,8 @@ Claude Desktop.
         "--transport",
         "sse-only",
         "--header",
-        "Authorization:${AUTH_HEADER}"
-      ],
-      "env": {
-        "AUTH_HEADER": "Bearer bzb_YOUR_KEY_HERE"
-      }
+        "Authorization: Bearer bzb_YOUR_KEY_HERE"
+      ]
     }
   }
 }
@@ -68,9 +65,10 @@ Claude Desktop.
 
 3. Fully quit and reopen Claude Desktop.
 
-Claude Desktop's local config supports stdio servers. `mcp-remote` is a small
-local bridge that connects Claude Desktop to Buzzberg's remote SSE endpoint.
-Claude's **Settings -> Connectors -> Add custom connector** flow is coming
+Replace only `bzb_YOUR_KEY_HERE` with your key. Claude Desktop's local config
+supports stdio servers, so `mcp-remote` bridges Claude Desktop to Buzzberg's
+remote SSE endpoint. Do not share screenshots of this config after adding your
+key. Claude's **Settings -> Connectors -> Add custom connector** flow is coming
 after Buzzberg adds OAuth.
 
 #### Claude Code

@@ -5,6 +5,12 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## 0.1.0b3
+
+- Simplifies Claude Desktop setup by writing the Bearer key directly in the
+  `mcp-remote` header argument instead of using an environment variable. The
+  dry-run path still redacts the key.
+
 ## 0.1.0b2
 
 - Fixes Claude Desktop setup. Claude Desktop local config expects stdio MCP
