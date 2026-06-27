@@ -9,6 +9,17 @@ Buzzberg exposes two transports:
 - Legacy SSE: `https://mcp.buzzberg.ai/sse` for Claude Desktop, Claude Code,
   Cursor, Cline, and older clients.
 
+In supported MCP clients, these workflows are also discoverable through
+`prompts/list` / `prompts/get`. Lightweight context is available through
+`resources/list`, including:
+
+- `buzzberg://workflows`
+- `buzzberg://data-boundaries`
+- `buzzberg://top-speakers`
+- `buzzberg://market/leaderboards`
+
+Older clients can copy the prompts below manually.
+
 ## Good Prompt Style
 
 Ask Claude to use Buzzberg explicitly:
@@ -84,17 +95,18 @@ Expected tools:
 ## Research Posts Alpha Extraction
 
 ```text
-Use Buzzberg research posts from the last 24h.
+Use Buzzberg research posts from the last 7 days.
 
 Find the strongest new alpha ideas, second-order beneficiaries, repeated
 evidence, weak assumptions, and tickers worth a deeper dive. Quote short
-examples and separate "hard evidence" from "narrative claims".
+examples from the latest 24h and separate "hard evidence" from "narrative claims".
 ```
 
 Expected tools:
 
+- `search_trade_ideas` with `post_kind="research"` for structured multi-day ideas
 - `get_recent_source_text` with `source_type="twitter"`, `post_kind="research"`,
-  `speaker_rank_limit=50`, `days=1`
+  `speaker_rank_limit=50`, `days=1` for latest-24h quote examples
 - Optional follow-up: `search_trade_ideas` or `get_tickers_overview` for the
   tickers surfaced by the research posts
 
@@ -110,7 +122,10 @@ my watchlist unless I explicitly ask.
 
 Expected tools:
 
-- `get_recent_source_text` with `post_kind="stock list"`
+- `search_trade_ideas` with `post_kind="stock_recommendation_list"` for
+  structured multi-day stock-list ideas
+- `get_recent_source_text` with `post_kind="stock list"`, `days=1` for
+  latest-24h quote examples
 - `get_most_mentioned_tickers`
 - `get_tickers_overview` for the top candidates
 
@@ -126,7 +141,10 @@ signals.
 
 Expected tools:
 
-- `get_recent_source_text` with `post_kind="portfolio"`
+- `search_trade_ideas` with `post_kind="portfolio_update"` for structured
+  multi-day portfolio-update ideas
+- `get_recent_source_text` with `post_kind="portfolio"`, `days=1` for
+  latest-24h quote examples
 - `get_top_speaker_signals`
 - `search_trade_ideas` for follow-up on repeated tickers
 

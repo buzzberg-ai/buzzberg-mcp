@@ -149,7 +149,33 @@ not just fetch a price. Ask one plain-English question; Claude, Codex, or
 another MCP client chains the right Buzzberg tools and turns bounded market
 context into a usable research read.
 
-Start with these prompts:
+In supported clients, Buzzberg also exposes these workflows through MCP
+`prompts/list` and context through `resources/list`, similar to Kaito-style MCP
+servers. Ask your agent to **"list Buzzberg workflows"** or use the manual
+prompts below.
+
+Discoverable MCP prompts include:
+
+- `daily_alpha_brief`
+- `top_speaker_market_tldr`
+- `ticker_deep_dive`
+- `narrative_map`
+- `research_posts_alpha`
+- `stock_list_candidates`
+- `portfolio_update_tracker`
+- `speaker_story`
+- `sentiment_price_chart`
+- `contrarian_scan`
+- `keyword_mining`
+
+Discoverable MCP resources include:
+
+- `buzzberg://workflows`
+- `buzzberg://data-boundaries`
+- `buzzberg://top-speakers`
+- `buzzberg://market/leaderboards`
+
+Start manually with these prompts:
 
 ```text
 Use Buzzberg to deep dive SIVE.
@@ -244,6 +270,8 @@ What Buzzberg sends to the AI agent:
 - **Twitter/X:** top-speaker tweets from the last 24 hours where Buzzberg found
   ticker ideas, including the full tweet text, speaker, tickers, and direction:
   `LONG`, `SHORT`, `WATCH`, `AVOID`, or `NEUTRAL`. This is not every tweet.
+  For multi-day research, use structured trade ideas rather than raw Twitter
+  source text.
 - **Post-kind filters:** source context can be narrowed to `research`,
   `portfolio_update`, `stock_recommendation_list`, `news`, or `other`, so an
   agent can ask specifically for research posts, stock lists, or portfolio moves.
@@ -346,7 +374,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 24 tools
+            print([t.name for t in tools.tools])  # 27 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -401,15 +429,27 @@ Buzzberg exposes two MCP transports:
 - Streamable HTTP: `https://mcp.buzzberg.ai/mcp` for Claude Desktop, Codex, OpenClaw, and newer agents.
 - Legacy SSE: `https://mcp.buzzberg.ai/sse` for Claude Code, Cursor, Cline, and older clients.
 
-## Tools
+## Tools, Prompts, And Resources
 
-Buzzberg exposes 24 tools — read (`search_trade_ideas`, `get_top_speakers`,
+Buzzberg exposes 27 tools — read (`search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
 `get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,
 `get_speaker_trade_ideas`, `get_speaker_ticker_history`, `get_portfolio`,
 `get_price`, ...) and write
 (`add_to_watchlist`, `save_trade_idea`, ...). See [TOOLS.md](TOOLS.md) for
 signatures and per-tool examples in [examples/](examples).
+
+Buzzberg also exposes MCP prompts and resources:
+
+- `prompts/list` shows ready-made research workflows such as ticker deep dive,
+  daily alpha brief, research-post extraction, stock-list candidates, speaker
+  story, and sentiment/price reads.
+- `resources/list` exposes lightweight context such as `buzzberg://workflows`,
+  `buzzberg://data-boundaries`, `buzzberg://top-speakers`, and
+  `buzzberg://market/leaderboards`.
+
+Clients that do not support prompts/resources can still use all tools normally;
+these are additive capabilities, not a replacement for existing tools.
 
 ## Trust And Verification
 
