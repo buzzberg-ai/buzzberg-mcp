@@ -58,6 +58,30 @@ def test_dry_run_redacts_key_and_does_not_write(monkeypatch, tmp_path):
     assert "bzb_***REDACTED***" in result.diff
 
 
+def test_dry_run_redacts_existing_keys_from_before_diff(monkeypatch, tmp_path):
+    _set_home(monkeypatch, tmp_path)
+    path = installers.claude_desktop_config_path()
+    path.parent.mkdir(parents=True)
+    old_key = "bzb_existing_secret_key_12345678"
+    new_key = "bzb_replacement_secret_key_87654321"
+    path.write_text(json.dumps({
+        "mcpServers": {
+            "buzzberg": {
+                "command": "npx",
+                "args": ["--header", f"X-API-Key:{old_key}"],
+            },
+        },
+        "nested": {"Authorization": f"Bearer {old_key}"},
+    }))
+
+    result = installers.install_client("claude-desktop", new_key, dry_run=True)
+
+    assert path.exists()
+    assert old_key not in result.diff
+    assert new_key not in result.diff
+    assert result.diff.count("bzb_***REDACTED***") >= 2
+
+
 def test_backup_created_and_chmod_600(monkeypatch, tmp_path):
     _set_home(monkeypatch, tmp_path)
     path = installers.cursor_config_path()
