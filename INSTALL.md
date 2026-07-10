@@ -281,7 +281,7 @@ local bridge to Buzzberg's Streamable HTTP endpoint:
         "mcp-remote@latest",
         "https://mcp.buzzberg.ai/mcp",
         "--header",
-        "Authorization: Bearer bzb_YOUR_KEY_HERE"
+        "X-API-Key:bzb_YOUR_KEY_HERE"
       ]
     }
   }
@@ -295,6 +295,9 @@ Claude Desktop config paths:
 
 After editing, fully quit and reopen the client.
 Do not share screenshots of this config after adding your real key.
+Keep `X-API-Key:` exactly as shown, with no space after the colon. If Claude
+reports a timeout or disconnect, create a new key and replace only the
+`bzb_...` value; revoked keys cannot reconnect.
 
 ### Cursor / Cline
 
@@ -326,7 +329,9 @@ python -m pip install /tmp/bz/buzzberg_mcp-*.whl
 ## Troubleshooting
 
 - Tools do not appear: fully quit and reopen the client.
-- `401 Unauthorized`: revoke and recreate the key in **Profile -> MCP Access**.
+- `401 Unauthorized` or `403 Invalid or revoked API key`: create a new key in
+  **Profile -> MCP Access**, replace the old `bzb_...` value, then fully restart
+  the client.
 - `429 Too Many Requests`: read `Retry-After` / `retry_after_seconds`, wait that many seconds, then continue with fewer parallel or bulk calls.
 - `/mcp` returns `404`: the server deploy has not reached your region yet; use SSE or try again after deploy.
 - Health check: `curl https://mcp.buzzberg.ai/health` should return `{"status":"ok","service":"buzzberg-mcp"}`.

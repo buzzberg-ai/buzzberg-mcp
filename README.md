@@ -54,7 +54,7 @@ Claude Desktop.
         "mcp-remote@latest",
         "https://mcp.buzzberg.ai/mcp",
         "--header",
-        "Authorization: Bearer bzb_YOUR_KEY_HERE"
+        "X-API-Key:bzb_YOUR_KEY_HERE"
       ]
     }
   }
@@ -66,7 +66,9 @@ Claude Desktop.
 Replace only `bzb_YOUR_KEY_HERE` with your key. Claude Desktop's local config
 supports stdio servers, so `mcp-remote` bridges Claude Desktop to Buzzberg's
 Streamable HTTP endpoint. Do not share screenshots of this config after adding your
-key. Claude's **Settings -> Connectors -> Add custom connector** flow is coming
+key. Keep `X-API-Key:` exactly as shown, with no space after the colon. If Claude
+reports a timeout or disconnect, create a new key and replace only the `bzb_...`
+value; revoked keys cannot reconnect. Claude's **Settings -> Connectors -> Add custom connector** flow is coming
 after Buzzberg adds OAuth.
 
 #### Claude Code
