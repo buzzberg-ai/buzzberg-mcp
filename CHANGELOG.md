@@ -5,6 +5,13 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## 0.1.0b5
+
+- Makes Claude Desktop authentication reliable across macOS and Windows by
+  using the supported `X-API-Key:bzb_...` bridge header without spaces.
+- Documents that a timeout/disconnect can mean the saved key was revoked and
+  should be replaced.
+
 ## 0.1.0b4
 
 - Switches Claude Desktop's `mcp-remote` bridge from legacy SSE `/sse` to

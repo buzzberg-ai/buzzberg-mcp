@@ -19,7 +19,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from .constants import AUTH_HEADER, MCP_HTTP_URL, MCP_URL, SERVER_NAME
+from .constants import AUTH_HEADER, DESKTOP_API_KEY_HEADER, MCP_HTTP_URL, MCP_URL, SERVER_NAME
 
 
 class InstallerError(RuntimeError):
@@ -64,7 +64,7 @@ def redacted_server_entry(api_key: str) -> dict[str, Any]:
 
 
 def claude_desktop_server_entry(api_key: str, *, redacted: bool = False) -> dict[str, Any]:
-    auth_value = f"Bearer {redact_key(api_key) if redacted else api_key}"
+    key_value = redact_key(api_key) if redacted else api_key
     return {
         "command": "npx",
         "args": [
@@ -72,7 +72,7 @@ def claude_desktop_server_entry(api_key: str, *, redacted: bool = False) -> dict
             "mcp-remote@latest",
             MCP_HTTP_URL,
             "--header",
-            f"Authorization: {auth_value}",
+            f"{DESKTOP_API_KEY_HEADER}:{key_value}",
         ],
     }
 
