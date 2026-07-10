@@ -5,6 +5,11 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## 0.1.0b6
+
+- Security fix: `--dry-run` now redacts Buzzberg keys already present in the
+  existing config as well as the new key being proposed.
+
 ## 0.1.0b5
 
 - Makes Claude Desktop authentication reliable across macOS and Windows by

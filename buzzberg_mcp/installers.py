@@ -11,6 +11,7 @@ import hashlib
 import json
 import os
 import platform
+import re
 import shutil
 import subprocess
 import tempfile
@@ -44,9 +45,26 @@ class DetectedClient:
     reason: str
 
 
+_BUZZBERG_KEY_RE = re.compile(r"bzb_[A-Za-z0-9_-]{8,}")
+
+
 def redact_key(api_key: str) -> str:
     digest = hashlib.sha256(api_key.encode("utf-8")).hexdigest()[:6]
     return f"bzb_***REDACTED*** (k1: {digest})"
+
+
+def _redact_secrets(value: Any) -> Any:
+    """Return a copy safe for terminal output, including pre-existing keys."""
+    if isinstance(value, str):
+        return _BUZZBERG_KEY_RE.sub(lambda match: redact_key(match.group(0)), value)
+    if isinstance(value, list):
+        return [_redact_secrets(item) for item in value]
+    if isinstance(value, dict):
+        return {
+            _redact_secrets(key) if isinstance(key, str) else key: _redact_secrets(item)
+            for key, item in value.items()
+        }
+    return value
 
 
 def server_entry(api_key: str) -> dict[str, Any]:
@@ -212,8 +230,8 @@ def _atomic_write_json(path: Path, data: dict[str, Any]) -> None:
 
 
 def _unified_diff(before: dict[str, Any], after: dict[str, Any], path: Path) -> str:
-    before_lines = _json_text(before).splitlines(keepends=True)
-    after_lines = _json_text(after).splitlines(keepends=True)
+    before_lines = _json_text(_redact_secrets(before)).splitlines(keepends=True)
+    after_lines = _json_text(_redact_secrets(after)).splitlines(keepends=True)
     return "".join(
         difflib.unified_diff(
             before_lines,
