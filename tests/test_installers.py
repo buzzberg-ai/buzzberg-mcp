@@ -20,8 +20,10 @@ def test_claude_desktop_install_creates_config(monkeypatch, tmp_path):
     assert buzzberg["command"] == "npx"
     assert buzzberg["args"] == [
         "-y",
-        "mcp-remote@latest",
+        "mcp-remote@0.1.38",
         "https://mcp.buzzberg.ai/mcp",
+        "--transport",
+        "http-only",
         "--header",
         "X-API-Key:bzb_secret",
     ]
@@ -62,8 +64,8 @@ def test_dry_run_redacts_existing_keys_from_before_diff(monkeypatch, tmp_path):
     _set_home(monkeypatch, tmp_path)
     path = installers.claude_desktop_config_path()
     path.parent.mkdir(parents=True)
-    old_key = "bzb_existing_secret_key_12345678"
-    new_key = "bzb_replacement_secret_key_87654321"
+    old_key = "bzb_" + "old_test_key_" + ("a" * 8)
+    new_key = "bzb_" + "new_test_key_" + ("b" * 8)
     path.write_text(json.dumps({
         "mcpServers": {
             "buzzberg": {

@@ -16,5 +16,6 @@ def test_atomic_write_replaces_with_valid_json(monkeypatch, tmp_path):
     data = json.loads(path.read_text())
     assert data["keep"] == ["a"]
     assert data["mcpServers"]["buzzberg"]["command"] == "npx"
-    assert "mcp-remote@latest" in data["mcpServers"]["buzzberg"]["args"]
+    assert "mcp-remote@0.1.38" in data["mcpServers"]["buzzberg"]["args"]
+    assert data["mcpServers"]["buzzberg"]["args"][-4:-2] == ["--transport", "http-only"]
     assert not list(path.parent.glob("*.tmp"))
