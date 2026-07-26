@@ -20,7 +20,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from .constants import AUTH_HEADER, DESKTOP_API_KEY_HEADER, MCP_HTTP_URL, MCP_URL, SERVER_NAME
+from .constants import (
+    AUTH_HEADER,
+    DESKTOP_API_KEY_HEADER,
+    MCP_HTTP_URL,
+    MCP_REMOTE_PACKAGE,
+    MCP_URL,
+    SERVER_NAME,
+)
 
 
 class InstallerError(RuntimeError):
@@ -87,8 +94,10 @@ def claude_desktop_server_entry(api_key: str, *, redacted: bool = False) -> dict
         "command": "npx",
         "args": [
             "-y",
-            "mcp-remote@latest",
+            MCP_REMOTE_PACKAGE,
             MCP_HTTP_URL,
+            "--transport",
+            "http-only",
             "--header",
             f"{DESKTOP_API_KEY_HEADER}:{key_value}",
         ],

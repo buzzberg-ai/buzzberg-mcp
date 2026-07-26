@@ -278,8 +278,10 @@ local bridge to Buzzberg's Streamable HTTP endpoint:
       "command": "npx",
       "args": [
         "-y",
-        "mcp-remote@latest",
+        "mcp-remote@0.1.38",
         "https://mcp.buzzberg.ai/mcp",
+        "--transport",
+        "http-only",
         "--header",
         "X-API-Key:bzb_YOUR_KEY_HERE"
       ]
@@ -295,6 +297,7 @@ Claude Desktop config paths:
 
 After editing, fully quit and reopen the client.
 Do not share screenshots of this config after adding your real key.
+The pinned bridge uses only Streamable HTTP and will not fall back to legacy SSE.
 Keep `X-API-Key:` exactly as shown, with no space after the colon. If Claude
 reports a timeout or disconnect, create a new key and replace only the
 `bzb_...` value; revoked keys cannot reconnect.

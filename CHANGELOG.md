@@ -5,6 +5,13 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## 0.1.0b7
+
+- Pins Claude Desktop's local bridge to `mcp-remote@0.1.38` instead of executing
+  a floating `@latest` package on every launch.
+- Forces the bridge to use Streamable HTTP only, preventing fallback attempts
+  against the legacy SSE endpoint after reconnects.
+
 ## 0.1.0b6
 
 - Security fix: `--dry-run` now redacts Buzzberg keys already present in the
