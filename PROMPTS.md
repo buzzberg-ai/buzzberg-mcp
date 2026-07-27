@@ -40,6 +40,39 @@ Expected tools:
 
 - `get_price`
 
+## Web Search + Buzzberg Context Pass
+
+Use this when a normal web-search answer gives you the broad company story, but
+you want the agent to examine the source-linked market conversation around the
+ticker as a second research pass.
+
+```text
+Research SIVE in two passes.
+
+First use web search for company background, filings, and current news.
+Then use Buzzberg to inspect collected mentions, speaker-linked trade ideas,
+available source context, sentiment, and attention history.
+
+Reconcile both research passes. Surface overlooked details, contradictions,
+repeated claims, evidence gaps, and risks. Cite links, distinguish web findings
+from Buzzberg findings, and say clearly when coverage is limited.
+```
+
+Expected Buzzberg tools:
+
+- `get_ticker_info`
+- `get_ticker_mentions`
+- `search_trade_ideas`
+- `read_ticker_content`
+- `compare_speakers`
+- `get_sentiment`
+- `get_ticker_timeseries`
+
+Buzzberg complements web search; it does not guarantee exhaustive mention
+coverage or replace primary filings. YouTube and newsletter context is returned
+as Buzzberg TLDRs and extracted ideas rather than raw transcript or article
+dumps.
+
 ## Narrative Ticker Deep Dive
 
 ```text

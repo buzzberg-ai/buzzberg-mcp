@@ -155,6 +155,32 @@ not just fetch a price. Ask one plain-English question; Claude, Codex, or
 another MCP client chains the right Buzzberg tools and turns bounded market
 context into a usable research read.
 
+### Why use Buzzberg after web search?
+
+Web search is useful for broad company background, filings, announcements, and
+current reporting. Buzzberg complements that breadth with a bounded,
+source-linked view of the market conversation: collected ticker mentions,
+speaker-linked theses, trade-idea history, available source context, sentiment,
+and attention over time.
+
+Used together, they help an agent compare the public company story with how
+market participants are actually framing the ticker. That can surface smaller
+details, contradictions, repeated claims, and evidence gaps that a broad summary
+may miss. Buzzberg does not guarantee exhaustive coverage and should not replace
+primary filings or independent verification.
+
+```text
+Research SIVE in two passes.
+
+First use web search for company background, filings, and current news.
+Then use Buzzberg to inspect collected mentions, speaker-linked trade ideas,
+available source context, sentiment, and attention history.
+
+Reconcile both research passes. Surface overlooked details, contradictions,
+repeated claims, evidence gaps, and risks. Cite links, distinguish web findings
+from Buzzberg findings, and say clearly when coverage is limited.
+```
+
 In supported clients, Buzzberg also exposes these workflows through MCP
 `prompts/list` and context through `resources/list`, similar to Kaito-style MCP
 servers. Ask your agent to **"list Buzzberg workflows"** or use the manual
