@@ -40,22 +40,23 @@ Expected tools:
 
 - `get_price`
 
-## Web Search + Buzzberg Context Pass
+## Research Beyond the Headlines
 
 Use this when a normal web-search answer gives you the broad company story, but
-you want the agent to examine the source-linked market conversation around the
-ticker as a second research pass.
+you also want the agent to compare source-linked research from multiple market
+voices and catch smaller facts, competing theses, and risks that a general
+search may overlook.
 
 ```text
-Research SIVE in two passes.
+Research SIVE using both web search and Buzzberg.
 
-First use web search for company background, filings, and current news.
-Then use Buzzberg to inspect collected mentions, speaker-linked trade ideas,
-available source context, sentiment, and attention history.
+Use web search for company fundamentals, filings, and current news.
+Use Buzzberg for source-linked mentions, speaker theses, trade ideas,
+sentiment, disagreements, and narrative changes across available sources.
 
-Reconcile both research passes. Surface overlooked details, contradictions,
-repeated claims, evidence gaps, and risks. Cite links, distinguish web findings
-from Buzzberg findings, and say clearly when coverage is limited.
+Combine both into one report. Highlight non-consensus arguments,
+overlooked risks, second-order effects, repeated claims, and facts
+that still need verification. Cite sources and note coverage gaps.
 ```
 
 Expected Buzzberg tools:

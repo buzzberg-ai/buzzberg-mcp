@@ -155,30 +155,31 @@ not just fetch a price. Ask one plain-English question; Claude, Codex, or
 another MCP client chains the right Buzzberg tools and turns bounded market
 context into a usable research read.
 
-### Why use Buzzberg after web search?
+### Research beyond the headlines
 
-Web search is useful for broad company background, filings, announcements, and
-current reporting. Buzzberg complements that breadth with a bounded,
-source-linked view of the market conversation: collected ticker mentions,
-speaker-linked theses, trade-idea history, available source context, sentiment,
-and attention over time.
+Even a strong web research pass can miss smaller but important facts scattered
+across specialist posts, videos, newsletters, and market discussions. Buzzberg
+gives your AI source-linked research from many different speakers covering the
+same ticker. By comparing their facts, theses, risks, and disagreements, the
+agent can catch details a general search may overlook and build a more complete
+investment picture.
 
-Used together, they help an agent compare the public company story with how
-market participants are actually framing the ticker. That can surface smaller
-details, contradictions, repeated claims, and evidence gaps that a broad summary
-may miss. Buzzberg does not guarantee exhaustive coverage and should not replace
+Use web research for fundamentals, filings, company announcements, and recent
+news. Add Buzzberg for source-linked research from multiple market voices:
+additional facts, competing theses, risks, disagreements, and second-order
+effects. Buzzberg does not guarantee exhaustive coverage and should not replace
 primary filings or independent verification.
 
 ```text
-Research SIVE in two passes.
+Research SIVE using both web search and Buzzberg.
 
-First use web search for company background, filings, and current news.
-Then use Buzzberg to inspect collected mentions, speaker-linked trade ideas,
-available source context, sentiment, and attention history.
+Use web search for company fundamentals, filings, and current news.
+Use Buzzberg for source-linked mentions, speaker theses, trade ideas,
+sentiment, disagreements, and narrative changes across available sources.
 
-Reconcile both research passes. Surface overlooked details, contradictions,
-repeated claims, evidence gaps, and risks. Cite links, distinguish web findings
-from Buzzberg findings, and say clearly when coverage is limited.
+Combine both into one report. Highlight non-consensus arguments,
+overlooked risks, second-order effects, repeated claims, and facts
+that still need verification. Cite sources and note coverage gaps.
 ```
 
 In supported clients, Buzzberg also exposes these workflows through MCP

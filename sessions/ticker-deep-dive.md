@@ -7,19 +7,20 @@ risk the bull camp is not discussing.
 
 ## Pair it with web search
 
-Web search is the broad first pass for company facts, filings, announcements,
-and current reporting. Buzzberg is the market-context pass: collected ticker
-mentions, speaker-linked theses, available source context, sentiment, attention
-history, and changes in views.
+Even a strong web research pass can miss smaller but important facts scattered
+across specialist posts, videos, newsletters, and market discussions. Buzzberg
+adds source-linked research from multiple market voices covering the same
+ticker: their facts, theses, risks, disagreements, and second-order effects.
 
 Ask Claude to reconcile both rather than treating either one as complete:
 
-> Research SIVE in two passes. First use web search for company background,
-> filings, and current news. Then use Buzzberg to inspect collected mentions,
-> speaker-linked trade ideas, available source context, sentiment, and attention
-> history. Surface overlooked details, contradictions, repeated claims,
-> evidence gaps, and risks. Cite links, distinguish web findings from Buzzberg
-> findings, and say clearly when coverage is limited.
+> Research SIVE using both web search and Buzzberg. Use web search for company
+> fundamentals, filings, and current news. Use Buzzberg for source-linked
+> mentions, speaker theses, trade ideas, sentiment, disagreements, and
+> narrative changes across available sources. Combine both into one report.
+> Highlight non-consensus arguments, overlooked risks, second-order effects,
+> repeated claims, and facts that still need verification. Cite sources and
+> note coverage gaps.
 
 Buzzberg does not guarantee exhaustive mention coverage or replace primary
 filings. YouTube and newsletter context is returned as Buzzberg TLDRs and
