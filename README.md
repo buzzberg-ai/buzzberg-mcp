@@ -155,6 +155,33 @@ not just fetch a price. Ask one plain-English question; Claude, Codex, or
 another MCP client chains the right Buzzberg tools and turns bounded market
 context into a usable research read.
 
+### Research beyond the headlines
+
+Even a strong web research pass can miss smaller but important facts scattered
+across specialist posts, videos, newsletters, and market discussions. Buzzberg
+gives your AI source-linked research from many different speakers covering the
+same ticker. By comparing their facts, theses, risks, and disagreements, the
+agent can catch details a general search may overlook and build a more complete
+investment picture.
+
+Use web research for fundamentals, filings, company announcements, and recent
+news. Add Buzzberg for source-linked research from multiple market voices:
+additional facts, competing theses, risks, disagreements, and second-order
+effects. Buzzberg does not guarantee exhaustive coverage and should not replace
+primary filings or independent verification.
+
+```text
+Research SIVE using both web search and Buzzberg.
+
+Use web search for company fundamentals, filings, and current news.
+Use Buzzberg for source-linked mentions, speaker theses, trade ideas,
+sentiment, disagreements, and narrative changes across available sources.
+
+Combine both into one report. Highlight non-consensus arguments,
+overlooked risks, second-order effects, repeated claims, and facts
+that still need verification. Cite sources and note coverage gaps.
+```
+
 In supported clients, Buzzberg also exposes these workflows through MCP
 `prompts/list` and context through `resources/list`, similar to Kaito-style MCP
 servers. Ask your agent to **"list Buzzberg workflows"** or use the manual

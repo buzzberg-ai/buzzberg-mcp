@@ -40,6 +40,40 @@ Expected tools:
 
 - `get_price`
 
+## Research Beyond the Headlines
+
+Use this when a normal web-search answer gives you the broad company story, but
+you also want the agent to compare source-linked research from multiple market
+voices and catch smaller facts, competing theses, and risks that a general
+search may overlook.
+
+```text
+Research SIVE using both web search and Buzzberg.
+
+Use web search for company fundamentals, filings, and current news.
+Use Buzzberg for source-linked mentions, speaker theses, trade ideas,
+sentiment, disagreements, and narrative changes across available sources.
+
+Combine both into one report. Highlight non-consensus arguments,
+overlooked risks, second-order effects, repeated claims, and facts
+that still need verification. Cite sources and note coverage gaps.
+```
+
+Expected Buzzberg tools:
+
+- `get_ticker_info`
+- `get_ticker_mentions`
+- `search_trade_ideas`
+- `read_ticker_content`
+- `compare_speakers`
+- `get_sentiment`
+- `get_ticker_timeseries`
+
+Buzzberg complements web search; it does not guarantee exhaustive mention
+coverage or replace primary filings. YouTube and newsletter context is returned
+as Buzzberg TLDRs and extracted ideas rather than raw transcript or article
+dumps.
+
 ## Narrative Ticker Deep Dive
 
 ```text

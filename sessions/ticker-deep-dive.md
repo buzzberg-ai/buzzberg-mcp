@@ -5,6 +5,27 @@ useful when Claude reads the social/source graph: who is pushing the idea, what
 changed recently, whether the narrative is early or already crowded, and what
 risk the bull camp is not discussing.
 
+## Pair it with web search
+
+Even a strong web research pass can miss smaller but important facts scattered
+across specialist posts, videos, newsletters, and market discussions. Buzzberg
+adds source-linked research from multiple market voices covering the same
+ticker: their facts, theses, risks, disagreements, and second-order effects.
+
+Ask Claude to reconcile both rather than treating either one as complete:
+
+> Research SIVE using both web search and Buzzberg. Use web search for company
+> fundamentals, filings, and current news. Use Buzzberg for source-linked
+> mentions, speaker theses, trade ideas, sentiment, disagreements, and
+> narrative changes across available sources. Combine both into one report.
+> Highlight non-consensus arguments, overlooked risks, second-order effects,
+> repeated claims, and facts that still need verification. Cite sources and
+> note coverage gaps.
+
+Buzzberg does not guarantee exhaustive mention coverage or replace primary
+filings. YouTube and newsletter context is returned as Buzzberg TLDRs and
+extracted ideas rather than raw transcript or article dumps.
+
 ## The ask
 
 > Use Buzzberg to deep dive SIVE.
