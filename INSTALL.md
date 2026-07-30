@@ -4,9 +4,57 @@ Buzzberg MCP lets your AI agent use Buzzberg market intelligence: trade ideas,
 sentiment, speakers, prices, ticker mentions, source snippets, and your own
 watchlist.
 
-You need one thing first: a Buzzberg MCP key.
+## Recommended: Standard OAuth
 
-## Get Your Key
+Use OAuth when your client supports remote MCP authentication. You sign in to
+Buzzberg in the browser and do not need to create, copy, or store a personal API
+key.
+
+### Claude Web, Desktop, And Mobile
+
+1. In Claude web or Desktop, open **Customize -> Connectors**.
+2. Select **+ -> Add custom connector**.
+3. Name it **Buzzberg** and enter:
+
+   ```text
+   https://mcp.buzzberg.ai/mcp
+   ```
+
+4. Leave the OAuth client ID, client secret, and other advanced fields empty.
+5. Select **Add**, then **Connect**.
+6. Sign in to Buzzberg and approve access.
+7. Enable Buzzberg from the Connectors menu in a conversation.
+
+The connector follows the same Claude account across web, Desktop, and mobile.
+Adding custom connectors directly on mobile is still in beta; web or Desktop is
+the simplest setup path. Team and Enterprise workspaces require an owner to add
+the connector before members can connect it.
+
+### Claude Code
+
+Add the Streamable HTTP server:
+
+```bash
+claude mcp add --transport http buzzberg https://mcp.buzzberg.ai/mcp
+```
+
+Open `/mcp` in Claude Code, select Buzzberg, and complete the browser sign-in.
+Claude Code stores and refreshes the OAuth connection.
+
+### Codex
+
+```bash
+codex mcp add buzzberg --url https://mcp.buzzberg.ai/mcp
+codex mcp login buzzberg
+```
+
+The login command opens the standard MCP OAuth flow in your browser.
+
+## Personal API Keys For Existing And Other Clients
+
+Existing `bzb_...` keys, `/sse` connections, Claude Desktop helper installs,
+and manually configured clients continue to work. Use this path only when your
+client cannot complete standard MCP OAuth.
 
 1. Open Buzzberg.
 2. Go to **Profile -> MCP Access**.
@@ -14,89 +62,6 @@ You need one thing first: a Buzzberg MCP key.
 4. Copy the key that starts with `bzb_`.
 
 Keep this key private. Treat it like a password.
-
-## Claude Desktop
-
-Use this if you are on the normal Claude desktop app.
-
-1. Open Terminal.
-2. Run:
-
-```bash
-pip install buzzberg-mcp
-buzzberg-mcp setup --client claude-desktop
-```
-
-3. Paste your `bzb_...` key when setup asks for it. The input is hidden.
-4. Fully quit Claude Desktop (`Cmd+Q` on macOS), then reopen it. On first
-   launch, Claude may take a moment while `npx` downloads `mcp-remote`.
-5. Ask Claude:
-
-```text
-Use Buzzberg to get the current price for BTC.
-```
-
-## Claude Code
-
-Use this if you work from the `claude` CLI.
-
-Ask Claude Code:
-
-```text
-Add Buzzberg as an MCP server.
-Use SSE URL https://mcp.buzzberg.ai/sse.
-Use Authorization: Bearer from my BUZZBERG_MCP_API_KEY environment variable.
-```
-
-Or run this manually:
-
-```bash
-export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
-claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
-  --header "Authorization: Bearer $BUZZBERG_MCP_API_KEY"
-```
-
-Then ask:
-
-```text
-Use Buzzberg to deep dive NOK. Who is bullish, what is the bull case, what are the risks, and what should I watch next?
-```
-
-## Codex
-
-Use this if you want Codex to call Buzzberg tools.
-
-Ask Codex:
-
-```text
-Add Buzzberg MCP to my Codex config.
-Use Streamable HTTP URL https://mcp.buzzberg.ai/mcp.
-Use bearer_token_env_var = "BUZZBERG_MCP_API_KEY".
-Do not paste the secret key into the config file.
-```
-
-Manual setup:
-
-1. Add this to `~/.codex/config.toml`:
-
-```toml
-[mcp_servers.buzzberg]
-url = "https://mcp.buzzberg.ai/mcp"
-bearer_token_env_var = "BUZZBERG_MCP_API_KEY"
-```
-
-2. Start Codex from a shell where the key exists:
-
-```bash
-export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
-codex
-```
-
-3. Ask Codex:
-
-```text
-Use Buzzberg to find the most mentioned tickers in the last 24 hours.
-```
 
 ## OpenClaw
 
@@ -331,10 +296,14 @@ python -m pip install /tmp/bz/buzzberg_mcp-*.whl
 
 ## Troubleshooting
 
+- OAuth connector does not finish: remove the Buzzberg connector, add
+  `https://mcp.buzzberg.ai/mcp` again with advanced fields empty, then complete
+  the browser sign-in.
+- Buzzberg is connected but unavailable in a Claude chat: enable it from the
+  conversation's Connectors menu.
 - Tools do not appear: fully quit and reopen the client.
 - `401 Unauthorized` or `403 Invalid or revoked API key`: create a new key in
   **Profile -> MCP Access**, replace the old `bzb_...` value, then fully restart
   the client.
 - `429 Too Many Requests`: read `Retry-After` / `retry_after_seconds`, wait that many seconds, then continue with fewer parallel or bulk calls.
-- `/mcp` returns `404`: the server deploy has not reached your region yet; use SSE or try again after deploy.
 - Health check: `curl https://mcp.buzzberg.ai/health` should return `{"status":"ok","service":"buzzberg-mcp"}`.

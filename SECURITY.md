@@ -14,8 +14,8 @@ an installer and documentation package; it is not the server implementation.
   context. Write tools use that context and do not accept user-id overrides.
 - Token passthrough: Buzzberg MCP keys are not passed to downstream market-data
   providers.
-- Session hijacking: there is no server-side session cookie for MCP. Each request
-  authenticates with a Bearer key.
+- Session hijacking: there is no server-side session cookie for MCP tool calls.
+  Each request authenticates with a Bearer access token or personal key.
 - SSRF: tool inputs are not arbitrary outbound HTTP URLs.
 - Local installer compromise: installer code is public in this repo and releases
   are published with PyPI Trusted Publishing through GitHub OIDC.
@@ -45,6 +45,13 @@ MCP keys are generated as `bzb_` plus a high-entropy random value from
 raw key. SHA-256 is appropriate here because the secret is random and high
 entropy; this is not a low-entropy password.
 
+Standard MCP OAuth uses authorization code flow with PKCE S256 and an exact
+resource indicator for `https://mcp.buzzberg.ai/mcp`. Authorization codes,
+access tokens, and rotating refresh tokens are stored hashed. Authorization
+codes are single-use; refresh-token reuse revokes that connection's token
+family. OAuth endpoints remain unavailable unless the server's explicit
+production OAuth configuration is complete.
+
 ## Logging
 
 Buzzberg stores `last_used_at` per key and standard HTTP access logs such as
@@ -61,8 +68,10 @@ inside a tool argument.
 
 ## Key Lifecycle
 
-Create keys in Buzzberg Profile -> MCP Access. Revoke keys from the same page.
-Revoked keys stop authenticating once their `revoked_at` timestamp is set.
+OAuth connections and personal keys appear separately in Buzzberg Profile ->
+MCP Access and can be revoked there. Revoked OAuth connections and keys stop
+authenticating. Existing `bzb_...` keys remain supported for clients without
+standard MCP OAuth.
 
 If the server is compromised, Buzzberg will revoke all active MCP keys, require
 re-issue, and email active MCP users within 72 hours.

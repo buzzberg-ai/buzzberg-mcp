@@ -14,139 +14,53 @@ watchlist actions for your own Buzzberg account.
 
 ## Connect Your AI Agent
 
-### 1. Get Your Buzzberg Key
+### Claude Web, Desktop, And Mobile
 
-1. Open Buzzberg.
-2. Go to **Profile -> MCP Access**.
-3. Click **New Key**.
-4. Copy the key that starts with `bzb_`.
+No Terminal, package install, or copied API key is required.
 
-Keep this key private. Treat it like a password.
+1. In Claude web or Desktop, open **Customize -> Connectors**.
+2. Select **+ -> Add custom connector**.
+3. Name it **Buzzberg** and paste:
 
-### 2. Connect Your Client
+   ```text
+   https://mcp.buzzberg.ai/mcp
+   ```
 
-#### Claude Desktop
+4. Leave the OAuth client ID, client secret, and other advanced fields empty.
+5. Select **Add**, then **Connect**. Sign in to Buzzberg and approve access.
+6. Enable Buzzberg from the Connectors menu in a conversation.
 
-**Fast path:**
+The remote connector follows the same Claude account across web, Desktop, and
+mobile. Adding a custom connector directly on mobile is still in beta, so web
+or Desktop is the simplest setup path. On Team and Enterprise plans, an owner
+must add the connector before members can connect it.
 
-```bash
-pip install buzzberg-mcp
-buzzberg-mcp setup --client claude-desktop
-```
-
-Paste your `bzb_...` key when setup asks for it, then fully quit and reopen
-Claude Desktop.
-
-**No pip / manual path:**
-
-1. Open your Claude Desktop config file:
-   - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
-   - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
-2. Add:
-
-```json
-{
-  "mcpServers": {
-    "buzzberg": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote@0.1.38",
-        "https://mcp.buzzberg.ai/mcp",
-        "--transport",
-        "http-only",
-        "--header",
-        "X-API-Key:bzb_YOUR_KEY_HERE"
-      ]
-    }
-  }
-}
-```
-
-3. Fully quit and reopen Claude Desktop.
-
-Replace only `bzb_YOUR_KEY_HERE` with your key. Claude Desktop's local config
-supports stdio servers, so `mcp-remote` bridges Claude Desktop to Buzzberg's
-Streamable HTTP endpoint. Do not share screenshots of this config after adding your
-key. The bridge version is pinned and restricted to Streamable HTTP so it cannot
-fall back to the legacy SSE endpoint. Keep `X-API-Key:` exactly as shown, with no
-space after the colon. If Claude
-reports a timeout or disconnect, create a new key and replace only the `bzb_...`
-value; revoked keys cannot reconnect. Claude's **Settings -> Connectors -> Add custom connector** flow is coming
-after Buzzberg adds OAuth.
-
-#### Claude Code
-
-**Ask Claude Code:**
-
-```text
-Add Buzzberg as an MCP server.
-Use SSE URL https://mcp.buzzberg.ai/sse.
-Use Authorization: Bearer from my BUZZBERG_MCP_API_KEY environment variable.
-```
-
-**Or set it up manually:**
+### Claude Code
 
 ```bash
-export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
-claude mcp add --transport sse buzzberg https://mcp.buzzberg.ai/sse \
-  --header "Authorization: Bearer $BUZZBERG_MCP_API_KEY"
+claude mcp add --transport http buzzberg https://mcp.buzzberg.ai/mcp
 ```
 
-#### Codex
+Open `/mcp` in Claude Code, select Buzzberg, and complete the browser sign-in.
+Claude Code stores and refreshes the OAuth connection.
 
-Codex uses Streamable HTTP.
-
-**Ask Codex:**
-
-```text
-Add Buzzberg MCP to my Codex config.
-Use Streamable HTTP URL https://mcp.buzzberg.ai/mcp.
-Use bearer_token_env_var = "BUZZBERG_MCP_API_KEY".
-Do not paste the secret key into the config file.
-```
-
-**Or edit `~/.codex/config.toml` manually:**
-
-```toml
-[mcp_servers.buzzberg]
-url = "https://mcp.buzzberg.ai/mcp"
-bearer_token_env_var = "BUZZBERG_MCP_API_KEY"
-```
-
-Then start Codex from a shell where the key is available:
+### Codex
 
 ```bash
-export BUZZBERG_MCP_API_KEY="bzb_YOUR_KEY_HERE"
-codex
+codex mcp add buzzberg --url https://mcp.buzzberg.ai/mcp
+codex mcp login buzzberg
 ```
 
-#### OpenClaw
+The second command opens the standard MCP OAuth flow in your browser.
 
-**Ask OpenClaw:**
+### Other Clients And Existing Setups
 
-```text
-Add Buzzberg as a remote MCP server.
-Use Streamable HTTP URL https://mcp.buzzberg.ai/mcp.
-Send Authorization: Bearer bzb_YOUR_KEY_HERE.
-```
+Clients that cannot complete standard MCP OAuth can still use a personal key.
+Existing `bzb_...` keys, `/sse` connections, Claude Desktop helper installs,
+and manually configured clients continue to work unchanged.
 
-**Or run this manually:**
-
-```bash
-openclaw mcp set buzzberg '{"url":"https://mcp.buzzberg.ai/mcp","transport":"streamable-http","headers":{"Authorization":"Bearer bzb_YOUR_KEY_HERE"}}'
-```
-
-#### Cursor, Cline, Continue.dev
-
-The helper can write the config for these clients too:
-
-```bash
-pip install buzzberg-mcp
-buzzberg-mcp setup --client cursor      # or: cline / continue
-```
-
-More client-by-client setup options are in [INSTALL.md](INSTALL.md).
+See [INSTALL.md](INSTALL.md) for Cursor, Cline, Continue.dev, OpenClaw,
+custom Python clients, and the API-key compatibility path.
 
 ## What You Can Do With It
 
@@ -446,21 +360,21 @@ arguments.
 
 | Client | Status |
 |---|---|
-| Claude Desktop | Supported via helper installer using Streamable HTTP `/mcp` |
-| Claude Code | Supported via SSE |
-| Codex | Supported via Streamable HTTP `/mcp` |
+| Claude web / Desktop | Recommended: remote connector with OAuth |
+| Claude Mobile | Uses the remote connector from the same Claude account |
+| Claude Code | Recommended: Streamable HTTP `/mcp` with OAuth |
+| Codex | Streamable HTTP `/mcp` with OAuth or a personal key |
 | OpenClaw | Supported via Streamable HTTP `/mcp` |
 | Cursor | Supported |
 | Cline | Supported |
 | Continue.dev | Supported |
 | Custom Python (mcp SDK) | Supported via Streamable HTTP `/mcp` |
-| Claude Mobile | Works only where custom headers are available |
 | Agent SDK | Manual config supported |
 
 Buzzberg exposes two MCP transports:
 
-- Streamable HTTP: `https://mcp.buzzberg.ai/mcp` for Claude Desktop, Codex, OpenClaw, and newer agents.
-- Legacy SSE: `https://mcp.buzzberg.ai/sse` for Claude Code, Cursor, Cline, and older clients.
+- Streamable HTTP: `https://mcp.buzzberg.ai/mcp` for OAuth-capable and newer agents.
+- Legacy SSE: `https://mcp.buzzberg.ai/sse` remains available for existing and older clients.
 
 ## Tools, Prompts, And Resources
 
@@ -486,9 +400,12 @@ these are additive capabilities, not a replacement for existing tools.
 
 ## Trust And Verification
 
-The normal path is `pip install buzzberg-mcp`. pip uses HTTPS and package hashes
-from the index for download integrity, but pip does not automatically verify
-Sigstore attestations.
+The recommended OAuth connector does not install code on your computer and does
+not expose a personal API key to the client configuration.
+
+The optional `buzzberg-mcp` package remains available for API-key compatibility
+setups. pip uses HTTPS and package hashes from the index for download integrity,
+but pip does not automatically verify Sigstore attestations.
 
 Buzzberg releases use PyPI Trusted Publishing through GitHub OIDC. Attestations
 are available for manual verification — see [SECURITY.md](SECURITY.md) for the

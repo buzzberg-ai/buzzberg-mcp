@@ -5,9 +5,11 @@ client after connecting Buzzberg.
 
 Buzzberg exposes two transports:
 
-- Streamable HTTP: `https://mcp.buzzberg.ai/mcp` for Codex, OpenClaw, and newer agents.
-- Legacy SSE: `https://mcp.buzzberg.ai/sse` for Claude Desktop, Claude Code,
-  Cursor, Cline, and older clients.
+- Streamable HTTP: `https://mcp.buzzberg.ai/mcp` for Claude remote
+  connectors, Claude Code, Codex, OpenClaw, and newer agents. Standard MCP OAuth
+  is available on this endpoint.
+- Legacy SSE: `https://mcp.buzzberg.ai/sse` remains available for existing
+  API-key configurations and older clients.
 
 In supported MCP clients, these workflows are also discoverable through
 `prompts/list` / `prompts/get`. Lightweight context is available through
