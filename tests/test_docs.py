@@ -26,6 +26,23 @@ def test_prompt_cookbook_references_real_tools():
     assert tool_like <= expected
 
 
+def test_setup_docs_recommend_oauth_without_breaking_personal_keys():
+    readme = (ROOT / "README.md").read_text()
+    install = (ROOT / "INSTALL.md").read_text()
+    security = (ROOT / "SECURITY.md").read_text()
+
+    for text in (readme, install):
+        assert "https://mcp.buzzberg.ai/mcp" in text
+        assert "Add custom connector" in text
+        assert "OAuth client ID" in text
+        assert "Existing `bzb_...` keys" in text
+
+    assert "codex mcp login buzzberg" in readme
+    assert "claude mcp add --transport http buzzberg" in install
+    assert "PKCE S256" in security
+    assert "coming after Buzzberg adds OAuth" not in readme
+
+
 def test_no_legacy_personal_repo_references():
     forbidden = re.compile(
         "|".join(["n1" + "fan", r"github\.com/n1" + "fan", r"ghcr\.io/n1" + "fan"])
