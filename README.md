@@ -320,7 +320,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 28 tools
+            print([t.name for t in tools.tools])  # 29 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -376,12 +376,12 @@ Buzzberg exposes two MCP transports:
 
 ## Tools, Prompts, And Resources
 
-Buzzberg exposes 28 tools — read (`get_recent_idea_candidates`,
+Buzzberg exposes 29 tools — read (`get_recent_idea_candidates`,
 `search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
 `get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,
 `get_speaker_trade_ideas`, `get_speaker_ticker_history`,
-`get_speaker_lens`, `get_price`, ...) and one account-scoped write tool
+`get_speaker_lens`, `get_speaker_lens_context`, `get_price`, ...) and one account-scoped write tool
 (`save_trade_idea`). See [TOOLS.md](TOOLS.md) for
 signatures and per-tool examples in [examples/](examples).
 

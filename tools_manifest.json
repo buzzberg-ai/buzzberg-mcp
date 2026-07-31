@@ -61,7 +61,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Search trade ideas from Buzzberg by ticker, keywords, source, speaker, post kind, confidence, or direction."
+      "summary": "Search trade ideas from Buzzberg by text, ticker, source, speaker, post kind, confidence, or direction."
     },
     {
       "name": "get_speaker_trade_ideas",
@@ -820,6 +820,50 @@
       ],
       "returns": "str",
       "summary": "Get a source-derived speaker lens with methodology and thesis history."
+    },
+    {
+      "name": "get_speaker_lens_context",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "speaker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "question",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "recent_days",
+          "type": "int",
+          "required": false,
+          "default": 45
+        },
+        {
+          "name": "recent_limit",
+          "type": "int",
+          "required": false,
+          "default": 16
+        },
+        {
+          "name": "history_days",
+          "type": "int",
+          "required": false,
+          "default": 365
+        }
+      ],
+      "returns": "str",
+      "summary": "Build one bounded context pack for asking a Buzzberg AI speaker lens."
     },
     {
       "name": "list_speaker_lenses",

@@ -495,6 +495,33 @@ Get a source-derived speaker lens with methodology and thesis history.
 
 **Full example:** [examples/get_speaker_lens.md](examples/get_speaker_lens.md)
 
+## get_speaker_lens_context
+
+Build one bounded question-specific Speaker Lens context pack. It combines the
+dated lens snapshot, current Alpha metrics, live structured ideas, and optional
+ticker thesis, history, source links, and price context. The user's agent writes
+the answer; Buzzberg does not make a second server-side LLM call.
+
+**Inputs:**
+- `speaker` (required, str)
+- `question` (required, str, 1-400 characters)
+- `ticker` (optional, str, default `''`)
+- `recent_days` (optional, int, default `45`, capped at `90`)
+- `recent_limit` (optional, int, default `16`, capped at `20`)
+- `history_days` (optional, int, default `365`, capped at `365`)
+
+**Example prompt:**
+> "Use Buzzberg's Bubbleboi speaker lens to explain his current MU thesis, how it changed, and which evidence matters now."
+
+**Returns:** A bounded Markdown context pack for the user's AI agent to analyze.
+The complete response is capped at 32,000 characters; oversized lens sections,
+idea lists, and history tables are truncated independently without leaving open
+Markdown code fences.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_speaker_lens_context.md](examples/get_speaker_lens_context.md)
+
 ## list_speaker_lenses
 
 List speakers that have an AI lens, ordered by the current live Alpha-rank.

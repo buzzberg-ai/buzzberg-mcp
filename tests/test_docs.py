@@ -39,7 +39,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     prompts = (ROOT / "PROMPTS.md").read_text()
     example = (ROOT / "examples/get_recent_idea_candidates.md").read_text()
 
-    assert "Buzzberg exposes 28 tools" in readme
+    assert "Buzzberg exposes 29 tools" in readme
     assert "get_recent_idea_candidates(window=\"6h\"" in prompts
     assert "Follow every next offset" in prompts
     assert "Do not rank by Alpha score" in prompts
