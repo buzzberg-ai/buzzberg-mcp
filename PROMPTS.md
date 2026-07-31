@@ -550,6 +550,25 @@ Expected tools:
 - `search_content`
 - `read_ticker_content`
 
+## Ask A Speaker Lens
+
+```text
+Use Buzzberg's Bubbleboi speaker lens to answer this question:
+
+What is Bubbleboi's current view on MU, how did it change, and what evidence
+would strengthen or invalidate the thesis?
+
+Use only tracked public-post evidence. Separate the dated lens snapshot from
+newer live ideas, cite available source links, and do not invent a position.
+```
+
+Expected tool:
+
+- `get_speaker_lens_context(speaker="bubbleboi", question="What is Bubbleboi's current view on MU, how did it change, and what evidence would strengthen or invalidate the thesis?", ticker="MU")`
+
+The tool returns one bounded context pack. Claude, Codex, or another MCP client
+then writes the answer; Buzzberg does not run a second hidden answering model.
+
 ## Output Format To Ask For
 
 For investment research prompts, this format works well:
