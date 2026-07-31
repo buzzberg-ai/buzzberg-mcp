@@ -13,6 +13,14 @@ def test_tools_md_matches_manifest():
     assert headings == expected
 
 
+def test_every_manifest_tool_has_one_example_and_no_stale_examples():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    expected = {tool["name"] for tool in manifest["tools"]}
+    examples = {path.stem for path in (ROOT / "examples").glob("*.md")}
+
+    assert examples == expected
+
+
 def test_prompt_cookbook_references_real_tools():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     expected = {tool["name"] for tool in manifest["tools"]}
@@ -24,6 +32,21 @@ def test_prompt_cookbook_references_real_tools():
     tool_like = {name for name in referenced if name.startswith(tool_prefixes)}
 
     assert tool_like <= expected
+
+
+def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
+    readme = (ROOT / "README.md").read_text()
+    prompts = (ROOT / "PROMPTS.md").read_text()
+    example = (ROOT / "examples/get_recent_idea_candidates.md").read_text()
+
+    assert "Buzzberg exposes 29 tools" in readme
+    assert "get_recent_idea_candidates(window=\"6h\"" in prompts
+    assert "Follow every next offset" in prompts
+    assert "Do not rank by Alpha score" in prompts
+    assert "professional role" in prompts
+    assert "repeated promotion" in prompts
+    assert "issuer conflicts" in prompts
+    assert "500" in example
 
 
 def test_setup_docs_recommend_oauth_without_breaking_personal_keys():

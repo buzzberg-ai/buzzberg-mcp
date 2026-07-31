@@ -68,6 +68,26 @@ Daily history for one speaker's stance on one ticker.
 
 **Full example:** [examples/get_speaker_ticker_history.md](examples/get_speaker_ticker_history.md)
 
+## get_recent_idea_candidates
+
+Get the complete recent idea candidate set for qualitative research.
+
+**Inputs:**
+- `window` (optional, str, default `'6h'`)
+- `source_type` (optional, str, default `''`)
+- `direction` (optional, str, default `''`)
+- `limit` (optional, int, default `200`)
+- `offset` (optional, int, default `0`)
+
+**Example prompt:**
+> "Find the strongest Buzzberg trade ideas from the last 6 hours. Review every reported candidate page before selecting. Do not rank by Alpha score, extractor confidence, or follower count; evaluate thesis quality, entry context, author role, repeated promotion, conflicts, and evidence."
+
+**Returns:** Markdown response from `get_recent_idea_candidates`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_recent_idea_candidates.md](examples/get_recent_idea_candidates.md)
+
 ## get_top_speakers
 
 List Buzzberg's top speakers by lifetime Alpha-rank.
@@ -131,6 +151,7 @@ Get daily sentiment, mention counts, and cached close prices for charting.
 - `ticker` (required, str)
 - `days` (optional, int, default `90`)
 - `source_type` (optional, str, default `''`)
+- `trim_empty_prefix` (optional, bool, default `True`)
 
 **Example prompt:**
 > "Use `get_ticker_timeseries` for a Buzzberg analysis."
@@ -189,6 +210,7 @@ Find tickers where speakers disagree most (high divergence in sentiment).
 **Inputs:**
 - `days` (optional, int, default `7`)
 - `limit` (optional, int, default `10`)
+- `min_mentions` (optional, int, default `5`)
 
 **Example prompt:**
 > "Use `get_sentiment_divergence` for a Buzzberg analysis."
@@ -336,6 +358,60 @@ Search public content titles by keyword.
 
 **Full example:** [examples/search_content.md](examples/search_content.md)
 
+## search_youtube_research
+
+Search derived Buzzberg YouTube research notes from the last 7 days.
+
+**Inputs:**
+- `query` (required, str)
+- `days` (optional, int, default `7`)
+- `limit` (optional, int, default `10`)
+- `ticker` (optional, str, default `''`)
+
+**Example prompt:**
+> "Use `search_youtube_research` for a Buzzberg analysis."
+
+**Returns:** Markdown response from `search_youtube_research`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/search_youtube_research.md](examples/search_youtube_research.md)
+
+## get_ticker_youtube_research
+
+Get derived YouTube research notes for one ticker from the last 7 days.
+
+**Inputs:**
+- `ticker` (required, str)
+- `days` (optional, int, default `7`)
+- `limit` (optional, int, default `10`)
+
+**Example prompt:**
+> "Use `get_ticker_youtube_research` for a Buzzberg analysis."
+
+**Returns:** Markdown response from `get_ticker_youtube_research`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_ticker_youtube_research.md](examples/get_ticker_youtube_research.md)
+
+## get_youtube_market_tldr
+
+Summarize the derived YouTube research-note index for the last 1-7 days.
+
+**Inputs:**
+- `days` (optional, int, default `7`)
+- `limit` (optional, int, default `50`)
+
+**Example prompt:**
+> "Use `get_youtube_market_tldr` for a Buzzberg analysis."
+
+**Returns:** Markdown response from `get_youtube_market_tldr`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_youtube_market_tldr.md](examples/get_youtube_market_tldr.md)
+
 ## get_ticker_mentions
 
 Count mentions of a ticker across 24h / 7d / 30d windows, broken down by source.
@@ -398,42 +474,6 @@ Read recent source TLDRs + trade ideas for user-side research workflows.
 
 **Full example:** [examples/get_recent_source_text.md](examples/get_recent_source_text.md)
 
-## add_to_watchlist
-
-[BETA] Add a ticker to user's watchlist.
-
-**Inputs:**
-- `ticker` (required, str)
-- `user_email` (optional, str, default `''`)
-- `dry_run` (optional, bool, default `False`)
-
-**Example prompt:**
-> "Use `add_to_watchlist` for a Buzzberg analysis."
-
-**Returns:** Markdown response from `add_to_watchlist`.
-
-**Scope:** WRITE — modifies only data owned by the API key owner.
-
-**Full example:** [examples/add_to_watchlist.md](examples/add_to_watchlist.md)
-
-## remove_from_watchlist
-
-[BETA] Remove a ticker from user's watchlist.
-
-**Inputs:**
-- `ticker` (required, str)
-- `user_email` (optional, str, default `''`)
-- `dry_run` (optional, bool, default `False`)
-
-**Example prompt:**
-> "Use `remove_from_watchlist` for a Buzzberg analysis."
-
-**Returns:** Markdown response from `remove_from_watchlist`.
-
-**Scope:** WRITE — modifies only data owned by the API key owner.
-
-**Full example:** [examples/remove_from_watchlist.md](examples/remove_from_watchlist.md)
-
 ## save_trade_idea
 
 [BETA] Bookmark a trade idea by its ID.
@@ -451,3 +491,54 @@ Read recent source TLDRs + trade ideas for user-side research workflows.
 **Scope:** WRITE — modifies only data owned by the API key owner.
 
 **Full example:** [examples/save_trade_idea.md](examples/save_trade_idea.md)
+
+## get_speaker_lens
+
+Get a source-derived speaker lens with methodology and thesis history.
+
+**Inputs:**
+- `speaker` (required, str)
+- `sections` (optional, str, default `'persona,methodology,track_record'`)
+
+**Example prompt:**
+> "Use `get_speaker_lens` for a Buzzberg analysis."
+
+**Returns:** Markdown response from `get_speaker_lens`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_speaker_lens.md](examples/get_speaker_lens.md)
+
+## list_speaker_lenses
+
+List speakers that have an AI lens, ordered by the current live Alpha-rank.
+
+**Inputs:**
+- `limit` (optional, int, default `50`)
+
+**Example prompt:**
+> "Use `list_speaker_lenses` for a Buzzberg analysis."
+
+**Returns:** Markdown response from `list_speaker_lenses`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/list_speaker_lenses.md](examples/list_speaker_lenses.md)
+
+## find_site_section
+
+Find where a feature lives in the Buzzberg interface. Read-only, no data is changed.
+
+**Inputs:**
+- `query` (required, str)
+- `locale` (optional, str, default `'en'`)
+- `limit` (optional, int, default `5`)
+
+**Example prompt:**
+> "Use `find_site_section` for a Buzzberg analysis."
+
+**Returns:** Markdown response from `find_site_section`.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/find_site_section.md](examples/find_site_section.md)

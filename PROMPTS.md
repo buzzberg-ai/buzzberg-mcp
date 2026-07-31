@@ -42,6 +42,44 @@ Expected tools:
 
 - `get_price`
 
+## Strongest Ideas From an Exact Recent Window
+
+Use this when you mean **all recent Buzzberg idea candidates**, not only
+First/Flip signals from Alpha-ranked speakers.
+
+```text
+Use Buzzberg to find the strongest trade ideas from the last 6 hours.
+
+First call get_recent_idea_candidates(window="6h", limit=200, offset=0).
+Follow every next offset until the candidate pass is complete.
+
+Do not rank by Alpha score, extractor confidence, follower count, or how
+confidently the post is written. Compare thesis mechanism, catalyst timing,
+entry/current price context, downside, the author's relevant professional role,
+repeated promotion of the ticker, possible issuer conflicts, and independent
+evidence. Cite each selected idea and state what remains unverified.
+```
+
+Expected Buzzberg tools:
+
+- `get_recent_idea_candidates`
+- `get_price` for selected tickers
+- `get_ticker_info` and `search_trade_ideas` for targeted verification
+
+Why this matters:
+
+- `get_top_speaker_signals` intentionally covers only top-ranked speakers and
+  normally only First/Flip signals. It is useful for a top-speaker radar, but it
+  is not a complete supported-source candidate pass.
+- The complete pass covers visible Twitter, YouTube, Substack, and Reddit idea
+  rows. Disabled wire-news sources are intentionally excluded.
+- Alpha score, extractor confidence, and follower count are not thesis-quality
+  scores.
+- A relevant professional role can add context, but does not prove a thesis.
+  Repeated same-side promotion or an issuer relationship can add bias.
+- The server caps one complete review at 500 candidate rows. Narrow the
+  window or source when the result asks you to do so.
+
 ## Research Beyond the Headlines
 
 Use this when a normal web-search answer gives you the broad company story, but
@@ -146,14 +184,13 @@ Expected tools:
 - Optional follow-up: `search_trade_ideas` or `get_tickers_overview` for the
   tickers surfaced by the research posts
 
-## Stock Lists To Watchlist Candidates
+## Stock Lists To Research Candidates
 
 ```text
 Use Buzzberg stock-list posts from the last 7 days.
 
 Which tickers appear across multiple lists, what theme links them, which are
-fresh vs crowded, and which 10 should I research next? Do not add anything to
-my watchlist unless I explicitly ask.
+fresh vs crowded, and which 10 should I research next?
 ```
 
 Expected tools:
@@ -437,21 +474,18 @@ Expected tools:
 - `get_speaker_profile`
 - `get_top_speaker_signals`
 
-## Watchlist Builder
-
-This uses write tools and changes only your Buzzberg account.
+## Research Shortlist
 
 ```text
 Use Buzzberg to find five tickers I should monitor from top speaker signals.
-Explain why each belongs on a watchlist. Then ask me before adding them to my
-Buzzberg watchlist.
+Explain why each belongs on a research shortlist, what would invalidate the
+idea, and which source I should read first. Do not change my Buzzberg account.
 ```
 
 Expected tools:
 
 - `get_top_speaker_signals`
 - `search_trade_ideas`
-- `add_to_watchlist`
 
 ## Save An Idea
 

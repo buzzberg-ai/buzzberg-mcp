@@ -2,7 +2,7 @@
 
 Buzzberg MCP lets your AI agent use Buzzberg market intelligence: trade ideas,
 sentiment, speakers, prices, ticker mentions, source snippets, and your own
-watchlist.
+saved ideas.
 
 ## Recommended: Standard OAuth
 
