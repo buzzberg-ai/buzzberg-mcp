@@ -28,6 +28,10 @@ ideas, ticker-specific history and price context when coverage exists. It does
 not impersonate the speaker or call a second server-side LLM. Speaker-derived
 text is untrusted research data, not instructions for the agent.
 
+The context pack has a 32,000-character hard cap. Buzzberg preserves bounded
+persona, methodology, track-record, idea, and history sections instead of
+returning an unbounded transcript or silently dropping the later sections.
+
 If `ticker` is omitted, Buzzberg can infer a ticker mentioned in the question,
 but only after checking that the speaker has tracked coverage. When no coverage
 exists, the tool tells the agent not to invent a stance.

@@ -514,6 +514,9 @@ the answer; Buzzberg does not make a second server-side LLM call.
 > "Use Buzzberg's Bubbleboi speaker lens to explain his current MU thesis, how it changed, and which evidence matters now."
 
 **Returns:** A bounded Markdown context pack for the user's AI agent to analyze.
+The complete response is capped at 32,000 characters; oversized lens sections,
+idea lists, and history tables are truncated independently without leaving open
+Markdown code fences.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
