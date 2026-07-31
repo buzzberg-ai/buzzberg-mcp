@@ -4,7 +4,7 @@
 
 ## search_trade_ideas
 
-Search trade ideas from Buzzberg. Filter by ticker, source, speaker, post kind, confidence, direction.
+Search trade ideas from Buzzberg by ticker, keywords, source, speaker, post kind, confidence, or direction.
 
 **Inputs:**
 - `ticker` (optional, str, default `''`)
@@ -15,6 +15,8 @@ Search trade ideas from Buzzberg. Filter by ticker, source, speaker, post kind, 
 - `direction` (optional, str, default `''`)
 - `days` (optional, int, default `7`)
 - `limit` (optional, int, default `20`)
+- `query` (optional, str, default `''`): explicit uppercase ticker symbols are
+  exact idea-ticker filters; otherwise terms use bounded OR text search
 
 **Example prompt:**
 > "Find trade ideas from research posts in the last 24h. Show ticker, speaker, thesis, direction, confidence, and which ideas deserve a deeper follow-up."
