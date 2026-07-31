@@ -28,11 +28,10 @@ mapping of scope claims to enforcement mechanisms.
 | Action | Allowed? |
 |---|---|
 | Read public trade ideas, sentiment, and prices | Yes |
-| Add/remove tickers in your watchlist | Yes |
 | Save trade ideas to your account | Yes |
 | Server sees tool-call arguments Claude sends | Yes |
-| See another user's watchlist or saved ideas | No |
-| Change another user's watchlist or saved ideas | No |
+| See another user's saved ideas | No |
+| Change another user's saved ideas | No |
 | Place trades on an exchange | No |
 | See your full Claude conversation | No |
 | Access your X, broker, or other accounts | No |

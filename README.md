@@ -10,7 +10,7 @@
 
 Buzzberg MCP connects Claude, Cursor, Cline, Continue.dev, and other MCP clients
 to Buzzberg market intelligence: trade ideas, sentiment, speakers, prices, and
-watchlist actions for your own Buzzberg account.
+saved-idea actions for your own Buzzberg account.
 
 ## Connect Your AI Agent
 
@@ -250,8 +250,7 @@ For best results, ask your agent to work in a bounded, staged way:
   "dump all speakers' ideas" endpoint.
 - Use batch tools such as `get_tickers_overview` for multi-ticker screens.
 - Keep concurrency small; avoid dozens of parallel calls.
-- Use write tools only when you explicitly want to change your watchlist or
-  saved ideas.
+- Use the write tool only when you explicitly want to save an idea.
 - Use `dry_run=True` on write tools when you want your agent to verify the
   action without changing your account.
 - Keep your `bzb_...` key in an environment variable or local config; do not
@@ -298,9 +297,9 @@ Ready-made workflows:
 - **[Contrarian scan](sessions/contrarian-scan.md)** — tickers where
   smart-money disagrees the most, ranked by sentiment spread. High-volatility
   setups where the camps are obvious.
-- **[Build a watchlist from top-speaker signals](sessions/new-watchlist-from-signals.md)** —
-  auto-curate first-time mentions and direction flips from the top-30 speakers
-  in the last 24 hours.
+- **[Build a research shortlist from top-speaker signals](sessions/new-watchlist-from-signals.md)** —
+  review first-time mentions and direction flips from the top-30 speakers
+  without changing your Buzzberg account.
 
 ## Using It From Your Own Code
 
@@ -321,7 +320,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 27 tools
+            print([t.name for t in tools.tools])  # 29 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -342,11 +341,10 @@ Full walkthrough including Windows PowerShell and corporate-laptop
 | Action | Allowed? |
 |---|---|
 | Read public trade ideas, sentiment, and prices | Yes |
-| Add/remove tickers in your watchlist | Yes |
 | Save trade ideas to your account | Yes |
 | Server sees tool-call arguments Claude sends | Yes* |
-| See another user's watchlist or saved ideas | No |
-| Change another user's watchlist or saved ideas | No |
+| See another user's saved ideas | No |
+| Change another user's saved ideas | No |
 | Place trades on an exchange | No |
 | See your full Claude conversation | No |
 | Access your X, broker, or other accounts | No |
@@ -378,19 +376,20 @@ Buzzberg exposes two MCP transports:
 
 ## Tools, Prompts, And Resources
 
-Buzzberg exposes 27 tools — read (`search_trade_ideas`, `get_top_speakers`,
+Buzzberg exposes 29 tools — read (`get_recent_idea_candidates`,
+`search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
 `get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,
 `get_speaker_trade_ideas`, `get_speaker_ticker_history`, `get_portfolio`,
-`get_price`, ...) and write
-(`add_to_watchlist`, `save_trade_idea`, ...). See [TOOLS.md](TOOLS.md) for
+`get_speaker_lens`, `get_price`, ...) and one account-scoped write tool
+(`save_trade_idea`). See [TOOLS.md](TOOLS.md) for
 signatures and per-tool examples in [examples/](examples).
 
 Buzzberg also exposes MCP prompts and resources:
 
-- `prompts/list` shows ready-made research workflows such as ticker deep dive,
-  daily alpha brief, research-post extraction, stock-list candidates, speaker
-  story, and sentiment/price reads.
+- `prompts/list` shows ready-made research workflows such as complete
+  exact-window idea review, ticker deep dive, daily alpha brief, research-post
+  extraction, stock-list candidates, speaker story, and sentiment/price reads.
 - `resources/list` exposes lightweight context such as `buzzberg://workflows`,
   `buzzberg://data-boundaries`, `buzzberg://top-speakers`, and
   `buzzberg://market/leaderboards`.

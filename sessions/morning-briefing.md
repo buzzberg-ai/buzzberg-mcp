@@ -1,20 +1,22 @@
 # Morning Briefing
 
-Get a single-shot read on what changed overnight: AI portfolio state, fresh
-calls from top-ranked speakers, and current prices for tickers that matter.
+Get a single-shot read on what changed overnight: AI portfolio state, a complete
+recent idea candidate pass, and current prices for tickers that matter.
 
 ## The ask
 
 > Give me a Buzzberg morning briefing: latest AI portfolio, strongest fresh
-> ideas from the top-10 speakers in the last 24 hours, sentiment divergences
-> worth watching, and prices for the tickers that matter most.
+> ideas from all visible speakers in the last 24 hours, sentiment divergences
+> worth watching, and prices for the tickers that matter most. Review every
+> candidate page before selecting.
 
 ## Tools Claude will chain
 
 1. `get_portfolio` — current 9-position AI portfolio with weights and entry
    prices
-2. `get_top_speaker_signals(top_n=10, window="24h", signal="first_flip")` —
-   fresh first/flip calls from highest-Alpha speakers only
+2. `get_recent_idea_candidates(window="24h", limit=200, offset=0)` — every
+   visible recent candidate; Claude follows every reported next offset before
+   selecting the strongest theses
 3. `get_sentiment_divergence(limit=5, days=7)` — tickers where smart-money
    disagrees most
 4. `get_price(tickers=[...])` — live prices for everything that came up
@@ -58,7 +60,8 @@ To go deeper on any thread Claude surfaces:
 
 - Use `window="6h"` instead of `"24h"` for a "since I last checked" feel during
   the trading day.
-- `signal="first"` (without flip) shows only first-ever calls — useful for
-  finding net-new names. `signal="all"` is firehose mode.
+- Do not treat Alpha score, extractor confidence, or follower count as thesis
+  quality. Compare mechanism, entry context, author role, repeated promotion,
+  conflicts, and independent evidence.
 - The AI portfolio is regenerated daily at 21:05 UTC. If you run this before
   that, you'll see yesterday's positions.
