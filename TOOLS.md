@@ -94,6 +94,11 @@ Get the complete recent idea candidate set for qualitative research.
 
 List Buzzberg's top speakers by lifetime Alpha-rank.
 
+`Adj. return` is the Bayesian-shrunk current mark-to-market mean for the
+deduplicated Alpha evaluation set. It is not benchmark- or beta-adjusted.
+`Evaluated Ideas` is the size of that set, not the number of all historical
+mentions or all ideas with a 30-day return.
+
 **Inputs:**
 - `limit` (optional, int, default `25`)
 
@@ -259,6 +264,10 @@ Get speaker profile: credibility, role, mention frequency, top tickers.
 ## compare_speakers
 
 Compare what different speakers say about a ticker. Shows who's bullish vs bearish.
+
+The Alpha columns use the same live definition as `get_top_speakers`:
+Bayesian-shrunk current direction-adjusted mark-to-market return on the
+deduplicated evaluation set, not benchmark-adjusted excess return.
 
 **Inputs:**
 - `ticker` (required, str)
@@ -481,6 +490,11 @@ Read recent source TLDRs + trade ideas for user-side research workflows.
 ## get_speaker_lens
 
 Get a source-derived speaker lens with methodology and thesis history.
+
+The track-record section separates four populations: the live Alpha evaluation
+set, per-horizon measured ideas, signal-timing calls, and dated
+initiation/flip ledger rows. It also reports how many ledger rows have matured
+to a 30-day return versus remain `⏳`.
 
 **Inputs:**
 - `speaker` (required, str)

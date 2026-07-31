@@ -271,6 +271,17 @@ Contract notes:
   signals do not disappear into neutral.
 - `get_speaker_profile` separates alpha rank from credibility. Alpha rank is
   historical idea performance; credibility is a profile/source quality score.
+- `Adj. return` is not benchmark- or beta-adjusted excess return. It is the
+  Bayesian-shrunk mean of current, direction-adjusted mark-to-market returns
+  from Buzzberg's deduplicated Alpha evaluation set: the first eligible
+  entry-priced LONG/SHORT thesis per related ticker and evaluation side.
+- `Evaluated` is the number of currently priceable positions in that Alpha
+  set. It will not match a lens's 24h/7d/30d `n` (all tracked ideas with a
+  valid return at that horizon), signal-timing `n` (calls with both 24h and
+  30d returns), or ledger rows (first calls and later LONG/SHORT flips).
+- A `⏳` ledger row is retained but does not yet have a 30-day return. Speaker
+  lenses report the current 30-day ledger maturity so agents can distinguish
+  a proven historical sample from calls that are still too new to evaluate.
 
 Ready-made workflows:
 
