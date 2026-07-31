@@ -281,8 +281,8 @@ Ready-made workflows:
 - **[Ticker leaderboards](sessions/ticker-leaderboards.md)** — most buzzed
   tickers, strongest bullish/bearish sentiment, and daily historical buzz for
   1d / 7d / 30d windows.
-- **[Morning briefing](sessions/morning-briefing.md)** — AI portfolio state +
-  fresh calls from top speakers + sentiment divergence radar in one read.
+- **[Morning briefing](sessions/morning-briefing.md)** — a complete fresh-idea
+  pass + sentiment divergence radar + important recent content in one read.
 - **[Narrative ticker deep dive](sessions/ticker-deep-dive.md)** — what
   Buzzberg uniquely knows about a ticker: who is pushing it, what the bull
   narrative is, what is missing, and whether the setup is early or crowded.
@@ -320,7 +320,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 29 tools
+            print([t.name for t in tools.tools])  # 28 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -376,11 +376,11 @@ Buzzberg exposes two MCP transports:
 
 ## Tools, Prompts, And Resources
 
-Buzzberg exposes 29 tools — read (`get_recent_idea_candidates`,
+Buzzberg exposes 28 tools — read (`get_recent_idea_candidates`,
 `search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
 `get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,
-`get_speaker_trade_ideas`, `get_speaker_ticker_history`, `get_portfolio`,
+`get_speaker_trade_ideas`, `get_speaker_ticker_history`,
 `get_speaker_lens`, `get_price`, ...) and one account-scoped write tool
 (`save_trade_idea`). See [TOOLS.md](TOOLS.md) for
 signatures and per-tool examples in [examples/](examples).

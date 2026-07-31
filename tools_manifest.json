@@ -414,20 +414,6 @@
       "summary": "Find tickers where speakers disagree most (high divergence in sentiment)."
     },
     {
-      "name": "get_portfolio",
-      "scope": "read",
-      "parameters": [
-        {
-          "name": "date",
-          "type": "str",
-          "required": false,
-          "default": ""
-        }
-      ],
-      "returns": "str",
-      "summary": "Get the latest AI-generated portfolio snapshot with positions and P&L."
-    },
-    {
       "name": "get_ticker_info",
       "scope": "read",
       "parameters": [
