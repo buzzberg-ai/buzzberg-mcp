@@ -5,6 +5,28 @@ Ask: "Find bullish NVDA ideas from the last week, limited to 10 results."
 Buzzberg returns a Markdown list or table of matching trade ideas with speaker,
 ticker, direction, confidence, thesis, and date when available.
 
+## Search several exact tickers
+
+Ask:
+
+> Find Buzzberg trade ideas for SOXS or SQQQ from the last 90 days. Explain the
+> underlying market exposure of each idea and keep the two tickers separate.
+
+Tool call:
+
+```json
+{
+  "days": 90,
+  "limit": 20,
+  "query": "SOXS SQQQ inverse ETF"
+}
+```
+
+Explicit uppercase ticker symbols in `query` are exact idea-ticker filters.
+Generic words such as `inverse` and `ETF` provide context but do not broaden
+the result to sibling tickers mentioned in the same source post. When a query
+contains no explicit ticker symbols, Buzzberg performs bounded OR text search.
+
 ## Research-post ideas
 
 Ask:

@@ -52,10 +52,16 @@
           "type": "int",
           "required": false,
           "default": 20
+        },
+        {
+          "name": "query",
+          "type": "str",
+          "required": false,
+          "default": ""
         }
       ],
       "returns": "str",
-      "summary": "Search trade ideas from Buzzberg. Filter by ticker, source, speaker, post kind, confidence, direction."
+      "summary": "Search trade ideas from Buzzberg by ticker, keywords, source, speaker, post kind, confidence, or direction."
     },
     {
       "name": "get_speaker_trade_ideas",
