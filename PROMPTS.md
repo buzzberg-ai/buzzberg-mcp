@@ -303,17 +303,15 @@ Expected tools:
 Use Buzzberg to create a morning market briefing.
 
 Include:
-1. Latest portfolio snapshot.
-2. Top fresh trade ideas.
-3. Biggest sentiment divergences.
-4. Most important recent content.
-5. Three risks to watch today.
+1. Top fresh trade ideas from the complete supported-source candidate set.
+2. Biggest sentiment divergences.
+3. Most important recent content.
+4. Three risks to watch today.
 ```
 
 Expected tools:
 
-- `get_portfolio`
-- `search_trade_ideas`
+- `get_recent_idea_candidates`
 - `get_sentiment_divergence`
 - `get_recent_content`
 

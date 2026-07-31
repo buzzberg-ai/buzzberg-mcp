@@ -221,22 +221,6 @@ Find tickers where speakers disagree most (high divergence in sentiment).
 
 **Full example:** [examples/get_sentiment_divergence.md](examples/get_sentiment_divergence.md)
 
-## get_portfolio
-
-Get the latest AI-generated portfolio snapshot with positions and P&L.
-
-**Inputs:**
-- `date` (optional, str, default `''`)
-
-**Example prompt:**
-> "Use `get_portfolio` for a Buzzberg analysis."
-
-**Returns:** Markdown response from `get_portfolio`.
-
-**Scope:** Read-only. Public Buzzberg market-intelligence data.
-
-**Full example:** [examples/get_portfolio.md](examples/get_portfolio.md)
-
 ## get_ticker_info
 
 Get detailed info for a ticker: mention count, top speakers, recent ideas, price.
