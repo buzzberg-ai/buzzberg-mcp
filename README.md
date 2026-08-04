@@ -142,13 +142,20 @@ Use Buzzberg to find the top 10 strongest trade ideas from the last 12 hours.
 Review the complete candidate set before selecting.
 
 For each idea show: ticker/direction, recorded price at the time of the idea,
-thesis and invalidation, each contributing speaker's supported role and source,
-prior same-side promotion and evidence-backed potential bias, what remains
+the authors' thesis followed by a plain-language professional synthesis, each
+contributing speaker's supported role and source, prior same-side promotion and
+evidence-backed potential bias, a compact price-action risk check, what remains
 unverified, and why the idea survived the full comparison.
+
+For selected tickers, use Buzzberg's 30-day price history and SPY once as stock
+market context. Show at most two triggered warnings: an extended 5-session
+move, a repeated long after a 21-session run-up, or a company-specific selloff.
+Treat these as context, not a score, forecast, or automatic rejection.
 
 Do not substitute current price for a missing idea-time price. Do not count one
 speaker's repeated posts as independent corroboration. Do not infer a role,
 ownership relationship, or conflict that Buzzberg does not support.
+End by asking which ticker or crypto asset I want to study more deeply.
 ```
 
 ```text
