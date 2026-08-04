@@ -69,14 +69,19 @@ not need a separate market-data API. Show at most two triggered warnings:
   sessions while SPY is down less than 5%.
 
 These are compact historical screens, not a score, forecast, or automatic
-rejection. If the closes are unavailable, say the check was not run. Do not
+rejection. Always run the timeseries check. Only mark a 5-session check
+unavailable when fewer than 6 non-empty closes are returned, or a 21-session
+check when fewer than 22 are returned. Do not
 claim the stronger volume-confirmed backtest flag: Buzzberg's MCP timeseries
 does not expose volume.
 
 For each selected idea use this format:
 1. Idea — ticker, direction, and a one-line setup.
 2. Price at idea — recorded entry price, currency, and publication time;
-   current price separately. If the recorded price is absent, say unavailable.
+   current price separately. Carry Entry from the exact selected candidate row.
+   If grouping or truncation omitted it, run a targeted ticker+speaker lookup
+   before saying unavailable. An omitted summary field is not evidence that
+   Buzzberg lacks the saved price.
 3. Thesis — preserve and attribute the authors' actual thesis, then explain in
    professional but plain language what the market may be missing, the causal
    mechanism, next catalyst, strongest evidence, downside/invalidation, and
