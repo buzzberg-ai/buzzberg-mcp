@@ -138,6 +138,20 @@ Quote examples.
 ```
 
 ```text
+Use Buzzberg to find the top 10 strongest trade ideas from the last 12 hours.
+Review the complete candidate set before selecting.
+
+For each idea show: ticker/direction, recorded price at the time of the idea,
+thesis and invalidation, each contributing speaker's supported role and source,
+prior same-side promotion and evidence-backed potential bias, what remains
+unverified, and why the idea survived the full comparison.
+
+Do not substitute current price for a missing idea-time price. Do not count one
+speaker's repeated posts as independent corroboration. Do not infer a role,
+ownership relationship, or conflict that Buzzberg does not support.
+```
+
+```text
 Use Buzzberg to build a 7-day newsletter thesis map.
 Show the strongest ticker narratives, key evidence, weak claims,
 and what changed this week. Separate hard data from vibes.

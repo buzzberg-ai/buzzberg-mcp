@@ -40,12 +40,16 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     example = (ROOT / "examples/get_recent_idea_candidates.md").read_text()
 
     assert "Buzzberg exposes 29 tools" in readme
-    assert "get_recent_idea_candidates(window=\"6h\"" in prompts
+    assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "Follow every next offset" in prompts
     assert "Do not rank by Alpha score" in prompts
     assert "professional role" in prompts
     assert "repeated promotion" in prompts
     assert "issuer conflicts" in prompts
+    assert "Price at idea" in prompts
+    assert "recorded entry price, currency, and publication time" in prompts
+    assert "every contributing speaker" in example
+    assert "independent corroboration" in readme
     assert "500" in example
 
 
