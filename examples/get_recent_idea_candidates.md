@@ -22,14 +22,17 @@ selected ticker and once for SPY when the ideas are stocks. Show at most two
 triggered warnings: Extended move (long up >20% over 5 sessions), Repeat after
 run-up (prior same-side long plus >7% over 21 sessions), or Company-specific
 selloff (stock long down >=15% over 21 sessions while SPY is down <5%). These
-are context warnings, not scores, forecasts, or automatic rejections. Missing
-price history means not checked. Do not claim a volume-confirmed flag because
-the MCP timeseries does not expose volume.
+are context warnings, not scores, forecasts, or automatic rejections. Always
+run the timeseries check. Only mark a 5-session check unavailable with fewer
+than 6 non-empty closes, or a 21-session check with fewer than 22. Do not claim
+a volume-confirmed flag because the MCP timeseries does not expose volume.
 
 For each selected idea show:
 1. Idea — ticker, direction, and one-line setup.
 2. Price at idea — recorded entry price, currency, and publication time;
-   current price separately. Say unavailable when the recorded price is absent.
+   current price separately. Carry Entry from the exact candidate row. If that
+   row omitted it, use a targeted ticker+speaker lookup before saying
+   unavailable; an omitted summary field does not mean the database lacks it.
 3. Thesis — preserve and attribute the authors' thesis, then explain in
    professional but plain language what the market may be missing, mechanism,
    catalyst, evidence, downside/invalidation, and unknowns.

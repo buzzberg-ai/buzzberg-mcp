@@ -49,6 +49,10 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     assert "Price at idea" in prompts
     assert "recorded entry price, currency, and publication time" in prompts
     assert "get_ticker_timeseries(ticker, days=30)" in prompts
+    assert "fewer than 6 non-empty closes" in prompts
+    assert "fewer than 22" in prompts
+    assert "targeted ticker+speaker lookup" in prompts
+    assert "omitted summary field" in prompts
     assert "Extended move" in prompts
     assert "Repeat after run-up" in prompts
     assert "Company-specific selloff" in prompts
