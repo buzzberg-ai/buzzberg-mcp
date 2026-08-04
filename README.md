@@ -152,10 +152,11 @@ market context. Show at most two triggered warnings: an extended 5-session
 move, a repeated long after a 21-session run-up, or a company-specific selloff.
 Treat these as context, not a score, forecast, or automatic rejection.
 
-Carry the saved entry price from the exact selected idea row; if the field was
-omitted by grouping or truncation, run a targeted ticker+speaker lookup before
-calling it unavailable. Always run the price-history check. A missing field in
-an intermediate summary is not evidence that Buzzberg lacks the saved data.
+Carry one concise saved entry price per selected ticker from the exact idea
+row. Do not list duplicate speaker prices, timestamps, or technical metadata
+notes. If grouping or truncation omitted the field, run a targeted
+ticker+speaker lookup before calling it unavailable. Always run the
+price-history check.
 
 Do not substitute current price for a missing idea-time price. Do not count one
 speaker's repeated posts as independent corroboration. Do not infer a role,

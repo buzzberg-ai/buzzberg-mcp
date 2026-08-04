@@ -29,10 +29,12 @@ a volume-confirmed flag because the MCP timeseries does not expose volume.
 
 For each selected idea show:
 1. Idea — ticker, direction, and one-line setup.
-2. Price at idea — recorded entry price, currency, and publication time;
-   current price separately. Carry Entry from the exact candidate row. If that
-   row omitted it, use a targeted ticker+speaker lookup before saying
-   unavailable; an omitted summary field does not mean the database lacks it.
+2. Price at idea — one concise recorded entry price per selected ticker;
+   current price separately. Do not list duplicate speaker prices, timestamps,
+   or technical metadata notes. Include currency/namespace only when needed to
+   disambiguate the asset. Carry Entry from the exact candidate row. If it is
+   missing there, run a targeted ticker+speaker lookup before saying
+   unavailable.
 3. Thesis — preserve and attribute the authors' thesis, then explain in
    professional but plain language what the market may be missing, mechanism,
    catalyst, evidence, downside/invalidation, and unknowns.
