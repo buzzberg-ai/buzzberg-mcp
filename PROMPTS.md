@@ -77,11 +77,12 @@ does not expose volume.
 
 For each selected idea use this format:
 1. Idea — ticker, direction, and a one-line setup.
-2. Price at idea — recorded entry price, currency, and publication time;
-   current price separately. Carry Entry from the exact selected candidate row.
-   If grouping or truncation omitted it, run a targeted ticker+speaker lookup
-   before saying unavailable. An omitted summary field is not evidence that
-   Buzzberg lacks the saved price.
+2. Price at idea — one concise recorded entry price per selected ticker;
+   current price separately. Do not list duplicate speaker prices, timestamps,
+   or technical metadata notes. Include currency/namespace only when needed to
+   disambiguate the asset. Carry Entry from the exact selected candidate row.
+   If it is missing there, run a targeted ticker+speaker lookup before saying
+   unavailable.
 3. Thesis — preserve and attribute the authors' actual thesis, then explain in
    professional but plain language what the market may be missing, the causal
    mechanism, next catalyst, strongest evidence, downside/invalidation, and
