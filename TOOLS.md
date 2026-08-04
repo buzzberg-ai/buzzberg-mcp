@@ -82,7 +82,7 @@ Get the complete recent idea candidate set for qualitative research.
 - `offset` (optional, int, default `0`)
 
 **Example prompt:**
-> "Find the strongest Buzzberg trade ideas from the last 6 hours. Review every reported candidate page before selecting. Do not rank by Alpha score, extractor confidence, or follower count; evaluate thesis quality, entry context, author role, repeated promotion, conflicts, and evidence."
+> "Find the top 10 strongest Buzzberg trade ideas from the last 12 hours. Review every reported candidate page before selecting. For each idea show the idea-time price, thesis, every contributing speaker and supported role, prior promotion/potential-bias context, source links, invalidation, and unknowns. Do not rank by Alpha score or treat one speaker's repeats as independent corroboration."
 
 **Returns:** Markdown response from `get_recent_idea_candidates`.
 
