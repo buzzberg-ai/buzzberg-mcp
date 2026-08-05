@@ -141,16 +141,16 @@ Quote examples.
 Use Buzzberg to find the top 10 strongest trade ideas from the last 12 hours.
 Review the complete candidate set before selecting.
 
-For each idea show: ticker/direction, recorded price at the time of the idea,
-the authors' thesis followed by a plain-language professional synthesis, each
-contributing speaker's supported role and source, prior same-side promotion and
-evidence-backed potential bias, a compact price-action risk check, what remains
-unverified, and why the idea survived the full comparison.
+For each idea use compact Markdown: `### N. TICKER — **LONG/SHORT**`, one saved
+entry price, pre-call 1W/1M returns, a 2-3 sentence thesis, material speaker
+history/bias, one invalidation risk, and at most two source links. Keep each
+idea at 110 words or fewer.
 
-For selected tickers, use Buzzberg's 30-day price history and SPY once as stock
-market context. Show at most two triggered warnings: an extended 5-session
-move, a repeated long after a 21-session run-up, or a company-specific selloff.
-Treat these as context, not a score, forecast, or automatic rejection.
+For selected tickers, use Buzzberg's 60-day price history and SPY once as stock
+market context. Calculate 1W/1M from the last complete close strictly before
+the idea, excluding the idea date and all later rows. Show at most one warning:
+an extended pre-call move, a repeated long after a 21-session run-up, or a
+company-specific selloff. Treat it as context, not a score or rejection.
 
 Carry one concise saved entry price per selected ticker from the exact idea
 row. Do not list duplicate speaker prices, timestamps, or technical metadata
@@ -160,8 +160,8 @@ price-history check.
 
 Do not substitute current price for a missing idea-time price. Do not count one
 speaker's repeated posts as independent corroboration. Do not infer a role,
-ownership relationship, or conflict that Buzzberg does not support.
-End by asking which ticker or crypto asset I want to study more deeply.
+ownership relationship, or conflict that Buzzberg does not support. Do not add
+an introduction, honorable mentions, market overview, or concluding summary.
 ```
 
 ```text
