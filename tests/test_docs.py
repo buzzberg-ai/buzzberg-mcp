@@ -38,6 +38,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     readme = (ROOT / "README.md").read_text()
     prompts = (ROOT / "PROMPTS.md").read_text()
     example = (ROOT / "examples/get_recent_idea_candidates.md").read_text()
+    normalized_prompts = " ".join(prompts.split())
 
     assert "Buzzberg exposes 29 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
@@ -46,24 +47,25 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     assert "professional role" in prompts
     assert "repeated promotion" in prompts
     assert "issuer conflicts" in prompts
-    assert "Price at idea" in prompts
-    assert "one concise recorded entry price per selected ticker" in prompts
-    assert "get_ticker_timeseries(ticker, days=30)" in prompts
+    assert "### N. TICKER — **LONG/SHORT**" in prompts
+    assert "one concise saved Buzzberg entry price" in prompts
+    assert "get_ticker_timeseries(ticker, days=60)" in prompts
     assert "fewer than 6 non-empty closes" in prompts
     assert "fewer than 22" in prompts
     assert "targeted ticker+speaker lookup" in prompts
-    assert "Do not list duplicate speaker prices, timestamps" in prompts
-    assert "Extended move" in prompts
+    assert "last complete close strictly before the idea" in prompts
+    assert "Extended before call" in prompts
     assert "Repeat after run-up" in prompts
     assert "Company-specific selloff" in prompts
     assert "does not expose volume" in prompts
-    assert "preserve and attribute the authors' actual thesis" in prompts
-    assert "professional but plain language" in prompts
-    assert "Quick risk check" in prompts
-    assert "ticker or crypto asset" in prompts
-    assert "every contributing speaker" in example
+    assert "maximum 2-3 professional but plain-language sentences" in prompts
+    assert "Speakers / bias" in prompts
+    assert "appearances in this exact window" in prompts
+    assert "110 words or fewer" in prompts
+    assert "Do not add an introduction, honorable mentions" in normalized_prompts
+    assert "material speakers only" in example
     assert "independent corroboration" in readme
-    assert "not a score, forecast, or automatic rejection" in readme
+    assert "not a score or rejection" in readme
     assert "500" in example
 
 
