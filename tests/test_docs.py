@@ -13,6 +13,31 @@ def test_tools_md_matches_manifest():
     assert headings == expected
 
 
+def test_recent_candidate_manifest_uses_cursor_pagination():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    recent = next(
+        tool for tool in manifest["tools"]
+        if tool["name"] == "get_recent_idea_candidates"
+    )
+    parameters = {param["name"]: param for param in recent["parameters"]}
+    assert tuple(parameters) == (
+        "window", "cursor", "as_of", "source_type",
+        "direction", "delivery", "limit", "offset",
+    )
+    assert parameters["cursor"]["default"] == ""
+    assert parameters["as_of"]["default"] == ""
+    assert parameters["delivery"]["default"] == "auto"
+    assert parameters["limit"]["default"] == 500
+    assert parameters["offset"]["type"] == "int | None"
+    assert parameters["offset"]["default"] is None
+    assert recent["returns"] == "RecentIdeaCandidatesColumnarPage"
+
+    tools_md = (ROOT / "TOOLS.md").read_text()
+    section = tools_md.split("## get_recent_idea_candidates", 1)[1].split("\n## ", 1)[0]
+    assert "`cursor`" in section
+    assert "deprecated compatibility only" in section
+
+
 def test_every_manifest_tool_has_one_example_and_no_stale_examples():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     expected = {tool["name"] for tool in manifest["tools"]}
@@ -42,7 +67,9 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
 
     assert "Buzzberg exposes 29 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
-    assert "Follow every next offset" in prompts
+    assert "pagination.next_cursor" in prompts
+    assert "Do not reconstruct an offset" in prompts
+    assert "Follow every next offset" not in prompts
     assert "Do not rank by Alpha score" in prompts
     assert "professional role" in prompts
     assert "repeated promotion" in prompts

@@ -50,8 +50,10 @@ First/Flip signals from Alpha-ranked speakers.
 ```text
 Use Buzzberg to find the top 10 strongest trade ideas from the last 12 hours.
 
-First call get_recent_idea_candidates(window="12h", limit=200, offset=0).
-Follow every next offset until the candidate pass is complete.
+First call get_recent_idea_candidates(window="12h"). Read idea_columns once
+and map every idea_rows array positionally. While pagination.has_more is true,
+call the tool again with the exact pagination.next_cursor until has_more=false.
+Do not reconstruct an offset or start a new snapshot between pages.
 
 Do not rank by Alpha score, extractor confidence, follower count, or how
 confidently the post is written. Compare thesis mechanism, catalyst timing,
