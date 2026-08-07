@@ -168,6 +168,18 @@
           "default": "6h"
         },
         {
+          "name": "cursor",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "as_of",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
           "name": "source_type",
           "type": "str",
           "required": false,
@@ -180,19 +192,25 @@
           "default": ""
         },
         {
+          "name": "delivery",
+          "type": "str",
+          "required": false,
+          "default": "auto"
+        },
+        {
           "name": "limit",
           "type": "int",
           "required": false,
-          "default": 200
+          "default": 500
         },
         {
           "name": "offset",
-          "type": "int",
+          "type": "int | None",
           "required": false,
-          "default": 0
+          "default": null
         }
       ],
-      "returns": "str",
+      "returns": "RecentIdeaCandidatesColumnarPage",
       "summary": "Get the complete recent idea candidate set for qualitative research."
     },
     {

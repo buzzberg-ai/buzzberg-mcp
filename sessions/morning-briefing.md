@@ -12,9 +12,10 @@ candidate pass, current disagreements, and prices for tickers that matter.
 
 ## Tools Claude will chain
 
-1. `get_recent_idea_candidates(window="24h", limit=200, offset=0)` — every
-   visible recent candidate; Claude follows every reported next offset before
-   selecting the strongest theses
+1. `get_recent_idea_candidates(window="24h")` — every visible recent
+   candidate; Claude reads `idea_columns` once, maps every `idea_rows` page,
+   and follows the exact `next_cursor` unchanged until `has_more=false`
+   before selecting the strongest theses
 2. `get_sentiment_divergence(limit=5, days=7)` — tickers where speakers
    disagree most
 3. `get_recent_content(limit=5)` — important recent source items

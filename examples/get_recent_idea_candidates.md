@@ -8,8 +8,10 @@ is intentionally excluded.
 
 ```text
 Use Buzzberg to find the top 10 strongest trade ideas from the last 12 hours.
-Call get_recent_idea_candidates(window="12h", limit=200, offset=0), then follow
-every next offset until the candidate pass is complete.
+Call get_recent_idea_candidates(window="12h"). Read idea_columns once and map
+every idea_rows array positionally. While pagination.has_more is true, call the
+tool again with the exact pagination.next_cursor until has_more=false.
+Do not reconstruct an offset or start a new snapshot between pages.
 
 Do not rank by Alpha score, extractor confidence, follower count, or how
 confidently the post is written. Compare thesis mechanism, catalyst timing,
@@ -62,5 +64,7 @@ speaker/ticker mention counts, and bias flags where the available data supports
 them. Unknown roles and relationships remain unknown. The risk check uses
 Buzzberg price history, so the user does not need a separate market-data API.
 
-The scan is bounded to 500 candidate rows. Narrow `window` or `source_type`
-when the server asks you to reduce the result set.
+Windows up to and including 24 hours remain complete at any candidate count.
+When paging is required, each response contains at most 500 rows and continues
+the same snapshot through `next_cursor`. Only longer windows above the
+500-candidate review ceiling must be narrowed by `window` or `source_type`.
