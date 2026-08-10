@@ -4,6 +4,48 @@ Use this as the primary first pass for broad requests such as "What are the
 best Buzzberg ideas from the last 24 hours?" It returns the complete visible
 candidate set grouped by internal ticker ID. No thesis is shortened.
 
+## What changed in schema v3
+
+`get_recent_idea_candidates` used to return one flat chronological array of
+ideas. The grouped response was briefly exposed as a second tool named
+`get_recent_ideas_by_ticker`. That split was removed: broad recent-idea research
+is one user request, so the established `get_recent_idea_candidates` name now
+returns the grouped v3 contract directly. This endpoint is not a summary and it
+does not choose the best ideas on the server.
+
+The v3 first pass groups the fixed snapshot as:
+
+```text
+ticker
+  -> canonical speaker
+       -> directional ideas
+       -> watch/neutral context
+```
+
+Every candidate and every `thesis_full` remains available. Shared ticker,
+current-price, speaker and 365-day history values are emitted once at the level
+where they apply. This reduces repeated field names and makes consensus,
+disagreement and repeated promotion visible without asking the model to join
+mentions scattered across chronological pages.
+
+Ticker groups are not ordered by raw mention count alone. Independent speakers
+with LONG/SHORT/CLOSE/AVOID calls come first, followed by directional idea
+count, total idea count and recency. This prevents a large WATCH/news stream
+from outranking several independent actionable calls, while keeping that
+context in the response.
+
+Pagination now advances by whole ticker group. A ticker is never split between
+pages, and every continuation uses the exact signed `next_cursor` from the same
+snapshot. Source URLs/IDs, role provenance and duplicate-member evidence are
+available through `get_trade_idea_details` only after the model selects
+finalists; moving those audit fields does not remove a candidate or shorten its
+thesis.
+
+Clients with a cached tool catalog should reconnect or start a new chat after
+the schema change. Do not reuse a v2 cursor: old positions referred to flat idea
+rows, while v3 positions refer to ticker groups. The removed
+`get_recent_ideas_by_ticker` name is no longer callable.
+
 ```text
 Use Buzzberg to find the top 10 strongest trade ideas from the last 24 hours.
 Call get_recent_idea_candidates(window="24h"). Read ticker_group_columns,
