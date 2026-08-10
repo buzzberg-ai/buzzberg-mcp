@@ -39,7 +39,7 @@ Get structured trade-idea history for one speaker, with thesis.
 - `signal` (optional, str, default `'all'`)
 - `sort` (optional, str, default `'recent'`)
 - `days` (optional, int, default `365`)
-- `limit` (optional, int, default `50`)
+- `limit` (optional, int, default `200`)
 - `max_per_day` (optional, int, default `10`)
 
 **Example prompt:**
@@ -98,6 +98,44 @@ Get the complete recent idea candidate set for qualitative research.
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/get_recent_idea_candidates.md](examples/get_recent_idea_candidates.md)
+
+## get_recent_ideas_by_ticker
+
+Return every recent candidate grouped for first-pass LLM research.
+
+**Inputs:**
+- `window` (optional, str, default `'6h'`)
+- `cursor` (optional, str, default `''`)
+- `as_of` (optional, str, default `''`)
+- `source_type` (optional, str, default `''`)
+- `direction` (optional, str, default `''`)
+- `delivery` (optional, str, default `'auto'`)
+- `limit` (optional, int, default `50`)
+
+**Example prompt:**
+> "Find the strongest Buzzberg trade ideas from the last 24 hours. Read `ticker_group_columns`, `speaker_columns`, `history_columns`, `idea_columns`, and every `ticker_group_rows` page. While `has_more=true`, call the tool again with the exact `next_cursor` unchanged. Use stored confidence as one ingestion-stage quality/evidence signal, never the sole rank. Compare complete theses only after the final page, then use `get_trade_idea_details` for the finalist idea IDs that need source or duplicate evidence."
+
+**Returns:** typed `structuredContent` (`GroupedRecentIdeasColumnarPage`) with whole-ticker groups, canonical speakers, compact 365-day histories, full-thesis idea rows, stored-price context, counts, a fixed snapshot and cursor pagination; `content[].text` is an exact compact-JSON mirror of the same page.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_recent_ideas_by_ticker.md](examples/get_recent_ideas_by_ticker.md)
+
+## get_trade_idea_details
+
+Return full audit details for selected recent-idea finalists.
+
+**Inputs:**
+- `idea_ids` (required, list[int])
+
+**Example prompt:**
+> "Retrieve audit details for these finalist Buzzberg idea IDs: [123, 456]. Show each source URL, source identifiers, speaker-role provenance, full thesis, and any grouped near-duplicate evidence."
+
+**Returns:** typed `structuredContent` (`TradeIdeaDetailsBatch`) containing full source identifiers and URLs, speaker-role provenance, thesis text and grouped near-duplicate evidence for up to 50 requested idea IDs; `content[].text` is an exact compact-JSON mirror.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_trade_idea_details.md](examples/get_trade_idea_details.md)
 
 ## get_top_speakers
 

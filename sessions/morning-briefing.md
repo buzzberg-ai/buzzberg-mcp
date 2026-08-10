@@ -12,14 +12,16 @@ candidate pass, current disagreements, and prices for tickers that matter.
 
 ## Tools Claude will chain
 
-1. `get_recent_idea_candidates(window="24h")` — every visible recent
-   candidate; Claude reads `idea_columns` once, maps every `idea_rows` page,
-   and follows the exact `next_cursor` unchanged until `has_more=false`
-   before selecting the strongest theses
-2. `get_sentiment_divergence(limit=5, days=7)` — tickers where speakers
+1. `get_recent_ideas_by_ticker(window="24h")` — every visible recent
+   candidate grouped by ticker; Claude reads the four column declarations once,
+   maps every `ticker_group_rows` page, and follows the exact `next_cursor`
+   unchanged until `has_more=false` before selecting the strongest theses
+2. `get_trade_idea_details(idea_ids=[...])` — source links, role provenance,
+   and duplicate evidence for the selected finalists
+3. `get_sentiment_divergence(limit=5, days=7)` — tickers where speakers
    disagree most
-3. `get_recent_content(limit=5)` — important recent source items
-4. `get_price(tickers=[...])` — live prices for everything that came up
+4. `get_recent_content(limit=5)` — important recent source items
+5. `get_price(tickers=[...])` — live prices for everything that came up
 
 ## What you'll get (illustrative)
 
@@ -53,6 +55,7 @@ To go deeper on any thread Claude surfaces:
 
 - Use `window="6h"` instead of `"24h"` for a "since I last checked" feel during
   the trading day.
-- Do not treat Alpha score, extractor confidence, or follower count as thesis
-  quality. Compare mechanism, entry context, author role, repeated promotion,
-  conflicts, and independent evidence.
+- Treat stored confidence as one ingestion-stage thesis/evidence quality
+  signal, not predicted return and never the sole rank. Do not treat Alpha
+  score or follower count as thesis quality. Compare mechanism, entry context,
+  author role, repeated promotion, conflicts, and independent evidence.

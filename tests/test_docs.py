@@ -65,12 +65,12 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     example = (ROOT / "examples/get_recent_idea_candidates.md").read_text()
     normalized_prompts = " ".join(prompts.split())
 
-    assert "Buzzberg exposes 29 tools" in readme
-    assert "get_recent_idea_candidates(window=\"12h\"" in prompts
+    assert "Buzzberg exposes 31 tools" in readme
+    assert "get_recent_ideas_by_ticker(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts
     assert "Follow every next offset" not in prompts
-    assert "Do not rank by Alpha score" in prompts
+    assert "Do not rank by Alpha score" in normalized_prompts
     assert "professional role" in prompts
     assert "repeated promotion" in prompts
     assert "issuer conflicts" in prompts
@@ -94,6 +94,39 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     assert "independent corroboration" in readme
     assert "not a score or rejection" in readme
     assert "500" in example
+
+
+def test_grouped_recent_idea_workflow_is_public_and_cursor_complete():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    grouped = next(
+        tool for tool in manifest["tools"]
+        if tool["name"] == "get_recent_ideas_by_ticker"
+    )
+    details = next(
+        tool for tool in manifest["tools"]
+        if tool["name"] == "get_trade_idea_details"
+    )
+    parameters = {param["name"]: param for param in grouped["parameters"]}
+
+    assert tuple(parameters) == (
+        "window", "cursor", "as_of", "source_type",
+        "direction", "delivery", "limit",
+    )
+    assert grouped["returns"] == "GroupedRecentIdeasColumnarPage"
+    assert details["returns"] == "TradeIdeaDetailsBatch"
+    assert parameters["limit"]["default"] == 200
+
+    tools_md = (ROOT / "TOOLS.md").read_text()
+    prompts = (ROOT / "PROMPTS.md").read_text()
+    grouped_example = (ROOT / "examples/get_recent_ideas_by_ticker.md").read_text()
+    detail_example = (ROOT / "examples/get_trade_idea_details.md").read_text()
+
+    assert "whole-ticker groups" in tools_md
+    assert "ticker_group_columns" in prompts
+    assert "exact pagination.next_cursor" in prompts
+    assert "full thesis" in grouped_example
+    assert "independent directional speakers" in grouped_example
+    assert "source URLs" in detail_example
 
 
 def test_setup_docs_recommend_oauth_without_breaking_personal_keys():
