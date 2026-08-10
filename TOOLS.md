@@ -74,6 +74,10 @@ Daily history for one speaker's stance on one ticker.
 
 Return every recent candidate grouped for first-pass LLM research.
 
+This is schema v3 of the established recent-candidate request, not a
+separate summary or ranking endpoint. It replaced the former flat response and
+the temporary `get_recent_ideas_by_ticker` sibling.
+
 Pages contain whole-ticker groups; one ticker is never split across cursors.
 
 **Inputs:**

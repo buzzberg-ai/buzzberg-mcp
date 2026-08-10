@@ -5,6 +5,20 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## MCP service contract - 2026-08-10
+
+- `get_recent_idea_candidates` now returns schema v3 grouped by ticker and
+  canonical speaker, with complete full theses, stored price context, compact
+  365-day history and whole-ticker cursor pagination.
+- The temporary `get_recent_ideas_by_ticker` sibling was removed. It represented
+  the same user request and made clients choose between competing flat and
+  grouped tools.
+- The change reduces repeated transport fields and puts all evidence for one
+  ticker together; it does not pre-rank ideas, shorten theses or replace the
+  calling model with a server-generated summary.
+- Clients holding a cached tool schema should reconnect or start a new chat and
+  begin a new cursor pass. Flat v2 cursors cannot address grouped v3 pages.
+
 ## 0.1.0b7
 
 - Pins Claude Desktop's local bridge to `mcp-remote@0.1.38` instead of executing
