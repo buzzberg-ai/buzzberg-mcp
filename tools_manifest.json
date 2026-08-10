@@ -201,63 +201,13 @@
           "name": "limit",
           "type": "int",
           "required": false,
-          "default": 500
+          "default": 200
         },
         {
           "name": "offset",
           "type": "int | None",
           "required": false,
           "default": null
-        }
-      ],
-      "returns": "RecentIdeaCandidatesColumnarPage",
-      "summary": "Get the complete recent idea candidate set for qualitative research."
-    },
-    {
-      "name": "get_recent_ideas_by_ticker",
-      "scope": "read",
-      "parameters": [
-        {
-          "name": "window",
-          "type": "str",
-          "required": false,
-          "default": "6h"
-        },
-        {
-          "name": "cursor",
-          "type": "str",
-          "required": false,
-          "default": ""
-        },
-        {
-          "name": "as_of",
-          "type": "str",
-          "required": false,
-          "default": ""
-        },
-        {
-          "name": "source_type",
-          "type": "str",
-          "required": false,
-          "default": ""
-        },
-        {
-          "name": "direction",
-          "type": "str",
-          "required": false,
-          "default": ""
-        },
-        {
-          "name": "delivery",
-          "type": "str",
-          "required": false,
-          "default": "auto"
-        },
-        {
-          "name": "limit",
-          "type": "int",
-          "required": false,
-          "default": 200
         }
       ],
       "returns": "GroupedRecentIdeasColumnarPage",

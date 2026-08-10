@@ -72,36 +72,9 @@ Daily history for one speaker's stance on one ticker.
 
 ## get_recent_idea_candidates
 
-Get the complete recent idea candidate set for qualitative research.
-
-**Inputs:**
-- `window` (optional, str, default `'6h'`)
-- `cursor` (optional, str, default `''`): opaque `next_cursor` returned by
-  the previous page; use it unchanged
-- `as_of` (optional, str, default `''`): optional ISO-8601 cutoff for the
-  first request; subsequent pages inherit it from `cursor`
-- `source_type` (optional, str, default `''`)
-- `direction` (optional, str, default `''`)
-- `delivery` (optional, str, default `'auto'`)
-- `limit` (optional, int, default `500`)
-- `offset` (deprecated compatibility only, int | None, default `None`);
-  new clients must use `cursor`
-
-**Example prompt:**
-> "Find the top 10 strongest Buzzberg trade ideas from the last 12 hours. Read `idea_columns` and every `idea_rows` page. While `has_more=true`, call the tool again with the exact `next_cursor`; do not reconstruct an offset. Select ideas only after `has_more=false`."
-
-**Returns:** typed `structuredContent`
-(`RecentIdeaCandidatesColumnarPage`) with `idea_columns`, self-contained
-`idea_rows`, counts, snapshot metadata, and cursor pagination;
-`content[].text` is an exact compact-JSON mirror of the same page.
-
-**Scope:** Read-only. Public Buzzberg market-intelligence data.
-
-**Full example:** [examples/get_recent_idea_candidates.md](examples/get_recent_idea_candidates.md)
-
-## get_recent_ideas_by_ticker
-
 Return every recent candidate grouped for first-pass LLM research.
+
+Pages contain whole-ticker groups; one ticker is never split across cursors.
 
 **Inputs:**
 - `window` (optional, str, default `'6h'`)
@@ -110,7 +83,8 @@ Return every recent candidate grouped for first-pass LLM research.
 - `source_type` (optional, str, default `''`)
 - `direction` (optional, str, default `''`)
 - `delivery` (optional, str, default `'auto'`)
-- `limit` (optional, int, default `50`)
+- `limit` (optional, int, default `200`)
+- `offset` (deprecated transition only, int | None, default `None`): only `0` can start a request; continue with the exact `cursor`
 
 **Example prompt:**
 > "Find the strongest Buzzberg trade ideas from the last 24 hours. Read `ticker_group_columns`, `speaker_columns`, `history_columns`, `idea_columns`, and every `ticker_group_rows` page. While `has_more=true`, call the tool again with the exact `next_cursor` unchanged. Use stored confidence as one ingestion-stage quality/evidence signal, never the sole rank. Compare complete theses only after the final page, then use `get_trade_idea_details` for the finalist idea IDs that need source or duplicate evidence."
@@ -119,7 +93,7 @@ Return every recent candidate grouped for first-pass LLM research.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
-**Full example:** [examples/get_recent_ideas_by_ticker.md](examples/get_recent_ideas_by_ticker.md)
+**Full example:** [examples/get_recent_idea_candidates.md](examples/get_recent_idea_candidates.md)
 
 ## get_trade_idea_details
 
