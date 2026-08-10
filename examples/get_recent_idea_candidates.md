@@ -1,8 +1,9 @@
 # get_recent_idea_candidates
 
-Use this for broad requests such as "What are the best ideas from the last six
-hours?" The tool returns every visible supported-source idea candidate in an
-exact recent window, not only top-ranked speakers or First/Flip signals.
+Use this when the task needs the flat chronological audit order. For first-pass
+"best ideas" research, prefer `get_recent_ideas_by_ticker`. This tool returns
+every visible supported-source idea candidate in an exact recent window, not
+only top-ranked speakers or First/Flip signals.
 Supported sources are Twitter, YouTube, Substack, and Reddit; disabled wire-news
 is intentionally excluded.
 
@@ -13,8 +14,10 @@ every idea_rows array positionally. While pagination.has_more is true, call the
 tool again with the exact pagination.next_cursor until has_more=false.
 Do not reconstruct an offset or start a new snapshot between pages.
 
-Do not rank by Alpha score, extractor confidence, follower count, or how
-confidently the post is written. Compare thesis mechanism, catalyst timing,
+Stored confidence is an ingestion-stage thesis/evidence quality signal, not a
+predicted return. Use it as one input, never the sole rank. Do not rank by
+Alpha score, follower count, or how confidently the post is written. Compare
+thesis mechanism, catalyst timing,
 entry/current price context, downside, the author's relevant professional role,
 repeated promotion of the ticker, possible issuer conflicts, and independent
 evidence.
