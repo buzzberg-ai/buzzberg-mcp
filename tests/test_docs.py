@@ -27,15 +27,15 @@ def test_recent_candidate_manifest_uses_cursor_pagination():
     assert parameters["cursor"]["default"] == ""
     assert parameters["as_of"]["default"] == ""
     assert parameters["delivery"]["default"] == "auto"
-    assert parameters["limit"]["default"] == 500
+    assert parameters["limit"]["default"] == 200
     assert parameters["offset"]["type"] == "int | None"
     assert parameters["offset"]["default"] is None
-    assert recent["returns"] == "RecentIdeaCandidatesColumnarPage"
+    assert recent["returns"] == "GroupedRecentIdeasColumnarPage"
 
     tools_md = (ROOT / "TOOLS.md").read_text()
     section = tools_md.split("## get_recent_idea_candidates", 1)[1].split("\n## ", 1)[0]
     assert "`cursor`" in section
-    assert "deprecated compatibility only" in section
+    assert "deprecated transition only" in section
 
 
 def test_every_manifest_tool_has_one_example_and_no_stale_examples():
@@ -65,8 +65,8 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     example = (ROOT / "examples/get_recent_idea_candidates.md").read_text()
     normalized_prompts = " ".join(prompts.split())
 
-    assert "Buzzberg exposes 31 tools" in readme
-    assert "get_recent_ideas_by_ticker(window=\"12h\"" in prompts
+    assert "Buzzberg exposes 30 tools" in readme
+    assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts
     assert "Follow every next offset" not in prompts
@@ -90,17 +90,17 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     assert "appearances in this exact window" in prompts
     assert "110 words or fewer" in prompts
     assert "Do not add an introduction, honorable mentions" in normalized_prompts
-    assert "material speakers only" in example
+    assert "No thesis is shortened" in example
     assert "independent corroboration" in readme
     assert "not a score or rejection" in readme
-    assert "500" in example
+    assert "Current price is the freshest stored Buzzberg" in example
 
 
 def test_grouped_recent_idea_workflow_is_public_and_cursor_complete():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     grouped = next(
         tool for tool in manifest["tools"]
-        if tool["name"] == "get_recent_ideas_by_ticker"
+        if tool["name"] == "get_recent_idea_candidates"
     )
     details = next(
         tool for tool in manifest["tools"]
@@ -110,7 +110,7 @@ def test_grouped_recent_idea_workflow_is_public_and_cursor_complete():
 
     assert tuple(parameters) == (
         "window", "cursor", "as_of", "source_type",
-        "direction", "delivery", "limit",
+        "direction", "delivery", "limit", "offset",
     )
     assert grouped["returns"] == "GroupedRecentIdeasColumnarPage"
     assert details["returns"] == "TradeIdeaDetailsBatch"
@@ -118,7 +118,7 @@ def test_grouped_recent_idea_workflow_is_public_and_cursor_complete():
 
     tools_md = (ROOT / "TOOLS.md").read_text()
     prompts = (ROOT / "PROMPTS.md").read_text()
-    grouped_example = (ROOT / "examples/get_recent_ideas_by_ticker.md").read_text()
+    grouped_example = (ROOT / "examples/get_recent_idea_candidates.md").read_text()
     detail_example = (ROOT / "examples/get_trade_idea_details.md").read_text()
 
     assert "whole-ticker groups" in tools_md

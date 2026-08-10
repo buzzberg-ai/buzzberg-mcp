@@ -1,6 +1,6 @@
 # get_trade_idea_details
 
-Use this after `get_recent_ideas_by_ticker` has produced a shortlist. It returns
+Use this after `get_recent_idea_candidates` has produced a shortlist. It returns
 audit details for up to 50 selected idea IDs without forcing those repeated
 fields into every row of the broad first pass.
 
