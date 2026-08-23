@@ -17,6 +17,8 @@ Search trade ideas from Buzzberg by ticker, keywords, source, speaker, post kind
 - `limit` (optional, int, default `20`)
 - `query` (optional, str, default `''`): explicit uppercase ticker symbols are
   exact idea-ticker filters; otherwise terms use bounded OR text search
+- `cursor` (optional, str, default `''`): opaque continuation from the preceding
+  page; pass it alone, its signed snapshot and original scope are authoritative
 
 **Example prompt:**
 > "Find trade ideas from research posts in the last 24h. Show ticker, speaker, thesis, direction, confidence, and which ideas deserve a deeper follow-up."
@@ -39,8 +41,10 @@ Get structured trade-idea history for one speaker, with thesis.
 - `signal` (optional, str, default `'all'`)
 - `sort` (optional, str, default `'recent'`)
 - `days` (optional, int, default `365`)
-- `limit` (optional, int, default `200`)
+- `limit` (optional, int, default `50`)
 - `max_per_day` (optional, int, default `10`)
+- `cursor` (optional, str, default `''`): continuation available to Buzzberg's
+  own channel only; pass it together with the same `speaker_name` and nothing else
 
 **Example prompt:**
 > "Show Serenity's all-time Buzzberg trade ideas with thesis, direction, confidence, source, and date. Limit to 100 ideas and keep at most 5 ideas per day, then summarize how her views changed."
