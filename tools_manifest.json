@@ -58,6 +58,12 @@
           "type": "str",
           "required": false,
           "default": ""
+        },
+        {
+          "name": "cursor",
+          "type": "str",
+          "required": false,
+          "default": ""
         }
       ],
       "returns": "str",
@@ -120,6 +126,12 @@
           "type": "int",
           "required": false,
           "default": 10
+        },
+        {
+          "name": "cursor",
+          "type": "str",
+          "required": false,
+          "default": ""
         }
       ],
       "returns": "str",
