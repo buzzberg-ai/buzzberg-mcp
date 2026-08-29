@@ -36,6 +36,8 @@ def test_recent_candidate_manifest_uses_cursor_pagination():
     section = tools_md.split("## get_recent_idea_candidates", 1)[1].split("\n## ", 1)[0]
     assert "`cursor`" in section
     assert "deprecated transition only" in section
+    assert "source-specific confidence is intentionally absent" in section
+    assert "Use stored confidence" not in section
 
 
 def test_every_manifest_tool_has_one_example_and_no_stale_examples():
@@ -64,6 +66,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     prompts = (ROOT / "PROMPTS.md").read_text()
     example = (ROOT / "examples/get_recent_idea_candidates.md").read_text()
     normalized_prompts = " ".join(prompts.split())
+    normalized_example = " ".join(example.split())
 
     assert "Buzzberg exposes 30 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
@@ -94,6 +97,14 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     assert "independent corroboration" in readme
     assert "not a score or rejection" in readme
     assert "Current price is the freshest stored Buzzberg" in example
+    assert "stale `tools/list` metadata" in normalized_example
+    assert "idea_id, published_at, direction, signal, entry_price" in example
+    assert "Generic `confidence` is intentionally absent" in example
+    assert "Stored confidence" not in example
+    exact_window = prompts.split(
+        "## Strongest Ideas From an Exact Recent Window", 1
+    )[1].split("\n## ", 1)[0]
+    assert "Stored confidence" not in exact_window
 
 
 def test_grouped_recent_idea_workflow_is_public_and_cursor_complete():

@@ -95,7 +95,7 @@ Pages contain whole-ticker groups; one ticker is never split across cursors.
 - `offset` (deprecated transition only, int | None, default `None`): only `0` can start a request; continue with the exact `cursor`
 
 **Example prompt:**
-> "Find the strongest Buzzberg trade ideas from the last 24 hours. Read `ticker_group_columns`, `speaker_columns`, `history_columns`, `idea_columns`, and every `ticker_group_rows` page. While `has_more=true`, call the tool again with the exact `next_cursor` unchanged. Use stored confidence as one ingestion-stage quality/evidence signal, never the sole rank. Compare complete theses only after the final page, then use `get_trade_idea_details` for the finalist idea IDs that need source or duplicate evidence."
+> "Find the strongest Buzzberg trade ideas from the last 24 hours. Read `ticker_group_columns`, `speaker_columns`, `history_columns`, `idea_columns`, and every `ticker_group_rows` page. While `has_more=true`, call the tool again with the exact `next_cursor` unchanged. Compare complete theses and their evidence only after the final page; source-specific confidence is intentionally absent from this cross-source result. Then use `get_trade_idea_details` for the finalist idea IDs that need source or duplicate evidence."
 
 **Returns:** typed `structuredContent` (`GroupedRecentIdeasColumnarPage`) with whole-ticker groups, canonical speakers, compact 365-day histories, full-thesis idea rows, stored-price context, counts, a fixed snapshot and cursor pagination; `content[].text` is an exact compact-JSON mirror of the same page.
 
