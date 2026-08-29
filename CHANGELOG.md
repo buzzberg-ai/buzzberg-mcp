@@ -5,6 +5,15 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## MCP recent-candidate window scope - 2026-08-29
+
+- `get_recent_idea_candidates` now accepts only `1h`, `6h`, `12h`, `24h`, and
+  the equivalent `1d` window. Its default remains `6h`.
+- Requests for `3d` or `7d` are rejected before the query runs instead of
+  depending on the former 500-row longer-window review ceiling.
+- The `best_recent_ideas` prompt exposes the same exact-window set. Longer
+  research should use a tool whose scope and filters are designed for it.
+
 ## MCP recent-candidate confidence field - 2026-08-29
 
 - `get_recent_idea_candidates` no longer exposes generic `confidence` in its

@@ -131,12 +131,23 @@ def test_grouped_recent_idea_workflow_is_public_and_cursor_complete():
     prompts = (ROOT / "PROMPTS.md").read_text()
     grouped_example = (ROOT / "examples/get_recent_idea_candidates.md").read_text()
     detail_example = (ROOT / "examples/get_trade_idea_details.md").read_text()
+    recent_tool_docs = tools_md.split(
+        "## get_recent_idea_candidates", 1
+    )[1].split("\n## ", 1)[0]
+    exact_window_prompt = prompts.split(
+        "## Strongest Ideas From an Exact Recent Window", 1
+    )[1].split("\n## ", 1)[0]
 
     assert "whole-ticker groups" in tools_md
+    assert "exact `1h`, `6h`, `12h`, `24h`, or `1d`" in recent_tool_docs
+    assert "`3d` and `7d` are rejected" in recent_tool_docs
     assert "ticker_group_columns" in prompts
     assert "exact pagination.next_cursor" in prompts
+    assert "Requests for\n  `3d` or `7d` are rejected" in exact_window_prompt
+    assert "500-row review ceiling" not in exact_window_prompt
     assert "full thesis" in grouped_example
     assert "independent directional speakers" in grouped_example
+    assert "accepts only `1h`, `6h`, `12h`, `24h`, or `1d`" in grouped_example
     assert "source URLs" in detail_example
 
 
