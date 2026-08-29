@@ -138,9 +138,9 @@ Why this matters:
 - The quick warnings distill price-action patterns that are easy to check with
   Buzzberg data. They deliberately avoid a factor score and do not replace
   deeper research.
-- Windows through 24 hours remain complete above 500 candidates by cursor
-  pagination. Only longer windows above the 500-row review ceiling must be
-  narrowed when the result asks you to do so.
+- The tool accepts only exact `1h`, `6h`, `12h`, `24h`, and `1d` windows. Each
+  remains complete above 500 candidates by cursor pagination. Requests for
+  `3d` or `7d` are rejected instead of returning a bounded broad pass.
 
 ## Research Beyond the Headlines
 

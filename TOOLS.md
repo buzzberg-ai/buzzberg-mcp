@@ -85,7 +85,7 @@ the temporary `get_recent_ideas_by_ticker` sibling.
 Pages contain whole-ticker groups; one ticker is never split across cursors.
 
 **Inputs:**
-- `window` (optional, str, default `'6h'`)
+- `window` (optional, str, default `'6h'`): exact `1h`, `6h`, `12h`, `24h`, or `1d`; `3d` and `7d` are rejected
 - `cursor` (optional, str, default `''`)
 - `as_of` (optional, str, default `''`)
 - `source_type` (optional, str, default `''`)

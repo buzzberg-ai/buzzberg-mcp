@@ -4,6 +4,10 @@ Use this as the primary first pass for broad requests such as "What are the
 best Buzzberg ideas from the last 24 hours?" It returns the complete visible
 candidate set grouped by internal ticker ID. No thesis is shortened.
 
+`window` defaults to `6h` and accepts only `1h`, `6h`, `12h`, `24h`, or `1d`.
+Requests for `3d` or `7d` are rejected rather than returning an incomplete
+broad review.
+
 ## What changed in schema v3
 
 `get_recent_idea_candidates` used to return one flat chronological array of
