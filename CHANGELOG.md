@@ -5,6 +5,20 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## MCP recent-candidate confidence field - 2026-08-29
+
+- `get_recent_idea_candidates` no longer exposes generic `confidence` in its
+  grouped cross-source idea rows. Stored source-specific values and other tools
+  are unchanged.
+- `idea_columns` now contains nine fields: `idea_id`, `published_at`,
+  `direction`, `signal`, `entry_price`, `price_change_since_entry_pct`,
+  `source`, `post_kind`, and `thesis_full`.
+- The shared number combined ingestion signals with different meanings across
+  Twitter, YouTube, newsletters, and Reddit, so it could not support a valid
+  cross-source comparison.
+- Flat v2 `idea_rows` shown by a long-lived client are cached tool metadata, not
+  a second server contract. Reconnect or start a new chat to refresh the catalog.
+
 ## MCP service contract - 2026-08-10
 
 - `get_recent_idea_candidates` now returns schema v3 grouped by ticker and

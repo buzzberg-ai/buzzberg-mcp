@@ -58,10 +58,8 @@ exact pagination.next_cursor until has_more=false.
 Do not reconstruct an offset or start a new snapshot between pages. Select only after the complete
 fixed-snapshot pass.
 
-Stored confidence is an ingestion-stage thesis/evidence quality signal, not a
-predicted return. Use it as one input, never the sole rank. Do not rank by
-Alpha score, follower count, or how confidently the post is written. Compare
-thesis mechanism, catalyst timing,
+Do not rank by Alpha score, follower count, or how confidently the post is
+written. Compare thesis mechanism, catalyst timing,
 entry/current price context, downside, the author's relevant professional role,
 repeated promotion of the ticker, possible issuer conflicts, and independent
 evidence.
@@ -132,9 +130,9 @@ Why this matters:
   is not a complete supported-source candidate pass.
 - The complete pass covers visible Twitter, YouTube, Substack, and Reddit idea
   rows. Disabled wire-news sources are intentionally excluded.
-- Stored confidence is an ingestion-stage thesis/evidence quality signal, not
-  predicted return. Use it as one input, never the sole rank. Alpha score and
-  follower count are not thesis-quality scores.
+- Generic confidence is intentionally absent from the cross-source candidate
+  rows because its ingestion meaning differs by source. Alpha score, follower
+  count, and assertive writing are not thesis-quality scores.
 - A relevant professional role can add context, but does not prove a thesis.
   Repeated same-side promotion or an issuer relationship can add bias.
 - The quick warnings distill price-action patterns that are easy to check with

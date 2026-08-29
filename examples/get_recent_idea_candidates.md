@@ -41,10 +41,12 @@ available through `get_trade_idea_details` only after the model selects
 finalists; moving those audit fields does not remove a candidate or shorten its
 thesis.
 
-Clients with a cached tool catalog should reconnect or start a new chat after
-the schema change. Do not reuse a v2 cursor: old positions referred to flat idea
-rows, while v3 positions refer to ticker groups. The removed
-`get_recent_ideas_by_ticker` name is no longer callable.
+The current public contract has no top-level flat `idea_rows` response. Clients
+with a cached tool catalog may still display that old v2 shape; this is stale
+`tools/list` metadata, not a different Buzzberg endpoint. Reconnect or start a
+new chat after the schema change. Do not reuse a v2 cursor: old positions
+referred to flat idea rows, while v3 positions refer to ticker groups. The
+removed `get_recent_ideas_by_ticker` name is no longer callable.
 
 ```text
 Use Buzzberg to find the top 10 strongest trade ideas from the last 24 hours.
@@ -59,8 +61,6 @@ until the fixed-snapshot pass ends with has_more=false.
 Treat repeated posts by one canonical speaker as one speaker, not independent
 confirmation. Compare the full thesis, direction, signal, saved entry/current
 price context, 365-day speaker history, and disagreements inside each ticker.
-Use stored confidence as one ingestion-stage thesis/evidence quality signal,
-never the sole rank; it is not a predicted return.
 After selecting finalists, call get_trade_idea_details with their idea IDs.
 ```
 
@@ -72,6 +72,18 @@ The response declares four compact schemas once:
   counts;
 - `idea_columns` describes the full-thesis idea rows split into directional
   ideas and watch/neutral context.
+
+The current `idea_columns` are:
+
+```text
+idea_id, published_at, direction, signal, entry_price,
+price_change_since_entry_pct, source, post_kind, thesis_full
+```
+
+Generic `confidence` is intentionally absent. The stored values are
+source-specific ingestion signals with different meanings across Twitter,
+YouTube, newsletters, and Reddit, so one shared numeric column would imply a
+cross-source scale that does not exist.
 
 Ticker groups are ordered by independent directional speakers first, then
 directional idea count, total idea count, latest directional activity, and
@@ -88,6 +100,6 @@ groups than the requested limit when the response token budget is reached.
 Every continuation uses the opaque signed `next_cursor` and preserves the same
 `as_of` snapshot.
 
-The full first pass intentionally omits source URLs, source IDs, role
-provenance, short theses, and duplicate-member payloads. Those audit fields are
-available for selected finalists through `get_trade_idea_details`.
+The full first pass intentionally omits generic confidence, source URLs, source
+IDs, role provenance, short theses, and duplicate-member payloads. Audit fields
+are available for selected finalists through `get_trade_idea_details`.
