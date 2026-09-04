@@ -51,7 +51,7 @@ First/Flip signals from Alpha-ranked speakers.
 Use Buzzberg to find the top 10 strongest trade ideas from the last 12 hours.
 
 First call get_recent_idea_candidates(window="12h"). Read
-ticker_group_columns, speaker_columns, history_columns, and idea_columns once,
+ticker_group_columns, speaker_columns, promotion_bias_columns, and idea_columns once,
 then map every ticker_group_rows page positionally. Each page contains whole
 ticker groups. While pagination.has_more is true, call the tool again with the
 exact pagination.next_cursor until has_more=false.
@@ -61,8 +61,10 @@ fixed-snapshot pass.
 Do not rank by Alpha score, follower count, or how confidently the post is
 written. Compare thesis mechanism, catalyst timing,
 entry/current price context, downside, the author's relevant professional role,
-repeated promotion of the ticker, possible issuer conflicts, and independent
-evidence.
+the returned directional promotion-bias evidence for repeated promotion of the
+ticker, possible issuer conflicts, and independent evidence. Use the returned
+HIGH, MEDIUM, LOW, or NONE label exactly; if unavailable, show N/A. Never change
+that label because of a role or issuer relationship.
 
 After selecting the finalists, call get_trade_idea_details(idea_ids=[...]) to
 retrieve their source links, source IDs, speaker-role provenance, and grouped
@@ -100,9 +102,9 @@ attribute the authors' thesis, then explain what may be mispriced, the mechanism
 catalyst, evidence, downside/invalidation, and unknowns.
 
 **Speakers / bias:** material speakers only. For each, include the verified or
-declared relevant role, appearances in this exact window, prior 365-day ticker
-mentions and same-side repeats, and any explicitly supported disclosed position
-or issuer relationship.
+declared relevant role, appearances in this exact window, the server-returned
+promotion-bias level and its material evidence, and any explicitly supported
+disclosed position or issuer relationship as separate context.
 
 **Risk:** one concise invalidation condition.
 
@@ -134,13 +136,37 @@ Why this matters:
   rows because its ingestion meaning differs by source. Alpha score, follower
   count, and assertive writing are not thesis-quality scores.
 - A relevant professional role can add context, but does not prove a thesis.
-  Repeated same-side promotion or an issuer relationship can add bias.
+  The server-returned directional label measures repeated same-side promotion;
+  an issuer relationship is separate context and never changes that label.
 - The quick warnings distill price-action patterns that are easy to check with
   Buzzberg data. They deliberately avoid a factor score and do not replace
   deeper research.
 - The tool accepts only exact `1h`, `6h`, `12h`, `24h`, and `1d` windows. Each
   remains complete above 500 candidates by cursor pagination. Requests for
   `3d` or `7d` are rejected instead of returning a bounded broad pass.
+
+## Ready-Made 24-Hour Ideas Summary
+
+Use this when you want the complete grouped evidence plus Buzzberg's global
+summary context and one ready-made answer instruction.
+
+```text
+Call get_recent_ideas_summary(window="24h"). Follow every exact
+pagination.next_cursor until has_more=false. Use summary_context from the
+complete inline response or the final page; do not recount authors or reconstruct
+rankings from individual rows.
+
+Resolve the selected idea IDs from ticker_group_rows. Use promotion bias exactly
+as returned. If its snapshot is unavailable, write Bias N/A. Keep employment,
+ownership, advisory, and other issuer relationships separate from directional
+promotion bias. Follow the returned host-agent instruction for the compact table
+and detailed sections.
+```
+
+Expected Buzzberg tools:
+
+- `get_recent_ideas_summary`
+- `get_trade_idea_details` for finalist source and duplicate evidence
 
 ## Research Beyond the Headlines
 

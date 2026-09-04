@@ -68,7 +68,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     normalized_prompts = " ".join(prompts.split())
     normalized_example = " ".join(example.split())
 
-    assert "Buzzberg exposes 30 tools" in readme
+    assert "Buzzberg exposes 31 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts
@@ -76,6 +76,8 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     assert "Do not rank by Alpha score" in normalized_prompts
     assert "professional role" in prompts
     assert "repeated promotion" in prompts
+    assert "promotion_bias_columns" in prompts
+    assert "Use the returned\nHIGH, MEDIUM, LOW, or NONE label exactly" in prompts
     assert "issuer conflicts" in prompts
     assert "### N. TICKER — **LONG/SHORT**" in prompts
     assert "one concise saved Buzzberg entry price" in prompts
@@ -100,6 +102,10 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     assert "stale `tools/list` metadata" in normalized_example
     assert "idea_id, published_at, direction, signal, entry_price" in example
     assert "Generic `confidence` is intentionally absent" in example
+    assert "What changed in schema v4" in example
+    assert "weighted daily purity" in example
+    assert "issuer relationship" in example
+    assert "history_columns" not in example
     assert "Stored confidence" not in example
     exact_window = prompts.split(
         "## Strongest Ideas From an Exact Recent Window", 1
@@ -149,6 +155,37 @@ def test_grouped_recent_idea_workflow_is_public_and_cursor_complete():
     assert "independent directional speakers" in grouped_example
     assert "accepts only `1h`, `6h`, `12h`, `24h`, or `1d`" in grouped_example
     assert "source URLs" in detail_example
+
+
+def test_recent_summary_is_public_and_uses_grouped_v4_bias_contract():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    summary = next(
+        tool for tool in manifest["tools"]
+        if tool["name"] == "get_recent_ideas_summary"
+    )
+    parameters = {param["name"]: param for param in summary["parameters"]}
+
+    assert tuple(parameters) == (
+        "window", "cursor", "as_of", "source_type",
+        "direction", "delivery", "limit", "offset",
+    )
+    assert parameters["window"]["default"] == "24h"
+    assert parameters["limit"]["default"] == 200
+    assert summary["returns"] == "GroupedRecentIdeasSummaryPage"
+
+    tools_md = (ROOT / "TOOLS.md").read_text()
+    prompts = (ROOT / "PROMPTS.md").read_text()
+    example = (ROOT / "examples/get_recent_ideas_summary.md").read_text()
+    section = tools_md.split(
+        "## get_recent_ideas_summary", 1
+    )[1].split("\n## ", 1)[0]
+
+    assert "grouped-v4" in section
+    assert "promotion-bias" in section
+    assert "final page" in section
+    assert "get_recent_ideas_summary(window=\"24h\")" in prompts
+    assert "Bias N/A" in example
+    assert "issuer relationship" in example
 
 
 def test_setup_docs_recommend_oauth_without_breaking_personal_keys():

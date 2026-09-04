@@ -8,16 +8,18 @@ candidate set grouped by internal ticker ID. No thesis is shortened.
 Requests for `3d` or `7d` are rejected rather than returning an incomplete
 broad review.
 
-## What changed in schema v3
+## What changed in schema v4
 
 `get_recent_idea_candidates` used to return one flat chronological array of
 ideas. The grouped response was briefly exposed as a second tool named
 `get_recent_ideas_by_ticker`. That split was removed: broad recent-idea research
 is one user request, so the established `get_recent_idea_candidates` name now
-returns the grouped v3 contract directly. This endpoint is not a summary and it
+returns the grouped contract directly. This endpoint is not a summary and it
 does not choose the best ideas on the server.
 
-The v3 first pass groups the fixed snapshot as:
+Schema v4 keeps the same lossless grouping and replaces the compact 365-day
+direction-count history with a ready daily directional promotion-bias result.
+The first pass groups the fixed snapshot as:
 
 ```text
 ticker
@@ -27,10 +29,10 @@ ticker
 ```
 
 Every candidate and every `thesis_full` remains available. Shared ticker,
-current-price, speaker and 365-day history values are emitted once at the level
+current-price, speaker and promotion-bias values are emitted once at the level
 where they apply. This reduces repeated field names and makes consensus,
-disagreement and repeated promotion visible without asking the model to join
-mentions scattered across chronological pages.
+disagreement and repeated promotion visible without making each MCP request
+scan the author's history.
 
 Ticker groups are not ordered by raw mention count alone. Independent speakers
 with LONG/SHORT/CLOSE/AVOID calls come first, followed by directional idea
@@ -48,14 +50,14 @@ thesis.
 The current public contract has no top-level flat `idea_rows` response. Clients
 with a cached tool catalog may still display that old v2 shape; this is stale
 `tools/list` metadata, not a different Buzzberg endpoint. Reconnect or start a
-new chat after the schema change. Do not reuse a v2 cursor: old positions
-referred to flat idea rows, while v3 positions refer to ticker groups. The
+new chat after the schema change. Do not reuse a pre-v4 cursor: old metadata
+described a different row contract, while v4 cursors also pin the bias snapshot. The
 removed `get_recent_ideas_by_ticker` name is no longer callable.
 
 ```text
 Use Buzzberg to find the top 10 strongest trade ideas from the last 24 hours.
 Call get_recent_idea_candidates(window="24h"). Read ticker_group_columns,
-speaker_columns, history_columns, and idea_columns once, then map every
+speaker_columns, promotion_bias_columns, and idea_columns once, then map every
 ticker_group_rows array positionally.
 
 While pagination.has_more is true, call the tool again with the exact
@@ -64,18 +66,43 @@ until the fixed-snapshot pass ends with has_more=false.
 
 Treat repeated posts by one canonical speaker as one speaker, not independent
 confirmation. Compare the full thesis, direction, signal, saved entry/current
-price context, 365-day speaker history, and disagreements inside each ticker.
+price context, ready promotion-bias result, and disagreements inside each ticker.
+Use HIGH, MEDIUM, LOW, or NONE exactly as returned. If the bias snapshot or row
+is unavailable, show N/A instead of deriving a replacement. Never change the
+promotion-bias label because of an employment, ownership, advisory, or other
+issuer relationship; report that relationship separately when supported.
 After selecting finalists, call get_trade_idea_details with their idea IDs.
 ```
 
-The response declares four compact schemas once:
+The response declares six compact schemas once:
 
 - `ticker_group_columns` describes each ticker group;
 - `speaker_columns` describes canonical speakers inside a group;
-- `history_columns` describes each speaker's compact prior-365-day direction
-  counts;
+- `promotion_bias_columns` describes the side, ready label, count/time/purity
+  evidence and failure reasons behind that label;
+- `source_columns` describes each idea source;
+- `direction_columns` describes positional direction counts;
 - `idea_columns` describes the full-thesis idea rows split into directional
   ideas and watch/neutral context.
+
+Promotion bias uses a fixed 180-day history ending 24 hours before the daily
+snapshot. LONG is evaluated against prior LONG calls; SHORT and AVOID use one
+bearish side. Calls on the same UTC day contribute `sqrt(daily calls)` to the
+weighted score, so a one-day burst counts less than activity spread through
+time. The evidence exposes both raw call purity and weighted daily purity.
+
+- `HIGH`: at least 12 same-side calls, 6 active days, a 60-day span, weighted
+  score 8, weighted purity 95%, and a same-side call within 90 days;
+- `MEDIUM`: at least 5 calls, 3 active days, a 14-day span, weighted score 3.5,
+  weighted purity 90%, and the same freshness rule;
+- `LOW`: prior same-side history exists but MEDIUM is not reached;
+- `NONE`: no prior same-side history exists.
+
+`promotion_bias_snapshot` says whether the pinned generation is `available`,
+`stale`, or `unavailable`, and gives its calculation time and algorithm version.
+An unidentified source-only speaker has no attributable history, so its bias is
+`null`. An identified speaker/ticker pair absent from an otherwise valid snapshot
+is `NONE`.
 
 The current `idea_columns` are:
 

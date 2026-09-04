@@ -226,6 +226,62 @@
       "summary": "Return every recent candidate grouped for first-pass LLM research."
     },
     {
+      "name": "get_recent_ideas_summary",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "window",
+          "type": "str",
+          "required": false,
+          "default": "24h"
+        },
+        {
+          "name": "cursor",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "as_of",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "direction",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "delivery",
+          "type": "str",
+          "required": false,
+          "default": "auto"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 200
+        },
+        {
+          "name": "offset",
+          "type": "int | None",
+          "required": false,
+          "default": null
+        }
+      ],
+      "returns": "GroupedRecentIdeasSummaryPage",
+      "summary": "Return recent grouped ideas with global context for a ready-made summary."
+    },
+    {
       "name": "get_trade_idea_details",
       "scope": "read",
       "parameters": [

@@ -5,6 +5,24 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## MCP grouped schema v4 and ready summary - 2026-09-04
+
+- `get_recent_idea_candidates` schema v4 replaces the per-request compact
+  365-day speaker history with a daily precomputed directional promotion-bias
+  result and transparent count, time-distribution, purity, freshness and failure
+  evidence.
+- The label uses a fixed preceding 180-day window ending 24 hours before the
+  snapshot. Clients must use the returned `HIGH`, `MEDIUM`, `LOW`, or `NONE`
+  value as supplied and keep issuer relationships separate.
+- `promotion_bias_snapshot` reports whether the pinned daily generation is
+  available, stale, or unavailable. Clients should show N/A rather than infer a
+  replacement when no usable result exists.
+- Added the existing `get_recent_ideas_summary` tool to the public manifest,
+  tool reference and examples. It defaults to 24 hours, reuses the lossless
+  grouped-v4 pages and adds global summary context on the complete/final page.
+- Reconnect MCP clients and begin a new cursor pass after deployment so cached
+  v3 metadata is not mixed with schema v4.
+
 ## MCP recent-candidate window scope - 2026-08-29
 
 - `get_recent_idea_candidates` now accepts only `1h`, `6h`, `12h`, `24h`, and

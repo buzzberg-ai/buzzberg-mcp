@@ -78,11 +78,14 @@ Daily history for one speaker's stance on one ticker.
 
 Return every recent candidate grouped for first-pass LLM research.
 
-This is schema v3 of the established recent-candidate request, not a
+This is schema v4 of the established recent-candidate request, not a
 separate summary or ranking endpoint. It replaced the former flat response and
 the temporary `get_recent_ideas_by_ticker` sibling.
 
 Pages contain whole-ticker groups; one ticker is never split across cursors.
+Each identified speaker/ticker row includes the ready daily directional
+promotion-bias result for that speaker's latest actionable stance. Company or
+issuer relationships remain separate context and never alter this label.
 
 **Inputs:**
 - `window` (optional, str, default `'6h'`): exact `1h`, `6h`, `12h`, `24h`, or `1d`; `3d` and `7d` are rejected
@@ -95,13 +98,41 @@ Pages contain whole-ticker groups; one ticker is never split across cursors.
 - `offset` (deprecated transition only, int | None, default `None`): only `0` can start a request; continue with the exact `cursor`
 
 **Example prompt:**
-> "Find the strongest Buzzberg trade ideas from the last 24 hours. Read `ticker_group_columns`, `speaker_columns`, `history_columns`, `idea_columns`, and every `ticker_group_rows` page. While `has_more=true`, call the tool again with the exact `next_cursor` unchanged. Compare complete theses and their evidence only after the final page; source-specific confidence is intentionally absent from this cross-source result. Then use `get_trade_idea_details` for the finalist idea IDs that need source or duplicate evidence."
+> "Find the strongest Buzzberg trade ideas from the last 24 hours. Read `ticker_group_columns`, `speaker_columns`, `promotion_bias_columns`, `idea_columns`, and every `ticker_group_rows` page. While `has_more=true`, call the tool again with the exact `next_cursor` unchanged. Compare complete theses and their evidence only after the final page; use each returned promotion-bias level exactly as supplied and keep issuer relationships separate; source-specific confidence is intentionally absent from this cross-source result. Then use `get_trade_idea_details` for the finalist idea IDs that need source or duplicate evidence."
 
-**Returns:** typed `structuredContent` (`GroupedRecentIdeasColumnarPage`) with whole-ticker groups, canonical speakers, compact 365-day histories, full-thesis idea rows, stored-price context, counts, a fixed snapshot and cursor pagination; `content[].text` is an exact compact-JSON mirror of the same page.
+**Returns:** typed `structuredContent` (`GroupedRecentIdeasColumnarPage`) with whole-ticker groups, canonical speakers, ready daily directional promotion bias, full-thesis idea rows, stored-price context, counts, a fixed snapshot and cursor pagination; `content[].text` is an exact compact-JSON mirror of the same page.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/get_recent_idea_candidates.md](examples/get_recent_idea_candidates.md)
+
+## get_recent_ideas_summary
+
+Return recent grouped ideas with global context for a ready-made summary.
+
+This tool uses the same lossless grouped-v4 evidence and cursor contract as
+`get_recent_idea_candidates`, but defaults to 24 hours and adds one globally
+calculated `summary_context`. When paging is required, intermediate pages may
+omit that context and the final page supplies it for the complete snapshot.
+
+**Inputs:**
+- `window` (optional, str, default `'24h'`): exact `1h`, `6h`, `12h`, `24h`, or `1d`; `3d` and `7d` are rejected
+- `cursor` (optional, str, default `''`)
+- `as_of` (optional, str, default `''`)
+- `source_type` (optional, str, default `''`)
+- `direction` (optional, str, default `''`)
+- `delivery` (optional, str, default `'auto'`)
+- `limit` (optional, int, default `200`)
+- `offset` (deprecated transition only, int | None, default `None`): only `0` can start a request; continue with the exact `cursor`
+
+**Example prompt:**
+> "Summarize Buzzberg ideas from the last 24 hours. Follow every exact `next_cursor`; use the global `summary_context` from the complete or final page without recounting authors. Resolve its candidate idea IDs from the grouped rows. Use each returned promotion-bias level exactly as supplied, show N/A when its snapshot is unavailable, and keep issuer relationships separate."
+
+**Returns:** typed `structuredContent` (`GroupedRecentIdeasSummaryPage`) with the same lossless grouped-v4 candidate page plus globally calculated `summary_context` inline or on the final paged response. The context contains overview counts, Alpha-call candidate pools, unique-author Trend, LONG-versus-SHORT-or-AVOID Consensus, directional Attention spikes, most-mentioned rankings, exact Top-100-author First Calls, compact ticker metrics and a host-agent instruction; `content[].text` is an exact compact-JSON mirror of the same page.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_recent_ideas_summary.md](examples/get_recent_ideas_summary.md)
 
 ## get_trade_idea_details
 

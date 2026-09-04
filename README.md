@@ -142,8 +142,9 @@ Use Buzzberg to find the top 10 strongest trade ideas from the last 12 hours.
 Review the complete candidate set before selecting.
 
 For each idea use compact Markdown: `### N. TICKER — **LONG/SHORT**`, one saved
-entry price, pre-call 1W/1M returns, a 2-3 sentence thesis, material speaker
-history/bias, one invalidation risk, and at most two source links. Keep each
+entry price, pre-call 1W/1M returns, a 2-3 sentence thesis, the server-returned
+speaker promotion bias plus separate issuer-relationship context, one
+invalidation risk, and at most two source links. Keep each
 idea at 110 words or fewer.
 
 For selected tickers, use Buzzberg's 60-day price history and SPY once as stock
@@ -358,7 +359,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 30 tools
+            print([t.name for t in tools.tools])  # 31 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -414,7 +415,7 @@ Buzzberg exposes two MCP transports:
 
 ## Tools, Prompts, And Resources
 
-Buzzberg exposes 30 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
+Buzzberg exposes 31 tools — read (`get_recent_idea_candidates`, `get_recent_ideas_summary`, `get_trade_idea_details`,
 `search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
 `get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,
