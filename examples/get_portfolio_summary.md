@@ -50,12 +50,18 @@ portfolio-level message, no table or details. Unresolved symbols are not zero
 activity: briefly note incomplete coverage, and if all are unresolved, say the
 tickers could not be resolved rather than claiming no new ideas.
 
-The default complete-response budget is 250,000 estimated tokens, including
-the report instruction and metadata. Larger responses return
+The default complete-response budget is 900,000 estimated tokens, matching the
+recent-ideas summary's default inline budget and including the report instruction
+and metadata. Request the complete ticker list first; do not split preemptively
+based on expected volume. Larger responses return
 `status=requires_narrowing`, counts and a full size estimate, with no partial
-theses. Split the ticker list and rerun; do not silently shorten the window or
-summarize a prefix. A single oversized ticker requires a larger server budget.
-The estimate does not guarantee fit in every host's context window.
+theses. Split only after an explicit host/model size or context-limit error, or
+the server's `requires_narrowing`. Display truncation alone requires extracting
+the full result, not a new query. Preserve every ticker, the 24h window and source
+scope across batches; read all batches before writing one combined report.
+Do not shorten theses or summarize a prefix. If a single ticker still cannot
+fit, report the limitation. The estimate does not guarantee fit in every host's
+context window.
 
 For a market-wide idea report, use `get_recent_ideas_summary` instead.
 For a saved personal portfolio, find the user's ticker feed with `get_my_feeds`,
