@@ -7,6 +7,13 @@ here and announced to active beta users.
 
 ## Daily portfolio summary - 2026-09-07
 
+Follow-up: ticker feeds and portfolio requests now accept 100 distinct symbols;
+author feeds accept 100 authors/independent sources, with linked accounts counted
+together with their selected author. New read tools `get_my_feeds` and
+`get_my_feed` let agents retrieve only their authenticated account's saved feeds
+and pass a ticker feed's complete composition into the 24h portfolio summary.
+The catalog now has 34 tools. Accountless connections cannot read personal feeds.
+
 - Added `get_portfolio_summary`: complete 24h LONG/SHORT/AVOID thesis evidence
   for up to 50 selected tickers, author roles, saved mention/price context and
   an embedded one-table report instruction. Oversized results explicitly

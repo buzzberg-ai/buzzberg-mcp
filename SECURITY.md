@@ -10,8 +10,10 @@ Email security issues to `security@buzzberg.ai`. We acknowledge reports within
 Buzzberg MCP is a hosted remote MCP server. The public package in this repo is
 an installer and documentation package; it is not the server implementation.
 
-- Confused deputy: the server resolves each Bearer key to a server-side user
-  context. Write tools use that context and do not accept user-id overrides.
+- Confused deputy: the server resolves OAuth tokens and personal keys to a
+  server-side user context. Private feed reads and write tools use that context
+  and do not accept user-id overrides. Feed queries are scoped to the owner and
+  bypass shared caches; accountless connections cannot read personal feeds.
 - Token passthrough: Buzzberg MCP keys are not passed to downstream market-data
   providers.
 - Session hijacking: there is no server-side session cookie for MCP tool calls.
@@ -28,6 +30,8 @@ mapping of scope claims to enforcement mechanisms.
 | Action | Allowed? |
 |---|---|
 | Read public trade ideas, sentiment, and prices | Yes |
+| Read your saved feeds and their ticker/author/source lists | Yes |
+| Read another user's feeds or change feed subscriptions | No |
 | Save trade ideas to your account | Yes |
 | Server sees tool-call arguments Claude sends | Yes |
 | See another user's saved ideas | No |
@@ -55,8 +59,10 @@ production OAuth configuration is complete.
 
 Buzzberg stores `last_used_at` per key and standard HTTP access logs such as
 path, status, IP, and response time. Buzzberg does not intentionally log request
-bodies, tool arguments, or MCP response payloads. Per-tool audit logs are on the
-roadmap but are not present in this beta.
+bodies or MCP response payloads. Usage analytics include short allowlisted
+argument summaries, including selected feed IDs and feed-list filters. Arbitrary
+arguments, feed contents, Telegram linking secrets and full payloads are not
+stored in those usage records.
 
 ## What The Server Can See
 

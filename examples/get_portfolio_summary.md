@@ -6,7 +6,7 @@ Ask: "Give me today's update on my portfolio: NVDA, BTC and TSLA."
 {"tickers": ["NVDA", "BTC", "TSLA"], "source_type": ""}
 ```
 
-Call `get_portfolio_summary` with one to 50 distinct ticker symbols. A saved
+Call `get_portfolio_summary` with one to 100 distinct ticker symbols. A saved
 portfolio is not required. The only window is the last 24 hours by publication
 time; optionally filter Twitter, YouTube, newsletters or Reddit with `source_type`.
 
@@ -45,4 +45,7 @@ summarize a prefix. A single oversized ticker requires a larger server budget.
 The estimate does not guarantee fit in every host's context window.
 
 For a market-wide idea report, use `get_recent_ideas_summary` instead.
+For a saved personal portfolio, find the user's ticker feed with `get_my_feeds`,
+read it with `get_my_feed`, and pass its complete `portfolio_tickers` list.
+Clarify which feed if the selection is ambiguous; an author feed is not holdings.
 This request does not save holdings or schedule future reports.
