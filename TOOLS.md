@@ -103,6 +103,46 @@ Pages contain whole-ticker groups; one ticker is never split across cursors.
 
 **Full example:** [examples/get_recent_idea_candidates.md](examples/get_recent_idea_candidates.md)
 
+## get_recent_ideas_summary
+
+Return a recent-ideas report; read agent_guide and the full report instruction first.
+
+**Inputs:**
+- `window` (optional, str, default `'24h'`)
+- `cursor` (optional, str, default `''`)
+- `as_of` (optional, str, default `''`)
+- `source_type` (optional, str, default `''`)
+- `direction` (optional, str, default `''`)
+- `delivery` (optional, str, default `'auto'`)
+- `limit` (optional, int, default `200`)
+- `offset` (optional, int | None, default `None`)
+
+**Example prompt:**
+> "Summarize Buzzberg ideas from the last 24 hours. Read agent_guide and follow every exact pagination.next_cursor until has_more=false. Use the final summary_context and its complete analysis_instruction for six interactive Top-10 tabs: Alpha Calls, Top Mentions, Mentions Spike, Consensus, First Calls and Shorts. Follow its bounded Alpha thesis review and unique-ticker detail selection; use saved metrics and source links without recounting authors."
+
+**Returns:** typed `structuredContent` (`GroupedRecentIdeasSummaryPage`) with the grouped-v5 metadata and report-scoped full-thesis evidence declared by data_projection, plus globally calculated `summary_context` on inline delivery or the final page. Context 9.0.0/report format 5.0.0 contains six Top-10 tabs, a 20-ticker Alpha shortlist for bounded host thesis review, complete display-row evidence, unique-ticker detail selection, saved author metrics, side Call prices, market context, original source links and a full presentation instruction; `content[].text` is an exact compact-JSON mirror of the same page.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_recent_ideas_summary.md](examples/get_recent_ideas_summary.md)
+
+## get_portfolio_summary
+
+Get a complete 24h portfolio update for up to 50 selected tickers.
+
+**Inputs:**
+- `tickers` (required, list[str])
+- `source_type` (optional, str, default `''`)
+
+**Example prompt:**
+> "Give me a daily portfolio update for NVDA, BTC and TSLA. Call get_portfolio_summary with those tickers; read all returned full LONG/SHORT/AVOID theses and follow analysis_instruction: one table with separate stance counts, mentions, 30-day daily average and attention growth, then every ticker with prices, authors and roles, side Call prices, attributed arguments and source links."
+
+**Returns:** typed `structuredContent` (`PortfolioSummaryResult`) for up to 50 selected tickers over the last 24h: all full LONG/SHORT/AVOID theses, canonical authors with roles, source links, saved unique-author mention metrics, stored prices and the complete portfolio report instruction. Inline delivery is complete or explicitly returns `requires_narrowing` without partial theses; `content[].text` is an exact compact-JSON mirror.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_portfolio_summary.md](examples/get_portfolio_summary.md)
+
 ## get_trade_idea_details
 
 Return full audit details for selected recent-idea finalists.

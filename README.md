@@ -64,6 +64,15 @@ custom Python clients, and the API-key compatibility path.
 
 ## What You Can Do With It
 
+### Daily updates on your portfolio
+
+Ask: "Give me today's portfolio update for NVDA, BTC and TSLA."
+`get_portfolio_summary` covers up to 50 selected tickers over the last 24h,
+with every full LONG/SHORT/AVOID thesis, author roles, mentions and prices.
+Your agent follows the included instruction for one table and each ticker's
+arguments. See the [portfolio example](examples/get_portfolio_summary.md).
+For a market-wide report, use `get_recent_ideas_summary`.
+
 Buzzberg is useful when you want your AI agent to read the market conversation,
 not just fetch a price. Ask one plain-English question; Claude, Codex, or
 another MCP client chains the right Buzzberg tools and turns bounded market
@@ -358,7 +367,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 30 tools
+            print([t.name for t in tools.tools])  # 32 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -414,7 +423,7 @@ Buzzberg exposes two MCP transports:
 
 ## Tools, Prompts, And Resources
 
-Buzzberg exposes 30 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
+Buzzberg exposes 32 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
 `search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
 `get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,

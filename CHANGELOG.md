@@ -5,6 +5,16 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Daily portfolio summary - 2026-09-07
+
+- Added `get_portfolio_summary`: complete 24h LONG/SHORT/AVOID thesis evidence
+  for up to 50 selected tickers, author roles, saved mention/price context and
+  an embedded one-table report instruction. Oversized results explicitly
+  require a smaller ticker list; no partial theses are returned.
+- Added the missing public catalog entry and example for
+  `get_recent_ideas_summary`, distinguishing its market-wide six-tab report
+  from the complete selected-ticker portfolio update.
+
 ## MCP recent-candidate window scope - 2026-08-29
 
 - `get_recent_idea_candidates` now accepts only `1h`, `6h`, `12h`, `24h`, and

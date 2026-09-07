@@ -68,7 +68,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     normalized_prompts = " ".join(prompts.split())
     normalized_example = " ".join(example.split())
 
-    assert "Buzzberg exposes 30 tools" in readme
+    assert "Buzzberg exposes 32 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts
@@ -185,3 +185,17 @@ def test_no_legacy_personal_repo_references():
         if forbidden.search(text):
             offenders.append(str(path.relative_to(ROOT)))
     assert offenders == []
+
+
+def test_portfolio_summary_is_a_separate_complete_daily_contract():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    tool = next(t for t in manifest["tools"] if t["name"] == "get_portfolio_summary")
+    assert tool["scope"] == "read"
+    assert tool["returns"] == "PortfolioSummaryResult"
+    assert [p["name"] for p in tool["parameters"]] == ["tickers", "source_type"]
+    assert tool["parameters"][0]["required"] is True
+    example = (ROOT / "examples/get_portfolio_summary.md").read_text()
+    assert "requires_narrowing" in example
+    assert "every full LONG/SHORT/AVOID thesis" in example
+    assert "every ticker once" in example
+    assert "get_recent_ideas_summary" in example
