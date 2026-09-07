@@ -2,12 +2,12 @@
   "version": 1,
   "claims": [
     {
-      "claim": "API keys cannot read or write another user's private Buzzberg data.",
-      "mechanism": "The server resolves each Bearer key to a server-side user context. Write tools use that context and do not accept user_id overrides."
+      "claim": "MCP clients cannot read or write another user's private Buzzberg data.",
+      "mechanism": "The server resolves OAuth tokens and personal keys to a server-side user context. Private feed reads and write tools use that context without user_id overrides. Feed queries are owner-scoped and bypass shared result caches."
     },
     {
-      "claim": "Write tools require a personal MCP key.",
-      "mechanism": "Requests authenticated with the deprecated static key do not receive a user context, so write tools fail closed."
+      "claim": "Private feed reads and writes require account-backed authentication.",
+      "mechanism": "Requests authenticated with the deprecated static key do not receive a user context, so private feed reads and write tools fail closed."
     },
     {
       "claim": "Buzzberg does not receive the full Claude transcript.",

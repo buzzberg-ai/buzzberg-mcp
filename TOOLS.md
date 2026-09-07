@@ -128,7 +128,7 @@ Return a recent-ideas report; read agent_guide and the full report instruction f
 
 ## get_portfolio_summary
 
-Get a complete 24h portfolio update for up to 50 selected tickers.
+Get a complete 24h portfolio update for up to 100 selected tickers.
 
 **Inputs:**
 - `tickers` (required, list[str])
@@ -137,11 +137,45 @@ Get a complete 24h portfolio update for up to 50 selected tickers.
 **Example prompt:**
 > "Give me a daily portfolio update for NVDA, BTC and TSLA. Call get_portfolio_summary with those tickers; read all returned full LONG/SHORT/AVOID theses and follow analysis_instruction: one table with separate stance counts, mentions, 30-day daily average and attention growth, then every ticker with prices, authors and roles, side Call prices, attributed arguments and source links."
 
-**Returns:** typed `structuredContent` (`PortfolioSummaryResult`) for up to 50 selected tickers over the last 24h: all full LONG/SHORT/AVOID theses, canonical authors with roles, source links, saved unique-author mention metrics, stored prices and the complete portfolio report instruction. Inline delivery is complete or explicitly returns `requires_narrowing` without partial theses; `content[].text` is an exact compact-JSON mirror.
+**Returns:** typed `structuredContent` (`PortfolioSummaryResult`) for up to 100 selected tickers over the last 24h: all full LONG/SHORT/AVOID theses, canonical authors with roles, source links, saved unique-author mention metrics, stored prices and the complete portfolio report instruction. Inline delivery is complete or explicitly returns `requires_narrowing` without partial theses; `content[].text` is an exact compact-JSON mirror.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/get_portfolio_summary.md](examples/get_portfolio_summary.md)
+
+## get_my_feeds
+
+List the authenticated user's personal feeds, with names, IDs and member counts.
+
+**Inputs:**
+- `feed_type` (optional, str, default `''`)
+- `limit` (optional, int, default `50`)
+- `after_id` (optional, int, default `0`)
+
+**Example prompt:**
+> "List my Buzzberg feeds, including their names, types and member counts."
+
+**Returns:** typed `PersonalFeedsResult` with this authenticated account's feed names, IDs, types and counts; follow next_after_id while has_more is true. No account override, shared cache or writes.
+
+**Scope:** Read-only. Private feeds of the authenticated Buzzberg account only.
+
+**Full example:** [examples/get_my_feeds.md](examples/get_my_feeds.md)
+
+## get_my_feed
+
+Read one of the authenticated user's feeds, including all saved tickers/authors/sources.
+
+**Inputs:**
+- `feed_id` (required, int)
+
+**Example prompt:**
+> "Read my chosen ticker feed from get_my_feeds, then use its complete portfolio_tickers list for get_portfolio_summary. Ask which feed if the choice is ambiguous."
+
+**Returns:** typed `PersonalFeedsResult` containing the selected own feed's full ticker/author/source membership and portfolio_tickers for a ticker feed; no Telegram linking secrets, emails or source bodies.
+
+**Scope:** Read-only. Private feeds of the authenticated Buzzberg account only.
+
+**Full example:** [examples/get_my_feed.md](examples/get_my_feed.md)
 
 ## get_trade_idea_details
 

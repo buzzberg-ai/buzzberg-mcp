@@ -13,6 +13,28 @@ def test_tools_md_matches_manifest():
     assert headings == expected
 
 
+def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    tools = {t["name"]: t for t in manifest["tools"]}
+    assert len(tools) == 34
+    expected = {
+        "get_my_feeds": ["feed_type", "limit", "after_id"],
+        "get_my_feed": ["feed_id"],
+    }
+    text = (ROOT / "TOOLS.md").read_text()
+    for name, params in expected.items():
+        assert tools[name]["scope"] == "read"
+        assert tools[name]["returns"] == "PersonalFeedsResult"
+        assert [p["name"] for p in tools[name]["parameters"]] == params
+        section = text.split("## " + name + "\n", 1)[1].split("\n## ", 1)[0]
+        assert "Private feeds of the authenticated Buzzberg account only" in section
+        example = (ROOT / "examples" / (name + ".md")).read_text()
+        assert "portfolio_tickers" in example
+        assert "get_portfolio_summary" in example
+    assert "100 selected tickers" in tools["get_portfolio_summary"]["summary"]
+    assert "100 distinct" in (ROOT / "examples/get_portfolio_summary.md").read_text()
+
+
 def test_recent_candidate_manifest_uses_cursor_pagination():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     recent = next(
@@ -68,7 +90,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     normalized_prompts = " ".join(prompts.split())
     normalized_example = " ".join(example.split())
 
-    assert "Buzzberg exposes 32 tools" in readme
+    assert "Buzzberg exposes 34 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts

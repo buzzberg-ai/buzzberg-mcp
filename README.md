@@ -67,7 +67,7 @@ custom Python clients, and the API-key compatibility path.
 ### Daily updates on your portfolio
 
 Ask: "Give me today's portfolio update for NVDA, BTC and TSLA."
-`get_portfolio_summary` covers up to 50 selected tickers over the last 24h,
+`get_portfolio_summary` covers up to 100 selected tickers over the last 24h,
 with every full LONG/SHORT/AVOID thesis, author roles, mentions and prices.
 Your agent follows the included instruction for one table and each ticker's
 arguments. See the [portfolio example](examples/get_portfolio_summary.md).
@@ -367,7 +367,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 32 tools
+            print([t.name for t in tools.tools])  # 34 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -423,7 +423,18 @@ Buzzberg exposes two MCP transports:
 
 ## Tools, Prompts, And Resources
 
-Buzzberg exposes 32 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
+For "summarize my portfolio from my Buzzberg feed", use `get_my_feeds` to find
+the requested ticker feed, `get_my_feed` to read its full `portfolio_tickers`,
+then `get_portfolio_summary` for the daily report. Ambiguous feed names need
+clarification. These read tools access only the authenticated account's feeds;
+they do not edit subscriptions. See [the feed example](examples/get_my_feeds.md).
+
+Ticker feeds and portfolio requests accept up to 100 distinct symbols. Author
+feeds accept 100 authors or independent sources, counting linked accounts
+together with their selected author. The summary stays 24h and returns every
+full LONG/SHORT/AVOID thesis or explicitly requires a smaller request.
+
+Buzzberg exposes 34 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
 `search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
 `get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,

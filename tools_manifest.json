@@ -299,7 +299,47 @@
         }
       ],
       "returns": "PortfolioSummaryResult",
-      "summary": "Get a complete 24h portfolio update for up to 50 selected tickers."
+      "summary": "Get a complete 24h portfolio update for up to 100 selected tickers."
+    },
+    {
+      "name": "get_my_feeds",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "feed_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 50
+        },
+        {
+          "name": "after_id",
+          "type": "int",
+          "required": false,
+          "default": 0
+        }
+      ],
+      "returns": "PersonalFeedsResult",
+      "summary": "List the authenticated user's personal feeds, with names, IDs and member counts."
+    },
+    {
+      "name": "get_my_feed",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "feed_id",
+          "type": "int",
+          "required": true,
+          "default": null
+        }
+      ],
+      "returns": "PersonalFeedsResult",
+      "summary": "Read one of the authenticated user's feeds, including all saved tickers/authors/sources."
     },
     {
       "name": "get_trade_idea_details",
