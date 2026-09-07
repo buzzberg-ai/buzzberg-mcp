@@ -428,9 +428,12 @@ Buzzberg exposes two MCP transports:
 
 ## Tools, Prompts, And Resources
 
-For "summarize my portfolio from my Buzzberg feed", use `get_my_feeds` to find
-the requested ticker feed, `get_my_feed` to read its full `portfolio_tickers`,
-then `get_portfolio_summary` for the daily report. Ambiguous feed names need
+For "summarize my portfolio from my Buzzberg feed", use
+`get_my_feeds(feed_type="ticker")` to find the requested feed with its full
+composition, then pass its `portfolio_tickers` directly to `get_portfolio_summary`
+for the daily report. No detail call is needed after listing. If the chosen feed
+ID is already known, use `get_my_feed(feed_id)` directly instead of listing.
+Ambiguous feed names need
 clarification. These read tools access only the authenticated account's feeds;
 they do not edit subscriptions. See [the feed example](examples/get_my_feeds.md).
 

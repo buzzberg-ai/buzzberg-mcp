@@ -1,15 +1,19 @@
-# Read the selected feed's portfolio
+# Refresh a portfolio by its known feed ID
 
-Ask: "Use my Tech feed for the portfolio summary."
+Ask: "Refresh the daily report for the portfolio feed we selected earlier."
 
-First identify the requested feed with `get_my_feeds`. If its returned ID is
-42, call `get_my_feed`:
+When the chosen feed ID is already known to be 42, call `get_my_feed` directly.
+No preceding `get_my_feeds` call is required:
 
 ```json
 {"feed_id": 42}
 ```
 
-`PersonalFeedsResult.feed` includes the feed metadata and full arrays of
+If choosing a feed by name, use `get_my_feeds`, which already returns complete
+membership for every entry. Proceed from that entry to the summary without a
+redundant detail call. Clarify ambiguous names rather than guessing a feed ID.
+
+`PersonalFeedsResult.feed` (schema 1.1.0) includes the feed metadata and full arrays of
 `tickers` (symbols, names and asset types), `authors` (names and known roles),
 and `sources` (names, types and enabled flags). For a ticker feed,
 `portfolio_tickers` contains every saved symbol, ready for:
