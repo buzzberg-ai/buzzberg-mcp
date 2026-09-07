@@ -7,6 +7,11 @@ here and announced to active beta users.
 
 ## Daily portfolio summary - 2026-09-07
 
+Report format 1.1.0 now shows only tickers with at least one LONG/SHORT/AVOID idea
+in the requested 24h scope in both the table and details. Zero-actionable and
+unknown tickers remain payload coverage metadata. If none qualify, the report
+returns a single portfolio-level message instead of empty tables and blocks.
+
 Follow-up: ticker feeds and portfolio requests now accept 100 distinct symbols;
 author feeds accept 100 authors/independent sources, with linked accounts counted
 together with their selected author. New read tools `get_my_feeds` and

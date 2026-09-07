@@ -66,6 +66,11 @@ custom Python clients, and the API-key compatibility path.
 
 ### Daily updates on your portfolio
 
+The report table and detailed blocks include only tickers with at least one
+LONG/SHORT/AVOID idea in the last 24h (`actionable_idea_count > 0`). Tickers with
+only neutral mentions or no new ideas are omitted from the report. If none
+qualify, the report gives one brief message instead of empty tables and blocks.
+
 Ask: "Give me today's portfolio update for NVDA, BTC and TSLA."
 `get_portfolio_summary` covers up to 100 selected tickers over the last 24h,
 with every full LONG/SHORT/AVOID thesis, author roles, mentions and prices.
