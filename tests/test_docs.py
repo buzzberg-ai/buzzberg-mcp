@@ -33,6 +33,12 @@ def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():
         assert "get_portfolio_summary" in example
     assert "100 selected tickers" in tools["get_portfolio_summary"]["summary"]
     assert "100 distinct" in (ROOT / "examples/get_portfolio_summary.md").read_text()
+    assert "full ticker/author/source membership" in tools["get_my_feeds"]["summary"]
+    listing = (ROOT / "examples/get_my_feeds.md").read_text()
+    assert "all_members_returned=true" in listing
+    assert "no `get_my_feed` call is needed" in listing
+    detail = (ROOT / "examples/get_my_feed.md").read_text()
+    assert "No preceding `get_my_feeds` call is required" in detail
 
 
 def test_recent_candidate_manifest_uses_cursor_pagination():

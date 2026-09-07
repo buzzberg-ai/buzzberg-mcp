@@ -325,7 +325,7 @@
         }
       ],
       "returns": "PersonalFeedsResult",
-      "summary": "List the authenticated user's personal feeds, with names, IDs and member counts."
+      "summary": "List the authenticated user's personal feeds with full ticker/author/source membership."
     },
     {
       "name": "get_my_feed",

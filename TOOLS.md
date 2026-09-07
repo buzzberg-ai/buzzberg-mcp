@@ -145,7 +145,7 @@ Get a complete 24h portfolio update for up to 100 selected tickers.
 
 ## get_my_feeds
 
-List the authenticated user's personal feeds, with names, IDs and member counts.
+List the authenticated user's personal feeds with full ticker/author/source membership.
 
 **Inputs:**
 - `feed_type` (optional, str, default `''`)
@@ -153,9 +153,9 @@ List the authenticated user's personal feeds, with names, IDs and member counts.
 - `after_id` (optional, int, default `0`)
 
 **Example prompt:**
-> "List my Buzzberg feeds, including their names, types and member counts."
+> "Get my ticker feeds with their full composition, select the requested portfolio by name and pass its portfolio_tickers directly to get_portfolio_summary. Ask which feed if the choice is ambiguous."
 
-**Returns:** typed `PersonalFeedsResult` with this authenticated account's feed names, IDs, types and counts; follow next_after_id while has_more is true. No account override, shared cache or writes.
+**Returns:** typed `PersonalFeedsResult` (schema 1.1.0) with this authenticated account's feed names, IDs, types, counts and full ticker/author/source membership in every feeds entry, including portfolio_tickers for ticker feeds. Pass the chosen list directly to get_portfolio_summary without a get_my_feed call. Follow next_after_id while has_more is true; the page limit counts feeds, never members. No account override, shared cache or writes.
 
 **Scope:** Read-only. Private feeds of the authenticated Buzzberg account only.
 
@@ -169,7 +169,7 @@ Read one of the authenticated user's feeds, including all saved tickers/authors/
 - `feed_id` (required, int)
 
 **Example prompt:**
-> "Read my chosen ticker feed from get_my_feeds, then use its complete portfolio_tickers list for get_portfolio_summary. Ask which feed if the choice is ambiguous."
+> "Refresh my chosen portfolio using its already-known feed_id: call get_my_feed directly, then pass its complete portfolio_tickers to get_portfolio_summary."
 
 **Returns:** typed `PersonalFeedsResult` containing the selected own feed's full ticker/author/source membership and portfolio_tickers for a ticker feed; no Telegram linking secrets, emails or source bodies.
 
