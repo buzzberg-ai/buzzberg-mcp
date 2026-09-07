@@ -26,9 +26,13 @@ Results are uncached, so edits are visible on the next read.
 
 Membership is never silently truncated, including legacy feeds with more than
 100 members. Do not discard holdings to fit the portfolio limit. For lists
-over 100 tickers, split into explicit complete groups; if thesis evidence exceeds
-the default 250,000 estimated-token budget, follow `requires_narrowing` and read
-all groups before writing the combined report. The summary window remains 24h.
+over 100 tickers, split into explicit complete groups. Within the ticker limit,
+request the complete feed first, with a default 900,000 estimated-token budget.
+Split only after an explicit host/model size or context-limit error, or the
+server's `requires_narrowing`, not merely because expected volume is large.
+Keep every ticker and full thesis, the source scope and the 24h window; read all
+groups before writing the combined report. Display truncation alone calls for
+extracting the complete result artifact.
 
 An author/source feed or an empty ticker feed has an empty `portfolio_tickers`
 list. Do not reinterpret it as all tickers or infer holdings from the authors.
