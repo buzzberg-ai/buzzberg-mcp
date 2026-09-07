@@ -219,5 +219,8 @@ def test_portfolio_summary_is_a_separate_complete_daily_contract():
     example = (ROOT / "examples/get_portfolio_summary.md").read_text()
     assert "requires_narrowing" in example
     assert "every full LONG/SHORT/AVOID thesis" in example
-    assert "every ticker once" in example
+    assert "every qualifying ticker once" in example
+    assert "`actionable_idea_count > 0` in BOTH the table and details" in example
+    assert "no table or details" in example
+    assert "Report format is 1.1.0" in example
     assert "get_recent_ideas_summary" in example
