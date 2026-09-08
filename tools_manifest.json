@@ -322,24 +322,28 @@
           "type": "int",
           "required": false,
           "default": 0
-        }
-      ],
-      "returns": "PersonalFeedsResult",
-      "summary": "List the authenticated user's personal feeds with full ticker/author/source membership."
-    },
-    {
-      "name": "get_my_feed",
-      "scope": "read",
-      "parameters": [
+        },
         {
           "name": "feed_id",
-          "type": "int",
-          "required": true,
+          "type": "int | None",
+          "required": false,
           "default": null
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "include_members",
+          "type": "bool",
+          "required": false,
+          "default": true
         }
       ],
       "returns": "PersonalFeedsResult",
-      "summary": "Read one of the authenticated user's feeds, including all saved tickers/authors/sources."
+      "summary": "Read your saved feeds; filter by ID/name/type and choose full members or names/counts only."
     },
     {
       "name": "get_trade_idea_details",

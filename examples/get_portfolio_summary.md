@@ -66,11 +66,10 @@ fit, report the limitation. The estimate does not guarantee fit in every host's
 context window.
 
 For a market-wide idea report, use `get_recent_ideas_summary` instead.
-For a saved personal portfolio, use `get_my_feeds(feed_type="ticker")` and pass
-the selected entry's complete `portfolio_tickers` directly to this summary.
-No `get_my_feed` call is needed after listing: each feed already has its full
-composition. For an already-known chosen feed ID, call `get_my_feed(feed_id)`
-directly instead of listing, then summarize its current `portfolio_tickers`.
+For a saved personal portfolio, use `get_my_feeds(feed_type="ticker")` with
+optional `name` or a known `feed_id` and pass the selected entry's complete
+`portfolio_tickers` directly to this summary. Keep `include_members=true`
+(default): false is for names and counts only, not a portfolio summary.
 Clarify which feed if the selection is ambiguous; an author feed is not holdings.
 This request does not save holdings or schedule future reports.
 
