@@ -251,9 +251,13 @@ def test_portfolio_summary_is_a_separate_complete_daily_contract():
     assert "requires_narrowing" in example
     assert "every full LONG/SHORT/AVOID thesis" in example
     assert "every qualifying ticker once" in example
-    assert "`actionable_idea_count > 0` in BOTH the table and details" in example
+    assert "`report_eligible=true` in BOTH the table and details" in example
+    assert "coverage.all_sources_available" in example
+    assert "shared earnings_calls list" in example
+    assert "promotion/affiliation bias" in example
+    assert "new stored SEC 13F disclosures remain included" in example
     assert "no table or details" in example
-    assert "Report format is 1.1.3" in example
+    assert "Report format is 2.0.0" in example
     assert "exact English title `Buzzberg Portfolio Update` in every language" in example
     assert "Ticker | LONG | SHORT | AVOID | NEUTRAL | Mentions · 24h" in example
     assert "`mention_author_counts.non_directional`, not neutral sentiment alone" in example

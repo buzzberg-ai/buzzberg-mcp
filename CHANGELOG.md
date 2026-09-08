@@ -5,6 +5,21 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Portfolio events and author bias - 2026-09-08
+
+- `get_portfolio_summary` schema/report 2.0.0 adds stored author promotion and
+  affiliation bias, portfolio-update posts including closes, derived earnings
+  calls and new stored 13F disclosures. Request parameters remain unchanged;
+  `source_type` filters author ideas/portfolio updates, while earnings and 13F
+  remain included for the selected tickers.
+- Report membership now uses `report_eligible`: actionable ideas or new events.
+  Hosts must process all event evidence and referenced shared earnings bodies,
+  disclose unavailable sources and uncertain filing times, and distinguish
+  corporate guidance and changes in portfolio weights from author calls/trades.
+- The fixed `Buzzberg Portfolio Update` title, compact `NEUTRAL` column, 100-ticker
+  limit and 900,000-token default estimated complete-response budget remain.
+  No transcript export, server-side thesis selection or automatic subscription.
+
 ## Compact author profile tables - 2026-09-08
 
 - Report format 1.1.0 uses a single linked author title/header above the tabs
