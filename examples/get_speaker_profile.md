@@ -8,7 +8,14 @@ get_speaker_profile(speaker_name="aleabitoreddit")
 
 The default `mode="report"` returns schema 2.1.0 structured data plus one short
 `analysis_instruction` for the host AI to present the report. Report format is
-1.1.0. The server does not call an LLM or generate an HTML artifact.
+1.1.1. The server does not call an LLM or generate an HTML artifact.
+
+The instruction separates fixed content from presentation. Use a calm, compact
+financial style with distinct key metrics, secondary dates/metadata and obvious
+tabs close to the table. The host chooses widths, spacing and composition for
+the data and screen, then checks the actual rendered result when possible. It
+must not claim a visual check when visual inspection is unavailable. This is
+flexible presentation guidance, not a renderer guaranteeing identical layouts.
 
 The linked author name is the sole title. The header appears once above the
 tabs with handle, role, full bio and source links, without a closing recap.
