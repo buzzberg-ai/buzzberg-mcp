@@ -32,7 +32,7 @@ def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
     assert "Data mode omits `analysis_instruction`" in example
     assert "lifetime first LONG/SHORT/AVOID" in example
     assert "history_limit_exceeded" in example
-    assert "L/S/A/N, Return" in example
+    assert "Direction, L/S/A/N, First call, First call price," in example
     assert "themes outside the top 15" in example
 
 
