@@ -348,7 +348,7 @@ Get an author report by default; use mode='data' for raw data for your own repor
 **Example prompt:**
 > "Show aleabitoreddit's author profile as a report with Main Focus, Most Mentions, Winners, Losers and Recent first calls. Use mode='data' only when I request raw structured data to build my own report."
 
-**Returns:** typed structuredContent (SpeakerProfileResult, schema 2.1.0) with selected author sections and a compact JSON text mirror. Default report mode adds one presentation instruction (format 1.1.2); data mode omits it. Each tab has at most 15 rows. Most Mentions includes first-call direction, date, price and return alongside compact L/S/A/N counts. Includes stored performance clocks, follower metadata, Coverage Map themes, directional mention rankings and exact lifetime first-call dates/prices.
+**Returns:** typed structuredContent (SpeakerProfileResult, schema 2.1.0) with selected author sections and a compact JSON text mirror. Default report mode adds one presentation instruction (format 1.1.3); data mode omits it. Each tab has at most 15 rows. Most Mentions includes first-call direction, date, price and return alongside compact L/S/A/N counts. Includes stored performance clocks, follower metadata, Coverage Map themes, directional mention rankings and exact lifetime first-call dates/prices.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
