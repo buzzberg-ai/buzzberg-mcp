@@ -13,6 +13,26 @@ def test_tools_md_matches_manifest():
     assert headings == expected
 
 
+def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    tool = next(t for t in manifest["tools"] if t["name"] == "get_speaker_profile")
+    assert tool["scope"] == "read"
+    assert tool["returns"] == "SpeakerProfileResult"
+    params = {p["name"]: p for p in tool["parameters"]}
+    assert tuple(params) == ("speaker_name", "mode", "sections", "days")
+    assert params["mode"]["default"] == "report"
+    assert params["sections"]["default"] is None
+    assert params["days"]["default"] == 0
+    text = (ROOT / "TOOLS.md").read_text()
+    section = text.split("## get_speaker_profile\n", 1)[1].split("\n## ", 1)[0]
+    assert "2.0.0" in section and "Credibility is no longer returned" in section
+    example = (ROOT / "examples/get_speaker_profile.md").read_text()
+    assert 'mode="data", sections=["all"]' in example
+    assert "Data mode omits `analysis_instruction`" in example
+    assert "lifetime first LONG/SHORT/AVOID" in example
+    assert "history_limit_exceeded" in example
+
+
 def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     tools = {t["name"]: t for t in manifest["tools"]}

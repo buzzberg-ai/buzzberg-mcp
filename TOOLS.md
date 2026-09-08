@@ -337,19 +337,32 @@ Get detailed info for a ticker: mention count, top speakers, recent ideas, price
 
 ## get_speaker_profile
 
-Get speaker profile: credibility, role, mention frequency, top tickers.
+Get an author report by default; use mode='data' for raw data for your own report.
 
 **Inputs:**
 - `speaker_name` (required, str)
+- `mode` (optional, str, default `'report'`)
+- `sections` (optional, list[str] | None, default `None`)
+- `days` (optional, int, default `0`)
 
 **Example prompt:**
-> "Use `get_speaker_profile` for a Buzzberg analysis."
+> "Show aleabitoreddit's author profile as a report with Main Focus, Most Mentions, Winners, Losers and Recent first calls. Use mode='data' only when I request raw structured data to build my own report."
 
-**Returns:** Markdown response from `get_speaker_profile`.
+**Returns:** typed structuredContent (SpeakerProfileResult, schema 2.0.0) with selected author sections and a compact JSON text mirror. Default report mode adds one presentation instruction; data mode omits it. Includes stored performance clocks, follower metadata, Coverage Map themes, directional mention rankings and exact lifetime first-call dates/prices.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/get_speaker_profile.md](examples/get_speaker_profile.md)
+
+`sections` accepts `overview`, `followers`, `main_focus`, `most_mentions`,
+`winners`, `losers`, `recent`, or `['all']`. Omitted sections mean a full report
+in report mode and overview-only in data mode. Empty/unknown selections fail.
+`days=0` means all available history; 1-3650 filters publication dates. First
+calls are resolved against lifetime history before this filter. Performance
+and follower snapshots expose their own dates; returns are not live quotes.
+
+Schema 2.0.0 replaces the old Markdown profile. Refresh cached tool metadata;
+use `data` keys for your own presentation. Credibility is no longer returned.
 
 ## compare_speakers
 

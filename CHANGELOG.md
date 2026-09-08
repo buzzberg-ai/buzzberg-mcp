@@ -5,6 +5,20 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Author profile report - 2026-09-08
+
+- `get_speaker_profile` defaults to `mode="report"`: author context and five
+  tabs with one short presentation instruction. `mode="data"` returns raw data
+  for custom analysis; `sections` selects projections and `days=0` means all
+  available history. No new tool name is added.
+- Recent includes only lifetime first LONG/SHORT/AVOID calls. First-call date
+  and price preserve exact idea identity; unavailable values remain null.
+  Coverage shares, directional counts, saved returns and follower metadata
+  expose their scope and timestamps. Credibility is removed.
+- Breaking beta contract: schema 2.0.0 structuredContent plus JSON text mirror
+  replaces the old Markdown profile. Clients must refresh cached tool metadata
+  and consume the new data keys. Report format starts at 1.0.0.
+
 ## Daily portfolio summary - 2026-09-07
 
 Report format 1.1.0 now shows only tickers with at least one LONG/SHORT/AVOID idea

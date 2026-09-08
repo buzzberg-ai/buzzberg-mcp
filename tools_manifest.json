@@ -612,10 +612,28 @@
           "type": "str",
           "required": true,
           "default": null
+        },
+        {
+          "name": "mode",
+          "type": "str",
+          "required": false,
+          "default": "report"
+        },
+        {
+          "name": "sections",
+          "type": "list[str] | None",
+          "required": false,
+          "default": null
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "default": 0
         }
       ],
-      "returns": "str",
-      "summary": "Get speaker profile: credibility, role, mention frequency, top tickers."
+      "returns": "SpeakerProfileResult",
+      "summary": "Get an author report by default; use mode='data' for raw data for your own report."
     },
     {
       "name": "compare_speakers",

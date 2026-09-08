@@ -310,8 +310,9 @@ Contract notes:
 - Mention counts include visible `LONG`, `SHORT`, `WATCH`, `NEUTRAL`, `AVOID`,
   and `CLOSE` rows. Chart CSVs expose `watch` separately so early-interest
   signals do not disappear into neutral.
-- `get_speaker_profile` separates alpha rank from credibility. Alpha rank is
-  historical idea performance; credibility is a profile/source quality score.
+- `get_speaker_profile` defaults to an author report with five tabs and omits
+  credibility. Use `mode="data"` for raw data to build your own report; `sections`
+  selects the evidence to return. Alpha rank describes historical performance.
 - `Adj. return` is not benchmark- or beta-adjusted excess return. It is the
   Bayesian-shrunk mean of current, direction-adjusted mark-to-market returns
   from Buzzberg's deduplicated Alpha evaluation set: the first eligible
