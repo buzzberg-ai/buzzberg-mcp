@@ -8,12 +8,15 @@ get_speaker_profile(speaker_name="aleabitoreddit")
 
 The default `mode="report"` returns schema 2.1.0 structured data plus one short
 `analysis_instruction` for the host AI to present the report. Report format is
-1.1.1. The server does not call an LLM or generate an HTML artifact.
+1.1.2. The server does not call an LLM or generate an HTML artifact.
 
 The instruction separates fixed content from presentation. Use a calm, compact
-financial style with distinct key metrics, secondary dates/metadata and obvious
-tabs close to the table. The host chooses widths, spacing and composition for
-the data and screen, then checks the actual rendered result when possible. It
+financial style with a larger author title, a compact responsive metric grid and
+obvious tabs close to the table. Report text matches the surrounding conversation's
+normal body size with clear contrast. Group dates/metadata into short wrapping
+lines and make them secondary through placement and color. The host chooses
+widths, spacing and composition for the data and screen, then checks the actual
+rendered result when possible. It
 must not claim a visual check when visual inspection is unavailable. This is
 flexible presentation guidance, not a renderer guaranteeing identical layouts.
 
@@ -31,14 +34,14 @@ Credibility is omitted. Five tabs follow, each with at most 15 rows in both mode
 | Losers | Top 15 negative average saved position returns |
 | Recent | Latest 15 lifetime first LONG/SHORT/AVOID calls |
 
-Most Mentions columns: #, Ticker, Direction, First call, First call price,
-L/S/A/N, Return. The four counts share one compact cell. Direction/date/price
+Most Mentions columns: #, Ticker, Direction, L/S/A/N, First call, First call price,
+Return. The four counts share one compact cell. Direction/date/price
 and Return all belong to the exact lifetime first LONG/SHORT/AVOID idea, even
 if it predates the requested `days` window. Missing first-call data stays null;
 a later idea's return or entry price is never substituted.
 
-Winners, Losers and Recent share columns: #, Ticker, Direction, First call,
-First call price, Mentions, Return. Direction/date/price identify the ticker's
+Winners, Losers and Recent share columns: #, Ticker, Direction, Mentions, First call,
+First call price, Return. Direction/date/price identify the ticker's
 first actionable call. Recent returns belong to that exact call; Winners and
 Losers use mean saved LONG/SHORT position returns. Missing prices/returns stay
 null and display as an em dash, never as zero or a repeat's price.

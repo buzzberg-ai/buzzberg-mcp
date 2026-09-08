@@ -20,6 +20,15 @@ here and announced to active beta users.
   limit and 900,000-token default estimated complete-response budget remain.
   No transcript export, server-side thesis selection or automatic subscription.
 
+## Author profile column order and readability - 2026-09-08
+
+- Report format 1.1.2 places L/S/A/N after Direction in Most Mentions and
+  Mentions after Direction in Winners, Losers and Recent, followed by first
+  call date, first call price and Return.
+- Text matches the surrounding conversation's normal body size, with a larger
+  author title, a compact metric grid and metadata grouped into short wrapping
+  lines. Schema 2.1.0 and raw data are unchanged.
+
 ## Author profile presentation guidance - 2026-09-08
 
 - Report format 1.1.1 separates fixed content from compact financial styling.
