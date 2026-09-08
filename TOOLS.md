@@ -145,37 +145,24 @@ Get a complete 24h portfolio update for up to 100 selected tickers.
 
 ## get_my_feeds
 
-List the authenticated user's personal feeds with full ticker/author/source membership.
+Read your saved feeds; filter by ID/name/type and choose full members or names/counts only.
 
 **Inputs:**
 - `feed_type` (optional, str, default `''`)
 - `limit` (optional, int, default `50`)
 - `after_id` (optional, int, default `0`)
+- `feed_id` (optional, int | None, default `None`)
+- `name` (optional, str, default `''`)
+- `include_members` (optional, bool, default `True`)
 
 **Example prompt:**
-> "Get my ticker feeds with their full composition, select the requested portfolio by name and pass its portfolio_tickers directly to get_portfolio_summary. Ask which feed if the choice is ambiguous."
+> "Read my portfolio using get_my_feeds(name='my portfolio', feed_type='ticker') and pass its complete portfolio_tickers to get_portfolio_summary. For a known feed use feed_id; for names/counts only use include_members=False. Clarify multiple matches."
 
-**Returns:** typed `PersonalFeedsResult` (schema 1.1.0) with this authenticated account's feed names, IDs, types, counts and full ticker/author/source membership in every feeds entry, including portfolio_tickers for ticker feeds. Pass the chosen list directly to get_portfolio_summary without a get_my_feed call. Follow next_after_id while has_more is true; the page limit counts feeds, never members. No account override, shared cache or writes.
+**Returns:** typed `PersonalFeedsResult` (schema 2.0.0), always with a feeds list. Optional feed_id, literal case-insensitive name substring and feed_type filters combine with AND. Default include_members=True returns complete ticker/author/source membership and portfolio_tickers; False returns metadata/counts only, omits member arrays and sets members_included=false. Pass a chosen full portfolio_tickers list directly to get_portfolio_summary. Follow next_after_id while has_more, retaining all filters; page limits count feeds, never members. No account override, shared cache or writes.
 
 **Scope:** Read-only. Private feeds of the authenticated Buzzberg account only.
 
 **Full example:** [examples/get_my_feeds.md](examples/get_my_feeds.md)
-
-## get_my_feed
-
-Read one of the authenticated user's feeds, including all saved tickers/authors/sources.
-
-**Inputs:**
-- `feed_id` (required, int)
-
-**Example prompt:**
-> "Refresh my chosen portfolio using its already-known feed_id: call get_my_feed directly, then pass its complete portfolio_tickers to get_portfolio_summary."
-
-**Returns:** typed `PersonalFeedsResult` containing the selected own feed's full ticker/author/source membership and portfolio_tickers for a ticker feed; no Telegram linking secrets, emails or source bodies.
-
-**Scope:** Read-only. Private feeds of the authenticated Buzzberg account only.
-
-**Full example:** [examples/get_my_feed.md](examples/get_my_feed.md)
 
 ## get_trade_idea_details
 

@@ -372,7 +372,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 34 tools
+            print([t.name for t in tools.tools])  # 33 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -429,20 +429,22 @@ Buzzberg exposes two MCP transports:
 ## Tools, Prompts, And Resources
 
 For "summarize my portfolio from my Buzzberg feed", use
-`get_my_feeds(feed_type="ticker")` to find the requested feed with its full
-composition, then pass its `portfolio_tickers` directly to `get_portfolio_summary`
-for the daily report. No detail call is needed after listing. If the chosen feed
-ID is already known, use `get_my_feed(feed_id)` directly instead of listing.
-Ambiguous feed names need
-clarification. These read tools access only the authenticated account's feeds;
-they do not edit subscriptions. See [the feed example](examples/get_my_feeds.md).
+`get_my_feeds(feed_type="ticker", name="my portfolio")` to find the requested
+feed with its full composition, then pass its `portfolio_tickers` directly to
+`get_portfolio_summary`. Use `feed_id` for a known feed. Filters combine with AND;
+name matching is a literal case-insensitive substring. `include_members=false`
+returns names/IDs/types/flags/counts only; keep the default true for summaries.
+These options are explained before calls in the tool description and MCP
+initialization instructions. Ambiguous feed names need clarification.
+The single feed tool accesses only the authenticated account's feeds and does
+not edit subscriptions. See [the feed example](examples/get_my_feeds.md).
 
 Ticker feeds and portfolio requests accept up to 100 distinct symbols. Author
 feeds accept 100 authors or independent sources, counting linked accounts
 together with their selected author. The summary stays 24h and returns every
 full LONG/SHORT/AVOID thesis or explicitly requires a smaller request.
 
-Buzzberg exposes 34 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
+Buzzberg exposes 33 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
 `search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
 `get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,
