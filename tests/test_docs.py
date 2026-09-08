@@ -25,12 +25,15 @@ def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
     assert params["days"]["default"] == 0
     text = (ROOT / "TOOLS.md").read_text()
     section = text.split("## get_speaker_profile\n", 1)[1].split("\n## ", 1)[0]
-    assert "2.0.0" in section and "Credibility is no longer returned" in section
+    assert "2.1.0" in section and "Credibility is no longer returned" in section
+    assert "at most 15 rows" in section
     example = (ROOT / "examples/get_speaker_profile.md").read_text()
     assert 'mode="data", sections=["all"]' in example
     assert "Data mode omits `analysis_instruction`" in example
     assert "lifetime first LONG/SHORT/AVOID" in example
     assert "history_limit_exceeded" in example
+    assert "L/S/A/N, Return" in example
+    assert "themes outside the top 15" in example
 
 
 def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():

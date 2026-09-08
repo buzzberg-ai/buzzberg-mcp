@@ -348,7 +348,7 @@ Get an author report by default; use mode='data' for raw data for your own repor
 **Example prompt:**
 > "Show aleabitoreddit's author profile as a report with Main Focus, Most Mentions, Winners, Losers and Recent first calls. Use mode='data' only when I request raw structured data to build my own report."
 
-**Returns:** typed structuredContent (SpeakerProfileResult, schema 2.0.0) with selected author sections and a compact JSON text mirror. Default report mode adds one presentation instruction; data mode omits it. Includes stored performance clocks, follower metadata, Coverage Map themes, directional mention rankings and exact lifetime first-call dates/prices.
+**Returns:** typed structuredContent (SpeakerProfileResult, schema 2.1.0) with selected author sections and a compact JSON text mirror. Default report mode adds one presentation instruction (format 1.1.0); data mode omits it. Each tab has at most 15 rows. Most Mentions includes first-call direction, date, price and return alongside compact L/S/A/N counts. Includes stored performance clocks, follower metadata, Coverage Map themes, directional mention rankings and exact lifetime first-call dates/prices.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
@@ -361,7 +361,7 @@ in report mode and overview-only in data mode. Empty/unknown selections fail.
 calls are resolved against lifetime history before this filter. Performance
 and follower snapshots expose their own dates; returns are not live quotes.
 
-Schema 2.0.0 replaces the old Markdown profile. Refresh cached tool metadata;
+Schema 2.1.0 replaces the old Markdown profile. Refresh cached tool metadata;
 use `data` keys for your own presentation. Credibility is no longer returned.
 
 ## compare_speakers
