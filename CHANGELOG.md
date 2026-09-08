@@ -5,6 +5,17 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Author profile visual hierarchy and metric labels - 2026-09-09
+
+- Report format 1.1.3 specifies contrasting selected tabs, a shared grid across
+  the four ticker tables, compact gaps, consistent price/currency cells and
+  aligned Main Focus ticker/count pairs. Tickers and returns carry emphasis.
+- Return headers distinguish first-call returns from mean position returns;
+  Recent visibly identifies latest first directional calls. Translate labels
+  consistently except fixed tab names/direction codes, keep metadata compact
+  and place methodology notes below tables or in a disclosure.
+- Schema 2.1.0, calculations and the 15-row cap are unchanged.
+
 ## Portfolio events and author bias - 2026-09-08
 
 - `get_portfolio_summary` schema/report 2.0.0 adds stored author promotion and

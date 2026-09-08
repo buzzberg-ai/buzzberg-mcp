@@ -8,17 +8,22 @@ get_speaker_profile(speaker_name="aleabitoreddit")
 
 The default `mode="report"` returns schema 2.1.0 structured data plus one short
 `analysis_instruction` for the host AI to present the report. Report format is
-1.1.2. The server does not call an LLM or generate an HTML artifact.
+1.1.3. The server does not call an LLM or generate an HTML artifact.
 
-The instruction separates fixed content from presentation. Use a calm, compact
-financial style with a larger author title, a compact responsive metric grid and
-obvious tabs close to the table. Report text matches the surrounding conversation's
-normal body size with clear contrast. Group dates/metadata into short wrapping
-lines and make them secondary through placement and color. The host chooses
-widths, spacing and composition for the data and screen, then checks the actual
-rendered result when possible. It
-must not claim a visual check when visual inspection is unavailable. This is
-flexible presentation guidance, not a renderer guaranteeing identical layouts.
+The instruction separates content from presentation. Use normal conversation
+text size, clear contrast, a larger author title and prominent metric values.
+Keep dates/sample metadata compact and put methodology notes below the tables
+or in a disclosure. Keyboard-accessible button-like tabs sit immediately above
+the table, with contrasting selected fill/text visible without hover.
+
+The four ticker tabs share one column grid, compact gaps, narrow rank/direction
+columns and room for tickers/prices. Keep numbers right-aligned with tabular
+digits and price/currency on one line. Emphasize tickers and returns; date links
+stay understated but recognizable. Optional green/red denotes positive/negative
+returns, preserving signs and neutral zero/missing values. Main Focus separates
+Share from an inner grid of three aligned ticker/count pairs, wrapping whole
+pairs consistently on narrow screens. The host checks the rendered result when possible and must
+not claim unavailable visual verification. This is guidance, not a fixed renderer.
 
 The linked author name is the sole title. The header appears once above the
 tabs with handle, role, full bio and source links, without a closing recap.
@@ -35,13 +40,18 @@ Credibility is omitted. Five tabs follow, each with at most 15 rows in both mode
 | Recent | Latest 15 lifetime first LONG/SHORT/AVOID calls |
 
 Most Mentions columns: #, Ticker, Direction, L/S/A/N, First call, First call price,
-Return. The four counts share one compact cell. Direction/date/price
+Return. The displayed Return heading is "First-call return". The four counts
+share one compact cell. Direction/date/price
 and Return all belong to the exact lifetime first LONG/SHORT/AVOID idea, even
 if it predates the requested `days` window. Missing first-call data stays null;
 a later idea's return or entry price is never substituted.
 
 Winners, Losers and Recent share columns: #, Ticker, Direction, Mentions, First call,
-First call price, Return. Direction/date/price identify the ticker's
+First call price, Return. The displayed Return heading is "Average position
+return" in Winners/Losers and "First-call return" in Recent. Add the visible
+Recent table caption "Latest first directional calls by ticker". Translate
+labels consistently into the user's language, except English tab names and
+direction codes. Direction/date/price identify the ticker's
 first actionable call. Recent returns belong to that exact call; Winners and
 Losers use mean saved LONG/SHORT position returns. Missing prices/returns stay
 null and display as an em dash, never as zero or a repeat's price.
