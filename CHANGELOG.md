@@ -5,6 +5,16 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Compact author profile tables - 2026-09-08
+
+- Report format 1.1.0 uses a single linked author title/header above the tabs
+  with no closing recap. Every tab returns at most 15 rows in both modes;
+  coverage shares still include classified themes outside the displayed top 15.
+- Schema 2.1.0 adds exact lifetime first-call direction/date/price/return to
+  Most Mentions and displays its counts in one compact L/S/A/N cell. Missing
+  values stay null; neither recent repeats nor later returns replace the first
+  call. Request parameters are unchanged.
+
 ## Author profile report - 2026-09-08
 
 - `get_speaker_profile` defaults to `mode="report"`: author context and five
