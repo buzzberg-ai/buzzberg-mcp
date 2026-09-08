@@ -20,6 +20,13 @@ here and announced to active beta users.
   limit and 900,000-token default estimated complete-response budget remain.
   No transcript export, server-side thesis selection or automatic subscription.
 
+## Author profile presentation guidance - 2026-09-08
+
+- Report format 1.1.1 separates fixed content from compact financial styling.
+  The host chooses widths and spacing to suit the data and screen, and checks
+  the actual rendered result when possible without claiming unavailable visual
+  verification. Schema 2.1.0, request parameters and table contents are unchanged.
+
 ## Compact author profile tables - 2026-09-08
 
 - Report format 1.1.0 uses a single linked author title/header above the tabs
