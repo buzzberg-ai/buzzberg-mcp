@@ -21,7 +21,7 @@ candidate pass, current disagreements, and prices for tickers that matter.
 3. `get_sentiment_divergence(limit=5, days=7)` — tickers where speakers
    disagree most
 4. `get_recent_content(limit=5)` — important recent source items
-5. `get_price(tickers=[...])` — live prices for everything that came up
+5. Use stored price context from the returned ideas, and `get_ticker_timeseries` for history.
 
 ## What you'll get (illustrative)
 

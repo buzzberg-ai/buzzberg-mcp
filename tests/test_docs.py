@@ -39,7 +39,7 @@ def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
 def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     tools = {t["name"]: t for t in manifest["tools"]}
-    assert len(tools) == 33
+    assert len(tools) == 32
     expected = {
         "get_my_feeds": ["feed_type", "limit", "after_id", "feed_id", "name", "include_members"],
     }
@@ -121,7 +121,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     normalized_prompts = " ".join(prompts.split())
     normalized_example = " ".join(example.split())
 
-    assert "Buzzberg exposes 33 tools" in readme
+    assert "Buzzberg exposes 32 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts
@@ -262,3 +262,12 @@ def test_portfolio_summary_is_a_separate_complete_daily_contract():
     assert "Ticker | L/S/A/N | Mentions · 24h" in example
     assert "`mention_author_counts.non_directional`, not neutral sentiment alone" in example
     assert "get_recent_ideas_summary" in example
+
+def test_price_service_is_retired_and_context_is_database_only():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    assert "get_price" not in {tool["name"] for tool in manifest["tools"]}
+    assert not (ROOT / "examples/get_price.md").exists()
+    for name in ("README.md", "TOOLS.md", "examples/get_ticker_info.md",
+                 "examples/get_tickers_overview.md", "examples/get_speaker_lens_context.md"):
+        text = (ROOT / name).read_text()
+        assert "persisted database" in text or "market-data provider" in text

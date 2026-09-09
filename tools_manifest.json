@@ -601,7 +601,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Get detailed info for a ticker: mention count, top speakers, recent ideas, price."
+      "summary": "Get detailed info for a ticker: mention count, top speakers, recent ideas, stored price."
     },
     {
       "name": "get_speaker_profile",
@@ -682,20 +682,6 @@
       "summary": "Get latest content (videos, articles, tweets) from Buzzberg."
     },
     {
-      "name": "get_price",
-      "scope": "read",
-      "parameters": [
-        {
-          "name": "tickers",
-          "type": "list[str]",
-          "required": true,
-          "default": null
-        }
-      ],
-      "returns": "str",
-      "summary": "Get current prices for tickers via Massive (stocks) / Binance (crypto)."
-    },
-    {
       "name": "get_tickers_overview",
       "scope": "read",
       "parameters": [
@@ -719,7 +705,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Batch overview for multiple tickers: price, mentions, sentiment, and direction counts."
+      "summary": "Batch overview for multiple tickers: stored price, mentions, sentiment, and direction counts."
     },
     {
       "name": "search_content",

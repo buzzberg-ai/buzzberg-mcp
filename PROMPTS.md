@@ -40,7 +40,6 @@ Use Buzzberg to get the current price for BTC.
 
 Expected tools:
 
-- `get_price`
 
 ## Strongest Ideas From an Exact Recent Window
 
@@ -202,7 +201,6 @@ Expected tools:
 - `search_trade_ideas`
 - `read_ticker_content`
 - `get_ticker_timeseries`
-- `get_price`
 
 ## Narrative Map
 
@@ -328,7 +326,6 @@ Expected tools:
 
 - `get_sentiment_divergence`
 - `compare_speakers`
-- `get_price`
 
 ## Top Speaker Signals
 
