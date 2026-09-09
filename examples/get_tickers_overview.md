@@ -18,7 +18,7 @@ those top 3, read recent ticker content and explain the current thesis or debate
 
 The tool returns a compact Markdown table with:
 
-- current price;
+- stored price and its saved timestamp;
 - 24h / 7d / 30d mention counts;
 - average sentiment over the requested lookback;
 - direction counts for `LONG`, `SHORT`, `WATCH`, `AVOID`, and `NEUTRAL`;
@@ -27,3 +27,6 @@ The tool returns a compact Markdown table with:
 This is the preferred first step for broad market scans. Use targeted tools like
 `get_ticker_mentions`, `get_ticker_info`, or `read_ticker_content` after the
 overview narrows the basket.
+
+Prices come only from persisted database bars. Missing values stay unavailable;
+this request never refreshes prices through a market-data provider.

@@ -320,7 +320,10 @@ Find tickers where speakers disagree most (high divergence in sentiment).
 
 ## get_ticker_info
 
-Get detailed info for a ticker: mention count, top speakers, recent ideas, price.
+Price context comes only from persisted database bars, with the saved timestamp.
+Missing prices stay unavailable; this tool never refreshes market data.
+
+Get detailed info for a ticker: mention count, top speakers, recent ideas, stored price.
 
 **Inputs:**
 - `ticker` (required, str)
@@ -403,25 +406,12 @@ Get latest content (videos, articles, tweets) from Buzzberg.
 
 **Full example:** [examples/get_recent_content.md](examples/get_recent_content.md)
 
-## get_price
-
-Get current prices for tickers via Massive (stocks) / Binance (crypto).
-
-**Inputs:**
-- `tickers` (required, list[str])
-
-**Example prompt:**
-> "Use `get_price` for a Buzzberg analysis."
-
-**Returns:** Markdown response from `get_price`.
-
-**Scope:** Read-only. Public Buzzberg market-intelligence data.
-
-**Full example:** [examples/get_price.md](examples/get_price.md)
-
 ## get_tickers_overview
 
-Batch overview for multiple tickers: price, mentions, sentiment, and direction counts.
+Prices and their timestamps come only from persisted database bars.
+Missing prices stay unavailable; this tool never refreshes market data.
+
+Batch overview for multiple tickers: stored price, mentions, sentiment, and direction counts.
 
 **Inputs:**
 - `tickers` (required, list[str])

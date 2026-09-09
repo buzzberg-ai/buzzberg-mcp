@@ -9,7 +9,7 @@
 > [CHANGELOG.md](CHANGELOG.md) for breaking changes.
 
 Buzzberg MCP connects Claude, Cursor, Cline, Continue.dev, and other MCP clients
-to Buzzberg market intelligence: trade ideas, sentiment, speakers, prices, and
+to Buzzberg market intelligence: trade ideas, sentiment, speakers, stored price context, and
 saved-idea actions for your own Buzzberg account.
 
 ## Connect Your AI Agent
@@ -373,7 +373,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 33 tools
+            print([t.name for t in tools.tools])  # 32 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -393,7 +393,7 @@ Full walkthrough including Windows PowerShell and corporate-laptop
 
 | Action | Allowed? |
 |---|---|
-| Read public trade ideas, sentiment, and prices | Yes |
+| Read public trade ideas, sentiment, and stored price context | Yes |
 | Save trade ideas to your account | Yes |
 | Server sees tool-call arguments Claude sends | Yes* |
 | See another user's saved ideas | No |
@@ -445,12 +445,17 @@ feeds accept 100 authors or independent sources, counting linked accounts
 together with their selected author. The summary stays 24h and returns every
 full LONG/SHORT/AVOID thesis or explicitly requires a smaller request.
 
-Buzzberg exposes 33 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
+All MCP price context is read from persisted database bars. MCP never calls
+Polygon/Massive, Binance, Yahoo, or another market-data provider, including when
+bars are missing or stale. The standalone price tool has been retired; refresh
+your connector's tool catalog after deployment.
+
+Buzzberg exposes 32 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
 `search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
 `get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,
 `get_speaker_trade_ideas`, `get_speaker_ticker_history`,
-`get_speaker_lens`, `get_speaker_lens_context`, `get_price`, ...) and one account-scoped write tool
+`get_speaker_lens`, `get_speaker_lens_context`, ...) and one account-scoped write tool
 (`save_trade_idea`). See [TOOLS.md](TOOLS.md) for
 signatures and per-tool examples in [examples/](examples).
 
