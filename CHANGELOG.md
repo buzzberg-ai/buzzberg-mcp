@@ -5,6 +5,15 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Standalone price tool retired - 2026-09-09
+
+- Breaking: remove `get_price` from the tool catalog and research workflows.
+  Refresh the connector's tool discovery after the server update.
+- All MCP price context comes only from persisted database bars. Missing or
+  stale bars never trigger Polygon/Massive, Binance, Yahoo, or another provider.
+- Ticker and basket overviews include the saved price timestamp. Price history
+  remains available through `get_ticker_timeseries` using stored daily closes.
+
 ## Compact portfolio direction counts - 2026-09-09
 
 - Portfolio report format 2.0.1 combines LONG/SHORT/AVOID/NEUTRAL counts into
