@@ -8,29 +8,38 @@ get_speaker_profile(speaker_name="aleabitoreddit")
 
 The default `mode="report"` returns schema 2.1.0 structured data plus one short
 `analysis_instruction` for the host AI to present the report. Report format is
-1.1.4. The server does not call an LLM or generate an HTML artifact.
+1.1.5. The server does not call an LLM or generate an HTML artifact.
 
 The instruction separates content from presentation. Use normal conversation
 text size, clear contrast, a larger author title and prominent metric values.
+Give Focus extra room and wrap whole words; keep other metric values unbroken.
 Keep dates/sample metadata compact and put methodology notes below the tables
 or in a disclosure. Keyboard-accessible button-like tabs sit immediately above
-the table, with contrasting selected fill/text visible without hover.
+the table. The selected tab has solid contrasting fill/text; other tabs keep
+visible button styling without hover. The gap before tabs is clearly larger
+than the gap between tabs and the table.
 
-The four ticker tabs share one column grid, compact gaps, narrow rank/direction
-columns and room for tickers/prices. Right-align standalone numeric columns with tabular
+The four ticker tabs share widths defined once for all four tables; active-tab
+content cannot change them. Use compact gaps, narrow rank/direction columns and
+room for tickers/prices. On narrow screens, preserve text size and whole values,
+allow horizontal table scrolling, and wrap headings. Right-align standalone numeric columns with tabular
 digits and price/currency on one line. Emphasize tickers and returns; date links
 stay understated but recognizable. Optional green/red denotes positive/negative
 returns, preserving signs and neutral zero/missing values. Main Focus separates
 Share from three left-aligned grid cells. Each cell holds one unbroken inline
 "TICKER · count" pair with normal word spacing inside and compact gaps between
 pairs. Wrap whole pairs on narrow screens. Inline counts remain beside their
-ticker. The host checks the rendered result when possible and must not claim
-unavailable visual verification. This is guidance, not a fixed renderer.
+ticker. Before delivery, test every supplied tab (all five for a full report)
+at normal and narrow widths, scroll overflow tables, and check wrapping,
+clipping, overlaps and shared-column positions in the rendered output. Code/HTML
+inspection is not visual verification; state when rendered checks are unavailable.
+This is guidance, not a fixed renderer or proof that a host performed those checks.
 
 The linked author name is the sole title. The header appears once above the
 tabs with handle, role, full bio and source links, without a closing recap.
 Metrics appear as Alpha rank, Score, evaluated Calls, adjusted Return, Win rate,
-Focus. Followers and leaderboard followers are distinct snapshot counts.
+Focus. followers_count is total X followers; leaderboard_followers_count counts
+Buzzberg-ranked authors following that account on X. Show both with snapshot dates.
 Credibility is omitted. Five tabs follow, each with at most 15 rows in both modes:
 
 | Tab | Contents |
@@ -40,6 +49,10 @@ Credibility is omitted. Five tabs follow, each with at most 15 rows in both mode
 | Winners | Top 15 positive average saved position returns |
 | Losers | Top 15 negative average saved position returns |
 | Recent | Latest 15 lifetime first LONG/SHORT/AVOID calls |
+
+Most Mentions is ordered by LONG+SHORT+AVOID descending, then total mentions
+descending, then stable ticker ID. Preserve server order and show the translated
+caption "Ranked by LONG+SHORT+AVOID; ties by total mentions".
 
 Most Mentions columns: #, Ticker, Direction, L/S/A/N, First call, First call price,
 Return. The displayed Return heading is "First-call return". The four counts
@@ -52,8 +65,9 @@ Winners, Losers and Recent share columns: #, Ticker, Direction, Mentions, First 
 First call price, Return. The displayed Return heading is "Average position
 return" in Winners/Losers and "First-call return" in Recent. Add the visible
 Recent table caption "Latest first directional calls by ticker". Translate
-labels consistently into the user's language, except English tab names and
-direction codes. Direction/date/price identify the ticker's
+headings, labels, captions and Focus/theme values into the user's language;
+tab names and direction codes remain English. English strings above are
+translation references. Direction/date/price identify the ticker's
 first actionable call. Recent returns belong to that exact call; Winners and
 Losers use mean saved LONG/SHORT position returns. Missing prices/returns stay
 null and display as an em dash, never as zero or a repeat's price.

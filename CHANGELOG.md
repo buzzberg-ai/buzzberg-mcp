@@ -5,6 +5,18 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Author profile overflow rules and rendered checks - 2026-09-09
+
+- Report format 1.1.5 clarifies translated headings/captions/Focus values,
+  directional ranking in Most Mentions, and leaderboard followers as
+  Buzzberg-ranked authors following the account on X.
+- Shared column widths stay fixed across tabs; narrow tables scroll while
+  preserving text size/whole values. Focus can grow and wrap by words.
+  Selected tabs have solid contrast; other tabs retain button styling.
+- Rendered checks cover all supplied tabs at normal/narrow widths, scrolling,
+  clipping, overlaps and column positions. Code/HTML inspection is not visual
+  verification. Schema 2.1.0 and data behavior are unchanged.
+
 ## Main Focus ticker/count pairing - 2026-09-09
 
 - Report format 1.1.4 keeps each Main Focus ticker and count in one unbroken
