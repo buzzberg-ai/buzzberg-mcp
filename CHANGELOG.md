@@ -5,6 +5,14 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Compact portfolio direction counts - 2026-09-09
+
+- Portfolio report format 2.0.1 combines LONG/SHORT/AVOID/NEUTRAL counts into
+  one `L/S/A/N` column, e.g. `17/0/0/11`, with the direction legend below the
+  five-column table. Missing counts remain a dash and real zeroes stay zeroes.
+- Schema 2.0.0, saved counts, complete evidence, detailed ticker sections and
+  request limits are unchanged.
+
 ## Author profile overflow rules and rendered checks - 2026-09-09
 
 - Report format 1.1.5 clarifies translated headings/captions/Focus values,
