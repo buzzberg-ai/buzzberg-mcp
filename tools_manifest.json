@@ -111,21 +111,15 @@
         },
         {
           "name": "days",
-          "type": "int",
+          "type": "Literal[1, 7, 15, 30]",
           "required": false,
-          "default": 365
+          "default": 30
         },
         {
-          "name": "limit",
-          "type": "int",
+          "name": "include_thesis",
+          "type": "bool",
           "required": false,
-          "default": 50
-        },
-        {
-          "name": "max_per_day",
-          "type": "int",
-          "required": false,
-          "default": 10
+          "default": true
         },
         {
           "name": "cursor",
@@ -134,8 +128,8 @@
           "default": ""
         }
       ],
-      "returns": "str",
-      "summary": "Get structured trade-idea history for one speaker, with thesis."
+      "returns": "CallToolResult",
+      "summary": "Get one author's complete 1/7/15/30-day idea history with full saved theses; 20 new requests per account per rolling 24h."
     },
     {
       "name": "get_speaker_ticker_history",

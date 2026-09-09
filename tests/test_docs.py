@@ -13,6 +13,27 @@ def test_tools_md_matches_manifest():
     assert headings == expected
 
 
+def test_speaker_history_launch_contract_and_examples():
+    manifest = json.loads((ROOT / 'tools_manifest.json').read_text())
+    tool = next(item for item in manifest['tools'] if item['name'] == 'get_speaker_trade_ideas')
+    params = {item['name']: item for item in tool['parameters']}
+    assert tuple(params) == ('speaker_name', 'ticker', 'direction', 'source_type', 'signal',
+                             'sort', 'days', 'include_thesis', 'cursor')
+    assert params['days']['default'] == 30
+    assert params['days']['type'] == 'Literal[1, 7, 15, 30]'
+    assert params['include_thesis']['default'] is True
+    assert tool['returns'] == 'CallToolResult'
+    text = (ROOT / 'examples/get_speaker_trade_ideas.md').read_text(encoding='utf-8')
+    for raw in re.findall(r'```json\n(.*?)\n```', text, re.S):
+        arguments = json.loads(raw)
+        assert 'limit' not in arguments and 'max_per_day' not in arguments
+        if 'cursor' in arguments:
+            assert set(arguments) == {'speaker_name', 'cursor'}
+        else:
+            assert arguments.get('days', 30) in (1, 7, 15, 30)
+    assert '20 new requests per rolling 24 hours' in text
+
+
 def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     tool = next(t for t in manifest["tools"] if t["name"] == "get_speaker_profile")
