@@ -5,6 +5,13 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Main Focus ticker/count pairing - 2026-09-09
+
+- Report format 1.1.4 keeps each Main Focus ticker and count in one unbroken
+  inline "TICKER · count" pair, with normal word spacing inside and compact
+  gaps between pairs. Right alignment applies only to standalone numeric
+  columns. Schema 2.1.0 and data are unchanged.
+
 ## Author profile visual hierarchy and metric labels - 2026-09-09
 
 - Report format 1.1.3 specifies contrasting selected tabs, a shared grid across
