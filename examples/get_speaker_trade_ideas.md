@@ -1,99 +1,89 @@
 # get_speaker_trade_ideas
 
-Use this when you want the trade-idea history of one author, without asking
-Buzzberg to return the author's raw tweets/articles/transcripts.
+Read one author's complete recent trade ideas, with full saved theses.
+This command returns extracted ideas, not raw tweets, articles or transcripts.
 
-## First idea by an author
+## Author recap for the last month
 
-Ask your agent:
-
-```text
-Use Buzzberg to find Serenity's first recorded SIVE trade idea.
-Return the date, direction, confidence, thesis, source type, and idea id.
-Use Buzzberg data only.
-```
-
-Tool call:
+Ask: “Summarize Serenity's trade ideas over the last 30 days, explain changes
+in her arguments, and link the sources.”
 
 ```json
-{
-  "speaker_name": "Serenity",
-  "ticker": "SIVE",
-  "sort": "oldest",
-  "limit": 1,
-  "days": 365,
-  "max_per_day": 10
-}
+{"speaker_name": "Serenity"}
 ```
 
-## Recent author story
+The default is 30 days with `include_thesis=true`. Full saved arguments take
+precedence over short summaries. If only a short argument exists it is returned;
+if neither exists the idea remains, with `is_thesis_bearing=false`.
 
-Ask your agent:
-
-```text
-Use Buzzberg to summarize Leo's trade ideas from the last 90 days.
-Which tickers does he keep returning to, what changed, and where is he most
-bullish or bearish?
-```
-
-Tool call:
+## One ticker, chronological order
 
 ```json
-{
-  "speaker_name": "Leo",
-  "days": 90,
-  "limit": 50,
-  "sort": "recent",
-  "max_per_day": 10
-}
+{"speaker_name": "Serenity", "ticker": "SIVE", "days": 30, "sort": "oldest"}
 ```
 
-## All-time author history with day caps
+This finds the earliest idea **within the requested window**. It does not
+establish the author's first-ever mention.
 
-Ask your agent:
-
-```text
-Use Buzzberg to show Serenity's all-time trade ideas with thesis.
-Limit it to 100 ideas and keep at most 5 ideas per day.
-Which tickers did she mention most, what was her first idea,
-where did she flip direction, and how have her views changed?
-```
-
-Tool call:
+## Long ideas from the last week
 
 ```json
-{
-  "speaker_name": "Serenity",
-  "days": 0,
-  "limit": 100,
-  "max_per_day": 5,
-  "sort": "recent"
-}
+{"speaker_name": "Leo", "days": 7, "direction": "long"}
 ```
 
-## First and flip ideas only
+All matching long ideas are returned. There is no caller row limit or per-day
+sampling. Available directions: long, short, avoid, close, watch and neutral.
+Near-identical corrected Twitter posts are grouped; `repeat_count` discloses
+the grouped idea rows, and the newest correction supplies the argument.
 
-Ask your agent:
-
-```text
-Use Buzzberg to find Serenity's first/flip trade ideas from the last year.
-Which names look like genuine new stories versus repeated crowded trades?
-```
-
-Tool call:
+## The same ideas without argument text
 
 ```json
-{
-  "speaker_name": "Serenity",
-  "days": 365,
-  "signal": "first_flip",
-  "limit": 100,
-  "max_per_day": 5
-}
+{"speaker_name": "Leo", "days": 7, "direction": "long", "include_thesis": false}
 ```
 
-## Safety / scope
+This omits argument text from the same set of ideas. It does not select ideas
+that lack a thesis. Other fields, including direction and source links, remain.
 
-This tool requires one `speaker_name`, caps `days`, `limit`, and `max_per_day`,
-and returns extracted trade-idea summaries. It does not return full source text
-or allow a bulk export of every speaker's ideas.
+## First/flip signals from the last day
+
+```json
+{"speaker_name": "Serenity", "days": 1, "signal": "first_flip", "source_type": "twitter"}
+```
+
+A stored signal badge is a claim in the data, not independent proof of a
+first-ever mention.
+
+## Response and continuation
+
+The MCP result contains JSON text (`ideas`, `counts`, `pagination`) and a
+`structuredContent.buzzberg_receipt` of speaker schema 3.0.0. Small results
+arrive in one response. Only overflow beyond 900,000 estimated tokens is paged.
+
+When `pagination.has_more=true`, copy the exact `pagination.next_cursor`:
+
+```json
+{"speaker_name": "Serenity", "cursor": "COPY_THE_EXACT_NEXT_CURSOR"}
+```
+
+Pass the same author name and the cursor only. Repeat until `has_more=false`
+before claiming to have read the whole result. The saved snapshot expires one
+hour after the initial request; replay never extends it. Its author, filters,
+ordering and thesis option cannot be changed by a continuation.
+
+## Launch access and quota
+
+Registered, authenticated accounts can request **1, 7, 15 or 30 days**.
+Default: **30**. `days=0`, 60, 90, 180 and 365 are currently refused. Paid longer
+history comes later. The removed `limit` and `max_per_day` arguments must not
+be sent; refresh the connector's tool schema after the update.
+
+Each account has **20 new requests per rolling 24 hours**, shared across all
+clients. Application errors/refusals do not spend quota. Successful empty
+results do; repeating a fresh query counts again. Continuations and replay of
+valid cursors are free of this command's quota. General frequency limits remain.
+On quota exhaustion, honor `retry_after_seconds` instead of retrying in a loop.
+
+The server charges after query, snapshot creation and response serialization
+succeed. A disconnect after this point cannot prove whether the host received
+the answer. These limits apply only to this command.

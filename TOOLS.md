@@ -31,7 +31,7 @@ Search trade ideas from Buzzberg by ticker, keywords, source, speaker, post kind
 
 ## get_speaker_trade_ideas
 
-Get structured trade-idea history for one speaker, with thesis.
+Get one author's complete 1/7/15/30-day idea history with full saved theses; 20 new requests per account per rolling 24h.
 
 **Inputs:**
 - `speaker_name` (required, str)
@@ -40,18 +40,39 @@ Get structured trade-idea history for one speaker, with thesis.
 - `source_type` (optional, str, default `''`)
 - `signal` (optional, str, default `'all'`)
 - `sort` (optional, str, default `'recent'`)
-- `days` (optional, int, default `365`)
-- `limit` (optional, int, default `50`)
-- `max_per_day` (optional, int, default `10`)
-- `cursor` (optional, str, default `''`): continuation available to Buzzberg's
-  own channel only; pass it together with the same `speaker_name` and nothing else
+- `days` (optional, Literal[1, 7, 15, 30], default `30`)
+- `include_thesis` (optional, bool, default `True`)
+- `cursor` (optional, str, default `''`)
 
 **Example prompt:**
-> "Show Serenity's all-time Buzzberg trade ideas with thesis, direction, confidence, source, and date. Limit to 100 ideas and keep at most 5 ideas per day, then summarize how her views changed."
+> "Show Serenity's complete Buzzberg ideas from the last 30 days with full saved theses, direction, confidence, source and date. Follow any continuation cursor with the same speaker_name until has_more=false."
 
-**Returns:** Markdown response from `get_speaker_trade_ideas`.
+**Returns:** JSON text plus structuredContent[buzzberg_receipt] speaker schema 3.0.0; complete author history in the requested window, full saved theses by default, and account-bound continuation only on token-budget overflow.
 
-**Scope:** Read-only. Public Buzzberg market-intelligence data.
+**Scope:** Read-only, one author, authenticated registered accounts.
+
+Available windows are **1, 7, 15 and 30 days**, default **30**. Windows
+60/90/180/365 are reserved for a future paid release and currently refused;
+`days=0` is refused. There is no `limit` or `max_per_day` argument.
+
+`include_thesis=True` returns the full saved argument (short fallback only
+when full text is missing). False returns the same ideas without argument
+text. Ideas with no saved argument remain in both modes.
+
+**Quota:** 20 new requests per rolling 24 hours per account, shared across
+OAuth, personal keys and built-in Buzzy. Application errors/refusals do not
+spend this quota; a successful empty result does. A repeated new call counts
+again. General transport frequency protections still apply.
+
+**Large responses:** Inline when the complete result fits the 900,000 estimated
+token budget (serialized UTF-8 bytes / 3); otherwise follow `pagination.next_cursor`
+with the same `speaker_name` and no other options. Continuations and replays do
+not spend new-request quota. The snapshot expires one hour after the first
+request, and replay never extends it. These are response-size estimates, not
+an exact tokenizer or a promise about a client's available context.
+
+These restrictions apply only to this command. Other MCP commands retain their
+existing contracts. Refresh tool discovery after the update.
 
 **Full example:** [examples/get_speaker_trade_ideas.md](examples/get_speaker_trade_ideas.md)
 

@@ -5,6 +5,19 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Complete recent author history - 2026-09-09
+
+- Breaking: `get_speaker_trade_ideas` now accepts 1/7/15/30 days, default 30.
+  Remove `limit` and `max_per_day`; `days=0` and longer windows are refused.
+- Full saved theses by default; `include_thesis=false` omits text from the same
+  ideas. JSON text and speaker receipt v3 replace the sampled Markdown table.
+- 20 new requests per rolling 24 hours per account. Application errors/refusals
+  and cursor continuations do not spend new-request quota.
+- Complete inline output, with pagination only on token-budget overflow.
+  All clients can continue with the same author name and the returned cursor.
+- Registered users receive this access now; paid longer history is for later.
+  Other MCP tools retain their contracts. Refresh connector tool discovery.
+
 ## Standalone price tool retired - 2026-09-09
 
 - Breaking: remove `get_price` from the tool catalog and research workflows.

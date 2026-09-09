@@ -223,8 +223,15 @@ If your client gets `429 Too Many Requests`, wait for the `Retry-After` header
 or `retry_after_seconds` value before continuing. Agents should avoid tight
 retry loops, large parallel batches, and unbounded scans. Prefer one broad scan
 or leaderboard first, then targeted follow-ups with small `limit`, `days`,
-`top_n`, or `max_per_day` values. Speaker trade-history tools require one
-`speaker_name`; there is no endpoint for dumping every speaker's ideas.
+or `top_n` values where supported. Speaker trade-history tools require one
+`speaker_name`.
+
+`get_speaker_trade_ideas` has its own **20 new requests per rolling 24 hours
+per account** quota. Application errors/refusals and continuation pages do not
+spend it. Registered users can request 1/7/15/30 days, default 30; longer paid
+windows are not enabled yet. Full saved theses are included by default.
+It has no caller row limit or per-day sample cap. Large replies continue through
+an account-bound cursor; use the same author name and the cursor only.
 
 ## No-Install Manual Setup
 

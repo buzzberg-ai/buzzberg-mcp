@@ -429,29 +429,28 @@ Expected tools:
 ## Speaker Trade-Idea History
 
 ```text
-Use Buzzberg to show Serenity's all-time trade ideas with thesis.
+Use Buzzberg to show Serenity's complete trade ideas from the last 30 days with full theses.
 
 Show:
-1. The first recorded idea.
+1. The earliest idea within those 30 days.
 2. The latest ideas.
 3. Tickers she returns to most.
 4. Direction flips.
 5. How the thesis changed over time.
 
-Limit it to 100 ideas and keep at most 5 ideas per day.
+Read the complete result, following any continuation cursor.
 ```
 
 Expected tools:
 
-- `get_speaker_trade_ideas` with `speaker_name`, `days=0`, `limit=100`,
-  `max_per_day=5`
+- `get_speaker_trade_ideas` with `speaker_name`, `days=30`; follow every cursor
 
 ## One Speaker, One Ticker
 
 ```text
-Use Buzzberg to analyze all trade ideas from Serenity about SIVE.
+Use Buzzberg to analyze all trade ideas from Serenity about SIVE from the last 30 days.
 
-Show the first mention, latest mention, direction changes, thesis evolution,
+Show the earliest mention in this window, latest mention, direction changes, thesis evolution,
 and whether confidence increased or faded.
 ```
 
@@ -476,10 +475,10 @@ Expected tools:
 - `get_most_mentioned_tickers`
 - `read_ticker_content`
 
-## First Idea From A Speaker
+## Earliest Idea In A Speaker’s Recent History
 
 ```text
-Use Buzzberg to find Serenity's first recorded SIVE trade idea.
+Use Buzzberg to find Serenity's earliest SIVE trade idea within the last 30 days.
 
 Return:
 1. Date and source type.
@@ -493,7 +492,7 @@ Use Buzzberg data only. Do not fetch raw source text.
 
 Expected tools:
 
-- `get_speaker_trade_ideas` with `sort="oldest"` and `limit=1`
+- `get_speaker_trade_ideas` with `sort="oldest"` and `days=30`; select the earliest returned idea
 - `get_speaker_trade_ideas` with recent sort
 - `get_speaker_ticker_history`
 
