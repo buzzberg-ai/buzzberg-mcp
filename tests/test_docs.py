@@ -257,8 +257,8 @@ def test_portfolio_summary_is_a_separate_complete_daily_contract():
     assert "promotion/affiliation bias" in example
     assert "new stored SEC 13F disclosures remain included" in example
     assert "no table or details" in example
-    assert "Report format is 2.0.0" in example
+    assert "Report format is 2.0.1" in example
     assert "exact English title `Buzzberg Portfolio Update` in every language" in example
-    assert "Ticker | LONG | SHORT | AVOID | NEUTRAL | Mentions · 24h" in example
+    assert "Ticker | L/S/A/N | Mentions · 24h" in example
     assert "`mention_author_counts.non_directional`, not neutral sentiment alone" in example
     assert "get_recent_ideas_summary" in example

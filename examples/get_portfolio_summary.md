@@ -22,7 +22,7 @@ Read `agent_guide`, the full `analysis_instruction`, every ticker and every
 author's `idea_rows` using `idea_columns`. Check `status=ok` and
 `coverage.all_items_returned=true`. If the host truncates the display, extract
 the complete tool-result artifact before writing the report. Schema is 2.0.0.
-Report format is 2.0.0. Read every event and resolve earnings_call_ids/call_id
+Report format is 2.0.1. Read every event and resolve earnings_call_ids/call_id
 against the shared earnings_calls list. Read author promotion_bias using the
 promotion_bias_columns and all affiliation_bias evidence before synthesis.
 Check evidence_sources and coverage.all_sources_available separately from
@@ -40,13 +40,18 @@ Start with the exact English title `Buzzberg Portfolio Update` in every language
 On the next line, show the localized last-24h period and UTC window to minutes.
 The report then uses one table in this order:
 
-Ticker | LONG | SHORT | AVOID | NEUTRAL | Mentions · 24h | Average · 30d | Attention growth
+Ticker | L/S/A/N | Mentions · 24h | Average · 30d | Attention growth
 
 These are saved distinct-author counts, not post counts. A repeated author is
 counted once; the average is authors per day over the previous 30 days. Do not
 recount from the thesis rows. Missing values stay dashes; zero and NEW retain
 their distinct meanings.
-Keep the compact `NEUTRAL` label unchanged in every language. It displays
+Keep the compact `L/S/A/N` header unchanged in every language. Render the four
+saved counts in one unbroken cell without spaces, e.g. `17/0/0/11`. Missing
+counts use one em dash; real zeroes stay zeroes. Do not expand the four directions
+into separate table columns. Immediately below the table, show the localized
+legend with fixed direction names: `L/S/A/N = LONG / SHORT / AVOID / NEUTRAL`.
+N displays
 `mention_author_counts.non_directional`, not neutral sentiment alone: authors
 without LONG/SHORT/AVOID in the metric window, including WATCH and other
 context-only mentions. Explain this in the caption; do not change the counts.
