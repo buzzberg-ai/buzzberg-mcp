@@ -8,7 +8,7 @@ get_speaker_profile(speaker_name="aleabitoreddit")
 
 The default `mode="report"` returns schema 2.1.0 structured data plus one short
 `analysis_instruction` for the host AI to present the report. Report format is
-1.1.3. The server does not call an LLM or generate an HTML artifact.
+1.1.4. The server does not call an LLM or generate an HTML artifact.
 
 The instruction separates content from presentation. Use normal conversation
 text size, clear contrast, a larger author title and prominent metric values.
@@ -17,13 +17,15 @@ or in a disclosure. Keyboard-accessible button-like tabs sit immediately above
 the table, with contrasting selected fill/text visible without hover.
 
 The four ticker tabs share one column grid, compact gaps, narrow rank/direction
-columns and room for tickers/prices. Keep numbers right-aligned with tabular
+columns and room for tickers/prices. Right-align standalone numeric columns with tabular
 digits and price/currency on one line. Emphasize tickers and returns; date links
 stay understated but recognizable. Optional green/red denotes positive/negative
 returns, preserving signs and neutral zero/missing values. Main Focus separates
-Share from an inner grid of three aligned ticker/count pairs, wrapping whole
-pairs consistently on narrow screens. The host checks the rendered result when possible and must
-not claim unavailable visual verification. This is guidance, not a fixed renderer.
+Share from three left-aligned grid cells. Each cell holds one unbroken inline
+"TICKER · count" pair with normal word spacing inside and compact gaps between
+pairs. Wrap whole pairs on narrow screens. Inline counts remain beside their
+ticker. The host checks the rendered result when possible and must not claim
+unavailable visual verification. This is guidance, not a fixed renderer.
 
 The linked author name is the sole title. The header appears once above the
 tabs with handle, role, full bio and source links, without a closing recap.
