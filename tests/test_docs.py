@@ -307,7 +307,9 @@ def test_timeseries_chart_contract_has_complete_days_and_summary():
     assert params["trim_empty_prefix"]["default"] is True
     example = (ROOT / "examples/get_ticker_timeseries.md").read_text()
     arguments = json.loads(re.search(r"```json\n(.*?)\n```", example, re.S).group(1))
-    assert arguments == {"ticker": "SIVE", "days": 180, "trim_empty_prefix": False, "include_today": False}
+    assert arguments == {
+        "ticker": "SIVE", "days": 180, "trim_empty_prefix": False, "include_today": False,
+    }
     for label in ("Total mentions", "Average sentiment", "Price change"):
         assert label in example
     assert "do not invent prices" in example
