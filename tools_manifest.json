@@ -270,10 +270,34 @@
           "type": "int | None",
           "required": false,
           "default": null
+        },
+        {
+          "name": "sections",
+          "type": "list[str] | None",
+          "required": false,
+          "default": null
+        },
+        {
+          "name": "sectors",
+          "type": "list[str] | None",
+          "required": false,
+          "default": null
+        },
+        {
+          "name": "table_limit",
+          "type": "int",
+          "required": false,
+          "default": 10
+        },
+        {
+          "name": "detail_limit",
+          "type": "int",
+          "required": false,
+          "default": 3
         }
       ],
       "returns": "GroupedRecentIdeasSummaryPage",
-      "summary": "Return a recent-ideas report; read agent_guide and the full report instruction first."
+      "summary": "Return a configurable recent-ideas report with selected sections and sectors."
     },
     {
       "name": "get_portfolio_summary",

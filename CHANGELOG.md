@@ -5,6 +5,16 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Tool-reference synchronization - 2026-09-10
+
+- Document the deployed `get_recent_ideas_summary` options: `sections`, `sectors`,
+  `table_limit` and `detail_limit`, including table-only requests and cursor-pinned
+  filters. Summary context is 10.0.0 and report format is 6.0.0.
+- Correct the portfolio overview to include event-only tickers and the
+  100-ticker limit. Retain the current 30-day author-history contract.
+- Reconcile all 32 tool names and parameter signatures against the deployed
+  server catalog. This update changes documentation and manifest metadata only.
+
 ## Complete recent author history - 2026-09-09
 
 - Breaking: `get_speaker_trade_ideas` now accepts 1/7/15/30 days, default 30.

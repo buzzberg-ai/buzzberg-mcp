@@ -11,6 +11,11 @@ def test_tools_md_matches_manifest():
     headings = set(re.findall(r"^## ([a-z_]+)$", text, re.MULTILINE))
     expected = {tool["name"] for tool in manifest["tools"]}
     assert headings == expected
+    for tool in manifest["tools"]:
+        section = text.split("## " + tool["name"] + "\n", 1)[1].split("\n## ", 1)[0]
+        inputs = section.split("**Inputs:**", 1)[1].split("**Example prompt:**", 1)[0]
+        documented = re.findall(r"^- `([a-z_]+)` \(", inputs, re.M)
+        assert documented == [param["name"] for param in tool["parameters"]], tool["name"]
 
 
 def test_speaker_history_launch_contract_and_examples():
