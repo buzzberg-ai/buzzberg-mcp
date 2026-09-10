@@ -488,10 +488,16 @@
           "type": "bool",
           "required": false,
           "default": true
+        },
+        {
+          "name": "include_today",
+          "type": "bool",
+          "required": false,
+          "default": true
         }
       ],
       "returns": "str",
-      "summary": "Get daily sentiment, mention counts, and cached close prices for charting."
+      "summary": "Get daily sentiment, mentions, saved closes and period metrics for charting."
     },
     {
       "name": "get_most_mentioned_tickers",

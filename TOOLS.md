@@ -279,18 +279,29 @@ Get sentiment analysis for a ticker: average sentiment, breakdown by direction, 
 
 ## get_ticker_timeseries
 
-Get daily sentiment, mention counts, and cached close prices for charting.
+Get daily sentiment, mentions, saved closes and period metrics for charting.
 
 **Inputs:**
 - `ticker` (required, str)
-- `days` (optional, int, default `90`)
+- `days` (optional, int, default `90`; 1–365 calendar days)
 - `source_type` (optional, str, default `''`)
 - `trim_empty_prefix` (optional, bool, default `True`)
+- `include_today` (optional, bool, default `True`)
+
+Use `include_today=False` for the last N complete UTC days and
+`trim_empty_prefix=False` to retain the entire calendar window.
+The default continues to include the current, incomplete day.
 
 **Example prompt:**
-> "Use `get_ticker_timeseries` for a Buzzberg analysis."
+> "Chart SIVE mentions, sentiment and price for the last 180 complete days. Show total mentions, the daily average, average sentiment and price change."
 
-**Returns:** Markdown response from `get_ticker_timeseries`.
+**Returns:** A calculated period summary, chart presentation instructions and a
+CSV block. Total mentions and daily average use the full requested window;
+sentiment is mention-weighted. Price change uses the first and last saved closes
+in one currency, with both dates and prices shown. Missing data remains unavailable.
+The instruction tells the host to draw a continuous line through known prices
+across missing calendar days, while retaining unavailable values in tooltips.
+The host controls the chart rendering; this tool does not fetch fresh prices.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
