@@ -126,7 +126,7 @@ Pages contain whole-ticker groups; one ticker is never split across cursors.
 
 ## get_recent_ideas_summary
 
-Return a recent-ideas report; read agent_guide and the full report instruction first.
+Return a configurable recent-ideas report with selected sections and sectors.
 
 **Inputs:**
 - `window` (optional, str, default `'24h'`)
@@ -137,15 +137,31 @@ Return a recent-ideas report; read agent_guide and the full report instruction f
 - `delivery` (optional, str, default `'auto'`)
 - `limit` (optional, int, default `200`)
 - `offset` (optional, int | None, default `None`)
+- `sections` (optional, list[str] | None, default `None`)
+- `sectors` (optional, list[str] | None, default `None`)
+- `table_limit` (optional, int, default `10`)
+- `detail_limit` (optional, int, default `3`)
 
 **Example prompt:**
-> "Summarize Buzzberg ideas from the last 24 hours. Read agent_guide and follow every exact pagination.next_cursor until has_more=false. Use the final summary_context and its complete analysis_instruction for six interactive Top-10 tabs: Alpha Calls, Top Mentions, Mentions Spike, Consensus, First Calls and Shorts. Follow its bounded Alpha thesis review and unique-ticker detail selection; use saved metrics and source links without recounting authors."
+> "Summarize Buzzberg ideas from the last 24 hours. Read agent_guide and follow every exact pagination.next_cursor until has_more=false. Use the final summary_context and its complete analysis_instruction for selected tables (all six by default): Alpha Calls, Top Mentions, Mentions Spike, Consensus, First Calls and Shorts. Follow its bounded Alpha thesis review and unique-ticker detail selection; use saved metrics and source links without recounting authors. Request sections=[alpha_calls], sectors=[Information Technology, Crypto], detail_limit=5 for Alpha only with five detailed tickers. table_limit controls rows; detail_limit=0 requests tables only."
 
-**Returns:** typed `structuredContent` (`GroupedRecentIdeasSummaryPage`) with the grouped-v5 metadata and report-scoped full-thesis evidence declared by data_projection, plus globally calculated `summary_context` on inline delivery or the final page. Context 9.0.0/report format 5.0.0 contains six Top-10 tabs, a 20-ticker Alpha shortlist for bounded host thesis review, complete display-row evidence, unique-ticker detail selection, saved author metrics, side Call prices, market context, original source links and a full presentation instruction; `content[].text` is an exact compact-JSON mirror of the same page.
+**Returns:** typed `structuredContent` (`GroupedRecentIdeasSummaryPage`) with the grouped-v5 metadata and report-scoped full-thesis evidence declared by data_projection, plus globally calculated `summary_context` on inline delivery or the final page. Context 10.0.0/report format 6.0.0 contains effective report_options, selected sections and limits (default six Top-10 tabs/three details), sector-scoped data, a 20-ticker Alpha shortlist for bounded host thesis review, complete display-row evidence, unique-ticker detail selection, saved author metrics, side Call prices, market context, original source links and a full presentation instruction; `content[].text` is an exact compact-JSON mirror of the same page.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/get_recent_ideas_summary.md](examples/get_recent_ideas_summary.md)
+
+`sections` selects one or more of `alpha_calls`, `top_mentions`, `mentions_spike`,
+`consensus`, `first_calls`, and `shorts`. Omit it for all six. Selected sections
+always follow that canonical order; one section renders as a single table.
+`sectors` filters by reviewed sector names, case-insensitively, with `IT` as an
+alias for `Information Technology`. Unknown names return the available menu.
+`table_limit` accepts 1–10 rows per table; `detail_limit` accepts 0–table_limit
+unique detailed tickers per section. Zero requests tables only.
+
+`limit` controls fallback response-page packing, not table rows. Continue with
+the exact cursor alone: the selected filters and limits are pinned to it.
+Refresh connector discovery or start a new chat if these four options are absent.
 
 ## get_portfolio_summary
 
