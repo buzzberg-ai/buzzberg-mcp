@@ -66,17 +66,21 @@ custom Python clients, and the API-key compatibility path.
 
 ### Daily updates on your portfolio
 
-The report table and detailed blocks include only tickers with at least one
-LONG/SHORT/AVOID idea in the last 24h (`actionable_idea_count > 0`). Tickers with
-only neutral mentions or no new ideas are omitted from the report. If none
-qualify, the report gives one brief message instead of empty tables and blocks.
+The report table and detailed blocks include tickers with `report_eligible=true`:
+at least one LONG/SHORT/AVOID idea or a new portfolio-update, earnings-call or
+13F event in the last 24h. Event-only tickers qualify even with no actionable
+ideas. If none qualify, the report gives one brief message instead of empty
+tables and blocks.
 
 Ask: "Give me today's portfolio update for NVDA, BTC and TSLA."
 `get_portfolio_summary` covers up to 100 selected tickers over the last 24h,
-with every full LONG/SHORT/AVOID thesis, author roles, mentions and prices.
-Your agent follows the included instruction for one table and each ticker's
-arguments. See the [portfolio example](examples/get_portfolio_summary.md).
-For a market-wide report, use `get_recent_ideas_summary`.
+with every full LONG/SHORT/AVOID thesis, author roles and bias, portfolio updates,
+earnings calls, newly stored 13F disclosures, mentions and saved prices.
+Your agent follows the included instruction for one table and each qualifying
+ticker's arguments and events. See the [portfolio example](examples/get_portfolio_summary.md).
+For a market-wide report, use `get_recent_ideas_summary`. Select report sections
+and sectors, set 1–10 rows per table, or request tables without detailed ticker
+blocks. See the [summary example](examples/get_recent_ideas_summary.md).
 
 Buzzberg is useful when you want your AI agent to read the market conversation,
 not just fetch a price. Ask one plain-English question; Claude, Codex, or
