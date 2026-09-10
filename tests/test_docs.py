@@ -292,3 +292,18 @@ def test_price_service_is_retired_and_context_is_database_only():
                  "examples/get_tickers_overview.md", "examples/get_speaker_lens_context.md"):
         text = (ROOT / name).read_text()
         assert "persisted database" in text or "market-data provider" in text
+
+
+def test_timeseries_chart_contract_has_complete_days_and_summary():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    tool = next(t for t in manifest["tools"] if t["name"] == "get_ticker_timeseries")
+    params = {p["name"]: p for p in tool["parameters"]}
+    assert params["include_today"]["default"] is True
+    assert params["trim_empty_prefix"]["default"] is True
+    example = (ROOT / "examples/get_ticker_timeseries.md").read_text()
+    arguments = json.loads(re.search(r"```json\n(.*?)\n```", example, re.S).group(1))
+    assert arguments == {"ticker": "SIVE", "days": 180, "trim_empty_prefix": False, "include_today": False}
+    for label in ("Total mentions", "Average sentiment", "Price change"):
+        assert label in example
+    assert "do not invent prices" in example
+    assert "missing-day tooltip" in example
