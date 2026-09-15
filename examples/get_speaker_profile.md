@@ -19,6 +19,15 @@ the table. The selected tab has solid contrasting fill/text; other tabs keep
 visible button styling without hover. The gap before tabs is clearly larger
 than the gap between tabs and the table.
 
+Use one interactive block with exactly one visible table panel and six switching
+buttons: Statistics, Main Focus, Most Mentions, Winners, Losers, Recent.
+Statistics is selected initially (or the first requested table if omitted).
+Pointer or keyboard activation replaces the visible table within that block.
+The three narrative sections remain visible below it. A "text version" means a
+rendered readable profile instead of code/JSON and keeps the switching buttons.
+Use static stacked tables only when the user explicitly requests a static format
+or the host cannot render interactive content; disclose that limitation.
+
 The four ticker tabs share widths defined once for all four tables; active-tab
 content cannot change them. Use compact gaps, narrow rank/direction columns and
 room for tickers/prices. On narrow screens, preserve text size and whole values,
