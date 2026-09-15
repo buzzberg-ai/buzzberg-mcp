@@ -10,7 +10,9 @@ def test_earnings_contract_routing_and_examples():
     tool = next(t for t in manifest["tools"] if t["name"] == "get_earnings_calls_summary")
     assert tool["scope"] == "read"
     assert tool["returns"] == "EarningsSummaryResult"
-    assert [p["name"] for p in tool["parameters"]] == ["window", "company", "company_scope", "as_of", "timezone", "cursor"]
+    assert [p["name"] for p in tool["parameters"]] == [
+        "window", "company", "company_scope", "as_of", "timezone", "cursor",
+    ]
     example = (ROOT / "examples/get_earnings_calls_summary.md").read_text()
     for block in re.findall(r"```json\n(.*?)\n```", example, re.S):
         assert json.loads(block)["window"] in {"7d", "yesterday", "all", "30d"}
