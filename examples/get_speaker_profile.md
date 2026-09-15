@@ -6,9 +6,9 @@ Ask: "Show aleabitoreddit's author profile."
 get_speaker_profile(speaker_name="aleabitoreddit")
 ```
 
-The default `mode="report"` returns schema 2.2.0 structured data plus one short
+The default `mode="report"` returns schema 2.3.0 structured data plus one short
 `analysis_instruction` for the host AI to present the report. Report format is
-1.2.0. The server does not call an LLM or generate an HTML artifact.
+1.3.0. The server does not call an LLM or generate an HTML artifact.
 
 The instruction separates content from presentation. Use normal conversation
 text size, clear contrast, a larger author title and prominent metric values.
@@ -67,6 +67,28 @@ To request just these data:
 
 ```python
 get_speaker_profile(speaker_name="jukan05", mode="data", sections=["statistics"])
+```
+
+After the complete table block, write three text sections (not extra tabs), in order:
+
+1. **Current market view** (`market_view`): a concise synthesis of the author's
+   latest views, concerns and developments being watched, using dated Lens
+   positioning and up to 20 recent public post/ticker thesis records from 30 days.
+2. **How views changed** (`view_history`): the Lens timeline and dated pivots,
+   expressed as earlier view -> later view -> evidenced reason.
+3. **Main theses in the top three themes** (`theme_theses`): the same top three
+   themes as Main Focus for the selected publication window, with Lens thesis
+   blocks and up to six latest public thesis records per theme. Use fewer when
+   fewer themes exist; do not replace themes with sectors.
+
+Do not add Persona, Methodology or an author-approach section. The host writes
+the prose from supplied untrusted research evidence. Keep Lens corpus dates,
+snapshot-only/unavailable states and truncation metadata visible where relevant;
+do not present older evidence as current. Reported news or a positive view does
+not prove ownership. The server does not regenerate the Lens or run an LLM.
+
+```python
+get_speaker_profile(speaker_name="jukan05", sections=["market_view", "view_history", "theme_theses"])
 ```
 
 Most Mentions is ordered by LONG+SHORT+AVOID descending, then total mentions
@@ -128,3 +150,4 @@ Schema 2.1.0 adds the Most Mentions first-call fields and a uniform 15-row cap;
 request parameters are unchanged.
 Schema 2.2.0 adds `statistics` to default reports and `sections=["all"]`.
 Default data mode remains overview-only.
+Schema 2.3.0 adds the three independently selectable post-table narrative sections.
