@@ -443,20 +443,26 @@ Get an author report by default; use mode='data' for raw data for your own repor
 **Example prompt:**
 > "Show aleabitoreddit's author profile as a report with Main Focus, Most Mentions, Winners, Losers and Recent first calls. Use mode='data' only when I request raw structured data to build my own report."
 
-**Returns:** typed structuredContent (SpeakerProfileResult, schema 2.1.0) with selected author sections and a compact JSON text mirror. Default report mode adds one presentation instruction (format 1.1.5); data mode omits it. Each tab has at most 15 rows. Most Mentions includes first-call direction, date, price and return alongside compact L/S/A/N counts. Includes stored performance clocks, follower metadata, Coverage Map themes, directional mention rankings and exact lifetime first-call dates/prices.
+**Returns:** typed structuredContent (SpeakerProfileResult, schema 2.3.0) with selected author sections and a compact JSON text mirror. Default report mode adds one presentation instruction (format 1.3.0); data mode omits it. Statistics is the first tab: 7/30/90/180/360-day numbered-entry mean return, win rate and evaluated calls, with per-horizon freshness and no S&P 500 column. After the tables: current market view, evolution of views and theses for the top three Main Focus themes, using dated Lens/public-post evidence; no Persona or Methodology section. Other tabs have at most 15 rows. Most Mentions includes first-call direction, date, price and return alongside compact L/S/A/N counts. Includes stored performance clocks, follower metadata, Coverage Map themes, directional mention rankings and exact lifetime first-call dates/prices.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/get_speaker_profile.md](examples/get_speaker_profile.md)
 
-`sections` accepts `overview`, `followers`, `main_focus`, `most_mentions`,
-`winners`, `losers`, `recent`, or `['all']`. Omitted sections mean a full report
+`sections` accepts `overview`, `followers`, `statistics`, `main_focus`, `most_mentions`,
+`winners`, `losers`, `recent`, `market_view`, `view_history`, `theme_theses`, or `['all']`.
+Omitted sections mean a full report
 in report mode and overview-only in data mode. Empty/unknown selections fail.
 `days=0` means all available history; 1-3650 filters publication dates. First
 calls are resolved against lifetime history before this filter. Performance
 and follower snapshots expose their own dates; returns are not live quotes.
 
-Schema 2.1.0 replaces the old Markdown profile. Refresh cached tool metadata;
+Statistics always uses lifetime entries and fixed holding horizons, independently
+of `days`; it never falls back to old mention returns or requires benchmark coverage.
+The three narrative sections follow the tables as text, not extra tabs. Main
+themes match the selected-window Main Focus ranking; market view adds a bounded
+30-day public-post sample. Date Lens snapshots and disclose missing/clipped evidence.
+Schema 2.3.0 extends the structured profile. Refresh cached tool metadata;
 use `data` keys for your own presentation. Credibility is no longer returned.
 
 ## compare_speakers

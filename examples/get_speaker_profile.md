@@ -6,18 +6,30 @@ Ask: "Show aleabitoreddit's author profile."
 get_speaker_profile(speaker_name="aleabitoreddit")
 ```
 
-The default `mode="report"` returns schema 2.1.0 structured data plus one short
+The default `mode="report"` returns schema 2.3.0 structured data plus one short
 `analysis_instruction` for the host AI to present the report. Report format is
-1.1.5. The server does not call an LLM or generate an HTML artifact.
+1.3.0. The server does not call an LLM or generate an HTML artifact.
 
 The instruction separates content from presentation. Use normal conversation
-text size, clear contrast, a larger author title and prominent metric values.
-Give Focus extra room and wrap whole words; keep other metric values unbroken.
-Keep dates/sample metadata compact and put methodology notes below the tables
-or in a disclosure. Keyboard-accessible button-like tabs sit immediately above
+text size, clear contrast and a larger author title, without a performance grid
+in the header. Give Focus extra room and wrap whole words. All text below Focus,
+activity/follower lines, dates, affiliations and captions use the same body font
+size (host body size, otherwise 16px in HTML), with line-height at least 1.4.
+Use separate readable lines rather than a dense paragraph or 10-12px small print.
+Put calculation notes below the tables or in a disclosure at body size.
+Keyboard-accessible button-like tabs sit immediately above
 the table. The selected tab has solid contrasting fill/text; other tabs keep
 visible button styling without hover. The gap before tabs is clearly larger
 than the gap between tabs and the table.
+
+Use one interactive block with exactly one visible table panel and six switching
+buttons: Statistics, Main Focus, Most Mentions, Winners, Losers, Recent.
+Statistics is selected initially (or the first requested table if omitted).
+Pointer or keyboard activation replaces the visible table within that block.
+The three narrative sections remain visible below it. A "text version" means a
+rendered readable profile instead of code/JSON and keeps the switching buttons.
+Use static stacked tables only when the user explicitly requests a static format
+or the host cannot render interactive content; disclose that limitation.
 
 The four ticker tabs share widths defined once for all four tables; active-tab
 content cannot change them. Use compact gaps, narrow rank/direction columns and
@@ -29,7 +41,7 @@ returns, preserving signs and neutral zero/missing values. Main Focus separates
 Share from three left-aligned grid cells. Each cell holds one unbroken inline
 "TICKER · count" pair with normal word spacing inside and compact gaps between
 pairs. Wrap whole pairs on narrow screens. Inline counts remain beside their
-ticker. Before delivery, test every supplied tab (all five for a full report)
+ticker. Before delivery, test every supplied tab (all six for a full report)
 at normal and narrow widths, scroll overflow tables, and check wrapping,
 clipping, overlaps and shared-column positions in the rendered output. Code/HTML
 inspection is not visual verification; state when rendered checks are unavailable.
@@ -37,18 +49,63 @@ This is guidance, not a fixed renderer or proof that a host performed those chec
 
 The linked author name is the sole title. The header appears once above the
 tabs with handle, role, full bio and source links, without a closing recap.
-Metrics appear as Alpha rank, Score, evaluated Calls, adjusted Return, Win rate,
-Focus. followers_count is total X followers; leaderboard_followers_count counts
+Focus follows the bio. Alpha rank and Score appear only inside Statistics,
+with their snapshot date, when overview is supplied. Do not display the
+overview's adjusted Return, Win rate or evaluated Calls; use the numbered
+horizon rows for performance instead. followers_count is total X followers;
+leaderboard_followers_count counts
 Buzzberg-ranked authors following that account on X. Show both with snapshot dates.
-Credibility is omitted. Five tabs follow, each with at most 15 rows in both modes:
+Credibility is omitted. Six tabs follow; Statistics is first and initially selected.
+Other tabs have at most 15 rows in both modes:
 
 | Tab | Contents |
 | --- | --- |
+| Statistics | 7/30/90/180/360-day mean Return, Win rate and Evaluated calls |
 | Main Focus | Top 15 themes, coverage share, top 3 tickers with mention counts |
 | Most Mentions | Top 15 by LONG+SHORT+AVOID; compact L/S/A/N counts and first-call context |
 | Winners | Top 15 positive average saved position returns |
 | Losers | Top 15 negative average saved position returns |
 | Recent | Latest 15 lifetime first LONG/SHORT/AVOID calls |
+
+Statistics reads current saved numbered-entry outcomes. Same-side repeats do not
+open a new entry; reversals close and reopen, AVOID closes LONG only, and full
+CLOSE closes either side. Returns stop at closure or the horizon, whichever is
+earlier, but each horizon still has to mature from entry. Win rate and arithmetic
+mean use the same evaluated sample; a real zero counts as a non-win.
+There is no S&P 500 column or benchmark-coverage filter. Missing, outdated or
+partially rebuilt horizons show unavailable values, never legacy statistics.
+Keep per-horizon status and update time at normal body size. Keep the Statistics
+button and all five rows even if results are unavailable. A zero evaluated
+sample has null percentages. These lifetime holding horizons are independent of
+the publication `days` filter and the separate Alpha calculation.
+
+To request just these data:
+
+```python
+get_speaker_profile(speaker_name="jukan05", mode="data", sections=["statistics"])
+```
+
+After the complete table block, write three text sections (not extra tabs), in order:
+
+1. **Current market view** (`market_view`): a concise synthesis of the author's
+   latest views, concerns and developments being watched, using dated Lens
+   positioning and up to 20 recent public post/ticker thesis records from 30 days.
+2. **How views changed** (`view_history`): the Lens timeline and dated pivots,
+   expressed as earlier view -> later view -> evidenced reason.
+3. **Main theses in the top three themes** (`theme_theses`): the same top three
+   themes as Main Focus for the selected publication window, with Lens thesis
+   blocks and up to six latest public thesis records per theme. Use fewer when
+   fewer themes exist; do not replace themes with sectors.
+
+Do not add Persona, Methodology or an author-approach section. The host writes
+the prose from supplied untrusted research evidence. Keep Lens corpus dates,
+snapshot-only/unavailable states and truncation metadata visible where relevant;
+do not present older evidence as current. Reported news or a positive view does
+not prove ownership. The server does not regenerate the Lens or run an LLM.
+
+```python
+get_speaker_profile(speaker_name="jukan05", sections=["market_view", "view_history", "theme_theses"])
+```
 
 Most Mentions is ordered by LONG+SHORT+AVOID descending, then total mentions
 descending, then stable ticker ID. Preserve server order and show the translated
@@ -107,3 +164,6 @@ metadata and read sections under `data`. Speaker Lens is still a separate
 research dossier. Internal Buzzy requests data mode for its evidence workflow.
 Schema 2.1.0 adds the Most Mentions first-call fields and a uniform 15-row cap;
 request parameters are unchanged.
+Schema 2.2.0 adds `statistics` to default reports and `sections=["all"]`.
+Default data mode remains overview-only.
+Schema 2.3.0 adds the three independently selectable post-table narrative sections.

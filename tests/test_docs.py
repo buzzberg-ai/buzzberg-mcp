@@ -67,7 +67,7 @@ def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
     assert params["days"]["default"] == 0
     text = (ROOT / "TOOLS.md").read_text()
     section = text.split("## get_speaker_profile\n", 1)[1].split("\n## ", 1)[0]
-    assert "2.1.0" in section and "Credibility is no longer returned" in section
+    assert "2.3.0" in section and "Credibility is no longer returned" in section
     assert "at most 15 rows" in section
     example = (ROOT / "examples/get_speaker_profile.md").read_text()
     assert 'mode="data", sections=["all"]' in example
@@ -76,6 +76,11 @@ def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
     assert "history_limit_exceeded" in example
     assert "Direction, L/S/A/N, First call, First call price," in example
     assert "themes outside the top 15" in example
+    assert "Statistics is first and initially selected" in example
+    assert "7/30/90/180/360-day" in example
+    assert 'sections=["statistics"]' in example
+    assert '"market_view", "view_history", "theme_theses"' in example
+    assert "not extra tabs" in example
 
 
 def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():
