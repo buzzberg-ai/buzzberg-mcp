@@ -11,10 +11,13 @@ The default `mode="report"` returns schema 2.3.0 structured data plus one short
 1.3.0. The server does not call an LLM or generate an HTML artifact.
 
 The instruction separates content from presentation. Use normal conversation
-text size, clear contrast, a larger author title and prominent metric values.
-Give Focus extra room and wrap whole words; keep other metric values unbroken.
-Keep dates/sample metadata compact and put methodology notes below the tables
-or in a disclosure. Keyboard-accessible button-like tabs sit immediately above
+text size, clear contrast and a larger author title, without a performance grid
+in the header. Give Focus extra room and wrap whole words. All text below Focus,
+activity/follower lines, dates, affiliations and captions use the same body font
+size (host body size, otherwise 16px in HTML), with line-height at least 1.4.
+Use separate readable lines rather than a dense paragraph or 10-12px small print.
+Put calculation notes below the tables or in a disclosure at body size.
+Keyboard-accessible button-like tabs sit immediately above
 the table. The selected tab has solid contrasting fill/text; other tabs keep
 visible button styling without hover. The gap before tabs is clearly larger
 than the gap between tabs and the table.
@@ -46,8 +49,11 @@ This is guidance, not a fixed renderer or proof that a host performed those chec
 
 The linked author name is the sole title. The header appears once above the
 tabs with handle, role, full bio and source links, without a closing recap.
-Metrics appear as Alpha rank, Score, evaluated Calls, adjusted Return, Win rate,
-Focus. followers_count is total X followers; leaderboard_followers_count counts
+Focus follows the bio. Alpha rank and Score appear only inside Statistics,
+with their snapshot date, when overview is supplied. Do not display the
+overview's adjusted Return, Win rate or evaluated Calls; use the numbered
+horizon rows for performance instead. followers_count is total X followers;
+leaderboard_followers_count counts
 Buzzberg-ranked authors following that account on X. Show both with snapshot dates.
 Credibility is omitted. Six tabs follow; Statistics is first and initially selected.
 Other tabs have at most 15 rows in both modes:
@@ -68,9 +74,10 @@ earlier, but each horizon still has to mature from entry. Win rate and arithmeti
 mean use the same evaluated sample; a real zero counts as a non-win.
 There is no S&P 500 column or benchmark-coverage filter. Missing, outdated or
 partially rebuilt horizons show unavailable values, never legacy statistics.
-Keep per-horizon status and update time in compact metadata. A zero evaluated
+Keep per-horizon status and update time at normal body size. Keep the Statistics
+button and all five rows even if results are unavailable. A zero evaluated
 sample has null percentages. These lifetime holding horizons are independent of
-the publication `days` filter and the header's Alpha/current-position metrics.
+the publication `days` filter and the separate Alpha calculation.
 
 To request just these data:
 
