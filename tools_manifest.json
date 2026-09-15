@@ -320,6 +320,82 @@
       "summary": "Get a complete 24h portfolio update for up to 100 selected tickers."
     },
     {
+      "name": "get_earnings_calls_summary",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "window",
+          "type": "str",
+          "required": false,
+          "default": "24h"
+        },
+        {
+          "name": "company",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "company_scope",
+          "type": "str",
+          "required": false,
+          "default": "mentioned"
+        },
+        {
+          "name": "as_of",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "timezone",
+          "type": "str",
+          "required": false,
+          "default": "UTC"
+        },
+        {
+          "name": "cursor",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "EarningsSummaryResult",
+      "summary": "Summarize earnings calls or find a company's mentions in the stored archive."
+    },
+    {
+      "name": "get_feed_summary",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "feed_id",
+          "type": "int",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "source_type",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "delivery",
+          "type": "Literal['auto', 'paged']",
+          "required": false,
+          "default": "auto"
+        },
+        {
+          "name": "cursor",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "FeedSummaryResult",
+      "summary": "Get a full 24h author-feed report: every author, grouped ticker table, price, bias and thesis details."
+    },
+    {
       "name": "get_my_feeds",
       "scope": "read",
       "parameters": [
