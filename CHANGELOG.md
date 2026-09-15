@@ -5,6 +5,14 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Author profile Statistics tab - 2026-09-15
+
+- Schema 2.2.0/report 1.2.0 adds Statistics as the first, initially selected tab.
+- Show 7/30/90/180/360-day numbered-entry mean return, win rate and evaluated
+  calls, with separate freshness states. No S&P 500 column or old-return fallback.
+- Publication windows do not change these lifetime holding horizons.
+- Refresh connector discovery after the server update.
+
 ## Earnings AI Alpha and bottlenecks by default - 2026-09-15
 
 - The plain seven-day earnings question now includes AI Alpha and Bottlenecks

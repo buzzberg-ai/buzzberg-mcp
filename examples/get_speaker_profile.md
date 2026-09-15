@@ -6,9 +6,9 @@ Ask: "Show aleabitoreddit's author profile."
 get_speaker_profile(speaker_name="aleabitoreddit")
 ```
 
-The default `mode="report"` returns schema 2.1.0 structured data plus one short
+The default `mode="report"` returns schema 2.2.0 structured data plus one short
 `analysis_instruction` for the host AI to present the report. Report format is
-1.1.5. The server does not call an LLM or generate an HTML artifact.
+1.2.0. The server does not call an LLM or generate an HTML artifact.
 
 The instruction separates content from presentation. Use normal conversation
 text size, clear contrast, a larger author title and prominent metric values.
@@ -29,7 +29,7 @@ returns, preserving signs and neutral zero/missing values. Main Focus separates
 Share from three left-aligned grid cells. Each cell holds one unbroken inline
 "TICKER · count" pair with normal word spacing inside and compact gaps between
 pairs. Wrap whole pairs on narrow screens. Inline counts remain beside their
-ticker. Before delivery, test every supplied tab (all five for a full report)
+ticker. Before delivery, test every supplied tab (all six for a full report)
 at normal and narrow widths, scroll overflow tables, and check wrapping,
 clipping, overlaps and shared-column positions in the rendered output. Code/HTML
 inspection is not visual verification; state when rendered checks are unavailable.
@@ -40,15 +40,34 @@ tabs with handle, role, full bio and source links, without a closing recap.
 Metrics appear as Alpha rank, Score, evaluated Calls, adjusted Return, Win rate,
 Focus. followers_count is total X followers; leaderboard_followers_count counts
 Buzzberg-ranked authors following that account on X. Show both with snapshot dates.
-Credibility is omitted. Five tabs follow, each with at most 15 rows in both modes:
+Credibility is omitted. Six tabs follow; Statistics is first and initially selected.
+Other tabs have at most 15 rows in both modes:
 
 | Tab | Contents |
 | --- | --- |
+| Statistics | 7/30/90/180/360-day mean Return, Win rate and Evaluated calls |
 | Main Focus | Top 15 themes, coverage share, top 3 tickers with mention counts |
 | Most Mentions | Top 15 by LONG+SHORT+AVOID; compact L/S/A/N counts and first-call context |
 | Winners | Top 15 positive average saved position returns |
 | Losers | Top 15 negative average saved position returns |
 | Recent | Latest 15 lifetime first LONG/SHORT/AVOID calls |
+
+Statistics reads current saved numbered-entry outcomes. Same-side repeats do not
+open a new entry; reversals close and reopen, AVOID closes LONG only, and full
+CLOSE closes either side. Returns stop at closure or the horizon, whichever is
+earlier, but each horizon still has to mature from entry. Win rate and arithmetic
+mean use the same evaluated sample; a real zero counts as a non-win.
+There is no S&P 500 column or benchmark-coverage filter. Missing, outdated or
+partially rebuilt horizons show unavailable values, never legacy statistics.
+Keep per-horizon status and update time in compact metadata. A zero evaluated
+sample has null percentages. These lifetime holding horizons are independent of
+the publication `days` filter and the header's Alpha/current-position metrics.
+
+To request just these data:
+
+```python
+get_speaker_profile(speaker_name="jukan05", mode="data", sections=["statistics"])
+```
 
 Most Mentions is ordered by LONG+SHORT+AVOID descending, then total mentions
 descending, then stable ticker ID. Preserve server order and show the translated
@@ -107,3 +126,5 @@ metadata and read sections under `data`. Speaker Lens is still a separate
 research dossier. Internal Buzzy requests data mode for its evidence workflow.
 Schema 2.1.0 adds the Most Mentions first-call fields and a uniform 15-row cap;
 request parameters are unchanged.
+Schema 2.2.0 adds `statistics` to default reports and `sections=["all"]`.
+Default data mode remains overview-only.
