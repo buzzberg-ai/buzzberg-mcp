@@ -5,6 +5,14 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Earnings AI Alpha and bottlenecks by default - 2026-09-15
+
+- The plain seven-day earnings question now includes AI Alpha and Bottlenecks
+  tables, company mentions and per-call Alpha without extra flags or lookups.
+- Schema/report 1.1.0 adds saved AI/capex/demand reads, management-grounded
+  constraints and explicit available/empty/missing evidence states.
+- Tool count remains 34; request arguments and company-history filters are unchanged.
+
 ## Standalone earnings summaries - 2026-09-15
 
 - Add `get_earnings_calls_summary` for 24h/7d/30d/yesterday and company mention
