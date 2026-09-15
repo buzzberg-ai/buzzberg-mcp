@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-09-16
+
+- Author profile schema 2.4.0/report 1.4.0 adds per-horizon Alpha Rank.
+  Statistics columns: Horizon, Calls, Return, Win rate, Rank.
+- Require visible selected-button colors with light/dark fallbacks and more
+  separation between Main Focus Share and Top 3 tickers.
+- Present market views in short paragraphs, lead history with an arrow summary,
+  and omit Lens/snapshot plumbing from the user-facing narrative.
+
 ## Beta Period
 
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented

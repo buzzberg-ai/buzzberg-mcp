@@ -6,9 +6,9 @@ Ask: "Show aleabitoreddit's author profile."
 get_speaker_profile(speaker_name="aleabitoreddit")
 ```
 
-The default `mode="report"` returns schema 2.3.0 structured data plus one short
+The default `mode="report"` returns schema 2.4.0 structured data plus one short
 `analysis_instruction` for the host AI to present the report. Report format is
-1.3.0. The server does not call an LLM or generate an HTML artifact.
+1.4.0. The server does not call an LLM or generate an HTML artifact.
 
 The instruction separates content from presentation. Use normal conversation
 text size, clear contrast and a larger author title, without a performance grid
@@ -25,7 +25,15 @@ than the gap between tabs and the table.
 Use one interactive block with exactly one visible table panel and six switching
 buttons: Statistics, Main Focus, Most Mentions, Winners, Losers, Recent.
 Statistics is selected initially (or the first requested table if omitted).
+Its columns are Horizon, Calls, Return, Win rate, Rank, in that order. Rank is
+the supplied numbered Alpha rank for that horizon, never the overall Alpha rank.
+Alpha uses its own qualifying sample (at least ten valid call/market pairs);
+explain when rank_evaluated_calls differs from Calls. Missing/unqualified ranks
+show — without hiding valid returns. No market-return column is added.
 Pointer or keyboard activation replaces the visible table within that block.
+Selected buttons must have opaque contrasting fill/text with explicit light/dark
+fallbacks for every host CSS token. Verify computed colors after switching;
+aria-selected alone does not guarantee a visible highlight. Keep focus separate.
 The three narrative sections remain visible below it. A "text version" means a
 rendered readable profile instead of code/JSON and keeps the switching buttons.
 Use static stacked tables only when the user explicitly requests a static format
@@ -41,11 +49,20 @@ returns, preserving signs and neutral zero/missing values. Main Focus separates
 Share from three left-aligned grid cells. Each cell holds one unbroken inline
 "TICKER · count" pair with normal word spacing inside and compact gaps between
 pairs. Wrap whole pairs on narrow screens. Inline counts remain beside their
-ticker. Before delivery, test every supplied tab (all six for a full report)
+ticker. Give the Top 3 header and body cells at least 24px left padding beyond
+Share's normal right padding, preserving this gutter on narrow screens.
+Before delivery, test every supplied tab (all six for a full report)
 at normal and narrow widths, scroll overflow tables, and check wrapping,
 clipping, overlaps and shared-column positions in the rendered output. Code/HTML
 inspection is not visual verification; state when rendered checks are unavailable.
 This is guidance, not a fixed renderer or proof that a host performed those checks.
+
+Narratives start immediately with the author's view. Use a one-sentence lead,
+then short, spaced paragraphs or bullets for convictions, risks and watch items.
+Do not print Lens/snapshot/corpus/regeneration/client terminology or record-count
+preambles. Keep meaningful dates and material uncertainty in natural language.
+History starts with a very short 3-5-stage arrow summary, then detailed dated
+bullets. Give each of the top three themes a separate subheading and short text.
 
 The linked author name is the sole title. The header appears once above the
 tabs with handle, role, full bio and source links, without a closing recap.
@@ -60,7 +77,7 @@ Other tabs have at most 15 rows in both modes:
 
 | Tab | Contents |
 | --- | --- |
-| Statistics | 7/30/90/180/360-day mean Return, Win rate and Evaluated calls |
+| Statistics | Horizon (7/30/90/180/360 days), Calls, Return, Win rate, Rank |
 | Main Focus | Top 15 themes, coverage share, top 3 tickers with mention counts |
 | Most Mentions | Top 15 by LONG+SHORT+AVOID; compact L/S/A/N counts and first-call context |
 | Winners | Top 15 positive average saved position returns |
@@ -68,6 +85,7 @@ Other tabs have at most 15 rows in both modes:
 | Recent | Latest 15 lifetime first LONG/SHORT/AVOID calls |
 
 Statistics reads current saved numbered-entry outcomes. Same-side repeats do not
+count again in the 7/30/90/180/360-day horizons. They do not
 open a new entry; reversals close and reopen, AVOID closes LONG only, and full
 CLOSE closes either side. Returns stop at closure or the horizon, whichever is
 earlier, but each horizon still has to mature from entry. Win rate and arithmetic
@@ -166,4 +184,4 @@ Schema 2.1.0 adds the Most Mentions first-call fields and a uniform 15-row cap;
 request parameters are unchanged.
 Schema 2.2.0 adds `statistics` to default reports and `sections=["all"]`.
 Default data mode remains overview-only.
-Schema 2.3.0 adds the three independently selectable post-table narrative sections.
+Schema 2.4.0 adds per-horizon Alpha ranks to the existing independently selectable report sections.
