@@ -182,7 +182,7 @@ Get a complete 24h portfolio update for up to 100 selected tickers.
 
 ## get_earnings_calls_summary
 
-Summarize earnings calls or find a company's mentions in the stored archive.
+Summarize earnings calls with AI Alpha and bottlenecks by default, or find company mentions.
 
 **Inputs:**
 - `window` (optional, str, default `'24h'`)
@@ -193,9 +193,11 @@ Summarize earnings calls or find a company's mentions in the stored archive.
 - `cursor` (optional, str, default `''`)
 
 **Example prompt:**
-> "Summarize earnings calls over the last 7 days. Call get_earnings_calls_summary(window='7d'); follow analysis_instruction: a Call / Companies mentioned / Context table, concise theses and Alpha, source links, no IDs or trade labels. For all NVIDIA mentions use window='all', company='NVDA'. Follow only next_cursor if needed."
+> "Summarize earnings calls over the last 7 days. Call get_earnings_calls_summary(window='7d'); follow analysis_instruction: a Call / Companies mentioned / Context table, AI Alpha and Bottlenecks tables by default, concise theses and Alpha, source links, no IDs or trade labels. For all NVIDIA mentions use window='all', company='NVDA'. Follow only next_cursor if needed."
 
-**Returns:** typed structuredContent (EarningsSummaryResult), identical compact JSON text; stored call summaries, grounded management mentions, separate Alpha, source links and portable report instructions; explicit archive/evidence coverage, company mention or issuer filters, whole-call account-bound continuation only when the response exceeds the delivery budget; no transcripts or quotes.
+**Default format:** Overview → company-mention table → AI Alpha table → Bottlenecks table → per-call takeaways and Alpha → coverage. No extra prompt keywords are needed. Missing analysis is distinguished from no confirmed AI discussion or constraints.
+
+**Returns:** typed structuredContent (EarningsSummaryResult), identical compact JSON text; stored call summaries, grounded management mentions, separate Alpha, management AI/capex/demand reads and grounded bottlenecks by default, source links and portable report instructions; explicit archive/evidence coverage, company mention or issuer filters, whole-call account-bound continuation only when the response exceeds the delivery budget; no transcripts or quotes.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 

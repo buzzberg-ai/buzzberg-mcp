@@ -1,6 +1,6 @@
 # Earnings calls: TLDR and company mentions
 
-Ask: **“Summarize earnings calls over the last 7 days.”**
+Ask: **“Summarize earnings calls from the last 7 days.”**
 
 ```json
 {"window":"7d"}
@@ -8,15 +8,30 @@ Ask: **“Summarize earnings calls over the last 7 days.”**
 
 The agent calls `get_earnings_calls_summary` and follows the included
 `analysis_instruction`. One normal request supplies the stored derived evidence,
-dates, source links and the presentation rules. No price, portfolio or individual
+dates, source links, AI/capex/demand analysis, grounded bottlenecks and the
+presentation rules. AI Alpha and Bottlenecks are included **by default**: there
+is no extra flag and you do not need to mention them in your question. No price, portfolio or individual
 call tools are needed.
 
 The response is written in your language:
 
 - **Buzzberg Earnings Calls Summary**, period, timezone and number of calls.
 - A concise overview and **Call / Companies mentioned / Context** table.
+- **AI Alpha:** Call / AI signal / What matters.
+- **Bottlenecks:** Call / Constraint / Status / Business impact.
 - Short theses for each call and a separate **Alpha** paragraph where supported.
 - A short coverage note. No internal IDs, trade IDs, row numbers or Alpha scores.
+
+The tables distinguish management's statements from business implications.
+AI usage is not automatically AI revenue, and a constraint's status belongs to
+the call date. Where data is unavailable, the response says so instead of
+claiming no AI discussion or no bottlenecks. Empty sections use a short note,
+not an invented table. The live [website example](https://buzzberg.ai/mcp?scenario=earnings#examples)
+shows this layout with dated historical data.
+
+Schema/report format 1.1.0 adds `management_read`, `ai_status`, `bottlenecks`
+and `bottlenecks_status` to each call. They are derived from stored analysis;
+the server does not run a new model or contact a data provider for your request.
 
 Other periods use `window="24h"`, `window="30d"`, or yesterday in your timezone:
 

@@ -361,7 +361,7 @@
         }
       ],
       "returns": "EarningsSummaryResult",
-      "summary": "Summarize earnings calls or find a company's mentions in the stored archive."
+      "summary": "Summarize earnings calls with AI Alpha and bottlenecks by default, or find company mentions."
     },
     {
       "name": "get_feed_summary",
