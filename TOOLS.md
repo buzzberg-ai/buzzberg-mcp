@@ -180,6 +180,48 @@ Get a complete 24h portfolio update for up to 100 selected tickers.
 
 **Full example:** [examples/get_portfolio_summary.md](examples/get_portfolio_summary.md)
 
+## get_earnings_calls_summary
+
+Summarize earnings calls or find a company's mentions in the stored archive.
+
+**Inputs:**
+- `window` (optional, str, default `'24h'`)
+- `company` (optional, str, default `''`)
+- `company_scope` (optional, str, default `'mentioned'`)
+- `as_of` (optional, str, default `''`)
+- `timezone` (optional, str, default `'UTC'`)
+- `cursor` (optional, str, default `''`)
+
+**Example prompt:**
+> "Summarize earnings calls over the last 7 days. Call get_earnings_calls_summary(window='7d'); follow analysis_instruction: a Call / Companies mentioned / Context table, concise theses and Alpha, source links, no IDs or trade labels. For all NVIDIA mentions use window='all', company='NVDA'. Follow only next_cursor if needed."
+
+**Returns:** typed structuredContent (EarningsSummaryResult), identical compact JSON text; stored call summaries, grounded management mentions, separate Alpha, source links and portable report instructions; explicit archive/evidence coverage, company mention or issuer filters, whole-call account-bound continuation only when the response exceeds the delivery budget; no transcripts or quotes.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_earnings_calls_summary.md](examples/get_earnings_calls_summary.md)
+
+
+## get_feed_summary
+
+Get a full 24h author-feed report: every author, grouped ticker table, price, bias and thesis details.
+
+**Inputs:**
+- `feed_id` (required, int)
+- `source_type` (optional, str, default `''`)
+- `delivery` (optional, Literal['auto', 'paged'], default `'auto'`)
+- `cursor` (optional, str, default `''`)
+
+**Example prompt:**
+> "Summarize my followed authors over the last 24h. Find my voice feed with get_my_feeds(feed_type='voice', include_members=False), then call get_feed_summary(feed_id=...) for the full report with every author and ticker listed in report_outline. Show main developments, one author table with publications, ticker symbols grouped by direction and one L/S/A/N count column ordered by directional calls then publications, shared themes and source-grounded watch conditions, direction changes, then every active author's full argument synthesis with separate price, exact author/ticker historical bias, and thesis paragraphs."
+
+**Returns:** typed structuredContent (FeedSummaryResult), identical compact JSON text; private 24h feed evidence, complete full theses and derived research, feed-only author counts and supported changes; inline or immutable account-bound pages, with author-first report instructions on the final page.
+
+**Scope:** Read-only. Private feeds of the authenticated Buzzberg account only.
+
+**Full example:** [examples/get_feed_summary.md](examples/get_feed_summary.md)
+
+
 ## get_my_feeds
 
 Read your saved feeds; filter by ID/name/type and choose full members or names/counts only.

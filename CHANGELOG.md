@@ -5,6 +5,15 @@
 SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
 here and announced to active beta users.
 
+## Standalone earnings summaries - 2026-09-15
+
+- Add `get_earnings_calls_summary` for 24h/7d/30d/yesterday and company mention
+  history, with a complete table/theses/Alpha instruction in each result.
+- Keep direct company mentions separate from analytical implications. No trade
+  IDs, Alpha scores, raw transcripts or quote exports.
+- Synchronize the already available `get_feed_summary` in the public catalog.
+- Refresh connector discovery after the server update.
+
 ## Tool-reference synchronization - 2026-09-10
 
 - Document the deployed `get_recent_ideas_summary` options: `sections`, `sectors`,

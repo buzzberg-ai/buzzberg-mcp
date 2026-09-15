@@ -64,6 +64,16 @@ custom Python clients, and the API-key compatibility path.
 
 ## What You Can Do With It
 
+### Earnings-call summaries and company mentions
+
+Ask: "Summarize earnings calls over the last 7 days" or "Where was NVIDIA
+mentioned in earnings calls across the available history?"
+`get_earnings_calls_summary` returns summaries, confirmed company mentions,
+separate Alpha observations, source links and report instructions in one request.
+The agent writes a call/company/context table followed by concise theses.
+Use 24 hours, 7 days, 30 days or yesterday; company history uses `window="all"`.
+See the [earnings example](examples/get_earnings_calls_summary.md).
+
 ### Daily updates on your portfolio
 
 The report table and detailed blocks include tickers with `report_eligible=true`:
@@ -377,7 +387,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 32 tools
+            print([t.name for t in tools.tools])  # 34 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -454,7 +464,7 @@ Polygon/Massive, Binance, Yahoo, or another market-data provider, including when
 bars are missing or stale. The standalone price tool has been retired; refresh
 your connector's tool catalog after deployment.
 
-Buzzberg exposes 32 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
+Buzzberg exposes 34 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
 `search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
 `get_top_sentiment_tickers`, `get_recent_source_text`, `get_tickers_overview`,
