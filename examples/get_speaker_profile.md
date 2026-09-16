@@ -185,3 +185,22 @@ request parameters are unchanged.
 Schema 2.2.0 adds `statistics` to default reports and `sections=["all"]`.
 Default data mode remains overview-only.
 Schema 2.4.0 adds per-horizon Alpha ranks to the existing independently selectable report sections.
+Schema 2.5.0 adds account quota errors; profile evidence and report format 1.4.0
+remain unchanged.
+
+## Account request allowance
+
+Each authenticated account has 100 admitted requests per rolling 30 days,
+shared across authors, aliases, clients, keys, report/data modes, sections and
+publication windows. Every admitted call counts, including repeats, cache hits,
+unknown/empty results, the existing history-limit refusal and later read failures.
+Invalid arguments do not spend the allowance. This command keeps its complete
+history, archived narratives, first-call IDs, statistics and existing output bounds.
+
+An exhausted allowance returns `status="rate_limited"`,
+`error_code="speaker_profile_monthly_quota_exceeded"` and
+`retry_after_seconds`, with empty `data` and MCP `isError=true`.
+Do not retry until the indicated wait has elapsed. A missing account or unavailable
+shared quota state refuses the read, including cached data.
+This allowance is separate from the other tools. It bounds one account's requests
+within each window, not unique authors across months or separate accounts.
