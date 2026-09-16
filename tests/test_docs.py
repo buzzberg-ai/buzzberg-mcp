@@ -15,7 +15,7 @@ def test_earnings_contract_routing_and_examples():
     ]
     example = (ROOT / "examples/get_earnings_calls_summary.md").read_text()
     for block in re.findall(r"```json\n(.*?)\n```", example, re.S):
-        assert json.loads(block)["window"] in {"7d", "yesterday", "all", "30d"}
+        assert json.loads(block)["window"] in {"7d", "yesterday", "30d"}
     assert "Call / Companies mentioned / Context" in example
     assert "other issuers' calls" in example
     assert "analysis_instruction" in example
@@ -361,3 +361,17 @@ def test_timeseries_chart_contract_has_complete_days_and_summary():
         assert label in example
     assert "do not invent prices" in example
     assert "missing-day tooltip" in example
+
+
+def test_earnings_export_limits_are_documented():
+    example = (ROOT / "examples/get_earnings_calls_summary.md").read_text(encoding="utf-8")
+    for marker in ("last 90 days from now", "100 requests per rolling 30 days",
+                   "at most 20 calls per page", "earnings_monthly_quota_exceeded",
+                   "retry_after_seconds", "Schema 2.0.0", "incomplete"):
+        assert marker in example
+    for block in re.findall(r"```json\n(.*?)\n```", example, re.S):
+        assert json.loads(block).get("window") != "all"
+    text = (ROOT / "TOOLS.md").read_text(encoding="utf-8")
+    section = text.split("## get_earnings_calls_summary\n", 1)[1].split("\n## ", 1)[0]
+    assert "100 requests per account per rolling 30 days" in section
+    assert "For all NVIDIA" not in section

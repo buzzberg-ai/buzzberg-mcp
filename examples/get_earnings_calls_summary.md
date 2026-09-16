@@ -29,7 +29,7 @@ claiming no AI discussion or no bottlenecks. Empty sections use a short note,
 not an invented table. The live [website example](https://buzzberg.ai/mcp?scenario=earnings#examples)
 shows this layout with dated historical data.
 
-Schema/report format 1.1.0 adds `management_read`, `ai_status`, `bottlenecks`
+Schema 2.0.0 / report format 1.2.0 includes `management_read`, `ai_status`, `bottlenecks`
 and `bottlenecks_status` to each call. They are derived from stored analysis;
 the server does not run a new model or contact a data provider for your request.
 
@@ -39,10 +39,10 @@ Other periods use `window="24h"`, `window="30d"`, or yesterday in your timezone:
 {"window":"yesterday","timezone":"Europe/Lisbon"}
 ```
 
-Ask: **“When was NVIDIA mentioned in earnings calls across the available history?”**
+Ask: **“When was NVIDIA mentioned in earnings calls over the last 30 days?”**
 
 ```json
-{"window":"all","company":"NVDA"}
+{"window":"30d","company":"NVDA"}
 ```
 
 By default, the company filter finds mentions on other issuers' calls. It supports
@@ -62,7 +62,19 @@ mention. Missing/invalid analyses and unavailable supporting evidence are explic
 Alpha is analytical interpretation; an affected company is not automatically a
 direct mention or a trade recommendation. No transcript or quote fields are exported.
 
-Large results use whole-call pages. If `pagination.has_more=true`, retain the page
+Only publication windows wholly inside the **last 90 days from now** are allowed.
+Each window is at most 30 days; `window="all"` is rejected. `as_of` can select a
+historical window only within that boundary. All pages recheck current retention,
+including cached results. Old cursors from before this policy must be restarted.
+
+Each account has **100 requests per rolling 30 days**, shared across OAuth clients,
+legacy keys and the built-in channel. Every page, repeat, cache hit and empty read
+counts. `status=rate_limited` with `earnings_monthly_quota_exceeded` and
+`retry_after_seconds` explains exhausted quota. Missing account/quota storage or
+backend failure returns no evidence. If a later page fails, disclose incomplete
+coverage instead of presenting the earlier pages as the full report.
+
+Large results use whole-call pages with **at most 20 calls per page**. If `pagination.has_more=true`, retain the page
 and call only the same tool with `cursor=next_cursor`, until complete. Never report
 one page as the entire history. Cursors are account-bound and expire. If evidence
 changes between pages, restart the original query. An archive scan above 2,000 calls
