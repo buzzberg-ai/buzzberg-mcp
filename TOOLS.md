@@ -450,7 +450,7 @@ Get an author report by default; use mode='data' for raw data for your own repor
 **Example prompt:**
 > "Show aleabitoreddit's author profile as a report with Main Focus, Most Mentions, Winners, Losers and Recent first calls. Use mode='data' only when I request raw structured data to build my own report."
 
-**Returns:** typed structuredContent (SpeakerProfileResult, schema 2.4.0) with selected author sections and a compact JSON text mirror. Default report mode adds one presentation instruction (format 1.4.0); data mode omits it. Statistics is the first tab: 7/30/90/180/360-day numbered-entry calls, mean return, win rate and per-horizon Alpha rank, with per-horizon freshness and no S&P 500 column. After the tables: current market view, evolution of views and theses for the top three Main Focus themes, using dated Lens/public-post evidence; no Persona or Methodology section. Other tabs have at most 15 rows. Most Mentions includes first-call direction, date, price and return alongside compact L/S/A/N counts. Includes stored performance clocks, follower metadata, Coverage Map themes, directional mention rankings and exact lifetime first-call dates/prices.
+**Returns:** typed structuredContent (SpeakerProfileResult, schema 2.5.0) with selected author sections and a compact JSON text mirror. Default report mode adds one presentation instruction (format 1.4.0); data mode omits it. Statistics is the first tab: 7/30/90/180/360-day numbered-entry calls, mean return, win rate and per-horizon Alpha rank, with per-horizon freshness and no S&P 500 column. After the tables: current market view, evolution of views and theses for the top three Main Focus themes, using dated Lens/public-post evidence; no Persona or Methodology section. Other tabs have at most 15 rows. Most Mentions includes first-call direction, date, price and return alongside compact L/S/A/N counts. Includes stored performance clocks, follower metadata, Coverage Map themes, directional mention rankings and exact lifetime first-call dates/prices.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
@@ -469,8 +469,16 @@ of `days`; it never falls back to old mention returns or requires benchmark cove
 The three narrative sections follow the tables as text, not extra tabs. Main
 themes match the selected-window Main Focus ranking; market view adds a bounded
 30-day public-post sample. Date Lens snapshots and disclose missing/clipped evidence.
-Schema 2.4.0 extends the structured profile. Refresh cached tool metadata;
+Schema 2.5.0 adds account admission errors. Refresh cached tool metadata;
 use `data` keys for your own presentation. Credibility is no longer returned.
+
+Each authenticated account has 100 requests per rolling 30 days across all
+authors, aliases, clients, keys, report/data modes, sections and windows.
+Repeats, cache hits, unknown/empty results and later failed reads count; invalid
+arguments do not. At the limit, `speaker_profile_monthly_quota_exceeded` includes
+`retry_after_seconds`, empty `data` and MCP `isError=true`. Missing shared quota
+state refuses reads, including cached profiles. Complete history, IDs, statistics
+and archived narratives remain available within this separate allowance.
 
 ## compare_speakers
 
