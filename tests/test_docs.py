@@ -34,6 +34,19 @@ def test_tools_md_matches_manifest():
         assert documented == [param["name"] for param in tool["parameters"]], tool["name"]
 
 
+def test_pair_history_is_bounded_and_aggregate_only():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text(encoding="utf-8"))
+    tool = next(t for t in manifest["tools"] if t["name"] == "get_speaker_ticker_history")
+    params = {p["name"]: p for p in tool["parameters"]}
+    assert params["days"]["default"] == 90
+    example = (ROOT / "examples/get_speaker_ticker_history.md").read_text(encoding="utf-8")
+    assert '"days": 90' in example
+    assert "100 admitted requests per rolling 30 days" in example
+    assert "history_monthly_quota_exceeded" in example
+    assert "latest_direction,idea_ids" not in example
+    assert "version 2.0.0" in example
+
+
 def test_speaker_history_launch_contract_and_examples():
     manifest = json.loads((ROOT / 'tools_manifest.json').read_text())
     tool = next(item for item in manifest['tools'] if item['name'] == 'get_speaker_trade_ideas')
