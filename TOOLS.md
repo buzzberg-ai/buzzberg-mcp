@@ -198,11 +198,13 @@ Summarize earnings calls with AI Alpha and bottlenecks by default, or find compa
 - `cursor` (optional, str, default `''`)
 
 **Example prompt:**
-> "Summarize earnings calls over the last 7 days. Call get_earnings_calls_summary(window='7d'); follow analysis_instruction: a Call / Companies mentioned / Context table, AI Alpha and Bottlenecks tables by default, concise theses and Alpha, source links, no IDs or trade labels. For all NVIDIA mentions use window='all', company='NVDA'. Follow only next_cursor if needed."
+> "Summarize earnings calls over the last 7 days. Call get_earnings_calls_summary(window='7d'); follow analysis_instruction: a Call / Companies mentioned / Context table, AI Alpha and Bottlenecks tables by default, concise theses and Alpha, source links, no IDs or trade labels. For recent NVIDIA mentions use window='30d', company='NVDA'. Follow only next_cursor if needed."
 
 **Default format:** Overview → company-mention table → AI Alpha table → Bottlenecks table → per-call takeaways and Alpha → coverage. No extra prompt keywords are needed. Missing analysis is distinguished from no confirmed AI discussion or constraints.
 
-**Returns:** typed structuredContent (EarningsSummaryResult), identical compact JSON text; stored call summaries, grounded management mentions, separate Alpha, management AI/capex/demand reads and grounded bottlenecks by default, source links and portable report instructions; explicit archive/evidence coverage, company mention or issuer filters, whole-call account-bound continuation only when the response exceeds the delivery budget; no transcripts or quotes.
+**Returns:** typed structuredContent (EarningsSummaryResult), identical compact JSON text; stored call summaries, grounded management mentions, separate Alpha, management AI/capex/demand reads and grounded bottlenecks by default, source links and portable report instructions; explicit archive/evidence coverage, company mention or issuer filters, whole-call account-bound continuation at 20 calls per page or the token budget; no transcripts or quotes.
+
+**Limits:** Publication windows must fit entirely within the last 90 days from current server time. Choose 24h/7d/30d/yesterday, at most 30 days per window; `all` is rejected. Every page, repeat, cache hit and empty read counts toward 100 requests per account per rolling 30 days. At most 20 complete calls per page. Expired windows and pre-policy cursors are rejected. Quota/backend errors return no evidence; interrupted reports must be labeled incomplete.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
