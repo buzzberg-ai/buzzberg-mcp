@@ -1127,7 +1127,7 @@
           "name": "history_days",
           "type": "int",
           "required": false,
-          "default": 365
+          "default": 90
         }
       ],
       "returns": "str",
