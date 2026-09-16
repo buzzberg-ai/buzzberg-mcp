@@ -499,10 +499,10 @@ Expected tools:
 ## Speaker Narrative Chart
 
 ```text
-Use Buzzberg to chart how Serenity's view on SIVE changed over the last 180 days.
+Use Buzzberg to chart how Serenity's view on SIVE changed over the last 90 days.
 
 Use speaker/ticker daily history. Explain:
-1. When the idea first appeared.
+1. When the stance first appeared within this 90-day window.
 2. Whether mentions accelerated or faded.
 3. Whether sentiment improved, weakened, or flipped.
 4. Whether price followed sentiment or sentiment followed price.

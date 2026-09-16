@@ -151,7 +151,7 @@
           "name": "days",
           "type": "int",
           "required": false,
-          "default": 180
+          "default": 90
         },
         {
           "name": "source_type",

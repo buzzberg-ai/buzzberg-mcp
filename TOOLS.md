@@ -80,16 +80,21 @@ existing contracts. Refresh tool discovery after the update.
 
 Daily history for one speaker's stance on one ticker.
 
+Only publications from the last 90 days of current server time qualify.
+Each account has 100 admitted requests per rolling 30 days, shared across
+clients and keys, separately from search and detail requests. Repeated, cached
+and empty requests count. Unavailable shared quota state refuses the read.
+
 **Inputs:**
 - `speaker_name` (required, str)
 - `ticker` (required, str)
-- `days` (optional, int, default `180`)
+- `days` (optional, int, default `90`): clamped to 1–90
 - `source_type` (optional, str, default `''`)
 
 **Example prompt:**
-> "Build a daily chart-style read of Serenity's SIVE stance over 180 days. Use idea IDs, daily direction mix, sentiment, and confidence."
+> "Build a daily chart-style read of Serenity's SIVE stance over the last 90 days. Use daily direction mix, sentiment, confidence, and intraday direction changes."
 
-**Returns:** Markdown response from `get_speaker_ticker_history`.
+**Returns:** daily aggregate CSV plus version 2.0.0 structured chronology that preserves intraday direction changes. Individual idea IDs, theses and source links are absent from all response formats.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
