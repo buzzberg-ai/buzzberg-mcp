@@ -687,21 +687,29 @@ Read recent source TLDRs + trade ideas for user-side research workflows.
 
 ## get_speaker_lens
 
-Get a source-derived speaker lens with methodology and thesis history.
+Get a bounded speaker framework, aggregate statistics and recent idea sample.
 
-The track-record section separates four populations: the live Alpha evaluation
-set, per-horizon measured ideas, signal-timing calls, and dated
-initiation/flip ledger rows. It also reports how many ledger rows have matured
-to a 30-day return versus remain `⏳`.
+Allowed sections are `persona`, `methodology`, `track_record` (current aggregate
+statistics only), and `skill` (generated MCP guide). `all` means those four.
+Archived `history`/`theses`, unknown sections and empty selectors are rejected.
+The dated call ledger and individual idea IDs are never returned.
+
+An authenticated account has 100 admitted requests per rolling 30 days across
+all clients and keys. Repeated, cached, unknown/empty and later failed reads count.
+Missing shared quota state refuses reads. The live sample contains at most
+20 ideas published in the last 90 days relative to current server time, grouped
+by source post. The complete response is capped at 32,000 characters with no
+pagination. Persona/methodology remains a dated analytical framework.
 
 **Inputs:**
 - `speaker` (required, str)
 - `sections` (optional, str, default `'persona,methodology,track_record'`)
 
 **Example prompt:**
-> "Use `get_speaker_lens` for a Buzzberg analysis."
+> "Explain Gavin Baker's analytical framework using `get_speaker_lens(speaker='GavinSBaker', sections='all')`. Separate the dated framework, current aggregate statistics and up to 20 recent ideas. Answer in a neutral voice."
 
-**Returns:** Markdown response from `get_speaker_lens`.
+**Returns:** Bounded Markdown; quota errors include
+`speaker_lens_monthly_quota_exceeded` and `retry_after_seconds`.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
@@ -721,6 +729,8 @@ only publications from the last 90 days of current server time, with no idea IDs
 Static dated call ledgers, archived ticker theses and duplicated live overlays
 are excluded from this context pack. The nested aggregate history keeps its own
 account quota; a nested refusal returns an error, not a partial context.
+The internal framework read does not spend the standalone `get_speaker_lens`
+allowance; this context command retains its own quota.
 
 **Inputs:**
 - `speaker` (required, str)
