@@ -47,6 +47,19 @@ def test_pair_history_is_bounded_and_aggregate_only():
     assert "version 2.0.0" in example
 
 
+def test_lens_context_limits_cover_ticker_focus_and_account_quota():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text(encoding="utf-8"))
+    tool = next(t for t in manifest["tools"] if t["name"] == "get_speaker_lens_context")
+    params = {p["name"]: p for p in tool["parameters"]}
+    assert params["history_days"]["default"] == 90
+    example = (ROOT / "examples/get_speaker_lens_context.md").read_text(encoding="utf-8")
+    assert '"history_days": 90' in example
+    assert "100 admitted requests per rolling 30 days" in example
+    assert "At most 20 individual ideas" in example
+    assert "omitting individual idea IDs" in example
+    assert "lens_context_monthly_quota_exceeded" in example
+
+
 def test_speaker_history_launch_contract_and_examples():
     manifest = json.loads((ROOT / 'tools_manifest.json').read_text())
     tool = next(item for item in manifest['tools'] if item['name'] == 'get_speaker_trade_ideas')

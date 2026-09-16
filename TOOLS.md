@@ -708,9 +708,17 @@ to a 30-day return versus remain `⏳`.
 ## get_speaker_lens_context
 
 Build one bounded question-specific Speaker Lens context pack. It combines the
-dated lens snapshot, current Alpha metrics, live structured ideas, and optional
-ticker thesis, history, source links, and price context. The user's agent writes
+dated analytical framework, current Alpha metrics, recent structured ideas, and
+optional ticker aggregates, source links, and price context. The user's agent writes
 the answer; Buzzberg does not make a second server-side LLM call.
+
+An authenticated account has 100 admitted requests per rolling 30 days across
+all clients and keys. Repeated, cached and empty requests count. Missing shared
+quota state refuses reads. Both general and ticker-focused idea samples contain
+only publications from the last 90 days of current server time, with no idea IDs.
+Static dated call ledgers, archived ticker theses and duplicated live overlays
+are excluded from this context pack. The nested aggregate history keeps its own
+account quota; a nested refusal returns an error, not a partial context.
 
 **Inputs:**
 - `speaker` (required, str)
@@ -718,7 +726,7 @@ the answer; Buzzberg does not make a second server-side LLM call.
 - `ticker` (optional, str, default `''`)
 - `recent_days` (optional, int, default `45`, capped at `90`)
 - `recent_limit` (optional, int, default `16`, capped at `20`)
-- `history_days` (optional, int, default `365`, capped at `365`)
+- `history_days` (optional, int, default `90`, capped at `90`)
 
 **Example prompt:**
 > "Use Buzzberg's Bubbleboi speaker lens to explain his current MU thesis, how it changed, and which evidence matters now."
