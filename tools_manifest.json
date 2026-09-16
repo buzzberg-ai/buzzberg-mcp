@@ -1087,7 +1087,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Get a source-derived speaker lens with methodology and thesis history."
+      "summary": "Get a bounded speaker framework, aggregate statistics and recent idea sample."
     },
     {
       "name": "get_speaker_lens_context",

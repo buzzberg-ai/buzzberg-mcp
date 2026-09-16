@@ -333,11 +333,12 @@ Contract notes:
   entry-priced LONG/SHORT thesis per related ticker and evaluation side.
 - `Evaluated` is the number of currently priceable positions in that Alpha
   set. It will not match a lens's 24h/7d/30d `n` (all tracked ideas with a
-  valid return at that horizon), signal-timing `n` (calls with both 24h and
-  30d returns), or ledger rows (first calls and later LONG/SHORT flips).
-- A `⏳` ledger row is retained but does not yet have a 30-day return. Speaker
-  lenses report the current 30-day ledger maturity so agents can distinguish
-  a proven historical sample from calls that are still too new to evaluate.
+  valid return at that horizon) or signal-timing `n` (calls with both 24h and
+  30d returns).
+- Speaker lenses expose the dated analytical framework and aggregate statistics,
+  plus at most 20 ideas published in the last 90 days. Archived history/theses
+  and dated call ledgers are unavailable. Responses have a 32,000-character cap
+  and a separate 100-request allowance per account per rolling 30 days.
 
 Ready-made workflows:
 
