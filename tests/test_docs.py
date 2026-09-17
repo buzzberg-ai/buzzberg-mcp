@@ -375,3 +375,16 @@ def test_earnings_export_limits_are_documented():
     section = text.split("## get_earnings_calls_summary\n", 1)[1].split("\n## ", 1)[0]
     assert "100 requests per account per rolling 30 days" in section
     assert "For all NVIDIA" not in section
+
+
+def test_ticker_content_export_limits_are_documented():
+    example = (ROOT / "examples/read_ticker_content.md").read_text(encoding="utf-8")
+    for marker in ("20 materials", "last 30 days", "publication rather than ingestion",
+                   "100 requests per rolling 30 days", "cache hits",
+                   "ticker_content_monthly_quota_exceeded", "retry_after_seconds"):
+        assert marker in example
+    arguments = json.loads(re.search(r"```json\n(.*?)\n```", example, re.S).group(1))
+    assert arguments == {"ticker": "NVDA", "days": 30, "limit": 20}
+    text = (ROOT / "TOOLS.md").read_text(encoding="utf-8")
+    section = text.split("## read_ticker_content\n", 1)[1].split("\n## ", 1)[0]
+    assert "100 requests/account/rolling 30 days" in section

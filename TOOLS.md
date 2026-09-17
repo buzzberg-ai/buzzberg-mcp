@@ -632,7 +632,7 @@ Count mentions of a ticker across 24h / 7d / 30d windows, broken down by source.
 
 ## read_ticker_content
 
-Read recent content summaries and trade-context text mentioning a ticker.
+Read up to 20 ticker materials published in the last 30 days; 100 calls/account/30d.
 
 **Inputs:**
 - `ticker` (required, str)
@@ -642,9 +642,9 @@ Read recent content summaries and trade-context text mentioning a ticker.
 - `verbose` (optional, bool, default `False`)
 
 **Example prompt:**
-> "Read recent SIVE content. Use YouTube and Substack TLDRs where available, not raw YouTube text or full articles. Summarize thesis, risks, and sources."
+> "Read up to 20 SIVE materials published in the last 30 days with read_ticker_content(ticker='SIVE', days=30, limit=20). Use YouTube and Substack TLDRs where available, not raw YouTube text or full articles. Summarize thesis, risks, and sources."
 
-**Returns:** Markdown response from `read_ticker_content`.
+**Returns:** Markdown with at most 20 materials published within the last 30 days from current server time (default 7 days and 10 materials), with source links; no historical offset or pagination. Short public posts and derived YouTube/newsletter summaries only; no raw transcripts or full newsletter articles. 100 requests/account/rolling 30 days across all tickers, sources, keys and clients, including repeats, cache hits, empty results and later failures. Quota refusals have isError=true, empty result and retry_after_seconds.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 

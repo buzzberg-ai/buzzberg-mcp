@@ -973,7 +973,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Read recent content summaries and trade-context text mentioning a ticker."
+      "summary": "Read up to 20 ticker materials published in the last 30 days; 100 calls/account/30d."
     },
     {
       "name": "get_recent_source_text",
