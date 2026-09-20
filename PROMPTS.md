@@ -257,7 +257,7 @@ Expected tools:
 
 - `search_trade_ideas` for one selected ticker or exact author, with
   `post_kind="stock_recommendation_list"`, for structured stock-list ideas
-- `get_most_mentioned_tickers`
+- `get_ticker_rankings(mode="mentions")`
 - `get_tickers_overview` for the top candidates
 
 ## Portfolio Update Tracker
@@ -381,7 +381,7 @@ talking about it. Then separate fresh discovery from crowded post-move chatter.
 
 Expected tools:
 
-- `get_most_mentioned_tickers`
+- `get_ticker_rankings(mode="mentions")`
 - `read_ticker_content`
 - `search_trade_ideas`
 
@@ -399,7 +399,7 @@ Expected tools:
 - `get_top_speakers(limit=50)` to identify the author set
 - `get_recent_idea_candidates(window="24h", source_type="twitter")`; follow
   every exact continuation cursor and keep only that author set's ideas
-- Optional: `get_most_mentioned_tickers` for all-market comparison
+- Optional: `get_ticker_rankings(mode="mentions")` for all-market comparison
 
 State the collected idea coverage and flag any incomplete pages. Counts describe
 saved ideas and their theses, not every publication by those authors.
@@ -449,8 +449,8 @@ do not just dump the table — explain what changed and what to watch next.
 
 Expected tools:
 
-- `get_top_sentiment_tickers`
-- `get_most_mentioned_tickers`
+- `get_ticker_rankings(mode="bullish")`
+- `get_ticker_rankings(mode="mentions")`
 - `read_ticker_content`
 
 ## Earliest Idea In A Speaker’s Recent History

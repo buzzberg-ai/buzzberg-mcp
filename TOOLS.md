@@ -358,46 +358,26 @@ The host controls the chart rendering; this tool does not fetch fresh prices.
 
 **Full example:** [examples/get_ticker_timeseries.md](examples/get_ticker_timeseries.md)
 
-## get_most_mentioned_tickers
+## get_ticker_rankings
 
-Rank tickers by Buzzberg mention volume over a lookback window.
+Rank tickers by mention volume or bullish/bearish sentiment.
 
 **Inputs:**
+- `mode` (optional, Literal['mentions', 'bullish', 'bearish'], default `'mentions'`)
 - `days` (optional, int, default `1`)
 - `limit` (optional, int, default `20`)
 - `source_type` (optional, str, default `''`)
-- `min_mentions` (optional, int, default `1`)
+- `min_mentions` (optional, int | None, default `None`)
 - `history` (optional, bool, default `False`)
 
 **Example prompt:**
-> "Use `get_most_mentioned_tickers` for a Buzzberg analysis."
+> "Show the 20 most mentioned tickers over the last 7 days with daily history. Then compare the bullish and bearish rankings for the same period."
 
-**Returns:** Markdown response from `get_most_mentioned_tickers`.
-
-**Scope:** Read-only. Public Buzzberg market-intelligence data.
-
-**Full example:** [examples/get_most_mentioned_tickers.md](examples/get_most_mentioned_tickers.md)
-
-## get_top_sentiment_tickers
-
-Rank tickers by strongest bullish or bearish Buzzberg sentiment.
-
-**Inputs:**
-- `days` (optional, int, default `1`)
-- `limit` (optional, int, default `20`)
-- `min_mentions` (optional, int, default `3`)
-- `direction` (optional, str, default `'bullish'`)
-- `source_type` (optional, str, default `''`)
-- `history` (optional, bool, default `False`)
-
-**Example prompt:**
-> "Use `get_top_sentiment_tickers` for a Buzzberg analysis."
-
-**Returns:** Markdown response from `get_top_sentiment_tickers`.
+**Returns:** Aggregate Markdown ranking by mentions (default), bullish or bearish average sentiment; optional daily CSV for the first 10 tickers. Rolling publication window defaults to 1 day, capped at 365; default 20/max 50 tickers. Omitted/null min_mentions uses 1 for mentions and 3 for bullish/bearish, explicit values clamp to 1-1000. Public-source filters, inverse ETF normalization and former ranking calculations are preserved. No individual ideas/source bodies, pagination or archive offset; shared MCP admission unchanged.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
-**Full example:** [examples/get_top_sentiment_tickers.md](examples/get_top_sentiment_tickers.md)
+**Full example:** [examples/get_ticker_rankings.md](examples/get_ticker_rankings.md)
 
 ## get_sentiment_divergence
 

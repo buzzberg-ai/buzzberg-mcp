@@ -24,16 +24,16 @@ fading.
 
 ## Tools Claude will chain
 
-1. `get_most_mentioned_tickers(days=1, limit=20, history=True)` — today's
+1. `get_ticker_rankings(mode="mentions", days=1, limit=20, history=True)` — today's
    attention leaderboard plus daily rows
-2. `get_most_mentioned_tickers(days=7, limit=20, min_mentions=5, history=True)`
+2. `get_ticker_rankings(mode="mentions", days=7, limit=20, min_mentions=5, history=True)`
    — weekly buzz with history
 3. `get_recent_source_text(source_type="twitter", speaker_rank_limit=50, days=1)`
    — bounded top-50 speaker ticker-idea tweets; Claude counts ticker frequency
    and direction mix from this returned set
-4. `get_top_sentiment_tickers(days=7, min_mentions=5, direction="bullish", history=True)`
+4. `get_ticker_rankings(days=7, min_mentions=5, mode="bullish", history=True)`
    — strongest positive narratives
-5. `get_top_sentiment_tickers(days=7, min_mentions=5, direction="bearish", history=True)`
+5. `get_ticker_rankings(days=7, min_mentions=5, mode="bearish", history=True)`
    — strongest negative narratives
 6. For top-50 speaker sentiment, use the same bounded
    `get_recent_source_text(... speaker_rank_limit=50)` set and have Claude
