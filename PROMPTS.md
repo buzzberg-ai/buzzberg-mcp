@@ -599,7 +599,7 @@ newer live ideas, cite available source links, and do not invent a position.
 
 Expected tool:
 
-- `get_speaker_lens_context(speaker="bubbleboi", question="What is Bubbleboi's current view on MU, how did it change, and what evidence would strengthen or invalidate the thesis?", ticker="MU")`
+- `get_speaker_lens(speaker="bubbleboi", question="What is Bubbleboi's current view on MU, how did it change, and what evidence would strengthen or invalidate the thesis?", ticker="MU")`
 
 The tool returns one bounded context pack. Claude, Codex, or another MCP client
 then writes the answer; Buzzberg does not run a second hidden answering model.

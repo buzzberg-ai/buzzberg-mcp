@@ -47,17 +47,25 @@ def test_pair_history_is_bounded_and_aggregate_only():
     assert "version 2.0.0" in example
 
 
-def test_lens_context_limits_cover_ticker_focus_and_account_quota():
+def test_unified_lens_preserves_ticker_focus_and_shared_account_quota():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text(encoding="utf-8"))
-    tool = next(t for t in manifest["tools"] if t["name"] == "get_speaker_lens_context")
+    tool = next(t for t in manifest["tools"] if t["name"] == "get_speaker_lens")
     params = {p["name"]: p for p in tool["parameters"]}
     assert params["history_days"]["default"] == 90
-    example = (ROOT / "examples/get_speaker_lens_context.md").read_text(encoding="utf-8")
+    assert {p["name"] for p in tool["parameters"] if p["required"]} == {"speaker"}
+    assert params["sections"]["default"] == "auto"
+    assert params["question"]["default"] == ""
+    assert params["recent_days"]["default"] == 90
+    assert params["recent_limit"]["default"] == 20
+    assert "get_speaker_lens_context" not in {t["name"] for t in manifest["tools"]}
+    example = (ROOT / "examples/get_speaker_lens.md").read_text(encoding="utf-8")
     assert '"history_days": 90' in example
     assert "100 admitted requests per rolling 30 days" in example
     assert "At most 20 individual ideas" in example
     assert "omitting individual idea IDs" in example
-    assert "lens_context_monthly_quota_exceeded" in example
+    assert "speaker_lens_monthly_quota_exceeded" in example
+    assert "outstanding calls to both former lens commands" in example
+    assert "Selection is strict" in example
 
 
 def test_speaker_history_launch_contract_and_examples():
@@ -112,7 +120,7 @@ def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
 def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     tools = {t["name"]: t for t in manifest["tools"]}
-    assert len(tools) == 33
+    assert len(tools) == 32
     assert "get_recent_source_text" not in tools
     expected = {
         "get_my_feeds": ["feed_type", "limit", "after_id", "feed_id", "name", "include_members"],
@@ -195,7 +203,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     normalized_prompts = " ".join(prompts.split())
     normalized_example = " ".join(example.split())
 
-    assert "Buzzberg exposes 33 tools" in readme
+    assert "Buzzberg exposes 32 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts
@@ -342,7 +350,7 @@ def test_price_service_is_retired_and_context_is_database_only():
     assert "get_price" not in {tool["name"] for tool in manifest["tools"]}
     assert not (ROOT / "examples/get_price.md").exists()
     for name in ("README.md", "TOOLS.md", "examples/get_ticker_info.md",
-                 "examples/get_tickers_overview.md", "examples/get_speaker_lens_context.md"):
+                 "examples/get_tickers_overview.md", "examples/get_speaker_lens.md"):
         text = (ROOT / name).read_text()
         assert "persisted database" in text or "market-data provider" in text
 

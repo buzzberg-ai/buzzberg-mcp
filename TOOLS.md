@@ -670,70 +670,42 @@ Read recent content summaries and trade-context text mentioning a ticker.
 
 ## get_speaker_lens
 
-Get a bounded speaker framework, aggregate statistics and recent idea sample.
+Read selected author-lens sections or prepare evidence for an optional question.
 
-Allowed sections are `persona`, `methodology`, `track_record` (current aggregate
-statistics only), and `skill` (generated MCP guide). `all` means those four.
-Archived `history`/`theses`, unknown sections and empty selectors are rejected.
-The dated call ledger and individual idea IDs are never returned.
+One command replaces get_speaker_lens_context. Only speaker is required.
+Strict sections: persona, methodology, track_record, skill, recent_ideas,
+ticker_history, price. Auto returns the framework, statistics and recent ideas,
+adding ticker history/price when a ticker is supplied or inferred. All also
+adds the guide. Explicit selectors do not load unselected sections.
 
-An authenticated account has 100 admitted requests per rolling 30 days across
-all clients and keys. Repeated, cached, unknown/empty and later failed reads count.
-Missing shared quota state refuses reads. The live sample contains at most
-20 ideas published in the last 90 days relative to current server time, grouped
-by source post. The complete response is capped at 32,000 characters with no
-pagination. Persona/methodology remains a dated analytical framework.
+Optional question (up to 400 characters) guides the answering client and ticker
+inference; the server makes no LLM call. General ideas use recent_days, ticker
+ideas/history use history_days; both default/max 90 days. Recent_limit defaults
+and caps at 20. Persona/methodology keep their full standalone budgets. Request
+fewer sections if a combined response is labelled truncated.
+
+The former two quotas are one allowance, retaining outstanding calls to both
+commands. Selected ticker history additionally uses its existing account quota.
+No original tweet bodies/transcripts or archived ledger are returned; stored
+lens prose can contain quotations. Refresh cached schemas after this migration.
 
 **Inputs:**
 - `speaker` (required, str)
-- `sections` (optional, str, default `'persona,methodology,track_record'`)
+- `sections` (optional, str, default `'auto'`)
+- `question` (optional, str, default `''`)
+- `ticker` (optional, str, default `''`)
+- `recent_days` (optional, int, default `90`)
+- `recent_limit` (optional, int, default `20`)
+- `history_days` (optional, int, default `90`)
 
 **Example prompt:**
-> "Explain Gavin Baker's analytical framework using `get_speaker_lens(speaker='GavinSBaker', sections='all')`. Separate the dated framework, current aggregate statistics and up to 20 recent ideas. Answer in a neutral voice."
+> "Explain Gavin Baker's analytical framework using get_speaker_lens(speaker='GavinSBaker', sections='all'). Separate the dated framework, current aggregate statistics and up to 20 recent ideas. Answer in a neutral voice."
 
-**Returns:** Bounded Markdown; quota errors include
-`speaker_lens_monthly_quota_exceeded` and `retry_after_seconds`.
+**Returns:** Markdown capped at 32,000 characters; strict sections for dated persona/methodology, current Alpha and aggregate track record, generated usage guide, recent extracted ideas, ticker daily aggregates and stored price. Optional question/ticker; auto adds ticker sections when applicable, all adds the guide. At most 20 ideas from the last 90 publication days; no raw tweets/transcripts, idea IDs, archived ledger/theses or pagination. One shared 100-request/account/rolling-30-day allowance, including prior calls to both former lens commands, cache hits and repeats; selected ticker history also spends its own allowance.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/get_speaker_lens.md](examples/get_speaker_lens.md)
-
-## get_speaker_lens_context
-
-Build one bounded question-specific Speaker Lens context pack. It combines the
-dated analytical framework, current Alpha metrics, recent structured ideas, and
-optional ticker aggregates, source links, and price context. The user's agent writes
-the answer; Buzzberg does not make a second server-side LLM call.
-
-An authenticated account has 100 admitted requests per rolling 30 days across
-all clients and keys. Repeated, cached and empty requests count. Missing shared
-quota state refuses reads. Both general and ticker-focused idea samples contain
-only publications from the last 90 days of current server time, with no idea IDs.
-Static dated call ledgers, archived ticker theses and duplicated live overlays
-are excluded from this context pack. The nested aggregate history keeps its own
-account quota; a nested refusal returns an error, not a partial context.
-The internal framework read does not spend the standalone `get_speaker_lens`
-allowance; this context command retains its own quota.
-
-**Inputs:**
-- `speaker` (required, str)
-- `question` (required, str, 1-400 characters)
-- `ticker` (optional, str, default `''`)
-- `recent_days` (optional, int, default `45`, capped at `90`)
-- `recent_limit` (optional, int, default `16`, capped at `20`)
-- `history_days` (optional, int, default `90`, capped at `90`)
-
-**Example prompt:**
-> "Use Buzzberg's Bubbleboi speaker lens to explain his current MU thesis, how it changed, and which evidence matters now."
-
-**Returns:** A bounded Markdown context pack for the user's AI agent to analyze.
-The complete response is capped at 32,000 characters; oversized lens sections,
-idea lists, and history tables are truncated independently without leaving open
-Markdown code fences.
-
-**Scope:** Read-only. Public Buzzberg market-intelligence data.
-
-**Full example:** [examples/get_speaker_lens_context.md](examples/get_speaker_lens_context.md)
 
 ## list_speaker_lenses
 
