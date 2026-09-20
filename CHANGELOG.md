@@ -1,5 +1,13 @@
 # Changelog
 
+## Source Text disabled - 2026-09-20
+
+- Removed `get_recent_source_text` from MCP for every source type. Cached
+  clients calling its old name receive an unknown-tool error. Refresh the
+  connector tool list; the active catalog now has 33 tools.
+- Updated examples to use extracted ideas where appropriate. This command
+  can be restored in a future reviewed release. Other tools are unchanged.
+
 ## 2026-09-16
 
 - Author profile schema 2.4.0/report 1.4.0 adds per-horizon Alpha Rank.
