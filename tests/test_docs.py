@@ -120,7 +120,7 @@ def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
 def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     tools = {t["name"]: t for t in manifest["tools"]}
-    assert len(tools) == 32
+    assert len(tools) == 31
     assert "get_recent_source_text" not in tools
     expected = {
         "get_my_feeds": ["feed_type", "limit", "after_id", "feed_id", "name", "include_members"],
@@ -203,7 +203,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     normalized_prompts = " ".join(prompts.split())
     normalized_example = " ".join(example.split())
 
-    assert "Buzzberg exposes 32 tools" in readme
+    assert "Buzzberg exposes 31 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts
@@ -384,3 +384,20 @@ def test_earnings_export_limits_are_documented():
     section = text.split("## get_earnings_calls_summary\n", 1)[1].split("\n## ", 1)[0]
     assert "100 requests per account per rolling 30 days" in section
     assert "For all NVIDIA" not in section
+
+
+def test_ticker_rankings_modes_replace_both_former_commands():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text(encoding="utf-8"))
+    tools = {t["name"]: t for t in manifest["tools"]}
+    assert "get_most_mentioned_tickers" not in tools
+    assert "get_top_sentiment_tickers" not in tools
+    params = {p["name"]: p for p in tools["get_ticker_rankings"]["parameters"]}
+    assert list(params) == ["mode", "days", "limit", "source_type", "min_mentions", "history"]
+    assert params["mode"]["default"] == "mentions"
+    assert params["min_mentions"]["default"] is None
+    assert params["days"]["default"] == 1
+    assert params["limit"]["default"] == 20
+    example = (ROOT / "examples/get_ticker_rankings.md").read_text(encoding="utf-8")
+    for expected in ('mode="bullish"', 'mode="bearish"', "first 10", "1-365", "1-50",
+                     "1 for `mentions` and 3", "not LONG/SHORT", "original source bodies"):
+        assert expected in example

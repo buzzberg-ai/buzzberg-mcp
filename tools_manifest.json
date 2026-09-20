@@ -576,9 +576,15 @@
       "summary": "Get daily sentiment, mentions, saved closes and period metrics for charting."
     },
     {
-      "name": "get_most_mentioned_tickers",
+      "name": "get_ticker_rankings",
       "scope": "read",
       "parameters": [
+        {
+          "name": "mode",
+          "type": "Literal['mentions', 'bullish', 'bearish']",
+          "required": false,
+          "default": "mentions"
+        },
         {
           "name": "days",
           "type": "int",
@@ -599,9 +605,9 @@
         },
         {
           "name": "min_mentions",
-          "type": "int",
+          "type": "int | None",
           "required": false,
-          "default": 1
+          "default": null
         },
         {
           "name": "history",
@@ -611,51 +617,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Rank tickers by Buzzberg mention volume over a lookback window."
-    },
-    {
-      "name": "get_top_sentiment_tickers",
-      "scope": "read",
-      "parameters": [
-        {
-          "name": "days",
-          "type": "int",
-          "required": false,
-          "default": 1
-        },
-        {
-          "name": "limit",
-          "type": "int",
-          "required": false,
-          "default": 20
-        },
-        {
-          "name": "min_mentions",
-          "type": "int",
-          "required": false,
-          "default": 3
-        },
-        {
-          "name": "direction",
-          "type": "str",
-          "required": false,
-          "default": "bullish"
-        },
-        {
-          "name": "source_type",
-          "type": "str",
-          "required": false,
-          "default": ""
-        },
-        {
-          "name": "history",
-          "type": "bool",
-          "required": false,
-          "default": false
-        }
-      ],
-      "returns": "str",
-      "summary": "Rank tickers by strongest bullish or bearish Buzzberg sentiment."
+      "summary": "Rank tickers by mention volume or bullish/bearish sentiment."
     },
     {
       "name": "get_sentiment_divergence",

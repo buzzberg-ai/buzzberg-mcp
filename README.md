@@ -388,7 +388,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 32 tools
+            print([t.name for t in tools.tools])  # 31 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -469,10 +469,13 @@ The former `get_speaker_lens_context` is merged into `get_speaker_lens`, with
 strict sections and an optional question/ticker. Both former usages share one
 account allowance; refresh cached tool schemas. See [examples](examples/get_speaker_lens.md).
 
-Buzzberg exposes 32 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
+`get_ticker_rankings` combines mention-volume and bullish/bearish sentiment
+rankings through its `mode` filter. Refresh cached schemas; the two former
+ranking names are removed. See [ranking examples](examples/get_ticker_rankings.md).
+
+Buzzberg exposes 31 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
 `search_trade_ideas`, `get_top_speakers`,
-`get_sentiment`, `get_ticker_timeseries`, `get_most_mentioned_tickers`,
-`get_top_sentiment_tickers`, `get_tickers_overview`,
+`get_sentiment`, `get_ticker_timeseries`, `get_ticker_rankings`, `get_tickers_overview`,
 `get_speaker_trade_ideas`, `get_speaker_ticker_history`,
 `get_speaker_lens`, ...) and one account-scoped write tool
 (`save_trade_idea`). See [TOOLS.md](TOOLS.md) for
