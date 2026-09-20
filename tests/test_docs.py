@@ -406,7 +406,8 @@ def test_ticker_rankings_modes_replace_both_former_commands():
 def test_remaining_reader_groups_keep_all_modes_and_bounds():
     tools = {t["name"]: t for t in json.loads((ROOT / "tools_manifest.json").read_text())["tools"]}
     retired = {
-        "get_recent_content", "get_ticker_info", "get_ticker_mentions", "get_ticker_youtube_research",
+        "get_recent_content", "get_ticker_info",
+        "get_ticker_mentions", "get_ticker_youtube_research",
     }
     assert not retired.intersection(tools)
     for name in retired:
