@@ -25,8 +25,22 @@ The tool returns a compact Markdown table with:
 - missing ticker symbols, if any.
 
 This is the preferred first step for broad market scans. Use targeted tools like
-`get_ticker_mentions`, `get_ticker_info`, or `read_ticker_content` after the
+`get_tickers_overview` with view='details' or view='mentions', or `read_ticker_content` after the
 overview narrows the basket.
 
 Prices come only from persisted database bars. Missing values stay unavailable;
 this request never refreshes prices through a market-data provider.
+
+## Single-ticker views
+
+```python
+get_tickers_overview(tickers=["NVDA"], view="details")
+get_tickers_overview(tickers=["NVDA"], view="mentions")
+```
+
+Details returns identity, lifetime counts/directions/top five authors, stored
+price and at most five short idea previews published in the last 30 days (ten
+rows scanned). Mentions returns counts by source over 24h/7d/30d by ingestion
+time, not individual mentions or quotations. Both require exactly one input
+ticker and reject days. Omit days for these fixed-window views. Overview alone
+accepts up to 50 symbols and days (default 30, maximum 90). No pagination.

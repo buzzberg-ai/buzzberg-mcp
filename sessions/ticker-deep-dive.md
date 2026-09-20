@@ -36,8 +36,8 @@ extracted ideas rather than raw transcript or article dumps.
 
 ## Tools Claude will chain
 
-1. `get_ticker_info(ticker="SIVE")` — overview, top speakers, recent ideas
-2. `get_ticker_mentions(ticker="SIVE")` — 24h / 7d / 30d attention by source
+1. `get_tickers_overview(tickers=["SIVE"], view="details")` — overview, top speakers, recent ideas
+2. `get_tickers_overview(tickers=["SIVE"], view="mentions")` — 24h / 7d / 30d attention by source
 3. `get_sentiment(ticker="SIVE", days=30)` — directional bias and speaker mix
 4. `compare_speakers(ticker="SIVE", days=30)` — whether there is a real bear camp
 5. `search_trade_ideas(ticker="SIVE", days=30, limit=20)` — recent theses and quotes

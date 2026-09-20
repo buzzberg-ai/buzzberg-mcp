@@ -397,26 +397,6 @@ Find tickers where speakers disagree most (high divergence in sentiment).
 
 **Full example:** [examples/get_sentiment_divergence.md](examples/get_sentiment_divergence.md)
 
-## get_ticker_info
-
-Price context comes only from persisted database bars, with the saved timestamp.
-Missing prices stay unavailable; this tool never refreshes market data.
-
-Get detailed info for a ticker: mention count, top speakers, recent ideas, stored price.
-
-**Inputs:**
-- `ticker` (required, str)
-- `source_type` (optional, str, default `''`)
-
-**Example prompt:**
-> "Use `get_ticker_info` for a Buzzberg analysis."
-
-**Returns:** Markdown response from `get_ticker_info`.
-
-**Scope:** Read-only. Public Buzzberg market-intelligence data.
-
-**Full example:** [examples/get_ticker_info.md](examples/get_ticker_info.md)
-
 ## get_speaker_profile
 
 Get an author report by default; use mode='data' for raw data for your own report.
@@ -482,37 +462,20 @@ deduplicated evaluation set, not benchmark-adjusted excess return.
 
 **Full example:** [examples/compare_speakers.md](examples/compare_speakers.md)
 
-## get_recent_content
-
-Get latest content (videos, articles, tweets) from Buzzberg.
-
-**Inputs:**
-- `source_type` (optional, str, default `''`)
-- `limit` (optional, int, default `10`)
-
-**Example prompt:**
-> "Use `get_recent_content` for a Buzzberg analysis."
-
-**Returns:** Markdown response from `get_recent_content`.
-
-**Scope:** Read-only. Public Buzzberg market-intelligence data.
-
-**Full example:** [examples/get_recent_content.md](examples/get_recent_content.md)
-
 ## get_tickers_overview
 
-Prices and their timestamps come only from persisted database bars.
-Missing prices stay unavailable; this tool never refreshes market data.
+Read a ticker overview, detailed profile or source mention counts.
 
-Batch overview for multiple tickers: stored price, mentions, sentiment, and direction counts.
+Select one view per call. `overview` preserves the table for up to 50 normalized symbols: stored price, fixed ingestion-time 24h/7d/30d counts and sentiment/directions over days (default 30, max 90). `details` requires exactly one input ticker and returns identity, lifetime public counts/directions/top five speakers and up to five short previews from ten scanned ideas published within 30 days. `mentions` requires exactly one input ticker and returns only fixed 24h/7d/30d counts by source and ingestion time. Details/mentions reject a non-null days argument; no batch detailed export is available. Prices come only from persisted database bars, never a market-data provider refresh.
 
 **Inputs:**
 - `tickers` (required, list[str])
-- `days` (optional, int, default `30`)
+- `days` (optional, int | None, default `None`)
 - `source_type` (optional, str, default `''`)
+- `view` (optional, Literal['overview', 'details', 'mentions'], default `'overview'`)
 
 **Example prompt:**
-> "Use `get_tickers_overview` for a Buzzberg analysis."
+> "Compare NVDA and TSM with get_tickers_overview(tickers=['NVDA', 'TSM']). For NVDA only, use view='details' for its card or view='mentions' for source counts. Omit days in those two single-ticker views."
 
 **Returns:** Markdown response from `get_tickers_overview`.
 
@@ -522,16 +485,18 @@ Batch overview for multiple tickers: stored price, mentions, sentiment, and dire
 
 ## search_content
 
-Search public content titles by keyword.
+Find latest public materials or search their titles with one command.
+
+Empty/whitespace query returns latest public title previews, source, date and links. Omitted/null days retains latest selection without an age cutoff; supplied days narrows it to 1–365. Nonempty query preserves literal title search (minimum two characters), default 30 days. Both modes return at most 30 items (default 10), never bodies or transcripts. No archive anchor, cursor or offset.
 
 **Inputs:**
-- `query` (required, str)
+- `query` (optional, str, default `''`)
 - `limit` (optional, int, default `10`)
-- `days` (optional, int, default `30`)
+- `days` (optional, int | None, default `None`)
 - `source_type` (optional, str, default `''`)
 
 **Example prompt:**
-> "Search recent public Buzzberg content titles for robotaxi. Show source type, date, and why each item may be worth reading."
+> "List the latest public titles with search_content(), or search for robotaxi with query=robotaxi. Show source type, date, and why each item may be worth reading."
 
 **Returns:** Markdown response from `search_content`.
 
@@ -541,40 +506,24 @@ Search public content titles by keyword.
 
 ## search_youtube_research
 
-Search derived Buzzberg YouTube research notes from the last 7 days.
+Search derived YouTube notes or read a focused report for one ticker.
+
+Nonempty query selects semantic/lexical derived-note search, optionally filtered by ticker. Ticker without query selects the focused ticker report with alias resolution, grouped bullish/bearish/context/position evidence and ticker-scoped Source Notes. Both empty is refused. Both modes cap days at seven and notes at twenty (defaults 7/10). The focused report retains up to six extracted ideas per note and twelve bullets per direction group; twenty notes does not mean twenty ideas. Neither returns raw transcripts or archive pagination.
 
 **Inputs:**
-- `query` (required, str)
+- `query` (optional, str, default `''`)
 - `days` (optional, int, default `7`)
 - `limit` (optional, int, default `10`)
 - `ticker` (optional, str, default `''`)
 
 **Example prompt:**
-> "Use `search_youtube_research` for a Buzzberg analysis."
+> "Search derived YouTube research for AI power with query='AI power'. For a focused NVDA report, use only ticker='NVDA' without query. Both modes use at most seven days and twenty notes; never request raw transcripts."
 
 **Returns:** Markdown response from `search_youtube_research`.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/search_youtube_research.md](examples/search_youtube_research.md)
-
-## get_ticker_youtube_research
-
-Get derived YouTube research notes for one ticker from the last 7 days.
-
-**Inputs:**
-- `ticker` (required, str)
-- `days` (optional, int, default `7`)
-- `limit` (optional, int, default `10`)
-
-**Example prompt:**
-> "Use `get_ticker_youtube_research` for a Buzzberg analysis."
-
-**Returns:** Markdown response from `get_ticker_youtube_research`.
-
-**Scope:** Read-only. Public Buzzberg market-intelligence data.
-
-**Full example:** [examples/get_ticker_youtube_research.md](examples/get_ticker_youtube_research.md)
 
 ## get_youtube_market_tldr
 
@@ -592,23 +541,6 @@ Summarize the derived YouTube research-note index for the last 1-7 days.
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/get_youtube_market_tldr.md](examples/get_youtube_market_tldr.md)
-
-## get_ticker_mentions
-
-Count mentions of a ticker across 24h / 7d / 30d windows, broken down by source.
-
-**Inputs:**
-- `ticker` (required, str)
-- `source_type` (optional, str, default `''`)
-
-**Example prompt:**
-> "Use `get_ticker_mentions` for a Buzzberg analysis."
-
-**Returns:** Markdown response from `get_ticker_mentions`.
-
-**Scope:** Read-only. Public Buzzberg market-intelligence data.
-
-**Full example:** [examples/get_ticker_mentions.md](examples/get_ticker_mentions.md)
 
 ## read_ticker_content
 
