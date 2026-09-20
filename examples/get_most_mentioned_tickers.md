@@ -27,21 +27,17 @@ get_most_mentioned_tickers(days=7, limit=20, min_mentions=5, history=True)
 
 ## Top-50 Speaker Version
 
-Use this when you want attention from Buzzberg's highest-ranked speakers only,
-not the whole database. `get_most_mentioned_tickers` ranks all Buzzberg
-mentions; for a top-speaker-only pulse, ask your agent to use
-`get_recent_source_text(source_type="twitter", speaker_rank_limit=50)` and count
-tickers from that bounded set.
-
-```text
-Use Buzzberg to rank the tickers most mentioned by top-50 speakers today.
-Show mentions, sentiment, direction mix, source mix, and whether each story
-looks fresh or already crowded.
-```
+`get_most_mentioned_tickers` ranks the whole Buzzberg conversation. For a
+Twitter-derived top-speaker idea pulse, first identify the author set, then
+collect recent saved ideas and keep only those authors:
 
 ```python
-get_recent_source_text(source_type="twitter", speaker_rank_limit=50, days=1)
+get_top_speakers(limit=50)
+get_recent_idea_candidates(window="24h", source_type="twitter")
 ```
+
+Follow every exact continuation cursor. Count the returned ideas by ticker and
+label the coverage; these are saved idea mentions, not all original tweets.
 
 ## What To Look For
 

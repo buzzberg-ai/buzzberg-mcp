@@ -25,18 +25,18 @@ get_top_sentiment_tickers(days=7, limit=20, min_mentions=5, direction="bearish",
 
 ## Top-50 Speaker Version
 
-```text
-Use Buzzberg to find the most bullish tickers among top-50 speakers today.
-Require at least 2 mentions and include daily history.
-```
+For a top-speaker view, identify the authors and collect the complete recent
+Twitter-derived idea set:
 
 ```python
-get_recent_source_text(source_type="twitter", speaker_rank_limit=50, days=1)
+get_top_speakers(limit=50)
+get_recent_idea_candidates(window="24h", source_type="twitter")
 ```
 
-Then ask the agent to count tickers and direction/sentiment from the returned
-top-speaker trade-idea tweets. `get_top_sentiment_tickers` itself ranks the
-full Buzzberg conversation, not a top-speaker subset.
+Follow every exact continuation cursor, filter to those authors, then group the
+saved ideas by ticker and direction. Use returned sentiment only where available.
+This describes extracted ideas, not original tweets. The ticker sentiment tool
+itself ranks the full Buzzberg conversation, not a top-speaker subset.
 
 ## What To Look For
 

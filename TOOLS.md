@@ -650,31 +650,6 @@ Read recent content summaries and trade-context text mentioning a ticker.
 
 **Full example:** [examples/read_ticker_content.md](examples/read_ticker_content.md)
 
-## get_recent_source_text
-
-Read recent source TLDRs + trade ideas for user-side research workflows.
-
-**Inputs:**
-- `source_type` (required, str)
-- `limit` (optional, int, default `0`)
-- `ticker` (optional, str, default `''`)
-- `post_kind` (optional, str, default `''`)
-- `speaker_rank_limit` (optional, int, default `0`)
-- `include_all_tweets` (optional, bool, default `False`)
-- `max_chars_per_item` (optional, int, default `0`)
-- `max_total_chars` (optional, int, default `220000`)
-- `include_segments` (optional, bool, default `False`)
-- `days` (optional, int, default `1`)
-
-**Example prompt:**
-> "Read top-50 speaker Twitter/X ticker-idea tweets from the last 24h, or YouTube/Substack TLDRs plus trade ideas from the last 7d. Use post_kind='research' for alpha extraction, or post_kind='stock list' for stock-list posts. Summarize themes, tickers, and disagreements."
-
-**Returns:** Markdown response from `get_recent_source_text`.
-
-**Scope:** Read-only. Public Buzzberg market-intelligence data.
-
-**Full example:** [examples/get_recent_source_text.md](examples/get_recent_source_text.md)
-
 ## save_trade_idea
 
 [BETA] Bookmark a trade idea by its ID.
