@@ -1015,27 +1015,13 @@
           "name": "sections",
           "type": "str",
           "required": false,
-          "default": "persona,methodology,track_record"
-        }
-      ],
-      "returns": "str",
-      "summary": "Get a bounded speaker framework, aggregate statistics and recent idea sample."
-    },
-    {
-      "name": "get_speaker_lens_context",
-      "scope": "read",
-      "parameters": [
-        {
-          "name": "speaker",
-          "type": "str",
-          "required": true,
-          "default": null
+          "default": "auto"
         },
         {
           "name": "question",
           "type": "str",
-          "required": true,
-          "default": null
+          "required": false,
+          "default": ""
         },
         {
           "name": "ticker",
@@ -1047,13 +1033,13 @@
           "name": "recent_days",
           "type": "int",
           "required": false,
-          "default": 45
+          "default": 90
         },
         {
           "name": "recent_limit",
           "type": "int",
           "required": false,
-          "default": 16
+          "default": 20
         },
         {
           "name": "history_days",
@@ -1063,7 +1049,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Build one bounded context pack for asking a Buzzberg AI speaker lens."
+      "summary": "Read selected author-lens sections or prepare evidence for an optional question."
     },
     {
       "name": "list_speaker_lenses",
