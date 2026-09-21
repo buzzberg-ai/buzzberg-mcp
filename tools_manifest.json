@@ -646,26 +646,6 @@
       "summary": "Find tickers where speakers disagree most (high divergence in sentiment)."
     },
     {
-      "name": "get_ticker_info",
-      "scope": "read",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "str",
-          "required": true,
-          "default": null
-        },
-        {
-          "name": "source_type",
-          "type": "str",
-          "required": false,
-          "default": ""
-        }
-      ],
-      "returns": "str",
-      "summary": "Get detailed info for a ticker: mention count, top speakers, recent ideas, stored price."
-    },
-    {
       "name": "get_speaker_profile",
       "scope": "read",
       "parameters": [
@@ -724,26 +704,6 @@
       "summary": "Compare what different speakers say about a ticker. Shows who's bullish vs bearish."
     },
     {
-      "name": "get_recent_content",
-      "scope": "read",
-      "parameters": [
-        {
-          "name": "source_type",
-          "type": "str",
-          "required": false,
-          "default": ""
-        },
-        {
-          "name": "limit",
-          "type": "int",
-          "required": false,
-          "default": 10
-        }
-      ],
-      "returns": "str",
-      "summary": "Get latest content (videos, articles, tweets) from Buzzberg."
-    },
-    {
       "name": "get_tickers_overview",
       "scope": "read",
       "parameters": [
@@ -755,19 +715,25 @@
         },
         {
           "name": "days",
-          "type": "int",
+          "type": "int | None",
           "required": false,
-          "default": 30
+          "default": null
         },
         {
           "name": "source_type",
           "type": "str",
           "required": false,
           "default": ""
+        },
+        {
+          "name": "view",
+          "type": "Literal['overview', 'details', 'mentions']",
+          "required": false,
+          "default": "overview"
         }
       ],
       "returns": "str",
-      "summary": "Batch overview for multiple tickers: stored price, mentions, sentiment, and direction counts."
+      "summary": "Read a ticker overview, detailed profile or source mention counts."
     },
     {
       "name": "search_content",
@@ -776,8 +742,8 @@
         {
           "name": "query",
           "type": "str",
-          "required": true,
-          "default": null
+          "required": false,
+          "default": ""
         },
         {
           "name": "limit",
@@ -787,9 +753,9 @@
         },
         {
           "name": "days",
-          "type": "int",
+          "type": "int | None",
           "required": false,
-          "default": 30
+          "default": null
         },
         {
           "name": "source_type",
@@ -799,7 +765,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Search public content titles by keyword."
+      "summary": "Find latest public materials or search their titles with one command."
     },
     {
       "name": "search_youtube_research",
@@ -808,8 +774,8 @@
         {
           "name": "query",
           "type": "str",
-          "required": true,
-          "default": null
+          "required": false,
+          "default": ""
         },
         {
           "name": "days",
@@ -831,33 +797,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Search derived Buzzberg YouTube research notes from the last 7 days."
-    },
-    {
-      "name": "get_ticker_youtube_research",
-      "scope": "read",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "str",
-          "required": true,
-          "default": null
-        },
-        {
-          "name": "days",
-          "type": "int",
-          "required": false,
-          "default": 7
-        },
-        {
-          "name": "limit",
-          "type": "int",
-          "required": false,
-          "default": 10
-        }
-      ],
-      "returns": "str",
-      "summary": "Get derived YouTube research notes for one ticker from the last 7 days."
+      "summary": "Search derived YouTube notes or read a focused report for one ticker."
     },
     {
       "name": "get_youtube_market_tldr",
@@ -878,26 +818,6 @@
       ],
       "returns": "str",
       "summary": "Summarize the derived YouTube research-note index for the last 1-7 days."
-    },
-    {
-      "name": "get_ticker_mentions",
-      "scope": "read",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "str",
-          "required": true,
-          "default": null
-        },
-        {
-          "name": "source_type",
-          "type": "str",
-          "required": false,
-          "default": ""
-        }
-      ],
-      "returns": "str",
-      "summary": "Count mentions of a ticker across 24h / 7d / 30d windows, broken down by source."
     },
     {
       "name": "read_ticker_content",

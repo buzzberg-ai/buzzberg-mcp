@@ -20,7 +20,7 @@ candidate pass, current disagreements, and prices for tickers that matter.
    and duplicate evidence for the selected finalists
 3. `get_sentiment_divergence(limit=5, days=7)` — tickers where speakers
    disagree most
-4. `get_recent_content(limit=5)` — important recent source items
+4. `search_content(limit=5)` — important recent source items
 5. Use stored price context from the returned ideas, and `get_ticker_timeseries` for history.
 
 ## What you'll get (illustrative)

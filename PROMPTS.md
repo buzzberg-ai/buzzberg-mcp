@@ -120,7 +120,7 @@ Expected Buzzberg tools:
 - `get_recent_idea_candidates`
 - `get_trade_idea_details` for finalist sources and audit evidence
 - `get_ticker_timeseries` for the compact price-action checks and SPY context
-- `get_ticker_info` and `search_trade_ideas` for targeted verification
+- `get_tickers_overview(tickers=[ticker], view='details')` and `search_trade_ideas` for targeted verification
 
 Why this matters:
 
@@ -162,8 +162,8 @@ that still need verification. Cite sources and note coverage gaps.
 
 Expected Buzzberg tools:
 
-- `get_ticker_info`
-- `get_ticker_mentions`
+- `get_tickers_overview(tickers=[ticker], view='details')`
+- `get_tickers_overview(tickers=[ticker], view='mentions')`
 - `search_trade_ideas`
 - `read_ticker_content`
 - `compare_speakers`
@@ -194,8 +194,8 @@ Use Buzzberg data only. If Buzzberg has no SIVE data, say that clearly.
 
 Expected tools:
 
-- `get_ticker_info`
-- `get_ticker_mentions`
+- `get_tickers_overview(tickers=[ticker], view='details')`
+- `get_tickers_overview(tickers=[ticker], view='mentions')`
 - `get_sentiment`
 - `compare_speakers`
 - `search_trade_ideas`
@@ -221,7 +221,7 @@ Use Buzzberg data only.
 Expected tools:
 
 - `search_trade_ideas`
-- `get_ticker_youtube_research` for derived YouTube context
+- `search_youtube_research(ticker=ticker)` for derived YouTube context
 - `read_ticker_content` for targeted SIVE source snippets
 - `get_ticker_timeseries`
 - `compare_speakers`
@@ -292,7 +292,7 @@ Expected tools:
 - `search_trade_ideas`
 - `get_sentiment`
 - `compare_speakers`
-- `get_ticker_mentions`
+- `get_tickers_overview(tickers=[ticker], view='mentions')`
 
 ## Who Said What
 
@@ -305,7 +305,7 @@ the source type, and the latest date. End with a one-paragraph consensus view.
 
 Expected tools:
 
-- `get_ticker_mentions`
+- `get_tickers_overview(tickers=[ticker], view='mentions')`
 - `compare_speakers`
 - `search_trade_ideas`
 
@@ -368,7 +368,7 @@ Expected tools:
 
 - `get_recent_idea_candidates`
 - `get_sentiment_divergence`
-- `get_recent_content`
+- `search_content`
 
 ## Most Buzzed Tickers
 

@@ -32,3 +32,16 @@ search_content(query="AI-RAN", days=90, source_type="twitter", limit=20)
 Wire-service news is disabled for this tool. Paid/private newsletter bodies are
 not searched or returned. Avoid sending sensitive private text as a search
 query, because tool arguments are visible to the Buzzberg server.
+
+## Latest materials without a search phrase
+
+```python
+search_content(limit=10)
+search_content(source_type="youtube", days=7, limit=20)
+```
+
+Empty/whitespace query selects recent titles. Omitted/null days has no age
+cutoff in this mode, preserving latest selection for sparse sources. Supplying
+days narrows it to 1–365 rolling publication days. Title search defaults to 30
+days when days is omitted/null. Both modes cap results at 30, default 10, and
+return only bounded titles, source, date and links. No bodies, cursor or as_of.

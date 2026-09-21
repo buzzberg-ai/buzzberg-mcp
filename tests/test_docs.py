@@ -120,7 +120,7 @@ def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
 def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     tools = {t["name"]: t for t in manifest["tools"]}
-    assert len(tools) == 31
+    assert len(tools) == 27
     assert "get_recent_source_text" not in tools
     expected = {
         "get_my_feeds": ["feed_type", "limit", "after_id", "feed_id", "name", "include_members"],
@@ -203,7 +203,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     normalized_prompts = " ".join(prompts.split())
     normalized_example = " ".join(example.split())
 
-    assert "Buzzberg exposes 31 tools" in readme
+    assert "Buzzberg exposes 27 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts
@@ -349,7 +349,7 @@ def test_price_service_is_retired_and_context_is_database_only():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     assert "get_price" not in {tool["name"] for tool in manifest["tools"]}
     assert not (ROOT / "examples/get_price.md").exists()
-    for name in ("README.md", "TOOLS.md", "examples/get_ticker_info.md",
+    for name in ("README.md", "TOOLS.md",
                  "examples/get_tickers_overview.md", "examples/get_speaker_lens.md"):
         text = (ROOT / name).read_text()
         assert "persisted database" in text or "market-data provider" in text
@@ -401,3 +401,28 @@ def test_ticker_rankings_modes_replace_both_former_commands():
     for expected in ('mode="bullish"', 'mode="bearish"', "first 10", "1-365", "1-50",
                      "1 for `mentions` and 3", "not LONG/SHORT", "original source bodies"):
         assert expected in example
+
+
+def test_remaining_reader_groups_keep_all_modes_and_bounds():
+    tools = {t["name"]: t for t in json.loads((ROOT / "tools_manifest.json").read_text())["tools"]}
+    retired = {
+        "get_recent_content", "get_ticker_info",
+        "get_ticker_mentions", "get_ticker_youtube_research",
+    }
+    assert not retired.intersection(tools)
+    for name in retired:
+        assert not (ROOT / "examples" / (name + ".md")).exists()
+    for name in ("search_content", "search_youtube_research"):
+        params = {p["name"]: p for p in tools[name]["parameters"]}
+        assert not params["query"]["required"] and params["query"]["default"] == ""
+    overview = {p["name"]: p for p in tools["get_tickers_overview"]["parameters"]}
+    assert overview["view"]["default"] == "overview"
+    assert overview["days"]["default"] is None
+    text = (ROOT / "examples/get_tickers_overview.md").read_text()
+    assert 'view="details"' in text and 'view="mentions"' in text
+    assert "exactly one input" in text and "reject days" in text
+    text = (ROOT / "examples/search_content.md").read_text()
+    assert "no age" in text and "30" in text and "365" in text
+    text = (ROOT / "examples/search_youtube_research.md").read_text()
+    assert 'search_youtube_research(ticker="MU"' in text
+    assert "seven-day and twenty-note caps" in text
