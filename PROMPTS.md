@@ -175,32 +175,18 @@ coverage or replace primary filings. YouTube and newsletter context is returned
 as Buzzberg TLDRs and extracted ideas rather than raw transcript or article
 dumps.
 
-## Narrative Ticker Deep Dive
+## Ticker Deep Dive
 
 ```text
-Use Buzzberg to do a narrative deep dive on SIVE.
-
-I want:
-1. The short verdict.
-2. What Buzzberg uniquely sees from X, YouTube, newsletters, and Reddit.
-3. The main bull narrative and the strongest catalysts.
-4. Who is pushing the idea, and whether the signal is concentrated.
-5. What is missing or under-discussed on the bear side.
-6. Whether this looks early, crowded, or late.
-7. What I should watch next.
-
-Use Buzzberg data only. If Buzzberg has no SIVE data, say that clearly.
+Use Buzzberg to deep dive SIVE in English.
+Call get_ticker_deep_dive(ticker="SIVE") once and follow analysis_instruction.
+Include the simple business overview, 24h metrics, price/sentiment/mentions
+charts, linked bull/bear arguments, business numbers and key voices.
 ```
 
-Expected tools:
-
-- `get_tickers_overview(tickers=[ticker], view='details')`
-- `get_tickers_overview(tickers=[ticker], view='mentions')`
-- `get_sentiment`
-- `compare_speakers`
-- `search_trade_ideas`
-- `read_ticker_content`
-- `get_ticker_timeseries`
+The same request works for MU, NBIS and other tracked tickers. The registered
+`ticker_deep_dive` prompt uses this one-call workflow. YTD is omitted when
+unavailable; missing sentiment is not replaced by zero.
 
 ## Narrative Map
 

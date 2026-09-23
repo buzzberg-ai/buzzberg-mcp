@@ -542,6 +542,24 @@ Summarize the derived YouTube research-note index for the last 1-7 days.
 
 **Full example:** [examples/get_youtube_market_tldr.md](examples/get_youtube_market_tldr.md)
 
+## get_ticker_deep_dive
+
+One-call ticker research with 24h metrics, charts, fundamentals and linked bull/bear evidence.
+
+**Inputs:**
+- `ticker` (required, str)
+- `mode` (optional, str, default `'report'`)
+
+**Example prompt:**
+> "Deep dive MU using get_ticker_deep_dive(ticker='MU'). Follow analysis_instruction: simple business description, 24h sentiment/authors/mentions vs 30d average, price/sentiment/mentions charts, sourced bull/bear arguments, business numbers and key voices. One call; YTD only when supplied; no filled-in missing scores."
+
+**Returns:** identical compact JSON text and structuredContent: saved evidence, 24h metrics, 30 daily price/sentiment/mentions rows, optional YTD, sourced business numbers, 180d leaders and first recorded LONG metadata; English analysis_instruction in report mode. At most 20 materials/50 ideas, six derived notes, 90,000 characters; no raw bodies. 100 combined requests/account/rolling 30d shared with read_ticker_content; no historical as-of or pagination; no server LLM/provider calls.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_ticker_deep_dive.md](examples/get_ticker_deep_dive.md)
+
+
 ## read_ticker_content
 
 Read recent content summaries and trade-context text mentioning a ticker.

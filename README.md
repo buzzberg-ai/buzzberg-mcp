@@ -388,7 +388,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 27 tools
+            print([t.name for t in tools.tools])  # 28 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -473,7 +473,7 @@ account allowance; refresh cached tool schemas. See [examples](examples/get_spea
 rankings through its `mode` filter. Refresh cached schemas; the two former
 ranking names are removed. See [ranking examples](examples/get_ticker_rankings.md).
 
-Buzzberg exposes 27 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
+Buzzberg exposes 28 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
 `search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_ticker_rankings`, `get_tickers_overview`,
 `get_speaker_trade_ideas`, `get_speaker_ticker_history`,
