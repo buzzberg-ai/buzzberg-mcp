@@ -1,89 +1,24 @@
-# Narrative Ticker Deep Dive
+# Ticker Deep Dive
 
-Use this when you do not want another generic ticker summary. Buzzberg is most
-useful when Claude reads the social/source graph: who is pushing the idea, what
-changed recently, whether the narrative is early or already crowded, and what
-risk the bull camp is not discussing.
+> Use Buzzberg to deep dive SIVE in English.
 
-## Pair it with web search
+Call `get_ticker_deep_dive(ticker="SIVE")` once and follow its
+`analysis_instruction`. Substitute MU, NBIS or another tracked ticker. Clients
+with prompt support can use `ticker_deep_dive(symbol="SIVE")`.
 
-Even a strong web research pass can miss smaller but important facts scattered
-across specialist posts, videos, newsletters, and market discussions. Buzzberg
-adds source-linked research from multiple market voices covering the same
-ticker: their facts, theses, risks, disagreements, and second-order effects.
+The report explains the business simply, shows current 24h attention/sentiment
+and saved price returns, draws three aligned charts, and synthesizes the main
+bull/bear disagreement with linked authors and concrete business numbers.
+It ends with measurable checks and key voices: Loudest Bull, Loudest Bear and
+First recorded LONG on Buzzberg. The last label describes Buzzberg's stored
+history, not first discovery in the world.
 
-Ask Claude to reconcile both rather than treating either one as complete:
+The server assembles saved data; your client writes the report. Missing YTD
+is omitted and missing sentiment scores remain null even when the chart line
+connects available observations. No baseline-calculation or price-staleness
+boilerplate is printed in the normal report.
 
-> Research SIVE using both web search and Buzzberg. Use web search for company
-> fundamentals, filings, and current news. Use Buzzberg for source-linked
-> mentions, speaker theses, trade ideas, sentiment, disagreements, and
-> narrative changes across available sources. Combine both into one report.
-> Highlight non-consensus arguments, overlooked risks, second-order effects,
-> repeated claims, and facts that still need verification. Cite sources and
-> note coverage gaps.
+Follow-up research is optional and should be requested explicitly. This recipe
+needs no automatic chain of other tools or web searches.
 
-Buzzberg does not guarantee exhaustive mention coverage or replace primary
-filings. YouTube and newsletter context is returned as Buzzberg TLDRs and
-extracted ideas rather than raw transcript or article dumps.
-
-## The ask
-
-> Use Buzzberg to deep dive SIVE.
->
-> Who is talking about it, what is the core bull thesis, what are the strongest
-> bear risks or missing arguments, and is this early discovery, building
-> momentum, or crowded? Use Buzzberg data only.
-
-## Tools Claude will chain
-
-1. `get_tickers_overview(tickers=["SIVE"], view="details")` — overview, top speakers, recent ideas
-2. `get_tickers_overview(tickers=["SIVE"], view="mentions")` — 24h / 7d / 30d attention by source
-3. `get_sentiment(ticker="SIVE", days=30)` — directional bias and speaker mix
-4. `compare_speakers(ticker="SIVE", days=30)` — whether there is a real bear camp
-5. `search_trade_ideas(ticker="SIVE", days=30, limit=20)` — recent theses and quotes
-6. `read_ticker_content(ticker="SIVE", days=30, limit=20)` — source snippets/TLDRs
-7. `get_ticker_timeseries(ticker="SIVE", days=90)` — price/sentiment/mentions context
-
-## What you'll get
-
-Claude should write like an analyst, not like a dashboard:
-
-> **Short verdict:** Buzzberg shows whether the SIVE story is still early,
-> building, or crowded by combining who mentioned it, how often mentions spiked,
-> what direction those ideas had, and whether there is any real bear camp.
->
-> **What bulls are buying:** The agent should summarize the repeated thesis,
-> catalysts, and evidence from Buzzberg trade ideas and source TLDRs. It should
-> separate fresh information from repeated claims.
->
-> **Who is pushing it:** The agent should name the speakers driving the story,
-> whether the signal is concentrated, and whether top-ranked speakers are
-> entering, repeating, or fading the idea.
->
-> **What is missing:** A one-sided positive graph is not automatically safe.
-> The agent should call out missing bear arguments, weak evidence, stale claims,
-> and whether price already moved before attention spiked.
->
-> **Trading read:** The output should be a research read: catalysts, risks,
-> crowding, what to monitor next, and which source snippets deserve follow-up.
-
-## Drill down
-
-- *"Show me only the bear case for SIVE, even if it is weak."* →
-  `search_trade_ideas(ticker="SIVE", direction="short", days=90)` plus
-  `compare_speakers(ticker="SIVE", days=90)`
-- *"Which speaker is driving the SIVE narrative most?"* →
-  `compare_speakers(ticker="SIVE", days=30)` and `get_speaker_profile(...)`
-- *"Is this move crowded?"* → `get_ticker_timeseries(ticker="SIVE", days=90)`
-  and look for mention spikes after price spikes
-- *"Which days caused the biggest attention spikes?"* →
-  `get_ticker_timeseries(ticker="SIVE", days=90)` plus targeted
-  `read_ticker_content(ticker="SIVE", days=30, limit=30, verbose=True)`
-
-## Tips
-
-- Ask for *"what Buzzberg uniquely sees"* to force Claude away from generic
-  company background.
-- Ask for *"what is missing"*; a one-sided bull graph is often a risk signal.
-- Use `read_ticker_content` for source snippets and `search_trade_ideas` when
-  you need speaker / direction / confidence filters.
+[Tool contract and limits](../examples/get_ticker_deep_dive.md)

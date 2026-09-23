@@ -736,6 +736,26 @@
       "summary": "Read a ticker overview, detailed profile or source mention counts."
     },
     {
+      "name": "get_ticker_deep_dive",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "mode",
+          "type": "str",
+          "required": false,
+          "default": "report"
+        }
+      ],
+      "returns": "dict",
+      "summary": "One-call ticker research with 24h metrics, charts, fundamentals and linked bull/bear evidence."
+    },
+    {
       "name": "search_content",
       "scope": "read",
       "parameters": [

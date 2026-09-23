@@ -120,7 +120,7 @@ def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
 def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     tools = {t["name"]: t for t in manifest["tools"]}
-    assert len(tools) == 27
+    assert len(tools) == 28
     assert "get_recent_source_text" not in tools
     expected = {
         "get_my_feeds": ["feed_type", "limit", "after_id", "feed_id", "name", "include_members"],
@@ -203,7 +203,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     normalized_prompts = " ".join(prompts.split())
     normalized_example = " ".join(example.split())
 
-    assert "Buzzberg exposes 27 tools" in readme
+    assert "Buzzberg exposes 28 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts
@@ -426,3 +426,17 @@ def test_remaining_reader_groups_keep_all_modes_and_bounds():
     text = (ROOT / "examples/search_youtube_research.md").read_text()
     assert 'search_youtube_research(ticker="MU"' in text
     assert "seven-day and twenty-note caps" in text
+
+
+def test_ticker_deep_dive_is_one_call_with_bounded_report_contract():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    tool = next(t for t in manifest["tools"] if t["name"] == "get_ticker_deep_dive")
+    assert [p["name"] for p in tool["parameters"]] == ["ticker", "mode"]
+    assert tool["parameters"][1]["default"] == "report"
+    example = (ROOT / "examples/get_ticker_deep_dive.md").read_text()
+    assert "read_ticker_content" in example and "100 combined" in example
+    assert "90,000" in example and "YTD" in example
+    session = (ROOT / "sessions/ticker-deep-dive.md").read_text()
+    assert "get_ticker_deep_dive" in session
+    assert "get_tickers_overview(" not in session
+    assert "get_sentiment(" not in session
