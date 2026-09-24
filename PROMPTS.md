@@ -186,7 +186,9 @@ charts, linked bull/bear arguments, business numbers and key voices.
 
 The same request works for MU, NBIS and other tracked tickers. The registered
 `ticker_deep_dive` prompt uses this one-call workflow. YTD is omitted when
-unavailable; missing sentiment is not replaced by zero.
+unavailable; missing sentiment is not replaced by zero. MCP Apps hosts display the
+built-in header and charts; write the business analysis underneath, without a
+second chart artifact. Other hosts start with `presentation.header_markdown`.
 
 ## Narrative Map
 
