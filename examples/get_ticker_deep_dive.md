@@ -28,8 +28,22 @@ Refresh the connector's tool discovery after the update; clients may cache the
 new `_meta.ui.resourceUri` declaration. Host support for MCP Apps is required
 for the fixed dashboard; the portable text report remains available otherwise.
 
-Selected arguments cover seven days with context up to thirty days; at most
-20 materials / 50 ideas, six derived YouTube notes and 90,000 response characters.
+Current arguments cover seven days. Context starts at 30 publication days and
+extends to 90 when fewer than 30 qualifying publications are available; if at
+most 30 qualify across the ticker's entire stored history, older history is
+eligible too. Publications count once even when several speakers or ideas come
+from the same video or post. Only public, visible, supported sources with named
+authors and saved LONG/SHORT/AVOID/WATCH theses or key points qualify.
+
+At most **30 materials / 50 ideas**, six derived YouTube notes and **90,000**
+response characters are returned; full-history eligibility still respects idea,
+author and text limits. The saved-thesis/points/quote budget is 60,000 characters.
+Schema 1.2.0 supplies `query.context_days` (30, 90, or null for all history) and
+`context_scope`; report format 2.2.0 keeps older arguments dated and marked as
+context. Old numbers retain their periods, old forecasts stay attributed to
+their original dates, and past catalysts are not presented as upcoming.
+24h metrics and 30d charts keep their original periods. These selection details
+belong in documentation or answers about selection, not an ordinary report footer.
 Latest saved company actuals/guidance within 180 days are dated separately from
 author estimates. Leaders use 180-day LONG/SHORT counts, including ties; first
 recorded LONG is bounded metadata from public stored history, not global discovery.
@@ -37,5 +51,6 @@ No raw transcripts or newsletter article bodies are returned.
 
 **100 combined requests/account/rolling 30 days**, shared with
 `read_ticker_content`. Repeats, empty results and later failures count. Quota
-outages refuse reads. Public visibility is checked again before delivery.
+outages refuse reads. Public visibility, dates and the sparse-history lifetime
+threshold are checked again before delivery.
 Errors return `isError=true`, no evidence, and a retry delay for quota exhaustion.

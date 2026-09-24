@@ -1,5 +1,14 @@
 # Changelog
 
+## Ticker Deep Dive adaptive history - 2026-09-25
+
+- Up to 30 publications instead of 20, with up to 50 ideas and the existing
+  90,000-character response bound.
+- Context starts at 30 days, extends to 90 when sparse, and allows all stored
+  history only when at most 30 qualifying publications exist for the ticker.
+- Older evidence stays dated context. Weekly changes, 24h metrics and 30d charts
+  keep their original periods; the report remains one MCP call.
+
 ## Ticker Deep Dive native dashboard - 2026-09-24
 
 - MCP Apps hosts render the price, available 7d/30d/YTD returns, 24h metric
