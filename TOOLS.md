@@ -555,6 +555,11 @@ One-call ticker research with 24h metrics, charts, fundamentals and linked bull/
 
 **Returns:** identical compact JSON text and structuredContent: saved evidence, 24h metrics, 30 daily price/sentiment/mentions rows, optional YTD, sourced business numbers, 180d leaders and first recorded LONG metadata; English analysis_instruction in report mode. At most 20 materials/50 ideas, six derived notes, 90,000 characters; no raw bodies. 100 combined requests/account/rolling 30d shared with read_ticker_content; no historical as-of or pagination; no server LLM/provider calls.
 
+**Display:** MCP Apps hosts render the built-in price/returns/24h metrics and
+three-chart dashboard from this same result. The host writes the English research
+underneath. Other hosts use `presentation.header_markdown` and the chart fallback.
+Refresh connector discovery to load the new UI metadata. `mode='data'` stays raw.
+
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/get_ticker_deep_dive.md](examples/get_ticker_deep_dive.md)

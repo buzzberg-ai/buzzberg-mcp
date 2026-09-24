@@ -1,5 +1,13 @@
 # Changelog
 
+## Ticker Deep Dive native dashboard - 2026-09-24
+
+- MCP Apps hosts render the price, available 7d/30d/YTD returns, 24h metric
+  cards and three charts from the original tool result; the host continues with
+  the English research below. No extra research call or external UI dependency.
+- Text-only hosts retain the ready Markdown header and chart instructions.
+- Refresh connector discovery to load the new UI resource metadata.
+
 ## Source Text disabled - 2026-09-20
 
 - Removed `get_recent_source_text` from MCP for every source type. Cached
