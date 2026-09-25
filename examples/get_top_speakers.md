@@ -24,3 +24,7 @@ get_top_speakers(return_horizon="90d", calls_published="180d", limit=50)
 weighted 30/90/180 score). `calls_published` supports `all`, `ytd`, `30d`,
 `90d` and `180d`. Compatible MCP Apps hosts show interactive controls that
 requery the tool; text-only clients repeat the call with the new parameters.
+
+After showing a non-empty ranking, ask which author's profile the user wants
+to explore. For a Russian-language request: «Профиль какого спикера вы хотите
+изучить?» If the user chooses an author, call `get_speaker_profile`.
