@@ -462,10 +462,46 @@
           "type": "int",
           "required": false,
           "default": 25
+        },
+        {
+          "name": "return_horizon",
+          "type": "str",
+          "required": false,
+          "default": "30d"
+        },
+        {
+          "name": "calls_published",
+          "type": "str",
+          "required": false,
+          "default": "all"
+        },
+        {
+          "name": "categories",
+          "type": "Optional[list[str]]",
+          "required": false,
+          "default": null
+        },
+        {
+          "name": "platform",
+          "type": "str",
+          "required": false,
+          "default": "all"
+        },
+        {
+          "name": "sort",
+          "type": "str",
+          "required": false,
+          "default": "alpha"
+        },
+        {
+          "name": "min_calls",
+          "type": "int",
+          "required": false,
+          "default": 10
         }
       ],
-      "returns": "str",
-      "summary": "List Buzzberg's top speakers by lifetime Alpha-rank."
+      "returns": "CallToolResult",
+      "summary": "Website Authors leaderboard with a working MCP Apps table and text fallback."
     },
     {
       "name": "get_top_speaker_signals",
