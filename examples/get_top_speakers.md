@@ -1,11 +1,30 @@
 # get_top_speakers
 
-Ask: "Who are the top Buzzberg speakers right now?"
+Ask: "Show the Buzzberg author leaderboard for 30-day returns."
 
-Buzzberg returns the live lifetime Alpha ranking and explains the metric before
-the table. `Adj. return` is a Bayesian-shrunk current mark-to-market mean for a
-deduplicated set of first eligible entry-priced LONG/SHORT theses. It is not
-benchmark- or beta-adjusted excess return.
+The default request is `get_top_speakers()`: 30-day return horizon, all call
+publication dates, all categories and platforms, Alpha order, 25 rows. The
+response gives a Markdown table plus structured rows with rank, author, Alpha,
+average return, excess versus S&P 500, win rate, call count and snapshot date.
+The maximum is 50 rows.
 
-`Evaluated Ideas` is the number of currently priceable positions in that Alpha
-set. Do not compare it directly with a speaker lens's per-horizon sample sizes.
+To change the return horizon without changing which publication dates qualify:
+
+```text
+get_top_speakers(return_horizon="90d", calls_published="all", limit=50)
+```
+
+To consider only calls published in the last 180 days:
+
+```text
+get_top_speakers(return_horizon="90d", calls_published="180d", limit=50)
+```
+
+`return_horizon` also supports `7d`, `180d`, `360d` and `avg` (the website's
+weighted 30/90/180 score). `calls_published` supports `all`, `ytd`, `30d`,
+`90d` and `180d`. Compatible MCP Apps hosts show interactive controls that
+requery the tool; text-only clients repeat the call with the new parameters.
+
+After showing a non-empty ranking, ask which author's profile the user wants
+to explore. For a Russian-language request: «Профиль какого спикера вы хотите
+изучить?» If the user chooses an author, call `get_speaker_profile`.

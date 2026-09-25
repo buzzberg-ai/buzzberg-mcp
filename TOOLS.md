@@ -270,20 +270,30 @@ Return full audit details for selected recent-idea finalists.
 
 ## get_top_speakers
 
-List Buzzberg's top speakers by lifetime Alpha-rank.
-
-`Adj. return` is the Bayesian-shrunk current mark-to-market mean for the
-deduplicated Alpha evaluation set. It is not benchmark- or beta-adjusted.
-`Evaluated Ideas` is the size of that set, not the number of all historical
-mentions or all ideas with a 30-day return.
+The same Authors leaderboard calculation as the Buzzberg website. The default
+return horizon is 30 days, using published numbered calls paired with S&P 500.
+`return_horizon` measures how long each call's return is evaluated; the separate
+`calls_published` filter selects when calls were published. The minimum is ten
+evaluated calls per author. Category choices combine with OR and do not
+recalculate Alpha inside the selected subset.
 
 **Inputs:**
-- `limit` (optional, int, default `25`)
+- `limit` (optional, int, default `25`): 1–50 rows; larger values are capped at 50
+- `return_horizon` (optional, str, default `'30d'`): `7d`, `30d`, `90d`, `180d`, `360d`, or `avg` (weighted 30/90/180)
+- `calls_published` (optional, str, default `'all'`): `all`, `ytd`, `30d`, `90d`, or `180d`
+- `categories` (optional, list[str]): reviewed website category keys; empty selects all
+- `platform` (optional, str, default `'all'`): `all`, `youtube`, `reddit`, `twitter`, or `newsletter`
+- `sort` (optional, str, default `'alpha'`): `alpha`, `ret`, `excess`, `calls`, or `win`
+- `min_calls` (optional, int, default `10`): at least ten evaluated calls
 
 **Example prompt:**
-> "Use `get_top_speakers` for a Buzzberg analysis."
+> "Show Buzzberg's author leaderboard for 90-day returns on calls published in the last 180 days."
 
-**Returns:** Markdown response from `get_top_speakers`.
+**Returns:** MCP `CallToolResult` with a Markdown table for text-only clients and
+structured rows for MCP Apps. Columns are rank, author, Alpha, average return,
+excess versus S&P 500, win rate and calls; the response includes the snapshot
+update date and total author count. Compatible hosts display a table with live
+filter controls; each change requests a fresh rating.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
@@ -444,9 +454,9 @@ and archived narratives remain available within this separate allowance.
 
 Compare what different speakers say about a ticker. Shows who's bullish vs bearish.
 
-The Alpha columns use the same live definition as `get_top_speakers`:
-Bayesian-shrunk current direction-adjusted mark-to-market return on the
-deduplicated evaluation set, not benchmark-adjusted excess return.
+The Alpha columns in this comparison use the legacy mark-to-market evaluation
+set; they are not the numbered-call, S&P 500-paired Authors leaderboard score
+returned by `get_top_speakers`.
 
 **Inputs:**
 - `ticker` (required, str)
