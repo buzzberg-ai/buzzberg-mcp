@@ -388,7 +388,7 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            print([t.name for t in tools.tools])  # 28 tools
+            print([t.name for t in tools.tools])  # 31 tools
 
             result = await session.call_tool(
                 "get_sentiment",
@@ -473,7 +473,7 @@ account allowance; refresh cached tool schemas. See [examples](examples/get_spea
 rankings through its `mode` filter. Refresh cached schemas; the two former
 ranking names are removed. See [ranking examples](examples/get_ticker_rankings.md).
 
-Buzzberg exposes 28 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
+Buzzberg exposes 31 tools — read (`get_recent_idea_candidates`, `get_trade_idea_details`,
 `search_trade_ideas`, `get_top_speakers`,
 `get_sentiment`, `get_ticker_timeseries`, `get_ticker_rankings`, `get_tickers_overview`,
 `get_speaker_trade_ideas`, `get_speaker_ticker_history`,
@@ -516,3 +516,13 @@ confirms working syntax.)
 - [sessions/](sessions) — ready-made research workflows
 - [examples/](examples) — per-tool example prompts
 - [CHANGELOG.md](CHANGELOG.md) — breaking changes during private beta
+
+### 13F investor research
+
+Use `get_13f_funds` for tracked managers and modeled copy returns versus SPY;
+`get_13f_holdings` for latest disclosed positions, past quarters and ticker history;
+`get_13f_stock_ownership` for a stock across full tracked books. The existing
+`get_ticker_deep_dive` includes latest 13F ownership automatically.
+Returns are modeled copy portfolios, not actual fund performance; holdings
+are dated disclosures, not live positions. Reconnect after the server release
+if your client caches the tool catalog.

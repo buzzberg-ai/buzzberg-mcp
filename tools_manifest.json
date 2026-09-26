@@ -789,7 +789,7 @@
         }
       ],
       "returns": "dict",
-      "summary": "One-call ticker research with 24h metrics, charts, fundamentals and linked bull/bear evidence."
+      "summary": "One-call ticker research with 24h metrics, charts, fundamentals, 13F ownership and linked bull/bear evidence."
     },
     {
       "name": "search_content",
@@ -1028,6 +1028,114 @@
       ],
       "returns": "str",
       "summary": "Find where a feature lives in the Buzzberg interface. Read-only, no data is changed."
+    },
+    {
+      "name": "get_13f_funds",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "period",
+          "type": "str",
+          "required": false,
+          "default": "ytd"
+        },
+        {
+          "name": "include_consensus",
+          "type": "bool",
+          "required": false,
+          "default": false
+        }
+      ],
+      "returns": "dict",
+      "summary": "Show tracked 13F funds, modeled copy returns, SPY comparison and latest report dates."
+    },
+    {
+      "name": "get_13f_holdings",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "fund",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "report_date",
+          "type": "str",
+          "required": false,
+          "default": "latest"
+        },
+        {
+          "name": "view",
+          "type": "str",
+          "required": false,
+          "default": "holdings"
+        },
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 20
+        },
+        {
+          "name": "offset",
+          "type": "int",
+          "required": false,
+          "default": 0
+        },
+        {
+          "name": "snapshot_version",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "dict",
+      "summary": "Show a tracked fund's latest disclosed holdings, a past quarter, or its holdings history."
+    },
+    {
+      "name": "get_13f_stock_ownership",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "str",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "quarters",
+          "type": "int",
+          "required": false,
+          "default": 1
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": false,
+          "default": 50
+        },
+        {
+          "name": "offset",
+          "type": "int",
+          "required": false,
+          "default": 0
+        },
+        {
+          "name": "snapshot_version",
+          "type": "str",
+          "required": false,
+          "default": ""
+        }
+      ],
+      "returns": "dict",
+      "summary": "Show which tracked 13F managers disclosed a stock, their weights, changes and history."
     }
   ]
 }
