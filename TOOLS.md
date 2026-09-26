@@ -563,7 +563,12 @@ One-call ticker research with 24h metrics, charts, fundamentals, 13F ownership a
 **Example prompt:**
 > "Deep dive MU using get_ticker_deep_dive(ticker='MU'). Follow analysis_instruction: simple business description, 24h sentiment/authors/mentions vs 30d average, price/sentiment/mentions charts, sourced bull/bear arguments, business numbers, dated 13F ownership and key voices. One call; YTD only when supplied; no filled-in missing scores."
 
-**Returns:** identical compact JSON text and structuredContent: saved evidence, 24h metrics, 30 daily price/sentiment/mentions rows, optional YTD, sourced business numbers, 180d leaders, first recorded LONG metadata and dated 13F ownership from full tracked books; schema 1.3.0 / report format 2.3.0, English analysis_instruction in report mode. At most 30 materials/50 ideas, six derived notes, 90,000 characters; no raw bodies. Context: 30 publication days, 90 when sparse, all history only if at most 30 materials qualify lifetime. 100 combined requests/account/rolling 30d shared with read_ticker_content; no historical as-of or pagination; no server LLM/provider calls.
+**Returns:** identical compact JSON text and structuredContent: saved evidence, 24h metrics, 30 daily price/sentiment/mentions rows, optional YTD, sourced business numbers, 180d leaders and first recorded LONG metadata; English analysis_instruction in report mode. The same response includes compact own earnings context (180d), up to five other-company earnings calls mentioning the ticker (90d), and up to five latest disclosed tracked 13F holders. At most 30 materials/50 ideas, six derived notes, 90,000 characters; no raw bodies. Context: 30 publication days, 90 when sparse, all history only if at most 30 materials qualify lifetime. 100 combined requests/account/rolling 30d shared with read_ticker_content; no historical as-of or pagination; no server LLM/provider calls.
+
+**Display:** MCP Apps hosts render the built-in price/returns/24h metrics and
+three-chart dashboard from this same result. The host writes the English research
+underneath. Other hosts use `presentation.header_markdown` and the chart fallback.
+Refresh connector discovery to load the new UI metadata. `mode='data'` stays raw.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 

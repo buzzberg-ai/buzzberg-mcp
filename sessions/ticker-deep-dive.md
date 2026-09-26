@@ -9,7 +9,12 @@ with prompt support can use `ticker_deep_dive(symbol="SIVE")`.
 The report explains the business simply, shows current 24h attention/sentiment
 and saved price returns, draws three aligned charts, and synthesizes the main
 bull/bear disagreement with linked authors and concrete business numbers.
-It ends with measurable checks and key voices: Loudest Bull, Loudest Bear and
+The same response supplies own-company earnings context, relevant mentions from
+other companies' calls, and latest disclosed positions of tracked 13F funds.
+Use compact dated read-throughs and a holders table when available; no additional
+earnings or portfolio tool call is needed. A fund's weight change is not a share
+trade, and another company's earnings figures remain attached to that issuer.
+It also includes measurable checks and key voices: Loudest Bull, Loudest Bear and
 First recorded LONG on Buzzberg. The last label describes Buzzberg's stored
 history, not first discovery in the world.
 

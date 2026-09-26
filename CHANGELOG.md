@@ -1,5 +1,14 @@
 # Changelog
 
+## Ticker Deep Dive earnings and 13F - 2026-09-26
+
+- The same call now includes compact own earnings context, up to five other-company
+  calls mentioning the ticker, and up to five latest disclosed tracked 13F holders.
+- Dates, issuer identity, weights and source links are preserved; no transcripts,
+  full fund books, live-position claims or automatic extra tool calls.
+- Schema 1.3.0/report 2.3.0; the total 90,000-character cap and one shared quota
+  admission remain unchanged.
+
 ## Ticker Deep Dive adaptive history - 2026-09-25
 
 - Up to 30 publications instead of 20, with up to 50 ideas and the existing
