@@ -443,15 +443,18 @@ def test_ticker_deep_dive_is_one_call_with_bounded_report_contract():
 
 
 def test_thirteenf_tools_publish_dated_read_only_contracts():
-    tools = {t['name']: t for t in json.loads((ROOT / 'tools_manifest.json').read_text())['tools']}
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    tools = {tool["name"]: tool for tool in manifest["tools"]}
     expected = {
-        'get_13f_funds': ['period', 'include_consensus'],
-        'get_13f_holdings': ['fund', 'report_date', 'view', 'ticker', 'limit', 'offset', 'snapshot_version'],
-        'get_13f_stock_ownership': ['ticker', 'quarters', 'limit', 'offset', 'snapshot_version'],
+        "get_13f_funds": ["period", "include_consensus"],
+        "get_13f_holdings": [
+            "fund", "report_date", "view", "ticker", "limit", "offset", "snapshot_version",
+        ],
+        "get_13f_stock_ownership": ["ticker", "quarters", "limit", "offset", "snapshot_version"],
     }
     for name, parameters in expected.items():
-        assert tools[name]['scope'] == 'read'
-        assert [p['name'] for p in tools[name]['parameters']] == parameters
-        example = (ROOT / 'examples' / (name + '.md')).read_text()
-        assert 'disclosed' in example and 'not' in example
-    assert '13F' in (ROOT / 'examples/get_ticker_deep_dive.md').read_text()
+        assert tools[name]["scope"] == "read"
+        assert [param["name"] for param in tools[name]["parameters"]] == parameters
+        example = (ROOT / "examples" / (name + ".md")).read_text()
+        assert "disclosed" in example and "not" in example
+    assert "13F" in (ROOT / "examples/get_ticker_deep_dive.md").read_text()

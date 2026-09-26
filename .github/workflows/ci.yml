@@ -35,7 +35,7 @@ jobs:
           root = pathlib.Path(".")
           manifest = json.loads((root / "tools_manifest.json").read_text())
           expected = {tool["name"] for tool in manifest["tools"]}
-          headings = set(re.findall(r"^## ([a-z_]+)$", (root / "TOOLS.md").read_text(), re.M))
+          headings = set(re.findall(r"^## ([a-z0-9_]+)$", (root / "TOOLS.md").read_text(), re.M))
           if headings != expected:
               print("TOOLS.md mismatch")
               print("missing:", sorted(expected - headings))
