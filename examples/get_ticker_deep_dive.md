@@ -54,3 +54,8 @@ No raw transcripts or newsletter article bodies are returned.
 outages refuse reads. Public visibility, dates and the sparse-history lifetime
 threshold are checked again before delivery.
 Errors return `isError=true`, no evidence, and a retry delay for quota exhaustion.
+
+The same response includes `institutional_ownership`: latest disclosed 13F
+positions across tracked managers, dates, weights, exits and SEC links. Render
+an Institutional positioning section; changes in weight do not prove buying or
+selling shares. Partial coverage is explicit; crypto is not applicable.

@@ -554,26 +554,26 @@ Summarize the derived YouTube research-note index for the last 1-7 days.
 
 ## get_ticker_deep_dive
 
-One-call ticker research with 24h metrics, charts, fundamentals and linked bull/bear evidence.
+One-call ticker research with 24h metrics, charts, fundamentals, 13F ownership and linked bull/bear evidence.
 
 **Inputs:**
 - `ticker` (required, str)
 - `mode` (optional, str, default `'report'`)
 
 **Example prompt:**
-> "Deep dive MU using get_ticker_deep_dive(ticker='MU'). Follow analysis_instruction: simple business description, 24h sentiment/authors/mentions vs 30d average, price/sentiment/mentions charts, sourced bull/bear arguments, business numbers and key voices. One call; YTD only when supplied; no filled-in missing scores."
+> "Deep dive MU using get_ticker_deep_dive(ticker='MU'). Follow analysis_instruction: simple business description, 24h sentiment/authors/mentions vs 30d average, price/sentiment/mentions charts, sourced bull/bear arguments, business numbers, dated 13F ownership and key voices. One call; YTD only when supplied; no filled-in missing scores."
 
-**Returns:** identical compact JSON text and structuredContent: saved evidence, 24h metrics, 30 daily price/sentiment/mentions rows, optional YTD, sourced business numbers, 180d leaders and first recorded LONG metadata; English analysis_instruction in report mode. At most 30 materials/50 ideas, six derived notes, 90,000 characters; no raw bodies. Context: 30 publication days, 90 when sparse, all history only if at most 30 materials qualify lifetime. 100 combined requests/account/rolling 30d shared with read_ticker_content; no historical as-of or pagination; no server LLM/provider calls.
-
-**Display:** MCP Apps hosts render the built-in price/returns/24h metrics and
-three-chart dashboard from this same result. The host writes the English research
-underneath. Other hosts use `presentation.header_markdown` and the chart fallback.
-Refresh connector discovery to load the new UI metadata. `mode='data'` stays raw.
+**Returns:** identical compact JSON text and structuredContent: saved evidence, 24h metrics, 30 daily price/sentiment/mentions rows, optional YTD, sourced business numbers, 180d leaders, first recorded LONG metadata and dated 13F ownership from full tracked books; schema 1.3.0 / report format 2.3.0, English analysis_instruction in report mode. At most 30 materials/50 ideas, six derived notes, 90,000 characters; no raw bodies. Context: 30 publication days, 90 when sparse, all history only if at most 30 materials qualify lifetime. 100 combined requests/account/rolling 30d shared with read_ticker_content; no historical as-of or pagination; no server LLM/provider calls.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
-**Full example:** [examples/get_ticker_deep_dive.md](examples/get_ticker_deep_dive.md)
+**Display:** MCP Apps hosts render the built-in price/returns/24h metrics and
+three-chart dashboard from this same result. The host writes the English research
+underneath, including the dated 13F positioning section. Other hosts use
+`presentation.header_markdown` and the chart fallback. Refresh connector discovery
+after the release. `mode='data'` stays raw.
 
+**Full example:** [examples/get_ticker_deep_dive.md](examples/get_ticker_deep_dive.md)
 
 ## read_ticker_content
 
@@ -685,3 +685,62 @@ Find where a feature lives in the Buzzberg interface. Read-only, no data is chan
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/find_site_section.md](examples/find_site_section.md)
+
+## get_13f_funds
+
+Show tracked 13F funds, modeled copy returns, SPY comparison and latest report dates.
+
+**Inputs:**
+- `period` (optional, str, default `'ytd'`)
+- `include_consensus` (optional, bool, default `False`)
+
+**Example prompt:**
+> "Show the tracked 13F funds and their YTD copy-portfolio returns versus SPY."
+
+**Returns:** Structured schema 1.0.0 report with period copy returns, SPY, excess percentage points, drawdown and dated holdings; not actual fund returns.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_13f_funds.md](examples/get_13f_funds.md)
+
+## get_13f_holdings
+
+Show a tracked fund's latest disclosed holdings, a past quarter, or its holdings history.
+
+**Inputs:**
+- `fund` (required, str)
+- `report_date` (optional, str, default `'latest'`)
+- `view` (optional, str, default `'holdings'`)
+- `ticker` (optional, str, default `''`)
+- `limit` (optional, int, default `20`)
+- `offset` (optional, int, default `0`)
+- `snapshot_version` (optional, str, default `''`)
+
+**Example prompt:**
+> "Show Altimeter's latest disclosed holdings, then NVDA weight history with view='history', ticker='NVDA'."
+
+**Returns:** Structured schema 1.0.0 full-book holdings/history with quarter and filing dates, weights, exits, SEC links and snapshot-pinned pagination (default 20/max 100 rows).
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_13f_holdings.md](examples/get_13f_holdings.md)
+
+## get_13f_stock_ownership
+
+Show which tracked 13F managers disclosed a stock, their weights, changes and history.
+
+**Inputs:**
+- `ticker` (required, str)
+- `quarters` (optional, int, default `1`)
+- `limit` (optional, int, default `50`)
+- `offset` (optional, int, default `0`)
+- `snapshot_version` (optional, str, default `''`)
+
+**Example prompt:**
+> "Which tracked 13F managers disclosed NVDA? Show weights, filing dates and exits."
+
+**Returns:** Structured schema 1.0.0 ownership among tracked managers only, full-book matches, 1–12 quarters and snapshot-pinned pagination (default 50/max 100 rows); partial coverage is explicit.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_13f_stock_ownership.md](examples/get_13f_stock_ownership.md)

@@ -24,7 +24,7 @@ def test_earnings_contract_routing_and_examples():
 def test_tools_md_matches_manifest():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     text = (ROOT / "TOOLS.md").read_text()
-    headings = set(re.findall(r"^## ([a-z_]+)$", text, re.MULTILINE))
+    headings = set(re.findall(r"^## ([a-z0-9_]+)$", text, re.MULTILINE))
     expected = {tool["name"] for tool in manifest["tools"]}
     assert headings == expected
     for tool in manifest["tools"]:
@@ -120,7 +120,7 @@ def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
 def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     tools = {t["name"]: t for t in manifest["tools"]}
-    assert len(tools) == 28
+    assert len(tools) == 31
     assert "get_recent_source_text" not in tools
     expected = {
         "get_my_feeds": ["feed_type", "limit", "after_id", "feed_id", "name", "include_members"],
@@ -203,7 +203,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     normalized_prompts = " ".join(prompts.split())
     normalized_example = " ".join(example.split())
 
-    assert "Buzzberg exposes 28 tools" in readme
+    assert "Buzzberg exposes 31 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts
@@ -440,3 +440,18 @@ def test_ticker_deep_dive_is_one_call_with_bounded_report_contract():
     assert "get_ticker_deep_dive" in session
     assert "get_tickers_overview(" not in session
     assert "get_sentiment(" not in session
+
+
+def test_thirteenf_tools_publish_dated_read_only_contracts():
+    tools = {t['name']: t for t in json.loads((ROOT / 'tools_manifest.json').read_text())['tools']}
+    expected = {
+        'get_13f_funds': ['period', 'include_consensus'],
+        'get_13f_holdings': ['fund', 'report_date', 'view', 'ticker', 'limit', 'offset', 'snapshot_version'],
+        'get_13f_stock_ownership': ['ticker', 'quarters', 'limit', 'offset', 'snapshot_version'],
+    }
+    for name, parameters in expected.items():
+        assert tools[name]['scope'] == 'read'
+        assert [p['name'] for p in tools[name]['parameters']] == parameters
+        example = (ROOT / 'examples' / (name + '.md')).read_text()
+        assert 'disclosed' in example and 'not' in example
+    assert '13F' in (ROOT / 'examples/get_ticker_deep_dive.md').read_text()
