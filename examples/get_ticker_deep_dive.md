@@ -11,7 +11,8 @@ One response includes saved evidence, `analysis_instruction` and a ready-formatt
 with the price, every available 7d/30d/YTD return, 24h sentiment/mentions/authors
 versus 30-day averages, and aligned price/sentiment/mentions charts. The host
 continues below it with a simple business overview, linked bull/bear arguments,
-useful business numbers, measurable checks and key voices in English. Do not
+useful business numbers, earnings read-throughs, dated 13F holders, measurable
+checks and key voices in English. Do not
 recreate or duplicate the native charts.
 
 Other hosts start with `presentation.header_markdown` and render charts when
@@ -38,8 +39,8 @@ authors and saved LONG/SHORT/AVOID/WATCH theses or key points qualify.
 At most **30 materials / 50 ideas**, six derived YouTube notes and **90,000**
 response characters are returned; full-history eligibility still respects idea,
 author and text limits. The saved-thesis/points/quote budget is 60,000 characters.
-Schema 1.2.0 supplies `query.context_days` (30, 90, or null for all history) and
-`context_scope`; report format 2.2.0 keeps older arguments dated and marked as
+Schema 1.3.0 supplies `query.context_days` (30, 90, or null for all history) and
+`context_scope`; report format 2.3.0 keeps older arguments dated and marked as
 context. Old numbers retain their periods, old forecasts stay attributed to
 their original dates, and past catalysts are not presented as upcoming.
 24h metrics and 30d charts keep their original periods. These selection details
@@ -48,6 +49,28 @@ Latest saved company actuals/guidance within 180 days are dated separately from
 author estimates. Leaders use 180-day LONG/SHORT counts, including ties; first
 recorded LONG is bounded metadata from public stored history, not global discovery.
 No raw transcripts or newsletter article bodies are returned.
+
+The **same response** also includes two separately bounded source blocks:
+
+- `earnings_context`: one compact own-company call summary from the last 180
+  days, plus up to five other-company calls from 90 days mentioning this ticker
+  (at most two resolved mentions per call). Factual/neutral mentions qualify
+  independently of the general idea selection. Issuer, fiscal period, speaker,
+  publication date and link stay attached to the evidence; another company's
+  revenue never becomes this company's revenue. No full transcript is returned.
+- `institutional_holders`: up to five positive positions from tracked SEC
+  funds' latest stored full holdings books, including stocks outside top-ten
+  previews. Each has fund/manager, security, portfolio weight, report and filing
+  dates, SEC link and weight change when a prior report exists. These are dated
+  disclosures, not live positions or all institutional ownership. Weight changes
+  do not establish share purchases/sales. Exits are excluded; missing latest
+  books never restore old holdings. Older reports are explicitly marked stale.
+
+These blocks are included in both modes and within the same 90,000-character
+response cap and quota admission. **Do not call earnings or portfolio tools to
+complete this report.** A missing/partial source is marked; it is not proof that
+there are no mentions or institutional holders. Use the supplied English layout
+for compact read-throughs and a dated `Tracked 13F holders` table.
 
 **100 combined requests/account/rolling 30 days**, shared with
 `read_ticker_content`. Repeats, empty results and later failures count. Quota
