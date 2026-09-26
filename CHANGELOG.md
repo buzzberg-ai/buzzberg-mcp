@@ -1,5 +1,12 @@
 # Changelog
 
+## Ticker Deep Dive format preservation - 2026-09-26
+
+- Report format 2.3.1 preserves the existing section order and length. Earnings
+  and 13F remain additional context in the same response; relevant evidence can
+  support existing sections without automatic new headings or fund tables.
+- Data schema, source limits, native dashboard and one-call behavior are unchanged.
+
 ## Ticker Deep Dive earnings and 13F - 2026-09-26
 
 - The same call now includes compact own earnings context, up to five other-company

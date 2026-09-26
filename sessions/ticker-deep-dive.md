@@ -11,8 +11,9 @@ and saved price returns, draws three aligned charts, and synthesizes the main
 bull/bear disagreement with linked authors and concrete business numbers.
 The same response supplies own-company earnings context, relevant mentions from
 other companies' calls, and latest disclosed positions of tracked 13F funds.
-Use compact dated read-throughs and a holders table when available; no additional
-earnings or portfolio tool call is needed. A fund's weight change is not a share
+Use relevant dated evidence within the existing sections, preserving the report's
+layout and length. Do not automatically add earnings/13F blocks or fund tables.
+No additional earnings or portfolio tool call is needed. A fund's weight change is not a share
 trade, and another company's earnings figures remain attached to that issuer.
 It also includes measurable checks and key voices: Loudest Bull, Loudest Bear and
 First recorded LONG on Buzzberg. The last label describes Buzzberg's stored

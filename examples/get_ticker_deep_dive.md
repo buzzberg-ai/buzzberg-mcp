@@ -11,8 +11,9 @@ One response includes saved evidence, `analysis_instruction` and a ready-formatt
 with the price, every available 7d/30d/YTD return, 24h sentiment/mentions/authors
 versus 30-day averages, and aligned price/sentiment/mentions charts. The host
 continues below it with a simple business overview, linked bull/bear arguments,
-useful business numbers, earnings read-throughs, dated 13F holders, measurable
-checks and key voices in English. Do not
+useful business numbers, measurable checks and key voices in English. Relevant
+earnings and 13F evidence can inform those existing sections without expanding
+the report layout or adding automatic source-specific headings/tables. Do not
 recreate or duplicate the native charts.
 
 Other hosts start with `presentation.header_markdown` and render charts when
@@ -40,7 +41,7 @@ At most **30 materials / 50 ideas**, six derived YouTube notes and **90,000**
 response characters are returned; full-history eligibility still respects idea,
 author and text limits. The saved-thesis/points/quote budget is 60,000 characters.
 Schema 1.3.0 supplies `query.context_days` (30, 90, or null for all history) and
-`context_scope`; report format 2.3.0 keeps older arguments dated and marked as
+`context_scope`; report format 2.3.1 keeps older arguments dated and marked as
 context. Old numbers retain their periods, old forecasts stay attributed to
 their original dates, and past catalysts are not presented as upcoming.
 24h metrics and 30d charts keep their original periods. These selection details
@@ -69,8 +70,11 @@ The **same response** also includes two separately bounded source blocks:
 These blocks are included in both modes and within the same 90,000-character
 response cap and quota admission. **Do not call earnings or portfolio tools to
 complete this report.** A missing/partial source is marked; it is not proof that
-there are no mentions or institutional holders. Use the supplied English layout
-for compact read-throughs and a dated `Tracked 13F holders` table.
+there are no mentions or institutional holders. Preserve the existing English
+layout and length; use this additional context only when relevant within the
+existing sections. Do not automatically add earnings/13F sections or a holders
+table. Attribute earnings without a saved URL by company, date and fiscal period;
+never invent links.
 
 **100 combined requests/account/rolling 30 days**, shared with
 `read_ticker_content`. Repeats, empty results and later failures count. Quota
