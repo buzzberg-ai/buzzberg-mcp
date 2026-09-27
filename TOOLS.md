@@ -749,3 +749,23 @@ Show which tracked 13F managers disclosed a stock, their weights, changes and hi
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
 **Full example:** [examples/get_13f_stock_ownership.md](examples/get_13f_stock_ownership.md)
+
+## get_daily_alpha
+
+Read the latest two Daily Alpha editions with stored markets, narratives and recommended sources.
+
+**Inputs:**
+- `preferred_sources` (optional, list[str] | None, default `None`)
+- `preferred_speakers` (optional, list[str] | None, default `None`)
+- `preferred_subreddits` (optional, list[str] | None, default `None`)
+- `include_reddit` (optional, bool, default `True`)
+- `reddit_order` (optional, Literal['score', 'comments'], default `'score'`)
+
+**Example prompt:**
+> "Give me Daily Alpha: stored SPY, QQQ, US 10Y, gold and BTC; the latest two editions' narratives; worthwhile videos/posts and Reddit discussions. Prioritize SemiAnalysis, All-In, BG2, Invest Like the Best and FedGuy. Use get_daily_alpha and follow analysis_instruction; keep data dates and missing values explicit. Let me customize sources, speakers and subreddits."
+
+**Returns:** Structured latest-two-edition briefing, database-only market observations, attributed narratives, current author reputation, selected source recommendations and dated Reddit counters, plus localized host presentation instructions.
+
+**Scope:** Read-only. Public Buzzberg market-intelligence data.
+
+**Full example:** [examples/get_daily_alpha.md](examples/get_daily_alpha.md)

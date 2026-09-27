@@ -1,5 +1,13 @@
 # Changelog
 
+## Daily Alpha — pending server release
+
+- Add `get_daily_alpha`: latest two published editions within seven days,
+  database-only market context, attributed narratives, source recommendations
+  and dated Reddit scores. No archive access or preference writes.
+- The `daily_alpha_brief` prompt uses this one-call workflow. Reconnect after
+  server release to refresh the tool catalog.
+
 ## Ticker Deep Dive format preservation - 2026-09-26
 
 - Report format 2.3.1 preserves the existing section order and length. Earnings
