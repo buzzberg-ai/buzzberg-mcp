@@ -131,7 +131,7 @@ prompts below.
 
 Discoverable MCP prompts include:
 
-- `daily_alpha_brief`
+- `market_summary_brief`
 - `top_speaker_market_tldr`
 - `ticker_deep_dive`
 - `narrative_map`

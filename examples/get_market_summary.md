@@ -1,6 +1,6 @@
-# Daily Alpha
+# Market Summary
 
-Ask for a Daily Alpha briefing. The host calls `get_daily_alpha` once and
+Ask for a market summary. The host calls `get_market_summary` once and
 follows `analysis_instruction` in your language. Reconnect if your client has
 cached the previous catalog.
 
@@ -20,13 +20,13 @@ Optional priorities:
 }
 ```
 
-The response is `DailyAlphaResult` schema 1.2.0, exposed as JSON text and
+The response is `MarketSummaryResult` schema 2.0.0, exposed as JSON text and
 structuredContent. It combines the latest two published editions within seven
 days with bounded fresh X evidence from the last 24 hours, not an archive. No date, cursor or historical edition argument exists.
 Each preference list accepts at most 20 names of 100 characters. Preferences
 prioritize available edition/X material, are not saved and do not fetch missing episodes.
 
-The host uses a plain Daily Alpha title, without an edition/session suffix.
+The host uses a plain Market Summary title, without an edition/session suffix.
 Edition dates, cutoffs and quote-save times remain metadata by default; no
 preamble explains which editions were used. Source dates can qualify dated
 events. Price labels follow `markets[].market_session`, never the research
@@ -68,32 +68,20 @@ must not create false freshness. Missing market values stay in metadata and do
 not create empty rows in the report.
 
 
-## Automatic freshness and A/B comparison
+## Automatic freshness
 
-The default `{}` means `mode="auto", detail="compact"`: one call, normally
-450–650 words in the final answer. Age is measured from the edition's coverage
-cutoff. Up to 3 hours keeps edition themes first with a material-update check;
-3–12 hours blends new evidence; older or missing active-session coverage uses
-fresh evidence first. Closed markets retain dated context. Late-processed posts
-keep their original publication dates. Prices update independently.
+There is one compact hybrid workflow, with no mode or detail switch. The default
+`{}` is normally presented in 450–650 words. Age is measured from the edition's
+coverage cutoff. Up to 3 hours keeps edition themes first with a material-update
+check; 3–12 hours blends new evidence; older or missing active-session coverage
+uses fresh evidence first. Closed markets retain dated context. Late-processed
+posts keep their original publication dates. Prices update independently.
 
-Compare with published editions only:
-
-```json
-{"mode":"editions"}
-```
-
-Compare the larger edition evidence packet:
-
-```json
-{"mode":"editions","detail":"full"}
-```
-
-Compact delivery retains the latest edition, previous summary, up to three
+The briefing retains the latest edition, previous summary, up to three
 recommendations, two distinct Reddit cards and up to eight fresh posts. Logical
-UTF-8 JSON is bounded to 45,000 bytes, including instructions; full mode is
-bounded to 100,000 bytes. Whole optional objects may be omitted with
-`briefing.budget_limited=true`. Transport compatibility can duplicate this data.
+UTF-8 JSON is bounded to 45,000 bytes, including instructions. Whole optional
+objects may be omitted with `briefing.budget_limited=true`. Transport
+compatibility can duplicate this data.
 
 Fresh selection reuses canonical author identities and current Authors ranks.
 Substantive news/research and independent-author ticker attention precede rank;
