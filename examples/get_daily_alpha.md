@@ -40,9 +40,13 @@ The host presents:
 3. Two to four videos/posts with thesis, date, named speaker and current Authors
    rank/sample size when available. A video guest unrelated to the selected
    finding cannot raise that finding's reputation. Preview-only sources stay labeled.
-4. Selected Reddit discussions sorted by saved score or comments and deduplicated
-   by subject. Score is not an exact upvote count. This covers selected materials
-   in these two editions, not a complete Reddit ranking or live poll.
+4. Two or three worthwhile Reddit discussions on distinct topics when available.
+   Each card links the topic, gives subreddit/date, an attributed thesis and why
+   to read it. Favor substance and relevance, using engagement as a secondary
+   signal within the supplied candidates. Keep counters out of default prose;
+   explicit popularity requests can show the saved metrics and their scope.
+   Distinguish a comment from a full thread; do not invent replies or consensus.
+   This is a selection from the editions, not a Reddit-wide ranking.
 
 No transcript fragments, original evidence quotes or private source bodies are
 returned. Missing editions and partial source access stay explicit. Missing
