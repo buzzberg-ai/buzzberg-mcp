@@ -613,7 +613,7 @@
         }
       ],
       "returns": "str",
-      "summary": "Get sentiment analysis for a ticker: average sentiment, breakdown by direction, by speaker tier."
+      "summary": "Get one complete ticker sentiment report: average, directions, sources and top speaker samples."
     },
     {
       "name": "get_ticker_timeseries",
