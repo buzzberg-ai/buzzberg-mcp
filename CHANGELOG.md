@@ -1,5 +1,12 @@
 # Changelog
 
+## Compact hybrid Daily Alpha - 2026-09-28
+
+- Schema 1.2.0 adds automatic coverage-age routing and bounded fresh X updates, including late arrivals.
+- Default compact output keeps one current edition plus previous context, three materials and two Reddit discussions within 45KB logical JSON.
+- Add `mode=editions` and `detail=full` for comparison. Prices retain their independent DB-only session-return contract.
+- Select substantive evidence before author rank; distinguish ticker attention from narrative consensus and expose scan/selection bounds.
+
 ## Daily Alpha session returns - 2026-09-28
 
 - Schema 1.1.0 supplies same-session opening, regular price and since-open return, with postmarket changes separate.

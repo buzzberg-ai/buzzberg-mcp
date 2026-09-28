@@ -20,11 +20,11 @@ Optional priorities:
 }
 ```
 
-The response is `DailyAlphaResult` schema 1.1.0, exposed as JSON text and
-structuredContent. It contains the latest two published editions within seven
-days, not an archive. No date, cursor or historical edition argument exists.
+The response is `DailyAlphaResult` schema 1.2.0, exposed as JSON text and
+structuredContent. It combines the latest two published editions within seven
+days with bounded fresh X evidence from the last 24 hours, not an archive. No date, cursor or historical edition argument exists.
 Each preference list accepts at most 20 names of 100 characters. Preferences
-only reorder available material, are not saved and do not fetch missing episodes.
+prioritize available edition/X material, are not saved and do not fetch missing episodes.
 
 The host uses a plain Daily Alpha title, without an edition/session suffix.
 Edition dates, cutoffs and quote-save times remain metadata by default; no
@@ -48,12 +48,13 @@ The host presents:
    not old edition prose. Absolute prices cannot establish "near highs".
    BTC compares the current stored price with a same-currency observation near
    24h earlier. Its intraday history starts accumulating after server release.
-2. Three or four latest published narratives with linked evidence. Broad
+2. Three or four themes, combining edition context and fresh updates according
+   to `briefing.strategy`, with linked evidence. Broad
    related-ticker coverage is not a count of people endorsing the exact claim.
-3. Two to four videos/posts with thesis, date, named speaker and current Authors
+3. Two to three videos/posts with thesis, date, named speaker and current Authors
    rank/sample size when available. A video guest unrelated to the selected
    finding cannot raise that finding's reputation. Preview-only sources stay labeled.
-4. Two or three worthwhile Reddit discussions on distinct topics when available.
+4. Two worthwhile Reddit discussions on distinct topics when available.
    Each card links the topic, gives subreddit/date, an attributed thesis and why
    to read it. Favor substance and relevance, using engagement as a secondary
    signal within the supplied candidates. Keep counters out of default prose;
@@ -65,3 +66,46 @@ No transcript fragments, original evidence quotes or private source bodies are
 returned. Missing editions remain explicit in metadata. Material source gaps
 must not create false freshness. Missing market values stay in metadata and do
 not create empty rows in the report.
+
+
+## Automatic freshness and A/B comparison
+
+The default `{}` means `mode="auto", detail="compact"`: one call, normally
+450–650 words in the final answer. Age is measured from the edition's coverage
+cutoff. Up to 3 hours keeps edition themes first with a material-update check;
+3–12 hours blends new evidence; older or missing active-session coverage uses
+fresh evidence first. Closed markets retain dated context. Late-processed posts
+keep their original publication dates. Prices update independently.
+
+Compare with published editions only:
+
+```json
+{"mode":"editions"}
+```
+
+Compare the larger edition evidence packet:
+
+```json
+{"mode":"editions","detail":"full"}
+```
+
+Compact delivery retains the latest edition, previous summary, up to three
+recommendations, two distinct Reddit cards and up to eight fresh posts. Logical
+UTF-8 JSON is bounded to 45,000 bytes, including instructions; full mode is
+bounded to 100,000 bytes. Whole optional objects may be omitted with
+`briefing.budget_limited=true`. Transport compatibility can duplicate this data.
+
+Fresh selection reuses canonical author identities and current Authors ranks.
+Substantive news/research and independent-author ticker attention precede rank;
+explicit jokes/banter are excluded. Recent and untickered macro lanes preserve
+room for new events. Metadata scans are bounded and `scan_complete` reports
+overflow. `fresh_attention` is ticker attention in eligible new X material, not
+an exact-narrative popularity score, endorsement count or the 24h Top Mentions
+ranking. The host groups actual claims and keeps opposing arguments distinct.
+
+Only selected derived theses/summaries leave the tool. Their truncation flags
+limit claims to the visible evidence. Existing source-access rules apply;
+hidden ticker claims cannot reappear through a general-summary fallback.
+`fresh_status=unavailable` retains the usable edition and price sections without
+pretending new developments were checked. These are selected materials, not a
+complete feed or platform-wide ranking.

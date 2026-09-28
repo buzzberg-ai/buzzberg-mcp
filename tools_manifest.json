@@ -336,10 +336,22 @@
           "type": "Literal['score', 'comments']",
           "required": false,
           "default": "score"
+        },
+        {
+          "name": "mode",
+          "type": "Literal['auto', 'editions']",
+          "required": false,
+          "default": "auto"
+        },
+        {
+          "name": "detail",
+          "type": "Literal['compact', 'full']",
+          "required": false,
+          "default": "compact"
         }
       ],
       "returns": "DailyAlphaResult",
-      "summary": "Read the latest two Daily Alpha editions with stored markets, narratives and recommended sources."
+      "summary": "Read a compact market TLDR: Daily Alpha themes, fresh X updates and stored market moves in one call."
     },
     {
       "name": "get_portfolio_summary",

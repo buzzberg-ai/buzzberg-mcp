@@ -12,7 +12,7 @@ def test_daily_alpha_contract_and_example():
     assert tool["returns"] == "DailyAlphaResult"
     assert [p["name"] for p in tool["parameters"]] == [
         "preferred_sources", "preferred_speakers", "preferred_subreddits",
-        "include_reddit", "reddit_order",
+        "include_reddit", "reddit_order", "mode", "detail",
     ]
     example = (ROOT / "examples/get_daily_alpha.md").read_text()
     for block in re.findall(r"```json\n(.*?)\n```", example, re.S):
@@ -21,6 +21,9 @@ def test_daily_alpha_contract_and_example():
     assert "latest two published editions" in example
     assert "not saved" in example
     assert "not a complete Reddit ranking" in example
+    assert "schema 1.2.0" in example
+    assert "45,000 bytes" in example
+    assert "briefing.strategy" in example
 
 
 def test_earnings_contract_routing_and_examples():

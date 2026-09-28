@@ -623,7 +623,9 @@ and not legacy SSE semantics. If the client only supports SSE, use
 ## Daily Alpha
 
 ```text
-Use get_daily_alpha once and follow analysis_instruction. Start with a short
+Use get_daily_alpha once with default auto/compact mode. Follow analysis_instruction
+and briefing.strategy to blend published themes with fresh X evidence. Do not
+export all recent candidates or call separate price/author tools. Start with a short
 market TLDR, then stored SPY, QQQ, US 10Y, gold and BTC, the main narratives,
 recommended videos/posts with author reputation, and selected Reddit topics.
 Prioritize SemiAnalysis, All-In, BG2, Invest Like the Best and FedGuy.
@@ -634,4 +636,4 @@ show Reddit counters and their scope only if the user asks about popularity.
 ```
 
 Optionally pass preferred_sources, preferred_speakers or preferred_subreddits.
-Preferences reorder these two editions only and are not saved.
+Preferences prioritize available edition/X evidence and are not saved.
