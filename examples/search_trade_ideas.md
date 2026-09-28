@@ -1,9 +1,11 @@
 # search_trade_ideas
 
-Ask: "Find bullish NVDA ideas from the last week, limited to 10 results."
+Ask: "Find all bullish NVDA ideas from the last week."
 
-Buzzberg returns a Markdown list or table of matching trade ideas with speaker,
-ticker, direction, confidence, thesis, and date when available.
+Buzzberg returns exact counts and complete JSON rows with speaker, ticker,
+direction, confidence, saved thesis and publication date. The same rows appear
+in `structuredContent[buzzberg_receipt]`. If the complete result fits 900,000
+estimated tokens and 5,000 grouped ideas, one call returns it all.
 
 ## Search several exact tickers
 
@@ -17,8 +19,7 @@ Make one scoped call for each ticker (SOXS, then SQQQ):
 ```json
 {
   "ticker": "SOXS",
-  "days": 90,
-  "limit": 20
+  "days": 90
 }
 ```
 
@@ -41,8 +42,7 @@ Tool call:
 {
   "ticker": "NVDA",
   "post_kind": "research",
-  "days": 1,
-  "limit": 25
+  "days": 1
 }
 ```
 
@@ -60,14 +60,15 @@ Tool call:
 {
   "ticker": "NVDA",
   "post_kind": "stock list",
-  "days": 7,
-  "limit": 50
+  "days": 7
 }
 ```
 
 ## Continue a result
 
-Current Search pages return at most 50 grouped ideas (20 by default). If the
-reply has `pagination.next_cursor`, call `search_trade_ideas(cursor=...)` with
-that token alone. Continue until `has_more=false`. The current 90-day retention
+Only oversized results require continuation; page size follows the byte budget,
+not an artificial 20/50-row limit. The legacy `limit` argument in old calls is
+ignored. If the reply has `pagination.next_cursor`, call
+`search_trade_ideas(cursor=...)` with that token alone. Continue until
+`has_more=false`. The current 90-day retention
 boundary still applies; a cursor cannot unlock older publications.
