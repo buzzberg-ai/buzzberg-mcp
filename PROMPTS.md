@@ -620,16 +620,16 @@ If a Python client gets `404` on `/mcp`, confirm it is using Streamable HTTP
 and not legacy SSE semantics. If the client only supports SSE, use
 `https://mcp.buzzberg.ai/sse`.
 
-## Daily Alpha
+## Market Summary
 
 ```text
-Use get_daily_alpha once with default auto/compact mode. Follow analysis_instruction
+Use get_market_summary once with its automatic compact format. Follow analysis_instruction
 and briefing.strategy to blend published themes with fresh X evidence. Do not
 export all recent candidates or call separate price/author tools. Start with a short
 market TLDR, then stored SPY, QQQ, US 10Y, gold and BTC, the main narratives,
 recommended videos/posts with author reputation, and selected Reddit topics.
 Prioritize SemiAnalysis, All-In, BG2, Invest Like the Best and FedGuy.
-Lead with measured SPY/QQQ percentage moves since the regular open. During postmarket, show the regular close/open return and postmarket/regular-close return separately. Never reuse an older session's return or infer near-highs claims from absolute prices. Use a plain Daily Alpha title without an edition
+Lead with measured SPY/QQQ percentage moves since the regular open. During postmarket, show the regular close/open return and postmarket/regular-close return separately. Never reuse an older session's return or infer near-highs claims from absolute prices. Use a plain Market Summary title without an edition
 suffix. Keep edition dates/cutoffs and quote-save times internal. Price session
 labels follow market_session, never the research edition. Omit missing prices;
 show Reddit counters and their scope only if the user asks about popularity.

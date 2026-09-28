@@ -5,23 +5,24 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_daily_alpha_contract_and_example():
+def test_market_summary_contract_and_example():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
-    tool = next(t for t in manifest["tools"] if t["name"] == "get_daily_alpha")
+    tool = next(t for t in manifest["tools"] if t["name"] == "get_market_summary")
+    assert "get_daily_alpha" not in {t["name"] for t in manifest["tools"]}
     assert tool["scope"] == "read"
-    assert tool["returns"] == "DailyAlphaResult"
+    assert tool["returns"] == "MarketSummaryResult"
     assert [p["name"] for p in tool["parameters"]] == [
         "preferred_sources", "preferred_speakers", "preferred_subreddits",
-        "include_reddit", "reddit_order", "mode", "detail",
+        "include_reddit", "reddit_order",
     ]
-    example = (ROOT / "examples/get_daily_alpha.md").read_text()
+    example = (ROOT / "examples/get_market_summary.md").read_text()
     for block in re.findall(r"```json\n(.*?)\n```", example, re.S):
         assert set(json.loads(block)) <= {p["name"] for p in tool["parameters"]}
     assert "database-only" in example
     assert "latest two published editions" in example
     assert "not saved" in example
     assert "not a complete Reddit ranking" in example
-    assert "schema 1.2.0" in example
+    assert "schema 2.0.0" in example
     assert "45,000 bytes" in example
     assert "briefing.strategy" in example
 

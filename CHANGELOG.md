@@ -1,5 +1,14 @@
 # Changelog
 
+## One Market Summary - 2026-09-28
+
+- Replace `get_daily_alpha` with `get_market_summary`; one freshness-aware hybrid workflow.
+- Remove `mode` and `detail`: compact delivery always includes a fresh-X check, within 45KB logical JSON.
+- Schema 2.0.0 returns `MarketSummaryResult` without obsolete mode/detail metadata.
+- Rename the prompt to `market_summary_brief` and localize the report title as Market Summary.
+- The old tool/prompt names are retired, not aliases. Refresh the connector catalog or start a new chat.
+- Daily Alpha publication remains the editorial source; prices, access checks and preferences are preserved.
+
 ## Compact hybrid Daily Alpha - 2026-09-28
 
 - Schema 1.2.0 adds automatic coverage-age routing and bounded fresh X updates, including late arrivals.

@@ -304,7 +304,7 @@
       "summary": "Return a configurable recent-ideas report with selected sections and sectors."
     },
     {
-      "name": "get_daily_alpha",
+      "name": "get_market_summary",
       "scope": "read",
       "parameters": [
         {
@@ -336,22 +336,10 @@
           "type": "Literal['score', 'comments']",
           "required": false,
           "default": "score"
-        },
-        {
-          "name": "mode",
-          "type": "Literal['auto', 'editions']",
-          "required": false,
-          "default": "auto"
-        },
-        {
-          "name": "detail",
-          "type": "Literal['compact', 'full']",
-          "required": false,
-          "default": "compact"
         }
       ],
-      "returns": "DailyAlphaResult",
-      "summary": "Read a compact market TLDR: Daily Alpha themes, fresh X updates and stored market moves in one call."
+      "returns": "MarketSummaryResult",
+      "summary": "Read a compact hybrid market summary: stored moves, current narratives, fresh X updates and notable research."
     },
     {
       "name": "get_portfolio_summary",
