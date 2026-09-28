@@ -779,7 +779,7 @@ Read the latest two Daily Alpha editions with stored markets, narratives and rec
 - `reddit_order` (optional, Literal['score', 'comments'], default `'score'`)
 
 **Example prompt:**
-> "Give me a concise Daily Alpha market TLDR, stored prices, main themes, worthwhile videos/posts and 2-3 substantive Reddit discussions. Prioritize SemiAnalysis, All-In, BG2, Invest Like the Best and FedGuy. Call get_daily_alpha once and follow analysis_instruction. Keep edition dates/cutoffs and quote-save times internal; omit missing market values. Use a plain title and current market_session for price labels."
+> "Give me a concise Daily Alpha market TLDR, stored prices and percentage moves since opening, separate postmarket moves, main themes, worthwhile videos/posts and 2-3 substantive Reddit discussions. Prioritize SemiAnalysis, All-In, BG2, Invest Like the Best and FedGuy. Call get_daily_alpha once and follow analysis_instruction. Keep edition dates/cutoffs and quote-save times internal; omit missing market values. Use a plain title and current market_session for price labels."
 
 **Returns:** Structured latest-two-edition briefing, database-only market observations, attributed narratives, current author reputation, selected source recommendations and dated Reddit counters, plus localized host presentation instructions.
 

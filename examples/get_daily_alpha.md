@@ -20,7 +20,7 @@ Optional priorities:
 }
 ```
 
-The response is `DailyAlphaResult` schema 1.0.0, exposed as JSON text and
+The response is `DailyAlphaResult` schema 1.1.0, exposed as JSON text and
 structuredContent. It contains the latest two published editions within seven
 days, not an archive. No date, cursor or historical edition argument exists.
 Each preference list accepts at most 20 names of 100 characters. Preferences
@@ -38,7 +38,14 @@ The host presents:
    and BTC with a sampled rolling 24h change when available. All prices are
    database-only. Omit missing instruments (including US 10Y), unavailable
    changes and quote-save timestamp boilerplate. Preserve currencies and session
-   labels; premarket/after-hours changes are separate when available.
+   labels. Show `since_open_change_pct` from `session_open` to `regular_price`
+   as the default equity return. During postmarket, retain the regular close
+   and its open-to-close move, then show the latest quote and
+   `afterhours_change_pct` versus that close separately. Never pair an older
+   session's return with today's price. If only `current_vs_previous_close_pct`
+   is available, label its baseline explicitly; it is not since opening.
+   Lead with measured SPY/QQQ changes. Current direction comes from `markets`,
+   not old edition prose. Absolute prices cannot establish "near highs".
    BTC compares the current stored price with a same-currency observation near
    24h earlier. Its intraday history starts accumulating after server release.
 2. Three or four latest published narratives with linked evidence. Broad
