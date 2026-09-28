@@ -30,8 +30,11 @@ The host presents:
 
 1. SPY, QQQ, US 10Y yield/change in basis points, gold (explicit GLD ETF proxy),
    and BTC with a sampled rolling 24h change when available. All prices are
-   database-only. Dates, currencies, missing baselines and saved-fetch times
-   remain explicit. Premarket/after-hours changes are separate when available.
+   database-only. Omit missing instruments (including US 10Y), unavailable
+   changes and quote-save timestamp boilerplate. Preserve currencies and session
+   labels; premarket/after-hours changes are separate when available.
+   BTC compares the current stored price with a same-currency observation near
+   24h earlier. Its intraday history starts accumulating after server release.
 2. Three or four latest published narratives with linked evidence. Broad
    related-ticker coverage is not a count of people endorsing the exact claim.
 3. Two to four videos/posts with thesis, date, named speaker and current Authors
@@ -42,4 +45,5 @@ The host presents:
    in these two editions, not a complete Reddit ranking or live poll.
 
 No transcript fragments, original evidence quotes or private source bodies are
-returned. Missing editions, unavailable prices and partial access stay explicit.
+returned. Missing editions and partial source access stay explicit. Missing
+market values stay in metadata and do not create empty rows in the report.
