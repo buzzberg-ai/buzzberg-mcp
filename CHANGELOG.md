@@ -1,12 +1,14 @@
 # Changelog
 
-## Daily Alpha — pending server release
+## Daily Alpha - 2026-09-28
 
 - Add `get_daily_alpha`: latest two published editions within seven days,
   database-only market context, attributed narratives, source recommendations
-  and dated Reddit scores. No archive access or preference writes.
-- The `daily_alpha_brief` prompt uses this one-call workflow. Reconnect after
-  server release to refresh the tool catalog.
+  and selected Reddit discussions. No archive access or preference writes.
+- Reddit uses 2–3 substantive discussion cards; missing market values and
+  quote-save boilerplate are omitted. Stored counters remain available on request.
+- The `daily_alpha_brief` prompt uses this one-call workflow. Reconnect to
+  refresh a cached tool catalog.
 
 ## Ticker Deep Dive format preservation - 2026-09-26
 

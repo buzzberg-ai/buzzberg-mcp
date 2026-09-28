@@ -1,8 +1,8 @@
 # Daily Alpha
 
 Ask for a Daily Alpha briefing. The host calls `get_daily_alpha` once and
-follows `analysis_instruction` in your language. Available after server release;
-reconnect if your client has cached the previous catalog.
+follows `analysis_instruction` in your language. Reconnect if your client has
+cached the previous catalog.
 
 ```json
 {}
@@ -46,7 +46,7 @@ The host presents:
    signal within the supplied candidates. Keep counters out of default prose;
    explicit popularity requests can show the saved metrics and their scope.
    Distinguish a comment from a full thread; do not invent replies or consensus.
-   This is a selection from the editions, not a Reddit-wide ranking.
+   This is a selection from the editions, not a complete Reddit ranking.
 
 No transcript fragments, original evidence quotes or private source bodies are
 returned. Missing editions and partial source access stay explicit. Missing
