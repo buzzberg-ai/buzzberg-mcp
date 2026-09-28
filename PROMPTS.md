@@ -627,7 +627,7 @@ Use get_daily_alpha once and follow analysis_instruction. Start with a short
 market TLDR, then stored SPY, QQQ, US 10Y, gold and BTC, the main narratives,
 recommended videos/posts with author reputation, and selected Reddit topics.
 Prioritize SemiAnalysis, All-In, BG2, Invest Like the Best and FedGuy.
-Lead with a short market TLDR. Use a plain Daily Alpha title without an edition
+Lead with measured SPY/QQQ percentage moves since the regular open. During postmarket, show the regular close/open return and postmarket/regular-close return separately. Never reuse an older session's return or infer near-highs claims from absolute prices. Use a plain Daily Alpha title without an edition
 suffix. Keep edition dates/cutoffs and quote-save times internal. Price session
 labels follow market_session, never the research edition. Omit missing prices;
 show Reddit counters and their scope only if the user asks about popularity.

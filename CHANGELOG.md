@@ -1,5 +1,10 @@
 # Changelog
 
+## Daily Alpha session returns - 2026-09-28
+
+- Schema 1.1.0 supplies same-session opening, regular price and since-open return, with postmarket changes separate.
+- Prevent previous-session returns from being attached to a current quote. Lead with measured moves; do not infer proximity to highs from absolute prices.
+
 ## Daily Alpha market TLDR - 2026-09-28
 
 - Lead with a short market TLDR and keep edition dates/cutoffs internal by default.
