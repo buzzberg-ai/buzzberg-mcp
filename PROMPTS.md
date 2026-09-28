@@ -49,8 +49,9 @@ First/Flip signals from Alpha-ranked speakers.
 ```text
 Use Buzzberg to find the top 10 strongest trade ideas from the last 12 hours.
 
-First call get_recent_idea_candidates(window="12h"). Read
-ticker_group_columns, speaker_columns, history_columns, and idea_columns once,
+First call get_recent_idea_candidates(window="12h") once without delivery or limit.
+The server returns the complete set unless an inline limit is exceeded. Read
+ticker_group_columns, speaker_columns, promotion_bias_columns, and idea_columns once,
 then map every ticker_group_rows page positionally. Each page contains whole
 ticker groups. While pagination.has_more is true, call the tool again with the
 exact pagination.next_cursor until has_more=false.

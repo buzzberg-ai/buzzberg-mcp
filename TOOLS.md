@@ -102,28 +102,24 @@ and empty requests count. Unavailable shared quota state refuses the read.
 
 ## get_recent_idea_candidates
 
-Return every recent candidate grouped for first-pass LLM research.
+Return every recent candidate in one call, grouped for full-thesis research.
 
-This is schema v3 of the established recent-candidate request, not a
-separate summary or ranking endpoint. It replaced the former flat response and
-the temporary `get_recent_ideas_by_ticker` sibling.
-
-Pages contain whole-ticker groups; one ticker is never split across cursors.
+The grouped schema is 5.0.0. The publication interval must fit entirely within the last seven days of current server time. Use exact `1h`, `6h`, `12h`, `24h`, or `1d`; `3d` and `7d` are rejected.
 
 **Inputs:**
-- `window` (optional, str, default `'6h'`): exact `1h`, `6h`, `12h`, `24h`, or `1d`; `3d` and `7d` are rejected
-- `cursor` (optional, str, default `''`)
+- `window` (optional, str, default `'6h'`)
+- `cursor` (optional, str, default `''`) — Leave empty on the first call. Only the exact pagination.next_cursor of a response with has_more=true, sent alone.
 - `as_of` (optional, str, default `''`)
 - `source_type` (optional, str, default `''`)
 - `direction` (optional, str, default `''`)
-- `delivery` (optional, str, default `'auto'`)
-- `limit` (optional, int, default `200`)
-- `offset` (deprecated transition only, int | None, default `None`): only `0` can start a request; continue with the exact `cursor`
+- `delivery` (optional, str, default `'auto'`) — Leave unset. The server returns all candidates in one response; paged is ignored on a first call and only an oversized result pages.
+- `limit` (optional, int, default `200`) — Leave unset. Sizes only server-initiated fallback pages (1-200 ticker groups); not an idea count or a scan bound.
+- `offset` (optional, int | None, default `None`) — Deprecated; leave unset.
 
 **Example prompt:**
-> "Find the strongest Buzzberg trade ideas from the last 24 hours. Read `ticker_group_columns`, `speaker_columns`, `history_columns`, `idea_columns`, and every `ticker_group_rows` page. While `has_more=true`, call the tool again with the exact `next_cursor` unchanged. Compare complete theses and their evidence only after the final page; source-specific confidence is intentionally absent from this cross-source result. Then use `get_trade_idea_details` for the finalist idea IDs that need source or duplicate evidence."
+> "Find the strongest Buzzberg trade ideas from the last 24 hours. Call get_recent_idea_candidates once with window='24h'; do not pass delivery or limit. The server returns all candidates in one response unless an inline limit is exceeded. Read `ticker_group_columns`, `speaker_columns`, `promotion_bias_columns`, `idea_columns`, and every `ticker_group_rows` page. While `has_more=true`, call the tool again with the exact `next_cursor` unchanged. Compare complete theses and their evidence only after the final page; source-specific confidence is intentionally absent from this cross-source result. Then use `get_trade_idea_details` for the finalist idea IDs that need source or duplicate evidence."
 
-**Returns:** typed `structuredContent` (`GroupedRecentIdeasColumnarPage`) with whole-ticker groups, canonical speakers, compact 365-day histories, full-thesis idea rows, stored-price context, counts, a fixed snapshot and cursor pagination; `content[].text` is an exact compact-JSON mirror of the same page.
+**Returns:** typed `structuredContent` (`GroupedRecentIdeasColumnarPage`) with whole-ticker groups, canonical speakers, ready daily directional bias, affiliation evidence, full-thesis idea rows, stored-price context, counts, a fixed snapshot and cursor pagination; `content[].text` is an exact compact-JSON mirror of the same page.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 

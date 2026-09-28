@@ -177,7 +177,8 @@
           "name": "cursor",
           "type": "str",
           "required": false,
-          "default": ""
+          "default": "",
+          "description": "Leave empty on the first call. Only the exact pagination.next_cursor of a response with has_more=true, sent alone."
         },
         {
           "name": "as_of",
@@ -201,23 +202,26 @@
           "name": "delivery",
           "type": "str",
           "required": false,
-          "default": "auto"
+          "default": "auto",
+          "description": "Leave unset. The server returns all candidates in one response; paged is ignored on a first call and only an oversized result pages."
         },
         {
           "name": "limit",
           "type": "int",
           "required": false,
-          "default": 200
+          "default": 200,
+          "description": "Leave unset. Sizes only server-initiated fallback pages (1-200 ticker groups); not an idea count or a scan bound."
         },
         {
           "name": "offset",
           "type": "int | None",
           "required": false,
-          "default": null
+          "default": null,
+          "description": "Deprecated; leave unset."
         }
       ],
       "returns": "GroupedRecentIdeasColumnarPage",
-      "summary": "Return every recent candidate grouped for first-pass LLM research."
+      "summary": "Return every recent candidate in one call, grouped for full-thesis research."
     },
     {
       "name": "get_recent_ideas_summary",
