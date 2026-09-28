@@ -769,7 +769,7 @@ Show which tracked 13F managers disclosed a stock, their weights, changes and hi
 
 ## get_daily_alpha
 
-Read the latest two Daily Alpha editions with stored markets, narratives and recommended sources.
+Read a compact market TLDR combining published Daily Alpha themes, fresh X updates and stored market moves.
 
 **Inputs:**
 - `preferred_sources` (optional, list[str] | None, default `None`)
@@ -777,11 +777,13 @@ Read the latest two Daily Alpha editions with stored markets, narratives and rec
 - `preferred_subreddits` (optional, list[str] | None, default `None`)
 - `include_reddit` (optional, bool, default `True`)
 - `reddit_order` (optional, Literal['score', 'comments'], default `'score'`)
+- `mode` (optional, Literal['auto', 'editions'], default `'auto'`)
+- `detail` (optional, Literal['compact', 'full'], default `'compact'`)
 
 **Example prompt:**
-> "Give me a concise Daily Alpha market TLDR, stored prices and percentage moves since opening, separate postmarket moves, main themes, worthwhile videos/posts and 2-3 substantive Reddit discussions. Prioritize SemiAnalysis, All-In, BG2, Invest Like the Best and FedGuy. Call get_daily_alpha once and follow analysis_instruction. Keep edition dates/cutoffs and quote-save times internal; omit missing market values. Use a plain title and current market_session for price labels."
+> "Give me a concise Daily Alpha market TLDR in auto/compact mode, stored prices and percentage moves since opening, separate postmarket moves, themes updated with fresh X posts, worthwhile videos/posts and two substantive Reddit discussions. Prioritize SemiAnalysis, All-In, BG2, Invest Like the Best and FedGuy. Call get_daily_alpha once and follow analysis_instruction. Keep edition dates/cutoffs and quote-save times internal; omit missing market values. Use a plain title and current market_session for price labels."
 
-**Returns:** Structured latest-two-edition briefing, database-only market observations, attributed narratives, current author reputation, selected source recommendations and dated Reddit counters, plus localized host presentation instructions.
+**Returns:** Schema 1.2.0 hybrid briefing with automatic coverage-age strategy, bounded fresh X evidence, database-only market observations, attributed narratives, current author reputation, selected materials and Reddit. Default compact output is at most 45KB logical JSON; full mode is bounded to 100KB.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
