@@ -300,6 +300,44 @@
       "summary": "Return a configurable recent-ideas report with selected sections and sectors."
     },
     {
+      "name": "get_daily_alpha",
+      "scope": "read",
+      "parameters": [
+        {
+          "name": "preferred_sources",
+          "type": "list[str] | None",
+          "required": false,
+          "default": null
+        },
+        {
+          "name": "preferred_speakers",
+          "type": "list[str] | None",
+          "required": false,
+          "default": null
+        },
+        {
+          "name": "preferred_subreddits",
+          "type": "list[str] | None",
+          "required": false,
+          "default": null
+        },
+        {
+          "name": "include_reddit",
+          "type": "bool",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "reddit_order",
+          "type": "Literal['score', 'comments']",
+          "required": false,
+          "default": "score"
+        }
+      ],
+      "returns": "DailyAlphaResult",
+      "summary": "Read the latest two Daily Alpha editions with stored markets, narratives and recommended sources."
+    },
+    {
       "name": "get_portfolio_summary",
       "scope": "read",
       "parameters": [

@@ -5,6 +5,24 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_daily_alpha_contract_and_example():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text())
+    tool = next(t for t in manifest["tools"] if t["name"] == "get_daily_alpha")
+    assert tool["scope"] == "read"
+    assert tool["returns"] == "DailyAlphaResult"
+    assert [p["name"] for p in tool["parameters"]] == [
+        "preferred_sources", "preferred_speakers", "preferred_subreddits",
+        "include_reddit", "reddit_order",
+    ]
+    example = (ROOT / "examples/get_daily_alpha.md").read_text()
+    for block in re.findall(r"```json\n(.*?)\n```", example, re.S):
+        assert set(json.loads(block)) <= {p["name"] for p in tool["parameters"]}
+    assert "database-only" in example
+    assert "latest two published editions" in example
+    assert "not saved" in example
+    assert "not a complete Reddit ranking" in example
+
+
 def test_earnings_contract_routing_and_examples():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     tool = next(t for t in manifest["tools"] if t["name"] == "get_earnings_calls_summary")
@@ -120,7 +138,7 @@ def test_speaker_profile_publishes_report_default_and_explicit_raw_data():
 def test_personal_feed_tools_publish_private_read_scope_and_portfolio_chain():
     manifest = json.loads((ROOT / "tools_manifest.json").read_text())
     tools = {t["name"]: t for t in manifest["tools"]}
-    assert len(tools) == 31
+    assert len(tools) == 32
     assert "get_recent_source_text" not in tools
     expected = {
         "get_my_feeds": ["feed_type", "limit", "after_id", "feed_id", "name", "include_members"],
@@ -203,7 +221,7 @@ def test_exact_window_workflow_does_not_use_alpha_as_thesis_quality():
     normalized_prompts = " ".join(prompts.split())
     normalized_example = " ".join(example.split())
 
-    assert "Buzzberg exposes 31 tools" in readme
+    assert "Buzzberg exposes 32 tools" in readme
     assert "get_recent_idea_candidates(window=\"12h\"" in prompts
     assert "pagination.next_cursor" in prompts
     assert "Do not reconstruct an offset" in prompts

@@ -618,3 +618,16 @@ If Claude reports `401 Unauthorized`, revoke and recreate your key in
 If a Python client gets `404` on `/mcp`, confirm it is using Streamable HTTP
 and not legacy SSE semantics. If the client only supports SSE, use
 `https://mcp.buzzberg.ai/sse`.
+
+## Daily Alpha
+
+```text
+Use get_daily_alpha once and follow analysis_instruction. Show stored SPY,
+QQQ, US 10Y, gold and BTC first, then the latest published narratives,
+recommended videos/posts with author reputation, and selected Reddit topics.
+Prioritize SemiAnalysis, All-In, BG2, Invest Like the Best and FedGuy.
+Keep missing prices, edition dates and saved Reddit-score scope explicit.
+```
+
+Optionally pass preferred_sources, preferred_speakers or preferred_subreddits.
+Preferences reorder these two editions only and are not saved.
