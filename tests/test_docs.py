@@ -188,7 +188,8 @@ def test_recent_candidate_manifest_uses_cursor_pagination():
     tools_md = (ROOT / "TOOLS.md").read_text()
     section = tools_md.split("## get_recent_idea_candidates", 1)[1].split("\n## ", 1)[0]
     assert "`cursor`" in section
-    assert "deprecated transition only" in section
+    assert "Deprecated; leave unset" in section
+    assert "ignored on a first call" in section
     assert "source-specific confidence is intentionally absent" in section
     assert "Use stored confidence" not in section
 
@@ -476,3 +477,20 @@ def test_thirteenf_tools_publish_dated_read_only_contracts():
         example = (ROOT / "examples" / (name + ".md")).read_text()
         assert "disclosed" in example and "not" in example
     assert "13F" in (ROOT / "examples/get_ticker_deep_dive.md").read_text()
+
+
+def test_candidates_prefer_complete_response_and_only_continue_server_pages():
+    manifest = json.loads((ROOT / "tools_manifest.json").read_text(encoding="utf-8"))
+    tool = next(t for t in manifest["tools"] if t["name"] == "get_recent_idea_candidates")
+    params = {p["name"]: p for p in tool["parameters"]}
+    assert "one call" in tool["summary"]
+    assert "Leave unset" in params["delivery"]["description"]
+    assert "fallback pages" in params["limit"]["description"]
+    example = (ROOT / "examples/get_recent_idea_candidates.md").read_text(encoding="utf-8")
+    assert "Do not pass delivery, limit, cursor or offset" in example
+    assert "ignored, with a warning" in example
+    assert "schema 5.0.0" in example
+    assert "history_columns" not in example
+    calls = [json.loads(raw) for raw in re.findall(r"```json\n(.*?)\n```", example, re.S)]
+    assert calls[0] == {"window": "24h"}
+    assert set(calls[1]) == {"cursor"}
