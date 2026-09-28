@@ -6,6 +6,19 @@
 
 Search trade ideas from Buzzberg by ticker, keywords, source, speaker, post kind, confidence, or direction.
 
+Requires one exact ticker/company or one exact registered author; both supplied
+filters combine with AND. Other filters only narrow that scope. Publications
+are restricted to the latest 90 days. Current pages contain up to 50 grouped
+ideas (20 by default); use only the returned cursor to continue.
+
+**Account allowance:** 100 distinct tickers and 100 distinct authors per rolling
+30 days, shared across keys, connections and clients. Only the entities chosen
+as filters count, not every entity in the results. Repeats and continuations
+reuse the same slots and refresh last use. A company name and its ticker share
+one canonical slot. At the cap, existing entities remain available; a new entity
+returns an error with a retry delay. Unknown/ambiguous entities do not count.
+General transport frequency limits still apply.
+
 **Inputs:**
 - `ticker` (optional, str, default `''`)
 - `source_type` (optional, str, default `''`)
@@ -21,7 +34,7 @@ Search trade ideas from Buzzberg by ticker, keywords, source, speaker, post kind
   page; pass it alone, its signed snapshot and original scope are authoritative
 
 **Example prompt:**
-> "Find trade ideas from research posts in the last 24h. Show ticker, speaker, thesis, direction, confidence, and which ideas deserve a deeper follow-up."
+> "Find NVDA trade ideas from research posts in the last 24h. Show ticker, speaker, thesis, direction, confidence, and which ideas deserve a deeper follow-up."
 
 **Returns:** Markdown response from `search_trade_ideas`.
 
