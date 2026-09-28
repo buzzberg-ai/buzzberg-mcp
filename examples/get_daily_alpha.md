@@ -26,9 +26,15 @@ days, not an archive. No date, cursor or historical edition argument exists.
 Each preference list accepts at most 20 names of 100 characters. Preferences
 only reorder available material, are not saved and do not fetch missing episodes.
 
+The host uses a plain Daily Alpha title, without an edition/session suffix.
+Edition dates, cutoffs and quote-save times remain metadata by default; no
+preamble explains which editions were used. Source dates can qualify dated
+events. Price labels follow `markets[].market_session`, never the research
+edition: a premarket publication can support an afternoon market TLDR.
+
 The host presents:
 
-1. SPY, QQQ, US 10Y yield/change in basis points, gold (explicit GLD ETF proxy),
+1. A short market TLDR, followed by SPY, QQQ, US 10Y yield/change in basis points, gold (explicit GLD ETF proxy),
    and BTC with a sampled rolling 24h change when available. All prices are
    database-only. Omit missing instruments (including US 10Y), unavailable
    changes and quote-save timestamp boilerplate. Preserve currencies and session
@@ -49,5 +55,6 @@ The host presents:
    This is a selection from the editions, not a complete Reddit ranking.
 
 No transcript fragments, original evidence quotes or private source bodies are
-returned. Missing editions and partial source access stay explicit. Missing
-market values stay in metadata and do not create empty rows in the report.
+returned. Missing editions remain explicit in metadata. Material source gaps
+must not create false freshness. Missing market values stay in metadata and do
+not create empty rows in the report.

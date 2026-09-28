@@ -1,5 +1,12 @@
 # Changelog
 
+## Daily Alpha market TLDR - 2026-09-28
+
+- Lead with a short market TLDR and keep edition dates/cutoffs internal by default.
+- Use current market-session data for price labels; a premarket research edition
+  no longer instructs the host to label an afternoon report as premarket.
+- Align the prompt recipe and example; data sources and tool arguments are unchanged.
+
 ## Daily Alpha - 2026-09-28
 
 - Add `get_daily_alpha`: latest two published editions within seven days,

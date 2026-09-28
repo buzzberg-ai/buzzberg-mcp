@@ -622,11 +622,14 @@ and not legacy SSE semantics. If the client only supports SSE, use
 ## Daily Alpha
 
 ```text
-Use get_daily_alpha once and follow analysis_instruction. Show stored SPY,
-QQQ, US 10Y, gold and BTC first, then the latest published narratives,
+Use get_daily_alpha once and follow analysis_instruction. Start with a short
+market TLDR, then stored SPY, QQQ, US 10Y, gold and BTC, the main narratives,
 recommended videos/posts with author reputation, and selected Reddit topics.
 Prioritize SemiAnalysis, All-In, BG2, Invest Like the Best and FedGuy.
-Keep missing prices, edition dates and saved Reddit-score scope explicit.
+Lead with a short market TLDR. Use a plain Daily Alpha title without an edition
+suffix. Keep edition dates/cutoffs and quote-save times internal. Price session
+labels follow market_session, never the research edition. Omit missing prices;
+show Reddit counters and their scope only if the user asks about popularity.
 ```
 
 Optionally pass preferred_sources, preferred_speakers or preferred_subreddits.
