@@ -6,6 +6,22 @@
 
 Search trade ideas from Buzzberg by ticker, keywords, source, speaker, post kind, confidence, or direction.
 
+Requires one exact ticker/company or one exact registered author; both supplied
+filters combine with AND. Other filters only narrow that scope. Publications
+are restricted to the latest 90 days. Returns the complete matching result
+when it fits the technical response budget: 900,000 estimated tokens and 5,000
+grouped ideas by default, like Candidates. Larger results use whole-idea pages
+targeting 300,000 estimated tokens; use only the returned cursor to continue.
+The legacy `limit` argument is accepted but ignored. There is no 20/50-row cap.
+
+**Account allowance:** 100 distinct tickers and 100 distinct authors per rolling
+30 days, shared across keys, connections and clients. Only the entities chosen
+as filters count, not every entity in the results. Repeats and continuations
+reuse the same slots and refresh last use. A company name and its ticker share
+one canonical slot. At the cap, existing entities remain available; a new entity
+returns an error with a retry delay. Unknown/ambiguous entities do not count.
+General transport frequency limits still apply.
+
 **Inputs:**
 - `ticker` (optional, str, default `''`)
 - `source_type` (optional, str, default `''`)
@@ -14,16 +30,21 @@ Search trade ideas from Buzzberg by ticker, keywords, source, speaker, post kind
 - `min_confidence` (optional, float, default `0.0`)
 - `direction` (optional, str, default `''`)
 - `days` (optional, int, default `7`)
-- `limit` (optional, int, default `20`)
+- `limit` (optional, int, default `20`): legacy compatibility argument, ignored
 - `query` (optional, str, default `''`): explicit uppercase ticker symbols are
   exact idea-ticker filters; otherwise terms use bounded OR text search
 - `cursor` (optional, str, default `''`): opaque continuation from the preceding
   page; pass it alone, its signed snapshot and original scope are authoritative
 
 **Example prompt:**
-> "Find trade ideas from research posts in the last 24h. Show ticker, speaker, thesis, direction, confidence, and which ideas deserve a deeper follow-up."
+> "Find NVDA trade ideas from research posts in the last 24h. Show ticker, speaker, thesis, direction, confidence, and which ideas deserve a deeper follow-up."
 
-**Returns:** Markdown response from `search_trade_ideas`.
+**Returns:** Counts header plus complete compact JSON evidence, also mirrored in
+`structuredContent[buzzberg_receipt]` (schema 5.0.0). Includes each idea's saved
+thesis (short preferred, full fallback), ticker, author, direction, confidence,
+source identifiers and publication time. Text-only clients receive all rows.
+`has_more=false` proves completion; otherwise follow `pagination.next_cursor`.
+Pre-v5 live cursors require a fresh search; saved older receipts remain readable.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
