@@ -339,7 +339,7 @@ Fresh trade ideas from the top-N Buzzberg speakers within a time window.
 
 ## get_sentiment
 
-Get sentiment analysis for a ticker: average sentiment, breakdown by direction, by speaker tier.
+Get one complete ticker sentiment report: average, directions, sources and top speaker samples.
 
 **Inputs:**
 - `ticker` (required, str)
@@ -347,9 +347,11 @@ Get sentiment analysis for a ticker: average sentiment, breakdown by direction, 
 - `source_type` (optional, str, default `''`)
 
 **Example prompt:**
-> "Use `get_sentiment` for a Buzzberg analysis."
+> "Show NVIDIA's sentiment over the last 30 days, including direction/source breakdowns and top speaker samples."
 
-**Returns:** Markdown response from `get_sentiment`.
+**Returns:** One complete report in Markdown and `structuredContent.buzzberg_receipt`. The compatible average/count envelope now includes versioned `sentiment_details`: direction/source tables, bullish/bearish percentages, watch+neutral count, the same top-ten author samples (raw/adjusted sentiment and mentions), and methodology notes. All calculations remain weighted by mentions. The author table requires two mentions and uses an eight-mention prior; it is a selected sample, not a page. No original source texts or individual ideas are returned.
+
+The period defaults to 30 days and clamps to 1–180 days from now. There is no pagination, dedicated monthly call quota or distinct-ticker quota; shared MCP work limits still apply.
 
 **Scope:** Read-only. Public Buzzberg market-intelligence data.
 
