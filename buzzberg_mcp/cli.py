@@ -10,7 +10,7 @@ from collections.abc import Iterable
 from urllib.error import URLError
 from urllib.request import urlopen
 
-from .constants import BETA_BANNER, CLIENT_CHOICES, MCP_HEALTH_URL, VERSION
+from .constants import BANNER, CLIENT_CHOICES, MCP_HEALTH_URL, VERSION
 from .installers import (
     InstallerError,
     checked_paths,
@@ -87,7 +87,7 @@ def _selected_clients(args: argparse.Namespace) -> list[str]:
 
 
 def _run_setup(args: argparse.Namespace) -> int:
-    print(BETA_BANNER)
+    print(BANNER)
     clients = _selected_clients(args)
     api_key = _key_from_args(args)
     failures = 0

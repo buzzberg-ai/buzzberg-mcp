@@ -15,7 +15,7 @@
     },
     {
       "claim": "Installer code is public and small.",
-      "mechanism": "The PyPI package contains only stdlib-based client config writers and docs; the server implementation remains private during beta."
+      "mechanism": "The PyPI package contains only stdlib-based client config writers and docs; the server implementation is not published."
     }
   ]
 }

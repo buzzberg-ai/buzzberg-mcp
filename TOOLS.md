@@ -1,6 +1,6 @@
 # Buzzberg MCP Tools
 
-> Private Beta: tool names and signatures may change before broader beta.
+> Tool changes, including breaking changes, are listed in [CHANGELOG.md](CHANGELOG.md).
 
 ## search_trade_ideas
 
@@ -621,7 +621,7 @@ Read recent content summaries and trade-context text mentioning a ticker.
 
 ## save_trade_idea
 
-[BETA] Bookmark a trade idea by its ID.
+[WRITE] Bookmark a trade idea by its ID.
 
 **Inputs:**
 - `idea_id` (required, int)

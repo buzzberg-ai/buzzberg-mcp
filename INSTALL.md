@@ -213,9 +213,9 @@ Use Buzzberg to compare sentiment and mentions vs price for NVDA over the last
 30 days. Tell me if sentiment is leading, confirming, or lagging price.
 ```
 
-## Beta Rate Limits
+## Rate Limits
 
-Buzzberg MCP is rate-limited during private beta. The current default limits are
+Buzzberg MCP is rate-limited. The current default limits are
 about **120 tool calls per minute per user** and **2,000 tool calls per day per
 user**, with an additional shared server-wide safety cap.
 
