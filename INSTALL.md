@@ -88,7 +88,7 @@ open the actual MCP connection.
 
 ## Cursor
 
-Recommended:
+With an existing personal key (new keys are no longer issued):
 
 ```bash
 pip install buzzberg-mcp
@@ -112,7 +112,7 @@ Manual config:
 
 ## Cline
 
-Recommended:
+With an existing personal key (new keys are no longer issued):
 
 ```bash
 pip install buzzberg-mcp
@@ -124,7 +124,7 @@ Manual path: open **Cline -> Settings -> Edit MCP Settings** and add the same
 
 ## Continue.dev
 
-Recommended:
+With an existing personal key (new keys are no longer issued):
 
 ```bash
 pip install buzzberg-mcp
@@ -139,7 +139,8 @@ Manual config lives in:
 
 ## Python Client
 
-Use Streamable HTTP for new clients:
+Use Streamable HTTP. This example authenticates with an existing personal key;
+new keys are no longer issued:
 
 ```bash
 pip install mcp

@@ -372,7 +372,9 @@ Ready-made workflows:
 ## Using It From Your Own Code
 
 If you don't use Claude Desktop / Cursor / Cline / Continue, you can talk to
-the MCP server directly with the official Python SDK over Streamable HTTP:
+the MCP server directly with the official Python SDK over Streamable HTTP.
+This example authenticates with an existing personal key; new keys are no
+longer issued:
 
 ```python
 import asyncio
