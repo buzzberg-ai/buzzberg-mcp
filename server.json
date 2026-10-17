@@ -2,13 +2,9 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "ai.buzzberg/mcp",
   "title": "Buzzberg",
-  "description": "Trade ideas, author track records, sentiment and earnings calls from X, YouTube, Reddit, Substack",
+  "description": "Trade ideas, author track records and sentiment from X, YouTube, Reddit, Substack; earnings calls",
   "version": "1.0.0",
   "websiteUrl": "https://buzzberg.ai/mcp",
-  "repository": {
-    "url": "https://github.com/buzzberg-ai/buzzberg-mcp",
-    "source": "github"
-  },
   "icons": [
     {
       "src": "https://buzzberg.ai/static/favicon.svg",

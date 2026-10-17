@@ -54,7 +54,8 @@ The second command opens the standard MCP OAuth flow in your browser.
 
 ### Other Clients And Existing Setups
 
-Clients that cannot complete standard MCP OAuth can still use a personal key.
+Clients that cannot complete standard MCP OAuth can keep using an existing
+personal key; new keys are no longer issued.
 Existing `bzb_...` keys, `/sse` connections, Claude Desktop helper installs,
 and manually configured clients continue to work unchanged.
 

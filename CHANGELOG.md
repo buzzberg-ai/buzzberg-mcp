@@ -2,10 +2,12 @@
 
 ## Out of beta - 2026-10-17
 
-- Buzzberg MCP is no longer labeled beta: README, INSTALL, TOOLS, the
-  installer banner and server instructions drop the beta wording. Rate limits
-  and the OAuth connection are unchanged.
-- Installer package `1.0.0` (from `0.1.0b7`); no behavior change.
+- The hosted Buzzberg MCP server is no longer labeled beta: README, INSTALL,
+  TOOLS and the server instructions drop the beta wording. Rate limits and the
+  OAuth connection are unchanged.
+- The legacy key-based installer package stays at `0.1.0b7`: new personal
+  `bzb_` keys are no longer issued, so it serves existing keys only. INSTALL
+  now says so instead of describing a retired **New Key** button.
 - Add `server.json` for the official MCP Registry entry `ai.buzzberg/mcp`
   (remote Streamable HTTP endpoint `https://mcp.buzzberg.ai/mcp`).
 
@@ -99,8 +101,7 @@
 
 ## Versioning
 
-The installer package follows SemVer from `1.0.0`. Server tool changes,
-including breaking ones, are documented here.
+Server tool changes, including breaking ones, are documented here.
 
 ## Author profile Statistics tab - 2026-09-15
 

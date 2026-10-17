@@ -1,6 +1,6 @@
 [project]
 name = "buzzberg-mcp"
-version = "1.0.0"
+version = "0.1.0b7"
 description = "Buzzberg MCP installer for Claude / Cursor / Cline / Continue.dev"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -8,7 +8,7 @@ license = "MIT"
 authors = [{ name = "Buzzberg" }]
 dependencies = []
 classifiers = [
-  "Development Status :: 5 - Production/Stable",
+  "Development Status :: 4 - Beta",
   "Environment :: Console",
   "Intended Audience :: Financial and Insurance Industry",
   "Programming Language :: Python :: 3",
