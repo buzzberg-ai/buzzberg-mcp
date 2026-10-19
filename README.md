@@ -3,10 +3,9 @@
 [![PyPI](https://img.shields.io/pypi/v/buzzberg-mcp)](https://pypi.org/project/buzzberg-mcp/)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Status](https://img.shields.io/badge/status-private--beta-orange)
 
-> Private Beta: the MCP contract can change before broader beta. See
-> [CHANGELOG.md](CHANGELOG.md) for breaking changes.
+> Tool changes, including breaking changes, are listed in
+> [CHANGELOG.md](CHANGELOG.md).
 
 Buzzberg MCP connects Claude, Cursor, Cline, Continue.dev, and other MCP clients
 to Buzzberg market intelligence: trade ideas, sentiment, speakers, stored price context, and
@@ -55,7 +54,8 @@ The second command opens the standard MCP OAuth flow in your browser.
 
 ### Other Clients And Existing Setups
 
-Clients that cannot complete standard MCP OAuth can still use a personal key.
+Clients that cannot complete standard MCP OAuth can keep using an existing
+personal key; new keys are no longer issued.
 Existing `bzb_...` keys, `/sse` connections, Claude Desktop helper installs,
 and manually configured clients continue to work unchanged.
 
@@ -286,12 +286,12 @@ What Buzzberg sends to the AI agent:
   history requires one speaker name, caps output at 200 ideas, and defaults to
   at most 10 returned ideas per calendar day.
 
-## Beta Rate Limits And Agent Etiquette
+## Rate Limits And Agent Etiquette
 
-Buzzberg MCP is rate-limited during private beta. The current default limits are
+Buzzberg MCP is rate-limited. The current default limits are
 about **120 tool calls per minute per user** and **2,000 tool calls per day per
 user**, with an additional shared server-wide safety cap. These limits may
-change during beta as we tune capacity.
+change as we tune capacity.
 
 If your client receives `429 Too Many Requests`, read the `Retry-After` header
 or `retry_after_seconds` field and wait that many seconds before continuing.
@@ -372,7 +372,9 @@ Ready-made workflows:
 ## Using It From Your Own Code
 
 If you don't use Claude Desktop / Cursor / Cline / Continue, you can talk to
-the MCP server directly with the official Python SDK over Streamable HTTP:
+the MCP server directly with the official Python SDK over Streamable HTTP.
+This example authenticates with an existing personal key; new keys are no
+longer issued:
 
 ```python
 import asyncio
@@ -515,7 +517,7 @@ confirms working syntax.)
 - [SECURITY.md](SECURITY.md) — threat model, disclosure, attestations
 - [sessions/](sessions) — ready-made research workflows
 - [examples/](examples) — per-tool example prompts
-- [CHANGELOG.md](CHANGELOG.md) — breaking changes during private beta
+- [CHANGELOG.md](CHANGELOG.md) — tool changes, including breaking changes
 
 ### 13F investor research
 

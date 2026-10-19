@@ -1,5 +1,17 @@
 # Changelog
 
+## Out of beta - 2026-10-17
+
+- The hosted Buzzberg MCP server is no longer labeled beta: README, INSTALL,
+  TOOLS, the session guide, security controls and the server instructions drop
+  the beta wording. Rate limits and the OAuth connection are unchanged.
+- The legacy key-based installer package stays at `0.1.0b7`: new personal
+  `bzb_` keys are no longer issued, so it serves existing keys only. README,
+  INSTALL and PROMPTS now say so instead of describing a retired **New Key**
+  button or offering the key path to new clients.
+- Add `server.json` for the official MCP Registry entry `ai.buzzberg/mcp`
+  (remote Streamable HTTP endpoint `https://mcp.buzzberg.ai/mcp`).
+
 ## One Market Summary - 2026-09-28
 
 - Replace `get_daily_alpha` with `get_market_summary`; one freshness-aware hybrid workflow.
@@ -88,10 +100,9 @@
 - Present market views in short paragraphs, lead history with an arrow summary,
   and omit Lens/snapshot plumbing from the user-facing narrative.
 
-## Beta Period
+## Versioning
 
-SemVer is not guaranteed before `1.0.0`. Breaking changes will be documented
-here and announced to active beta users.
+Server tool changes, including breaking ones, are documented here.
 
 ## Author profile Statistics tab - 2026-09-15
 

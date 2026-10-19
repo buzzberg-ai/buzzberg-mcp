@@ -139,7 +139,7 @@ Map each repeated theme to the tickers speakers are trading.
 Which theme is most underpriced based on low mentions but strong conviction?
 ```
 
-## Limits During Private Beta
+## Limits
 
 - Twitter/X source text is capped to the last 24 hours.
 - YouTube and Substack/newsletter context supports up to 7 days, but returns

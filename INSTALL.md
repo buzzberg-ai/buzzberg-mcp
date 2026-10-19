@@ -53,19 +53,16 @@ The login command opens the standard MCP OAuth flow in your browser.
 ## Personal API Keys For Existing And Other Clients
 
 Existing `bzb_...` keys, `/sse` connections, Claude Desktop helper installs,
-and manually configured clients continue to work. Use this path only when your
-client cannot complete standard MCP OAuth.
+and manually configured clients continue to work. New personal keys are no
+longer issued; connect new clients with standard OAuth above. Existing keys
+are listed in **Profile -> MCP Access**, where each one can be revoked.
 
-1. Open Buzzberg.
-2. Go to **Profile -> MCP Access**.
-3. Click **New Key**.
-4. Copy the key that starts with `bzb_`.
-
-Keep this key private. Treat it like a password.
+Keep an existing key private. Treat it like a password.
 
 ## OpenClaw
 
-OpenClaw supports saved MCP server definitions.
+OpenClaw supports saved MCP server definitions. This setup authenticates with
+an existing personal key; new keys are no longer issued.
 
 Ask OpenClaw:
 
@@ -92,7 +89,7 @@ open the actual MCP connection.
 
 ## Cursor
 
-Recommended:
+With an existing personal key (new keys are no longer issued):
 
 ```bash
 pip install buzzberg-mcp
@@ -116,7 +113,7 @@ Manual config:
 
 ## Cline
 
-Recommended:
+With an existing personal key (new keys are no longer issued):
 
 ```bash
 pip install buzzberg-mcp
@@ -128,7 +125,7 @@ Manual path: open **Cline -> Settings -> Edit MCP Settings** and add the same
 
 ## Continue.dev
 
-Recommended:
+With an existing personal key (new keys are no longer issued):
 
 ```bash
 pip install buzzberg-mcp
@@ -143,7 +140,8 @@ Manual config lives in:
 
 ## Python Client
 
-Use Streamable HTTP for new clients:
+Use Streamable HTTP. This example authenticates with an existing personal key;
+new keys are no longer issued:
 
 ```bash
 pip install mcp
@@ -185,7 +183,15 @@ Header: Authorization: Bearer bzb_YOUR_KEY_HERE
 
 ## Any Other MCP Client
 
-Use one of these:
+Clients with standard MCP OAuth use the Streamable HTTP URL with no header and
+sign in to Buzzberg in the browser:
+
+```text
+Streamable HTTP URL: https://mcp.buzzberg.ai/mcp
+```
+
+Clients without OAuth can keep using an existing personal key; new keys are no
+longer issued:
 
 ```text
 Streamable HTTP URL: https://mcp.buzzberg.ai/mcp
@@ -193,8 +199,8 @@ Legacy SSE URL:       https://mcp.buzzberg.ai/sse
 Header:               Authorization: Bearer bzb_YOUR_KEY_HERE
 ```
 
-Prefer Streamable HTTP for new clients. Use SSE for clients that explicitly ask
-for SSE or have no `/mcp` support yet.
+Prefer Streamable HTTP. Use SSE only for clients that explicitly ask for SSE or
+have no `/mcp` support yet.
 
 ## Example Prompts
 
@@ -213,9 +219,9 @@ Use Buzzberg to compare sentiment and mentions vs price for NVDA over the last
 30 days. Tell me if sentiment is leading, confirming, or lagging price.
 ```
 
-## Beta Rate Limits
+## Rate Limits
 
-Buzzberg MCP is rate-limited during private beta. The current default limits are
+Buzzberg MCP is rate-limited. The current default limits are
 about **120 tool calls per minute per user** and **2,000 tool calls per day per
 user**, with an additional shared server-wide safety cap.
 
@@ -236,7 +242,9 @@ an account-bound cursor; use the same author name and the cursor only.
 ## No-Install Manual Setup
 
 If you do not want to install the helper package, edit your client config
-manually.
+manually. These configs authenticate with an existing personal key; new keys
+are no longer issued, so connect new clients with OAuth (see the top of this
+guide).
 
 ### Claude Desktop
 
@@ -271,8 +279,9 @@ After editing, fully quit and reopen the client.
 Do not share screenshots of this config after adding your real key.
 The pinned bridge uses only Streamable HTTP and will not fall back to legacy SSE.
 Keep `X-API-Key:` exactly as shown, with no space after the colon. If Claude
-reports a timeout or disconnect, create a new key and replace only the
-`bzb_...` value; revoked keys cannot reconnect.
+reports a timeout or disconnect, check that the key is still active in
+**Profile -> MCP Access**. Revoked keys cannot reconnect, and new keys are no
+longer issued, so move the client to the OAuth connector above.
 
 ### Cursor / Cline
 
@@ -309,8 +318,8 @@ python -m pip install /tmp/bz/buzzberg_mcp-*.whl
 - Buzzberg is connected but unavailable in a Claude chat: enable it from the
   conversation's Connectors menu.
 - Tools do not appear: fully quit and reopen the client.
-- `401 Unauthorized` or `403 Invalid or revoked API key`: create a new key in
-  **Profile -> MCP Access**, replace the old `bzb_...` value, then fully restart
-  the client.
+- `401 Unauthorized` or `403 Invalid or revoked API key`: the key is invalid or
+  revoked. New keys are no longer issued; reconnect the client with standard
+  OAuth (see the top of this guide).
 - `429 Too Many Requests`: read `Retry-After` / `retry_after_seconds`, wait that many seconds, then continue with fewer parallel or bulk calls.
 - Health check: `curl https://mcp.buzzberg.ai/health` should return `{"status":"ok","service":"buzzberg-mcp"}`.
