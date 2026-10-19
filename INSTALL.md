@@ -61,7 +61,8 @@ Keep an existing key private. Treat it like a password.
 
 ## OpenClaw
 
-OpenClaw supports saved MCP server definitions.
+OpenClaw supports saved MCP server definitions. This setup authenticates with
+an existing personal key; new keys are no longer issued.
 
 Ask OpenClaw:
 
@@ -182,7 +183,15 @@ Header: Authorization: Bearer bzb_YOUR_KEY_HERE
 
 ## Any Other MCP Client
 
-Use one of these:
+Clients with standard MCP OAuth use the Streamable HTTP URL with no header and
+sign in to Buzzberg in the browser:
+
+```text
+Streamable HTTP URL: https://mcp.buzzberg.ai/mcp
+```
+
+Clients without OAuth can keep using an existing personal key; new keys are no
+longer issued:
 
 ```text
 Streamable HTTP URL: https://mcp.buzzberg.ai/mcp
@@ -190,8 +199,8 @@ Legacy SSE URL:       https://mcp.buzzberg.ai/sse
 Header:               Authorization: Bearer bzb_YOUR_KEY_HERE
 ```
 
-Prefer Streamable HTTP for new clients. Use SSE for clients that explicitly ask
-for SSE or have no `/mcp` support yet.
+Prefer Streamable HTTP. Use SSE only for clients that explicitly ask for SSE or
+have no `/mcp` support yet.
 
 ## Example Prompts
 
@@ -233,7 +242,9 @@ an account-bound cursor; use the same author name and the cursor only.
 ## No-Install Manual Setup
 
 If you do not want to install the helper package, edit your client config
-manually.
+manually. These configs authenticate with an existing personal key; new keys
+are no longer issued, so connect new clients with OAuth (see the top of this
+guide).
 
 ### Claude Desktop
 

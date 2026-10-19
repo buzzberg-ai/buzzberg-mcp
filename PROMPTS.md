@@ -613,8 +613,10 @@ Return:
 
 If Claude says there are no tools, fully quit and reopen the client.
 
-If Claude reports `401 Unauthorized`, revoke and recreate your key in
-**Profile -> MCP Access**.
+If Claude reports `401 Unauthorized`, reconnect Buzzberg from the Connectors
+menu and sign in again. A client that uses an existing personal key should
+check in **Profile -> MCP Access** that the key is still active; new keys are
+no longer issued.
 
 If a Python client gets `404` on `/mcp`, confirm it is using Streamable HTTP
 and not legacy SSE semantics. If the client only supports SSE, use
