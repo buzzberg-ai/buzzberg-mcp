@@ -3,6 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/buzzberg-mcp)](https://pypi.org/project/buzzberg-mcp/)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Buzzberg MCP connector](https://glama.ai/mcp/connectors/ai.buzzberg/mcp/badges/score.svg)](https://glama.ai/mcp/connectors/ai.buzzberg/mcp)
 
 > Tool changes, including breaking changes, are listed in
 > [CHANGELOG.md](CHANGELOG.md).
